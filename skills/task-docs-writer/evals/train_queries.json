@@ -1,0 +1,53 @@
+{
+  "skill_name": "task-docs-writer",
+  "queries": [
+    {
+      "query": "Turn these deployment notes into a runbook with rollback and verification.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write installation docs for our SDK from this README fragment.",
+      "should_trigger": true
+    },
+    {
+      "query": "Can you make these API v2 notes into a clearer customer-facing API workflow?",
+      "should_trigger": true
+    },
+    {
+      "query": "Our staging key rotation notes are risky. Make them into a step-by-step ops procedure.",
+      "should_trigger": true
+    },
+    {
+      "query": "hey can u clean up these setup steps for the new CLI? people keep missing auth",
+      "should_trigger": true
+    },
+    {
+      "query": "Document the exact procedure for restoring a failed worker from a snapshot.",
+      "should_trigger": true
+    },
+    {
+      "query": "Summarize this incident report in three bullets for leadership.",
+      "should_trigger": false
+    },
+    {
+      "query": "Draft a persuasive budget request for a new observability platform.",
+      "should_trigger": false
+    },
+    {
+      "query": "Read these deployment steps and write a bash script to automate them.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a guide explaining the history and theory behind our microservices architecture.",
+      "should_trigger": false
+    },
+    {
+      "query": "Compare our three API gateway options and recommend one.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this launch announcement more engaging for developers.",
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "skill_name": "technical-content-clarifier",
+  "queries": [
+    {
+      "query": "The API gateway doc is technically accurate but unreadable. Make it understandable for partner engineers.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write an architecture overview that explains why event sourcing changes how debugging works.",
+      "should_trigger": true
+    },
+    {
+      "query": "Make this incident explanation accessible to customer success without hiding the tradeoffs.",
+      "should_trigger": true
+    },
+    {
+      "query": "Explain our new import feature with a concrete Terraform example and no hype.",
+      "should_trigger": true
+    },
+    {
+      "query": "Create step-by-step setup docs for the SDK.",
+      "should_trigger": false
+    },
+    {
+      "query": "Draft a proposal asking leadership to fund a documentation rewrite.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a formal benchmark report from these latency measurements.",
+      "should_trigger": false
+    },
+    {
+      "query": "Build a data dictionary for these event payload fields.",
+      "should_trigger": false
+    }
+  ]
+}

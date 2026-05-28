@@ -1,0 +1,42 @@
+{
+  "skill_name": "reference-docs-writer",
+  "evals": [
+    {
+      "id": "reference-api-endpoint",
+      "prompt": "Create reference docs for POST /workspaces. Body fields: name string required, region string optional default us-east-1, tags object optional. Returns 201 with id, name, region, created_at. Errors: 400 invalid_name, 409 duplicate_name.",
+      "expected_output": "An API endpoint reference with request fields, response fields, status/errors, syntax or request shape, example, and usage notes.",
+      "assertions": [
+        "The output is lookup-oriented rather than a step-by-step procedure.",
+        "The request fields are presented in a table or similarly scannable structure.",
+        "Required, optional, default, type, and error information are included.",
+        "The example matches the documented endpoint and fields.",
+        "The endpoint heading uses the static endpoint name rather than a gerund task heading.",
+        "The output separates any task guidance from the reference entry."
+      ]
+    },
+    {
+      "id": "reference-cli-command",
+      "prompt": "Document the CLI reference for acme deploy. Syntax: acme deploy --env <env> [--dry-run] [--timeout <seconds>]. --env is required and accepts dev, staging, prod. --dry-run defaults false. --timeout defaults 300.",
+      "expected_output": "A CLI command reference with purpose, syntax, options table, valid values, defaults, example, and usage notes.",
+      "assertions": [
+        "The syntax distinguishes required and optional elements.",
+        "The options table includes defaults and valid values.",
+        "The example is copyable and uses documented options.",
+        "The heading uses the command name rather than a task-style gerund.",
+        "The output includes restrictions or usage notes where relevant."
+      ]
+    },
+    {
+      "id": "reference-error-codes",
+      "prompt": "Make a reference topic for these sync error codes: 1001 auth token expired, retry after login; 1002 workspace not found, check workspace id; 2001 rate limit, retry after Retry-After seconds.",
+      "expected_output": "An error-code reference ordered numerically with meaning, likely cause, recovery pointer, and related fields.",
+      "assertions": [
+        "The error codes are ordered numerically.",
+        "Each code follows the same repeated pattern.",
+        "Recovery guidance is short and lookup-friendly.",
+        "The output does not expand into a long troubleshooting procedure.",
+        "The output defines any specialized field such as Retry-After if used."
+      ]
+    }
+  ]
+}

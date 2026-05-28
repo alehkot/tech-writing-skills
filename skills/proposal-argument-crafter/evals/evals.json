@@ -1,0 +1,41 @@
+{
+  "skill_name": "proposal-argument-crafter",
+  "evals": [
+    {
+      "id": "proposal-internal-platform",
+      "prompt": "Draft an internal proposal asking leadership to fund a migration from our hand-rolled deploy scripts to a managed CI/CD platform. Include the problem, plan, risks, schedule, and the decision we need.",
+      "expected_output": "A persuasive internal engineering proposal with clear problem framing, proposed approach, evidence, budget or resource request, timeline, risks, and explicit ask.",
+      "assertions": [
+        "The summary contains the problem, proposed solution, value, and ask.",
+        "The proposal frames benefits in terms leadership can evaluate.",
+        "The plan includes deliverables or milestones.",
+        "The proposal includes risks with mitigations.",
+        "The proposal does not make unsupported guarantees."
+      ]
+    },
+    {
+      "id": "proposal-rfp-compliance",
+      "prompt": "We need to respond to an RFP. Required sections are Executive Summary, Technical Approach, Security, Staffing, Timeline, Cost. Limit is 5 pages. Please outline the proposal and note compliance risks.",
+      "expected_output": "An RFP-aware outline that preserves the required section labels and calls out page-limit or evidence risks.",
+      "assertions": [
+        "The output preserves all required section names.",
+        "The output identifies the page limit as a compliance constraint.",
+        "The output includes compliance risks or open questions.",
+        "The output does not reorder or rename required RFP sections without explanation.",
+        "The output distinguishes proposal content from missing source information."
+      ]
+    },
+    {
+      "id": "proposal-technical-pilot",
+      "prompt": "Help me pitch a 6-week pilot for using service mesh in one payments service. The audience is skeptical because the last platform project ran late.",
+      "expected_output": "A focused pilot proposal that acknowledges skepticism, narrows scope, defines success metrics, and asks for a specific decision.",
+      "assertions": [
+        "The output addresses the audience's skepticism directly.",
+        "The scope is limited to a pilot rather than broad adoption.",
+        "The proposal includes success metrics or decision criteria.",
+        "The proposal includes schedule or milestone detail.",
+        "The final ask is explicit."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "skill_name": "technical-report-writer",
+  "queries": [
+    {
+      "query": "Write a recommendation report comparing three observability vendors.",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn these benchmark results into a technical report.",
+      "should_trigger": true
+    },
+    {
+      "query": "Draft a postmortem from these incident notes.",
+      "should_trigger": true
+    },
+    {
+      "query": "Create a feasibility study for moving search workloads to ClickHouse.",
+      "should_trigger": true
+    },
+    {
+      "query": "My director needs a status report on the API gateway migration by Friday.",
+      "should_trigger": true
+    },
+    {
+      "query": "Analyze latency, cost, and correctness risk for these queueing options and recommend one.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write install instructions for the CLI.",
+      "should_trigger": false
+    },
+    {
+      "query": "Pitch leadership on funding a reliability initiative.",
+      "should_trigger": false
+    },
+    {
+      "query": "Take our Q3 performance report and turn it into a fun, engaging blog post for external users.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a 5-page pitch to the board arguing why they should fund our new AI infrastructure project.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this API concept easier for junior developers to understand.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create a configuration reference for these feature flags and defaults.",
+      "should_trigger": false
+    }
+  ]
+}

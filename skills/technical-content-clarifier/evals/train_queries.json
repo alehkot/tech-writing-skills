@@ -1,0 +1,53 @@
+{
+  "skill_name": "technical-content-clarifier",
+  "queries": [
+    {
+      "query": "Explain this architecture to frontend engineers who are new to the backend.",
+      "should_trigger": true
+    },
+    {
+      "query": "Make this engineering blog post clearer and more engaging.",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn this dense design note into an executive-friendly explanation.",
+      "should_trigger": true
+    },
+    {
+      "query": "Help me explain p99 latency to product managers without losing the important caveat.",
+      "should_trigger": true
+    },
+    {
+      "query": "Rewrite this release note narrative so developers understand why dry-run mode matters.",
+      "should_trigger": true
+    },
+    {
+      "query": "Can you make our service-mesh overview less jargon-heavy for new hires?",
+      "should_trigger": true
+    },
+    {
+      "query": "Write an RFP response for our managed services bid.",
+      "should_trigger": false
+    },
+    {
+      "query": "Build a recommendation report comparing these queues.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a technical blog post that just lists the 10 exact terminal commands needed to install our software.",
+      "should_trigger": false
+    },
+    {
+      "query": "Clarify our team's progress over the last month in a formal status update.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create rollback steps for the staging deployment.",
+      "should_trigger": false
+    },
+    {
+      "query": "Analyze the feasibility of three migration options and recommend one.",
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "skill_name": "task-docs-writer",
+  "evals": [
+    {
+      "id": "task-docs-install-guide",
+      "prompt": "We have rough notes for installing our CLI: install node 22, npm install -g acme-cli, run acme login, then acme deploy --env staging. Can you turn this into setup docs for backend engineers?",
+      "expected_output": "A task-oriented setup guide with purpose, prerequisites, ordered steps, command blocks, verification, and troubleshooting.",
+      "assertions": [
+        "The output states the intended reader or starting context.",
+        "The output has a prerequisites section before the steps.",
+        "The procedure uses numbered steps with imperative actions.",
+        "The command examples are fenced code blocks.",
+        "The output includes at least one verification step."
+      ]
+    },
+    {
+      "id": "task-docs-runbook",
+      "prompt": "Draft a runbook for rotating the staging API key. The current doc is just: create key in console, update secret, restart deploy, tell QA. We need it safer.",
+      "expected_output": "A safer runbook that separates prerequisites, warnings, steps, verification, rollback, and communication.",
+      "assertions": [
+        "The output warns before potentially disruptive or security-sensitive actions.",
+        "The output separates the rotation procedure from explanatory background.",
+        "The output includes verification after the secret update and deployment restart.",
+        "The output includes rollback or recovery guidance.",
+        "The output does not invent exact console paths or secret names unless labeled as assumptions."
+      ]
+    },
+    {
+      "id": "task-docs-api-workflow",
+      "prompt": "Can you document the API workflow for creating a workspace: POST /workspaces, poll GET /jobs/{id}, then call GET /workspaces/{id}. Users keep missing the polling step.",
+      "expected_output": "An API workflow guide that makes the sequence, request examples, expected responses, and polling requirement clear.",
+      "assertions": [
+        "The output presents the calls in chronological order.",
+        "The polling step is explicit and not buried in prose.",
+        "The output defines placeholders such as workspace id or job id.",
+        "The output includes expected success signals.",
+        "The output avoids turning the guide into a general feature overview."
+      ]
+    }
+  ]
+}

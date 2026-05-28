@@ -1,0 +1,37 @@
+{
+  "skill_name": "task-docs-writer",
+  "queries": [
+    {
+      "query": "The onboarding doc says install, configure, test, deploy. Rewrite it so a new SRE can actually follow it.",
+      "should_trigger": true
+    },
+    {
+      "query": "Create troubleshooting steps for when terraform apply fails halfway through.",
+      "should_trigger": true
+    },
+    {
+      "query": "Please turn this Postman collection into a short how-to for creating a workspace.",
+      "should_trigger": true
+    },
+    {
+      "query": "We need docs for running the migration safely, including prechecks and postchecks.",
+      "should_trigger": true
+    },
+    {
+      "query": "Explain vector databases to product managers.",
+      "should_trigger": false
+    },
+    {
+      "query": "Draft a formal proposal to fund better deployment tooling.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create a status report about how many teams completed onboarding.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create an API endpoint reference for POST /workspaces with fields, defaults, and status codes.",
+      "should_trigger": false
+    }
+  ]
+}

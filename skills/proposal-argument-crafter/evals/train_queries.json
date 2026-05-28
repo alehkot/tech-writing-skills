@@ -1,0 +1,53 @@
+{
+  "skill_name": "proposal-argument-crafter",
+  "queries": [
+    {
+      "query": "Draft a proposal for funding a new internal developer portal.",
+      "should_trigger": true
+    },
+    {
+      "query": "Help us respond to this RFP without missing the required sections.",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn this architecture idea into a persuasive pitch for leadership.",
+      "should_trigger": true
+    },
+    {
+      "query": "My boss needs a one-page ask for budget to migrate our CI/CD platform.",
+      "should_trigger": true
+    },
+    {
+      "query": "Outline an implementation proposal for a 6-week service mesh pilot.",
+      "should_trigger": true
+    },
+    {
+      "query": "We have an IFB with fixed headings and page limits. Shape our cloud migration response.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write a runbook for restarting the queue workers.",
+      "should_trigger": false
+    },
+    {
+      "query": "Compare these database options and recommend one.",
+      "should_trigger": false
+    },
+    {
+      "query": "Review this vendor RFP and tell me what the liability clauses are.",
+      "should_trigger": false
+    },
+    {
+      "query": "Draft a formal document analyzing the feasibility and costs of the three database options we evaluated.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this launch blog post sound more useful to developers.",
+      "should_trigger": false
+    },
+    {
+      "query": "Clean up the exact CLI setup instructions in this install guide.",
+      "should_trigger": false
+    }
+  ]
+}

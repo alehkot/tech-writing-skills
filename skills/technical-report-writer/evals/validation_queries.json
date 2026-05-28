@@ -1,0 +1,37 @@
+{
+  "skill_name": "technical-report-writer",
+  "queries": [
+    {
+      "query": "We evaluated Redis, DynamoDB, and Postgres for session storage. Write the decision report.",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn these load-test notes into an executive-readable benchmark report.",
+      "should_trigger": true
+    },
+    {
+      "query": "Prepare a migration assessment with criteria, findings, limitations, and next actions.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write up what happened, impact, root causes, and prevention work from the checkout outage.",
+      "should_trigger": true
+    },
+    {
+      "query": "Make this blog post opener more engaging.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create the exact steps for rotating the production certificate.",
+      "should_trigger": false
+    },
+    {
+      "query": "Draft an RFP response for our managed services bid.",
+      "should_trigger": false
+    },
+    {
+      "query": "Explain the concept of tail latency with a simple example.",
+      "should_trigger": false
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[project]
+name = "tech-writing-skills"
+version = "0.1.0"
+description = "Agent Skills for technical writing workflows used by engineers."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pyyaml>=6.0.3",
+]

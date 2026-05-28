@@ -1,0 +1,41 @@
+{
+  "skill_name": "technical-report-writer",
+  "evals": [
+    {
+      "id": "report-database-recommendation",
+      "prompt": "Write a recommendation report comparing Postgres read replicas, Elasticsearch, and ClickHouse for analytics queries. Criteria are latency, operational cost, correctness risk, and implementation effort.",
+      "expected_output": "A recommendation report that defines criteria before analysis, compares options against those criteria, separates findings from conclusions, and ends with an actionable recommendation.",
+      "assertions": [
+        "The output states the decision or question the report supports.",
+        "The criteria are listed before the option analysis.",
+        "Each option is evaluated against the criteria.",
+        "The conclusions are separate from recommendations.",
+        "The recommendation is traceable to the criteria and findings."
+      ]
+    },
+    {
+      "id": "report-incident-postmortem",
+      "prompt": "Turn these notes into a concise postmortem: checkout latency spiked for 42 minutes, Redis CPU saturated after deploy, rollback helped, missing dashboard delayed detection, two customers reported timeouts.",
+      "expected_output": "An incident report with timeline or sequence, impact, cause analysis, remediation, prevention work, and visible limitations.",
+      "assertions": [
+        "The output identifies impact and duration.",
+        "The output separates observed facts from likely causes.",
+        "The output includes remediation or prevention actions.",
+        "The output calls out missing data or limitations.",
+        "The output avoids unsupported blame."
+      ]
+    },
+    {
+      "id": "report-progress-update",
+      "prompt": "Create a progress report for the API gateway migration. Done: auth filter, canary in staging. Blocked: partner webhooks. Next: prod canary. Audience is the steering group.",
+      "expected_output": "A progress report with completed work, current status, blockers, risks, next steps, and leadership-relevant implications.",
+      "assertions": [
+        "The output is shaped as a progress report rather than a proposal.",
+        "Completed work, blockers, and next steps are clearly separated.",
+        "The blocker includes impact or decision relevance.",
+        "The output is concise enough for a steering-group audience.",
+        "The output does not invent dates or metrics."
+      ]
+    }
+  ]
+}

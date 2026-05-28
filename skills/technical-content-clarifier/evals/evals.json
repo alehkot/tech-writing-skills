@@ -1,0 +1,41 @@
+{
+  "skill_name": "technical-content-clarifier",
+  "evals": [
+    {
+      "id": "content-architecture-explainer",
+      "prompt": "Explain our event-driven architecture to frontend engineers who know REST but are new to Kafka. Make it engaging but not fluffy.",
+      "expected_output": "An audience-aware explainer with a clear reason to care, definitions, concrete scenario, mechanism, tradeoffs, and next steps.",
+      "assertions": [
+        "The opening states why the audience should care.",
+        "Kafka or event-driven terms are defined before being relied on.",
+        "The output uses a concrete scenario or example.",
+        "The output includes tradeoffs or caveats.",
+        "The tone avoids hype and empty praise."
+      ]
+    },
+    {
+      "id": "content-executive-summary",
+      "prompt": "Make this technical summary understandable to executives: p99 latency regressed because connection pooling changed under burst load, but average latency stayed flat.",
+      "expected_output": "A concise executive-friendly explanation that preserves the important p99 versus average distinction and explains impact without oversimplifying.",
+      "assertions": [
+        "The output defines or explains p99 latency in accessible language.",
+        "The output preserves the distinction between tail latency and average latency.",
+        "The output explains business or user impact.",
+        "The output avoids unnecessary implementation jargon.",
+        "The output does not remove the caveat about average latency."
+      ]
+    },
+    {
+      "id": "content-release-narrative",
+      "prompt": "Turn these release notes into a short engineering blog post: new dry-run mode, clearer validation errors, Terraform provider supports imports, and docs were reorganized.",
+      "expected_output": "A coherent release narrative that groups features around reader value, gives examples, and ends with a practical next action.",
+      "assertions": [
+        "The output has a through-line rather than a flat feature list.",
+        "The output ties features to reader value.",
+        "The output includes at least one concrete example or use case.",
+        "The output ends with a next action.",
+        "The output avoids exaggerated marketing language."
+      ]
+    }
+  ]
+}

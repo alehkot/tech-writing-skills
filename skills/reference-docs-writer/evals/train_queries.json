@@ -1,0 +1,53 @@
+{
+  "skill_name": "reference-docs-writer",
+  "queries": [
+    {
+      "query": "Create API reference docs for these workspace endpoints.",
+      "should_trigger": true
+    },
+    {
+      "query": "Document the CLI options for acme deploy in a lookup table.",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn this config schema into reference documentation with defaults and valid values.",
+      "should_trigger": true
+    },
+    {
+      "query": "Make a reference page for our sync error codes.",
+      "should_trigger": true
+    },
+    {
+      "query": "Can you write a parameter reference for this webhook payload schema?",
+      "should_trigger": true
+    },
+    {
+      "query": "List the system limits and compatibility matrix for the connector.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write step-by-step setup docs for the CLI.",
+      "should_trigger": false
+    },
+    {
+      "query": "Explain why workspaces exist and how they fit our architecture.",
+      "should_trigger": false
+    },
+    {
+      "query": "Draft a proposal to fund a full API documentation rewrite.",
+      "should_trigger": false
+    },
+    {
+      "query": "Compare three schema designs and recommend the best one.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this endpoint announcement engaging for developers.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a troubleshooting runbook for error 1002.",
+      "should_trigger": false
+    }
+  ]
+}

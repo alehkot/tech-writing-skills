@@ -1,0 +1,37 @@
+{
+  "skill_name": "proposal-argument-crafter",
+  "queries": [
+    {
+      "query": "Can you make this reliability initiative sound fundable without overpromising?",
+      "should_trigger": true
+    },
+    {
+      "query": "We need a vendor proposal for managed Kubernetes support, with proof and staffing.",
+      "should_trigger": true
+    },
+    {
+      "query": "Build a project proposal asking for two engineers and a security review.",
+      "should_trigger": true
+    },
+    {
+      "query": "Please turn our prototype notes into a pitch for an executive steering committee.",
+      "should_trigger": true
+    },
+    {
+      "query": "Explain OAuth scopes to a new backend engineer.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create a postmortem from these outage notes.",
+      "should_trigger": false
+    },
+    {
+      "query": "Summarize the RFP requirements into a checklist only.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create a CLI options reference for the demo command.",
+      "should_trigger": false
+    }
+  ]
+}

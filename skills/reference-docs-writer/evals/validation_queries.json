@@ -1,0 +1,37 @@
+{
+  "skill_name": "reference-docs-writer",
+  "queries": [
+    {
+      "query": "Build a data dictionary for these warehouse columns.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write syntax reference entries for our policy language operators.",
+      "should_trigger": true
+    },
+    {
+      "query": "Create a status-code reference for the upload API.",
+      "should_trigger": true
+    },
+    {
+      "query": "Document the Terraform provider arguments, attributes, and import formats.",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn these API calls into a tutorial for creating a workspace.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make a beginner-friendly concept explanation of webhooks.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a recommendation report about whether to adopt this API style.",
+      "should_trigger": false
+    },
+    {
+      "query": "Pitch leadership on investing in a public developer portal.",
+      "should_trigger": false
+    }
+  ]
+}
