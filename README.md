@@ -91,6 +91,7 @@ These skills often operate on external documents such as RFPs, reports, logs, or
 
 - Keep one skill per writing job so agents load only the workflow they need.
 - Put activation context in the frontmatter `description`; the body is loaded only after trigger.
+- Include `metadata.version` and `metadata.risk_tier` in each `SKILL.md` frontmatter.
 - Keep `SKILL.md` concise and procedural.
 - Put templates, checklists, and deeper guidance in one-level `references/` files.
 - Prefer concrete quality checks over vague style advice.

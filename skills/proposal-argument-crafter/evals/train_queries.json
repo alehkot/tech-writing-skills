@@ -2,7 +2,7 @@
   "skill_name": "proposal-argument-crafter",
   "queries": [
     {
-      "query": "Draft a proposal for funding a new internal developer portal.",
+      "query": "Draft a proposal argument for funding a new internal developer portal.",
       "should_trigger": true
     },
     {

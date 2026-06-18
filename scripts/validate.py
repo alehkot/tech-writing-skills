@@ -27,6 +27,13 @@ def validate_frontmatter(skill_dir: Path) -> None:
     for field in ("name", "description"):
         if not isinstance(data.get(field), str) or not data[field].strip():
             raise ValueError(f"{path}: {field} must be a nonempty string")
+    metadata = data.get("metadata")
+    if not isinstance(metadata, dict):
+        raise ValueError(f"{path}: metadata must include version and risk_tier")
+    if not isinstance(metadata.get("version"), str) or not metadata["version"].strip():
+        raise ValueError(f"{path}: metadata.version must be a nonempty string")
+    if metadata.get("risk_tier") not in {"low", "medium", "high"}:
+        raise ValueError(f"{path}: metadata.risk_tier must be low, medium, or high")
     if data["name"] != skill_dir.name:
         raise ValueError(f"{path}: name must match directory name {skill_dir.name}")
     if len(data["description"]) > 1024:

@@ -6,7 +6,7 @@
       "should_trigger": true
     },
     {
-      "query": "Write an architecture overview that explains why event sourcing changes how debugging works.",
+      "query": "Write a concept overview that explains why event sourcing changes how debugging works.",
       "should_trigger": true
     },
     {

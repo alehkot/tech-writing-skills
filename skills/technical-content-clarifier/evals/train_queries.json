@@ -2,7 +2,7 @@
   "skill_name": "technical-content-clarifier",
   "queries": [
     {
-      "query": "Explain this architecture to frontend engineers who are new to the backend.",
+      "query": "Write a concept clarification of this architecture for frontend engineers who are new to the backend.",
       "should_trigger": true
     },
     {

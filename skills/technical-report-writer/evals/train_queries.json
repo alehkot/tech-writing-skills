@@ -6,7 +6,7 @@
       "should_trigger": true
     },
     {
-      "query": "Turn these benchmark results into a technical report.",
+      "query": "Turn these benchmark results into a technical report with criteria and limitations.",
       "should_trigger": true
     },
     {

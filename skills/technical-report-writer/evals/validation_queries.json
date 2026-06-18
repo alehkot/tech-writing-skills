@@ -2,7 +2,7 @@
   "skill_name": "technical-report-writer",
   "queries": [
     {
-      "query": "We evaluated Redis, DynamoDB, and Postgres for session storage. Write the decision report.",
+      "query": "We evaluated Redis, DynamoDB, and Postgres for session storage. Write the technical decision report.",
       "should_trigger": true
     },
     {

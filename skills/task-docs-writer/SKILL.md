@@ -1,7 +1,10 @@
 ---
 name: task-docs-writer
 description: >-
-  Use this skill when the user needs to create or improve task topics or task-oriented engineering documentation: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, troubleshooting steps, or any document where readers must complete a technical task. It helps transform feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
+  Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
+metadata:
+  version: "1.0.0"
+  risk_tier: low
 ---
 
 # Task Docs Writer
@@ -27,7 +30,10 @@ Read [references/task-docs-patterns.md](references/task-docs-patterns.md) when d
 11. Keep lists and substeps parallel: same grammar, same level of detail, and no mixed choices/actions in one list.
 12. Split procedures that grow beyond roughly nine steps into smaller tasks, phases, or subtasks.
 13. Add verification points where the reader can tell whether the step worked. Prefer observable signals: command output, status code, UI state, log line, or file path.
-14. Run the self-check before finalizing.
+
+## Completion Criterion
+
+Complete the task only when the output gives the reader a usable procedure: every prerequisite, action, decision point, verification signal, and recovery path from the source is represented, labeled as an assumption, or called out as an open question; every applicable self-check item passes.
 
 ## Output Shape
 

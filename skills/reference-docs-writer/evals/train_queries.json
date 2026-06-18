@@ -2,7 +2,7 @@
   "skill_name": "reference-docs-writer",
   "queries": [
     {
-      "query": "Create API reference docs for these workspace endpoints.",
+      "query": "Create reference documentation for these workspace API endpoints.",
       "should_trigger": true
     },
     {

@@ -2,7 +2,7 @@
   "skill_name": "proposal-argument-crafter",
   "queries": [
     {
-      "query": "Can you make this reliability initiative sound fundable without overpromising?",
+      "query": "Can you shape this reliability initiative into a fundable proposal without overpromising?",
       "should_trigger": true
     },
     {

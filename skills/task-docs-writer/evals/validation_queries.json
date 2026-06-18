@@ -2,7 +2,7 @@
   "skill_name": "task-docs-writer",
   "queries": [
     {
-      "query": "The onboarding doc says install, configure, test, deploy. Rewrite it so a new SRE can actually follow it.",
+      "query": "The onboarding doc says install, configure, test, deploy. Rewrite it as task documentation a new SRE can actually follow.",
       "should_trigger": true
     },
     {
