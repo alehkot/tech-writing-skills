@@ -1,7 +1,10 @@
 ---
 name: technical-report-writer
 description: >-
-  Use this skill when the user needs to write or improve a rigorous technical report for engineering decision-making: recommendation report, feasibility study, benchmark report, incident report, postmortem, progress report, evaluation memo, tradeoff analysis, migration assessment, or architecture decision report. It helps separate evidence, criteria, analysis, conclusions, and recommendations.
+  Technical report writing for rigorous engineering decision documents: recommendation reports, feasibility studies, benchmark reports, incident reports, postmortems, progress reports, evaluation memos, tradeoff analyses, migration assessments, and architecture decision reports. Use for separating evidence, criteria, analysis, conclusions, and recommendations.
+metadata:
+  version: "1.0.0"
+  risk_tier: low
 ---
 
 # Technical Report Writer
@@ -27,7 +30,10 @@ Read [references/report-patterns.md](references/report-patterns.md) when the tas
 11. Add limitations, confidence level, and open questions when evidence is incomplete.
 12. End with a forward-looking action: the specific action, owner, decision point, or follow-up the audience should take next.
 13. Put the executive summary last in the drafting process, but first in the final report.
-14. Run the evidence-to-recommendation check before finalizing.
+
+## Completion Criterion
+
+Complete the task only when every recommendation traces through evidence, finding, conclusion, recommendation, and next action; criteria are inspectable before comparisons, limitations are visible, and every applicable self-check item passes.
 
 ## Default Recommendation Report Structure
 

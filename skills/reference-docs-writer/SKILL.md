@@ -1,7 +1,10 @@
 ---
 name: reference-docs-writer
 description: >-
-  Use this skill when the user needs to create or improve reference topics for quick factual lookup: API endpoint reference, CLI command reference, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, compatibility tables, or other lookup-oriented technical facts. It helps separate reference material from tasks and concepts, organize it for retrieval, and keep examples complete and accurate.
+  Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
+metadata:
+  version: "1.0.0"
+  risk_tier: low
 ---
 
 # Reference Docs Writer
@@ -26,7 +29,10 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 10. Add examples that match the documented syntax. Use copyable snippets for API/CLI/config references; if an example is complex, use numbered annotations below the code instead of inline explanation.
 11. For API endpoints, include error response information when status codes or failure modes appear. For error-code references, define any headers, fields, or retry signals you mention, such as `Retry-After`.
 12. Add cross-links or "Related topics" only when they help the reader move to a task or concept without cluttering the lookup surface.
-13. Run the self-check before finalizing.
+
+## Completion Criterion
+
+Complete the task only when the reference surface is lookup-ready: all sourced items use the chosen retrieval order and repeated item pattern, required and optional facts are captured where present, examples match the documented syntax, and task or concept material is split out or linked; every applicable self-check item passes.
 
 ## Output Shape
 

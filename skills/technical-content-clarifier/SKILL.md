@@ -1,7 +1,10 @@
 ---
 name: technical-content-clarifier
 description: >-
-  Use this skill when the user needs to create or improve concept topics or make technical content understandable and engaging for a defined audience: architecture explanation, engineering blog post, conceptual documentation, onboarding overview, release note narrative, executive-friendly technical summary, developer education article, or explanation of complex systems, algorithms, APIs, incidents, or tradeoffs. It helps clarify abstractions, choose examples, tune tone, and remove knowledge gaps.
+  Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
+metadata:
+  version: "1.0.0"
+  risk_tier: low
 ---
 
 # Technical Content Clarifier
@@ -27,7 +30,10 @@ Read [references/clarity-patterns.md](references/clarity-patterns.md) when draft
 11. Prefer active voice and short sentences. Split long sentences that carry multiple ideas.
 12. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, name it only as "an internal technical change" and focus on user impact. Prefer plain phrases such as "during traffic spikes," "the slowest 1% of requests," and "peak-demand delays."
 13. End with a concrete next action, decision, or mental model. For release narratives, make the final sentence tell the reader what to try, monitor, adopt, or understand next.
-14. Run the clarity check before finalizing.
+
+## Completion Criterion
+
+Complete the task only when the piece has a named or stated audience, a one-sentence point, concrete examples or observable consequences for important abstract claims, definitions for unfamiliar terms, visible caveats, and a clear next action or mental model; every applicable self-check item passes.
 
 ## Default Explainer Structure
 

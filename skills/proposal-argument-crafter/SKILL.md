@@ -1,7 +1,10 @@
 ---
 name: proposal-argument-crafter
 description: >-
-  Use this skill when the user needs to write or improve a persuasive technical proposal: internal engineering pitch, architecture investment request, project proposal, vendor proposal, RFP response, grant-style technical plan, budget request, or implementation proposal. It helps parse constraints, build a problem-solution argument, prove feasibility, and make the proposal compliant, credible, and decision-ready.
+  Proposal argument writing for persuasive technical proposals: internal engineering pitches, architecture investment requests, project proposals, vendor proposals, RFP responses, grant-style technical plans, budget requests, and implementation proposals. Use for parsing constraints, building a problem-solution argument, proving feasibility, and making the proposal compliant, credible, and decision-ready.
+metadata:
+  version: "1.0.0"
+  risk_tier: low
 ---
 
 # Proposal Argument Crafter
@@ -26,7 +29,10 @@ Read [references/proposal-patterns.md](references/proposal-patterns.md) when dra
 10. Describe quality-control or evaluation methods when the proposal promises delivery, implementation, or measurable outcomes.
 11. Address risks honestly. Pair each material risk with mitigation, fallback, or decision point.
 12. End with the explicit ask: approval, budget, staffing, decision, pilot, or next meeting.
-13. Run the compliance and persuasion checks before finalizing.
+
+## Completion Criterion
+
+Complete the task only when the proposal can support the requested decision: required constraints are satisfied or called out, the problem-plan-evidence-decision chain is visible, budget, schedule, risks, and ask are reviewable, and unsupported claims are labeled or removed; every applicable self-check item passes.
 
 ## Default Proposal Structure
 
