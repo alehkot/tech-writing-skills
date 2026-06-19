@@ -12,6 +12,7 @@ Load this reference for API endpoints, CLI commands, config options, schemas, da
 - Syntax and examples must be complete enough that readers can apply them without guessing.
 - Reference headings should be static nouns, item names, or noun phrases, not gerunds that imply a task.
 - Consistent terminology and parallel rows help readers compare facts without reinterpreting each entry.
+- Incomplete source facts should remain visibly incomplete; a polished table must not imply that unknown defaults, values, limits, or response behavior were supplied.
 
 ## Topic Boundary Test
 
@@ -41,6 +42,7 @@ Choose one:
 - Put a space between a number and a unit abbreviation, and do not pluralize the abbreviation: `64 GB`, not `64GB` or `64 GBs`.
 - Wrap literal values, data types, commands, fields, parameters, headers, retry signals, and error codes in code font when they appear in prose or tables.
 - If you mention a response header or field in a status-code, error-code, or recovery entry, define what it means.
+- Use `Not specified` or an explicit open question when the source does not provide a type, default, valid value, limit, compatibility boundary, response field, or error behavior.
 - Avoid `e.g.`, `i.e.`, `etc.`, and `and so on`; use `for example`, `that is`, or a clearly scoped non-exhaustive list.
 
 ## API Endpoint Pattern
@@ -135,5 +137,6 @@ Use numbered annotations when an example has multiple fields or lines that need 
 - Syntax distinguishes required and optional elements.
 - Defaults, valid values, units, restrictions, and error behavior are present.
 - Headers, fields, retry signals, and related response metadata are defined when mentioned.
+- Source gaps are marked and do not look like complete facts.
 - Examples are copyable and match the documented syntax; complex examples use numbered annotations.
 - Long task steps and conceptual background are split out or linked.

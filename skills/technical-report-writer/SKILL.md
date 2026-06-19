@@ -2,6 +2,7 @@
 name: technical-report-writer
 description: >-
   Technical report writing for rigorous engineering decision documents: recommendation reports, feasibility studies, benchmark reports, incident reports, postmortems, progress reports, evaluation memos, tradeoff analyses, migration assessments, and architecture decision reports. Use for separating evidence, criteria, analysis, conclusions, and recommendations.
+  Use when evidence traceability, limitations, missing data, or decision criteria must be explicit.
 metadata:
   version: "1.0.0"
   risk_tier: low
@@ -28,12 +29,13 @@ Read [references/report-patterns.md](references/report-patterns.md) when the tas
 9. Write conclusions as what the evidence means. Write recommendations as what action to take. Do not merge the two.
 10. Structure modularly for mixed audiences: executive summary for decision makers, main findings for implementers, and appendices for detailed evidence when needed. For long reports, map the major sections at the end of the introduction.
 11. Add limitations, confidence level, and open questions when evidence is incomplete.
-12. End with a forward-looking action: the specific action, owner, decision point, or follow-up the audience should take next.
-13. Put the executive summary last in the drafting process, but first in the final report.
+12. Audit every major claim through this chain: evidence, finding, conclusion, recommendation, next action. If a link is missing, revise, downgrade confidence, or list the gap.
+13. End with a forward-looking action: the specific action, owner, decision point, or follow-up the audience should take next.
+14. Put the executive summary last in the drafting process, but first in the final report.
 
 ## Completion Criterion
 
-Complete the task only when every recommendation traces through evidence, finding, conclusion, recommendation, and next action; criteria are inspectable before comparisons, limitations are visible, and every applicable self-check item passes.
+Complete the task only when every recommendation traces through evidence, finding, conclusion, recommendation, and next action; criteria are inspectable before comparisons, limitations and missing data are visible, and every applicable self-check item passes.
 
 ## Default Recommendation Report Structure
 
@@ -79,6 +81,7 @@ Complete the task only when every recommendation traces through evidence, findin
 - [ ] Comparison lists and tables use parallel structure and comparable units.
 - [ ] Every recommendation traces back to a conclusion, and every conclusion traces back to evidence.
 - [ ] Uncertainty and limitations are visible.
+- [ ] Missing data is labeled and does not silently become a confident finding.
 - [ ] Tables are used where they help comparison; prose explains significance rather than repeating table cells.
 - [ ] The executive summary can stand alone for a busy reader.
 - [ ] Detailed evidence moves to appendices when it would overload decision makers.
@@ -91,3 +94,4 @@ Complete the task only when every recommendation traces through evidence, findin
 - Do not use "best" without criteria.
 - Do not bury bad news. State material risks and negative findings clearly.
 - Do not treat status reports, incident reports, and recommendation reports as the same artifact; choose the template that matches the decision need.
+- Do not rank options conclusively when the supplied evidence cannot support the ranking.

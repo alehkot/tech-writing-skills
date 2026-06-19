@@ -2,6 +2,7 @@
 name: task-docs-writer
 description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
+  Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
   version: "1.0.0"
   risk_tier: low
@@ -29,11 +30,12 @@ Read [references/task-docs-patterns.md](references/task-docs-patterns.md) when d
 10. Make command examples copyable and adaptable. Name placeholders clearly, define them near the command, and avoid unexplained magic values.
 11. Keep lists and substeps parallel: same grammar, same level of detail, and no mixed choices/actions in one list.
 12. Split procedures that grow beyond roughly nine steps into smaller tasks, phases, or subtasks.
-13. Add verification points where the reader can tell whether the step worked. Prefer observable signals: command output, status code, UI state, log line, or file path.
+13. Maintain a source ledger while drafting: supplied facts, assumptions, open questions, and omitted details that would affect execution.
+14. Add verification points where the reader can tell whether the step worked. Prefer observable signals: command output, status code, UI state, log line, or file path. If the source does not provide an exact signal, label the verification gap.
 
 ## Completion Criterion
 
-Complete the task only when the output gives the reader a usable procedure: every prerequisite, action, decision point, verification signal, and recovery path from the source is represented, labeled as an assumption, or called out as an open question; every applicable self-check item passes.
+Complete the task only when the output gives the reader a usable procedure: every prerequisite, action, decision point, verification signal, and recovery path from the source is represented, labeled as an assumption, or called out as an open question; no command, UI path, permission, version, success output, or recovery action is invented; every applicable self-check item passes.
 
 ## Output Shape
 
@@ -75,6 +77,7 @@ Use this procedure to [outcome].
 - [ ] Lists, choices, and substeps are parallel and concise.
 - [ ] Code samples include language or shell fences, placeholders, and expected results where useful.
 - [ ] The guide includes at least one verification path.
+- [ ] Missing execution details are captured as assumptions, open questions, or verification gaps.
 - [ ] Warnings and destructive actions appear before the relevant step, not after it.
 
 ## Gotchas
@@ -83,3 +86,4 @@ Use this procedure to [outcome].
 - Do not bury prerequisites in prose.
 - Do not combine setup, execution, and verification in one long step.
 - Do not use passive voice when it hides the actor. Tell the reader what to do.
+- Do not fill gaps with plausible commands, console paths, file names, or output strings.

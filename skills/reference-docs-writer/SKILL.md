@@ -2,6 +2,7 @@
 name: reference-docs-writer
 description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
+  Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
   version: "1.0.0"
   risk_tier: low
@@ -28,11 +29,12 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 9. Make syntax complete: document required and optional elements, defaults, valid values, data types, units, constraints, return values, and error behavior. Put literal values, data types, commands, fields, parameters, headers, and error codes in code font.
 10. Add examples that match the documented syntax. Use copyable snippets for API/CLI/config references; if an example is complex, use numbered annotations below the code instead of inline explanation.
 11. For API endpoints, include error response information when status codes or failure modes appear. For error-code references, define any headers, fields, or retry signals you mention, such as `Retry-After`.
-12. Add cross-links or "Related topics" only when they help the reader move to a task or concept without cluttering the lookup surface.
+12. Track unknown facts while drafting. If the source omits a default, valid value, field type, status behavior, limit, or compatibility boundary, mark it as `Not specified` or an open question instead of inventing it.
+13. Add cross-links or "Related topics" only when they help the reader move to a task or concept without cluttering the lookup surface.
 
 ## Completion Criterion
 
-Complete the task only when the reference surface is lookup-ready: all sourced items use the chosen retrieval order and repeated item pattern, required and optional facts are captured where present, examples match the documented syntax, and task or concept material is split out or linked; every applicable self-check item passes.
+Complete the task only when the reference surface is lookup-ready: all sourced items use the chosen retrieval order and repeated item pattern, required and optional facts are captured where present, unknown values are explicitly marked, examples match the documented syntax, and task or concept material is split out or linked; every applicable self-check item passes.
 
 ## Output Shape
 
@@ -86,6 +88,7 @@ Related:
 - [ ] Error fields, status codes, and retry signals are documented where relevant.
 - [ ] Literal values, data types, commands, fields, parameters, headers, and error codes use code font where needed.
 - [ ] Examples match the documented syntax and use defined placeholders; complex examples use numbered annotations.
+- [ ] Unknown defaults, valid values, limits, compatibility rules, and response behavior are marked rather than invented.
 - [ ] Acronyms and specialized terms are defined at first use or in a glossary-style entry.
 - [ ] Related task or concept links are helpful and not used as a substitute for missing facts.
 
@@ -95,3 +98,4 @@ Related:
 - Do not mix step-by-step instructions into a reference entry. Link to a task topic instead.
 - Do not explain broad architecture in a reference entry. Link to a concept topic instead.
 - Do not sort arbitrarily. If the order is not alphabetical or numerical, state the organizing principle.
+- Do not turn partial source data into complete-looking tables without marking gaps.

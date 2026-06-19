@@ -10,6 +10,7 @@ Load this reference for internal pitches, project proposals, architecture invest
 - A proposal is a plan to address a problem, not a feature description.
 - Persuasion depends on fit, feasibility, proof, and professionalism.
 - Honesty is a technical communication requirement. Do not overstate certainty, benefits, qualifications, or schedule confidence.
+- A credible proposal exposes evidence gaps; optimism is not proof.
 
 ## Constraint Extraction
 
@@ -59,6 +60,19 @@ Answer likely objections directly and objectively. Do not hide them or rely on e
 - Named key personnel, team qualifications, and responsibilities.
 - Available facilities, tooling, resources, and management structure when execution credibility depends on them.
 
+## Evidence Gap Handling
+
+Use this pattern when the source asks for persuasion but does not provide enough proof:
+
+```markdown
+Claim: [What the proposal wants to assert.]
+Current support: [Supplied evidence, if any.]
+Gap: [Missing metric, qualification, customer evidence, cost data, or delivery proof.]
+Proposal treatment: [Downgrade to assumption, request discovery, or define a pilot success metric.]
+```
+
+Do not delete all ambition from a weak proposal. Convert unsupported certainty into a testable pilot, a measurable success criterion, or an explicit assumption reviewers can accept or reject.
+
 ## Assertion Emphasis
 
 Make the proposal's main claims visible to skimming evaluators.
@@ -99,6 +113,7 @@ Decision point: [When we reassess.]
 - The proposal preserves exact required headings when supplied.
 - Likely reviewer objections are answered.
 - Claims have evidence or are labeled as assumptions.
+- Evidence gaps are acknowledged and converted into assumptions, proof requests, or pilot success metrics.
 - Terms are consistent and acronyms are defined.
 - Key personnel or execution qualifications are visible.
 - Quality-control or evaluation methods are visible when delivery credibility depends on them.
