@@ -6,7 +6,7 @@
       "should_trigger": true
     },
     {
-      "query": "Turn these benchmark results into a technical report with criteria and limitations.",
+      "query": "Turn these benchmark results into a technical report with criteria, limitations, and no invented missing data.",
       "should_trigger": true
     },
     {
@@ -22,7 +22,7 @@
       "should_trigger": true
     },
     {
-      "query": "Analyze latency, cost, and correctness risk for these queueing options and recommend one.",
+      "query": "Analyze latency, cost, and correctness risk for these queueing options, then recommend only as far as the evidence supports.",
       "should_trigger": true
     },
     {

@@ -2,6 +2,7 @@
 name: technical-content-clarifier
 description: >-
   Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
+  Use when caveats, uncertainty, audience proximity, or source-backed simplification matter.
 metadata:
   version: "1.0.0"
   risk_tier: low
@@ -25,15 +26,16 @@ Read [references/clarity-patterns.md](references/clarity-patterns.md) when draft
 6. For executives, product partners, or other non-implementers, translate implementation terms into user impact, business risk, cost, speed, reliability, or decision consequences. Avoid raw implementation phrases unless the user explicitly asks to keep them. For example, translate `connection pooling changed under burst load` into "a backend efficiency change made the service handle traffic spikes less smoothly."
 7. Use consistent terminology for the same concept throughout the piece. If the source uses competing terms, choose one and mention aliases only when needed.
 8. Strip step-by-step procedures and extensive reference tables from concept topics. Link to task or reference topics instead.
-9. Remove false precision, jargon that does not help, idioms, slang, sports metaphors, ambiguous pronouns, and references that may not travel across cultures or teams.
-10. Keep simplification honest. Preserve important caveats and tradeoffs instead of smoothing them away.
-11. Prefer active voice and short sentences. Split long sentences that carry multiple ideas.
-12. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, name it only as "an internal technical change" and focus on user impact. Prefer plain phrases such as "during traffic spikes," "the slowest 1% of requests," and "peak-demand delays."
-13. End with a concrete next action, decision, or mental model. For release narratives, make the final sentence tell the reader what to try, monitor, adopt, or understand next.
+9. Separate confirmed facts, suspected causes, examples, assumptions, and open questions before simplifying. Do not let a cleaner narrative turn uncertainty into fact.
+10. Remove false precision, jargon that does not help, idioms, slang, sports metaphors, ambiguous pronouns, and references that may not travel across cultures or teams.
+11. Keep simplification honest. Preserve important caveats and tradeoffs instead of smoothing them away.
+12. Prefer active voice and short sentences. Split long sentences that carry multiple ideas.
+13. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, name it only as "an internal technical change" and focus on user impact. Prefer plain phrases such as "during traffic spikes," "the slowest 1% of requests," and "peak-demand delays."
+14. End with a concrete next action, decision, or mental model. For release narratives, make the final sentence tell the reader what to try, monitor, adopt, or understand next.
 
 ## Completion Criterion
 
-Complete the task only when the piece has a named or stated audience, a one-sentence point, concrete examples or observable consequences for important abstract claims, definitions for unfamiliar terms, visible caveats, and a clear next action or mental model; every applicable self-check item passes.
+Complete the task only when the piece has a named or stated audience, a one-sentence point, concrete examples or observable consequences for important abstract claims, definitions for unfamiliar terms, visible caveats, source-backed claims or labeled assumptions, and a clear next action or mental model; every applicable self-check item passes.
 
 ## Default Explainer Structure
 
@@ -72,6 +74,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - [ ] Procedural steps and dense reference facts are split out or linked rather than embedded.
 - [ ] Each abstract claim has an example, scenario, or observable consequence.
 - [ ] Examples and nonexamples are clearly labeled or separated from general explanation.
+- [ ] Confirmed facts, suspected causes, assumptions, and open questions are not blurred together.
 - [ ] The explanation is accurate enough for experts and approachable enough for the target reader.
 - [ ] Analogies are bounded so they do not obscure the technical distinction.
 - [ ] Ambiguous pronouns such as `it`, `this`, `that`, and `they` are replaced when the referent is unclear.
@@ -85,3 +88,4 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - Do not remove caveats that affect decisions.
 - Do not use analogies that break under the key technical distinction.
 - Do not assume the reader knows the team's acronyms, architecture history, or incident context.
+- Do not turn a tidy story into a false certainty.

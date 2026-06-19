@@ -10,7 +10,7 @@
       "should_trigger": true
     },
     {
-      "query": "Turn this config schema into reference documentation with defaults and valid values.",
+      "query": "Turn this partial config schema into reference documentation with defaults, valid values, and unknown fields labeled.",
       "should_trigger": true
     },
     {
@@ -22,7 +22,7 @@
       "should_trigger": true
     },
     {
-      "query": "List the system limits and compatibility matrix for the connector.",
+      "query": "List the system limits and compatibility matrix for the connector, marking compatibility boundaries that the source does not specify.",
       "should_trigger": true
     },
     {

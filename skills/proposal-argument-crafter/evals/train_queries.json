@@ -2,7 +2,7 @@
   "skill_name": "proposal-argument-crafter",
   "queries": [
     {
-      "query": "Draft a proposal argument for funding a new internal developer portal.",
+      "query": "Draft a proposal argument for funding a new internal developer portal, labeling assumptions where proof is missing.",
       "should_trigger": true
     },
     {
@@ -18,7 +18,7 @@
       "should_trigger": true
     },
     {
-      "query": "Outline an implementation proposal for a 6-week service mesh pilot.",
+      "query": "Outline an implementation proposal for a 6-week service mesh pilot with success evidence and open questions.",
       "should_trigger": true
     },
     {

@@ -19,6 +19,8 @@ This human-facing map summarizes reusable technical-writing principles reflected
 | Keep lists parallel | Make list items and table rows follow the same grammar and level of detail. | All skills |
 | Connect problem, method, and answer | For proposals and reports, connect the problem or question, method or plan, evidence, and decision. | `proposal-argument-crafter`, `technical-report-writer` |
 | Use progressive disclosure | Put essentials first and move detailed evidence, templates, or background to later sections or references. | All skills |
+| Maintain an evidence gate | Separate supplied facts, assumptions, open questions, and missing evidence before drafting; label uncertainty instead of fabricating complete-looking detail. | All skills |
+| Test against shortcuts | Treat unsupported certainty, mixed topic types, invented facts, and missing verification as eval-worthy failure modes. | All skills |
 | Write for global readers | Remove idioms, slang, sports metaphors, and culture-specific shortcuts unless the audience clearly shares them. | `technical-content-clarifier`, all public-facing docs |
 | Put the bottom line first | Do not build suspense when the reader needs a decision, recommendation, or ask. | `proposal-argument-crafter`, `technical-report-writer` |
 | Isolate procedures from concepts | Keep background out of numbered steps and move long procedures out of concept/reference topics. | Documentation triad skills |

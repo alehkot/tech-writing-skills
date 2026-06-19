@@ -14,7 +14,7 @@
       "should_trigger": true
     },
     {
-      "query": "Help me explain p99 latency to product managers without losing the important caveat.",
+      "query": "Help me explain p99 latency to product managers without losing caveats or overstating the cause.",
       "should_trigger": true
     },
     {
@@ -22,7 +22,7 @@
       "should_trigger": true
     },
     {
-      "query": "Can you make our service-mesh overview less jargon-heavy for new hires?",
+      "query": "Can you make our service-mesh overview less jargon-heavy for new hires while preserving important tradeoffs?",
       "should_trigger": true
     },
     {

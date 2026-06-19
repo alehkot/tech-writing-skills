@@ -2,7 +2,7 @@
   "skill_name": "task-docs-writer",
   "queries": [
     {
-      "query": "Turn these deployment notes into a runbook with rollback and verification.",
+      "query": "Turn these deployment notes into a runbook with rollback, verification, and explicit assumptions for missing details.",
       "should_trigger": true
     },
     {
@@ -22,7 +22,7 @@
       "should_trigger": true
     },
     {
-      "query": "Document the exact procedure for restoring a failed worker from a snapshot.",
+      "query": "Document the procedure for restoring a failed worker from a snapshot, labeling any missing permissions or success signals.",
       "should_trigger": true
     },
     {

@@ -36,6 +36,18 @@
         "The proposal includes schedule or milestone detail.",
         "The final ask is explicit."
       ]
+    },
+    {
+      "id": "proposal-weak-evidence-budget-request",
+      "prompt": "Shape this into a credible proposal: we want budget for a 3-month rewrite because it will be faster, better, scalable, and world-class. We have no benchmark numbers, no staffing plan, and no customer evidence yet. Leadership wants a clear ask and a realistic plan.",
+      "expected_output": "A proposal that converts hype into a scoped plan, labels evidence gaps, defines what proof is needed, includes risks and schedule, and makes a specific ask without unsupported guarantees.",
+      "assertions": [
+        "The output replaces vague claims such as faster, better, scalable, or world-class with measurable assumptions, evidence needs, or scoped outcomes.",
+        "The output explicitly names missing benchmark, staffing, and customer evidence.",
+        "The plan includes schedule or milestones and a realistic next proof step.",
+        "Risks and mitigations are visible.",
+        "The ask is explicit and does not rely on unsupported guarantees."
+      ]
     }
   ]
 }

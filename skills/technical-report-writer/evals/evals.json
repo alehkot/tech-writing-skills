@@ -36,6 +36,18 @@
         "The output is concise enough for a steering-group audience.",
         "The output does not invent dates or metrics."
       ]
+    },
+    {
+      "id": "report-incomplete-benchmark-evidence",
+      "prompt": "Write a recommendation report from these benchmark notes. Criteria should include latency, cost, reliability, and migration effort. Option A: 120 ms p95 at 500 requests/second, cost unknown. Option B: 80 ms p95 at 500 requests/second, reliability history unknown. Option C: failed under load; migration effort lowest. We need a recommendation but the evidence is incomplete.",
+      "expected_output": "A report that defines criteria, compares options with available evidence, labels missing cost and reliability data, avoids an overconfident ranking, and recommends a next decision or evidence-gathering step.",
+      "assertions": [
+        "The criteria appear before the option analysis.",
+        "Known benchmark facts are separated from missing cost and reliability evidence.",
+        "The output does not declare a definitive best option without addressing evidence gaps.",
+        "Conclusions and recommendations trace back to the available evidence and limitations.",
+        "The output includes next actions to close the evidence gaps or make a bounded decision."
+      ]
     }
   ]
 }

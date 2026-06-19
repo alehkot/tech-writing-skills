@@ -10,7 +10,7 @@
       "should_trigger": true
     },
     {
-      "query": "Prepare a migration assessment with criteria, findings, limitations, and next actions.",
+      "query": "Prepare a migration assessment with criteria, findings, limitations, missing data, and next actions.",
       "should_trigger": true
     },
     {

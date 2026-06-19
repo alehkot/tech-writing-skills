@@ -10,6 +10,7 @@ Load this reference for installation docs, setup guides, runbooks, API workflows
 - Progressive disclosure: place prerequisites and concepts where they help, then keep steps focused.
 - Concrete writing: examples, expected results, and visible verification points reduce ambiguity.
 - Active voice and imperative steps: the reader should know what to do and who acts.
+- Evidence discipline: partial notes are not permission to invent missing commands, locations, names, versions, permissions, or success output.
 
 ## Procedure Planning Questions
 
@@ -18,6 +19,7 @@ Load this reference for installation docs, setup guides, runbooks, API workflows
 - What is the exact end state?
 - What can go wrong, and how will the reader notice?
 - Which actions are destructive, expensive, slow, or hard to undo?
+- Which details are sourced, assumed, unknown, or unsafe to guess?
 
 ## Step Rules
 
@@ -64,5 +66,6 @@ Avoid background theory in steps; link to a concept topic when the explanation i
 - Terms and placeholders are defined once and used consistently.
 - Lists and substeps are parallel.
 - The procedure includes a verification section.
+- Unknown prerequisites, values, paths, and success signals are labeled as assumptions, open questions, or verification gaps.
 - Troubleshooting maps symptoms to likely causes and next actions.
 - No unsupported claims, hidden prerequisites, or unexplained acronyms remain.

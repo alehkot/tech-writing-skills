@@ -97,6 +97,8 @@ These skills often operate on external documents such as RFPs, reports, logs, or
 - Prefer concrete quality checks over vague style advice.
 - Preserve honesty: do not fabricate evidence, claims, benchmarks, qualifications, schedules, or source support.
 
+This bundle also borrows skill-design discipline from public engineering skill packs without copying their wording or templates: Matt Pocock's `mattpocock/skills` emphasizes small composable skills, precise trigger descriptions, progressive disclosure, and checkable completion criteria; Addy Osmani's `addyosmani/agent-skills` emphasizes process-oriented skills, anti-shortcut checks, and verification evidence. In this repo, those ideas show up as source-led writing checks and evals that punish invented facts, mixed topic types, unsupported certainty, and missing verification.
+
 ## Evaluation Fixtures
 
 Each skill includes three eval files:

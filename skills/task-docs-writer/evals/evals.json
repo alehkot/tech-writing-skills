@@ -36,6 +36,18 @@
         "The output includes expected success signals.",
         "The output avoids turning the guide into a general feature overview."
       ]
+    },
+    {
+      "id": "task-docs-partial-source-gaps",
+      "prompt": "Turn these sparse notes into safe task docs for a new platform engineer: create S3 bucket, set lifecycle, run deploy. We do not know the bucket name, region, lifecycle policy, exact command, required permission, or success output. Do not ask follow-up questions; produce the safest useful draft.",
+      "expected_output": "A task draft that gives a usable scaffold while labeling missing prerequisites, values, commands, permissions, and verification signals instead of inventing them.",
+      "assertions": [
+        "The output states the intended reader and task outcome.",
+        "The output labels missing bucket name, region, lifecycle policy, command, permission, and success output as assumptions, placeholders, open questions, or verification gaps.",
+        "The procedure uses placeholders instead of fake concrete values.",
+        "The output includes a verification section or explicitly states what verification signal is missing.",
+        "The output does not invent console paths, command flags, IAM policies, or success messages."
+      ]
     }
   ]
 }

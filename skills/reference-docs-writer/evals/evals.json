@@ -37,6 +37,18 @@
         "The output does not expand into a long troubleshooting procedure.",
         "The output defines any specialized field such as Retry-After if used."
       ]
+    },
+    {
+      "id": "reference-partial-config-schema",
+      "prompt": "Create reference docs for these config fields. retry_mode: string, valid values off, linear, exponential, default linear. timeout_ms: integer, default 30000, max 120000. beta_feature: boolean, default and compatibility unknown. log_level: valid values not supplied.",
+      "expected_output": "A lookup-oriented config reference that documents known types, defaults, valid values, and limits while marking unknown defaults, compatibility, and valid values.",
+      "assertions": [
+        "The output uses a repeated item pattern or table suitable for lookup.",
+        "Known defaults, valid values, types, and limits are captured accurately.",
+        "Unknown beta_feature default and compatibility are marked rather than invented.",
+        "Unknown log_level valid values are marked rather than invented.",
+        "The output avoids turning the config reference into a setup procedure."
+      ]
     }
   ]
 }

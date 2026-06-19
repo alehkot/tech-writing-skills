@@ -14,7 +14,7 @@
       "should_trigger": true
     },
     {
-      "query": "Create lookup reference entries for the Terraform provider arguments, attributes, and import formats.",
+      "query": "Create lookup reference entries for the Terraform provider arguments, attributes, import formats, and any unspecified defaults.",
       "should_trigger": true
     },
     {

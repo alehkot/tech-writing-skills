@@ -2,6 +2,7 @@
 name: proposal-argument-crafter
 description: >-
   Proposal argument writing for persuasive technical proposals: internal engineering pitches, architecture investment requests, project proposals, vendor proposals, RFP responses, grant-style technical plans, budget requests, and implementation proposals. Use for parsing constraints, building a problem-solution argument, proving feasibility, and making the proposal compliant, credible, and decision-ready.
+  Use when assumptions, evidence gaps, reviewer objections, or required proposal constraints need explicit treatment.
 metadata:
   version: "1.0.0"
   risk_tier: low
@@ -28,11 +29,12 @@ Read [references/proposal-patterns.md](references/proposal-patterns.md) when dra
 9. Make cost and schedule reviewable. Use a table for budget and a milestone list or timeline for schedule; for complex delivery plans, use or describe a Gantt chart, network diagram, or dependency-aware timeline.
 10. Describe quality-control or evaluation methods when the proposal promises delivery, implementation, or measurable outcomes.
 11. Address risks honestly. Pair each material risk with mitigation, fallback, or decision point.
-12. End with the explicit ask: approval, budget, staffing, decision, pilot, or next meeting.
+12. Keep a proposal evidence ledger: sourced proof, assumptions, claims that need support, constraints, and open questions. Convert hype into evidence, measurable benefit, or a labeled assumption.
+13. End with the explicit ask: approval, budget, staffing, decision, pilot, or next meeting.
 
 ## Completion Criterion
 
-Complete the task only when the proposal can support the requested decision: required constraints are satisfied or called out, the problem-plan-evidence-decision chain is visible, budget, schedule, risks, and ask are reviewable, and unsupported claims are labeled or removed; every applicable self-check item passes.
+Complete the task only when the proposal can support the requested decision: required constraints are satisfied or called out, the problem-plan-evidence-decision chain is visible, budget, schedule, risks, and ask are reviewable, reviewer objections are addressed, and unsupported claims are labeled or removed; every applicable self-check item passes.
 
 ## Default Proposal Structure
 
@@ -73,6 +75,7 @@ Complete the task only when the proposal can support the requested decision: req
 - [ ] Key personnel or team qualifications are included when credibility depends on execution capacity.
 - [ ] Delivery proposals explain how quality, success, or acceptance will be evaluated.
 - [ ] Main assertions are easy to find while skimming.
+- [ ] Evidence gaps, assumptions, and open questions are visible instead of hidden behind optimistic language.
 - [ ] Risks are visible and credible.
 - [ ] The budget and timeline can be evaluated independently.
 - [ ] Lists and tables use parallel wording so reviewers can compare items quickly.
@@ -83,3 +86,4 @@ Complete the task only when the proposal can support the requested decision: req
 - In formal RFP-style contexts, compliance comes before cleverness. Preserve required section order and labels unless the user says otherwise.
 - Do not confuse enthusiasm with persuasion. Persuasion comes from fit, evidence, feasibility, and reviewer relevance.
 - Do not hide the ask. The reviewer should know exactly what decision is needed.
+- Do not turn aspirations into proof. If the source lacks evidence, name the missing proof or downgrade the claim.

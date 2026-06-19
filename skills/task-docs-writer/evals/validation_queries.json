@@ -14,7 +14,7 @@
       "should_trigger": true
     },
     {
-      "query": "We need docs for running the migration safely, including prechecks and postchecks.",
+      "query": "We need docs for running the migration safely, including prechecks, postchecks, and gaps where the notes do not provide exact commands.",
       "should_trigger": true
     },
     {

@@ -36,6 +36,18 @@
         "The output ends with a next action.",
         "The output avoids exaggerated marketing language."
       ]
+    },
+    {
+      "id": "content-uncertain-incident-cause",
+      "prompt": "Explain this incident note to customer success: checkout timeouts increased for 42 minutes. Logs show retries rose sharply. The team suspects queue saturation, but the root cause is not confirmed. Keep it plain and do not hide uncertainty.",
+      "expected_output": "A customer-success-friendly explanation that separates confirmed facts from suspected causes, states customer impact plainly, preserves uncertainty, and gives a next action.",
+      "assertions": [
+        "The output names the customer-facing impact and duration.",
+        "The output separates confirmed facts from suspected or unconfirmed causes.",
+        "The output avoids presenting queue saturation as a confirmed root cause.",
+        "The output uses plain language instead of unnecessary implementation jargon.",
+        "The output ends with a concrete next action, monitoring point, or message guidance."
+      ]
     }
   ]
 }

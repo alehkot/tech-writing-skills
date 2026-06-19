@@ -11,6 +11,7 @@ Load this reference for recommendation reports, feasibility studies, benchmark r
 - Conclusions explain what the evidence means; recommendations explain what to do next.
 - Honest limitations increase credibility.
 - Consistent terms, units, and parallel comparisons make the evidence easier to inspect.
+- Missing evidence is a finding about confidence, not a blank to fill.
 
 ## Report Type Picker
 
@@ -43,6 +44,16 @@ Evidence -> Finding -> Conclusion -> Recommendation -> Next action
 ```
 
 If any link is missing, revise before finalizing.
+
+Use this stricter version when evidence is incomplete:
+
+```markdown
+Evidence supplied:
+Evidence missing:
+Confidence effect:
+Allowed conclusion:
+Action needed to close the gap:
+```
 
 ## Comparison Discipline
 
@@ -92,6 +103,7 @@ Use modular sections when the report has mixed readers:
 - Mandatory and desirable criteria are separated when that distinction affects the decision.
 - Comparison tables and lists use parallel structure.
 - Evidence sources are named.
+- Missing data is named and reflected in confidence, limitations, or next actions.
 - Analysis explains significance rather than repeating data.
 - Conclusions do not introduce new evidence.
 - Recommendations are actionable and tied to conclusions.

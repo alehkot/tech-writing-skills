@@ -10,7 +10,7 @@
       "should_trigger": true
     },
     {
-      "query": "Make this incident explanation accessible to customer success without hiding the tradeoffs.",
+      "query": "Make this incident explanation accessible to customer success without hiding tradeoffs or unconfirmed causes.",
       "should_trigger": true
     },
     {

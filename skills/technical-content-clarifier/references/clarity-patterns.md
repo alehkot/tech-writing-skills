@@ -11,6 +11,7 @@ Load this reference for conceptual documentation, architecture explainers, engin
 - Good examples are focused, easy to adapt, and close to the reader's situation.
 - Terms, acronyms, and categories need definitions when readers may interpret them differently.
 - Global and cross-team readers benefit from direct language without idioms, slang, sports metaphors, or culture-specific references.
+- Honest simplification preserves uncertainty: confirmed facts, suspected causes, caveats, and assumptions must stay distinguishable.
 
 ## Audience Snapshot
 
@@ -24,6 +25,9 @@ Proximity to this system:
 Likely confusion:
 Required depth:
 Tone:
+Confirmed facts:
+Assumptions or suspected causes:
+Open questions:
 ```
 
 ## Explanation Moves
@@ -61,6 +65,7 @@ Tone:
 - Executive summaries use plain impact language for causes, risks, and next actions.
 - One term is used consistently for each concept, and lists use parallel structure.
 - Abstract claims have examples or consequences.
+- Confirmed facts, suspected causes, assumptions, and open questions are labeled when the source material is incomplete or uncertain.
 - Examples and nonexamples are clearly separated from general explanation.
 - Long procedures and reference tables are moved to task or reference topics.
 - Idioms, slang, and culture-specific metaphors are removed.
