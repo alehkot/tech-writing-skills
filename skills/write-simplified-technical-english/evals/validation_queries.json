@@ -1,0 +1,37 @@
+{
+  "skill_name": "write-simplified-technical-english",
+  "queries": [
+    {
+      "query": "Apply ASD-STE100 to this pump-removal procedure and report whether the vocabulary was actually source-checked.",
+      "should_trigger": true
+    },
+    {
+      "query": "Rewrite this CAUTION in Simplified Technical English without changing its hazard level or temperature limit.",
+      "should_trigger": true
+    },
+    {
+      "query": "Check this operator manual against the ASD-STE100 controlled-English standard and list unresolved technical nouns.",
+      "should_trigger": true
+    },
+    {
+      "query": "Could you do an STE-style edit of these software setup instructions for our multilingual support team?",
+      "should_trigger": true
+    },
+    {
+      "query": "Shorten this architecture overview and define the acronyms for new backend engineers.",
+      "should_trigger": false
+    },
+    {
+      "query": "Rewrite these instructions in a different controlled language called Caterpillar Fundamental English; do not apply STE.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write a formal report comparing three incident-response tools and recommend one.",
+      "should_trigger": false
+    },
+    {
+      "query": "Refactor this parser so the code is easier to understand and test.",
+      "should_trigger": false
+    }
+  ]
+}

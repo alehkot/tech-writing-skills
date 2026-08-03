@@ -1,0 +1,53 @@
+{
+  "skill_name": "write-simplified-technical-english",
+  "queries": [
+    {
+      "query": "Rewrite this aircraft maintenance procedure in ASD-STE100 and flag any words you cannot verify against the dictionary.",
+      "should_trigger": true
+    },
+    {
+      "query": "Can you audit these service instructions for Simplified Technical English compliance without pretending the tool can certify them?",
+      "should_trigger": true
+    },
+    {
+      "query": "Turn this warning into STE Issue 9 style for technicians who use English as a second language.",
+      "should_trigger": true
+    },
+    {
+      "query": "Use ASD-STE100 controlled technical English: one command per sentence, strict terminology, and a vocabulary uncertainty list.",
+      "should_trigger": true
+    },
+    {
+      "query": "Please make this machine description conform as closely as possible to ASD-STE100, but preserve the unconfirmed failure cause.",
+      "should_trigger": true
+    },
+    {
+      "query": "hey, STE-pass this field repair card and keep all part numbers exactly as written",
+      "should_trigger": true
+    },
+    {
+      "query": "Explain our event pipeline in plain English for a sales manager who does not know Kafka.",
+      "should_trigger": false
+    },
+    {
+      "query": "Turn these deployment notes into a runbook with prerequisites, numbered steps, rollback, and verification.",
+      "should_trigger": false
+    },
+    {
+      "query": "Translate this maintenance warning from English to Polish.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create a reference table for these API fields, types, defaults, and error codes.",
+      "should_trigger": false
+    },
+    {
+      "query": "Explain ASD-STE100 to product managers, but do not draft, rewrite, or audit any technical text.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this product launch post more playful and persuasive.",
+      "should_trigger": false
+    }
+  ]
+}

@@ -24,7 +24,8 @@ Install only selected skills:
 npx skills add alehkot/tech-writing-skills -g -a codex \
   --skill task-docs-writer \
   --skill reference-docs-writer \
-  --skill technical-report-writer
+  --skill technical-report-writer \
+  --skill write-simplified-technical-english
 ```
 
 ## Development Setup
@@ -49,6 +50,7 @@ The root `scripts/` directory is for repository maintenance only. It is not a bu
 | `skills/reference-docs-writer` | Reference topics: API endpoints, CLI commands, config options, schemas, data dictionaries, error codes, status codes, syntax, system limits |
 | `skills/proposal-argument-crafter` | Internal pitches, RFP responses, vendor proposals, engineering investment requests, project plans |
 | `skills/technical-report-writer` | Recommendation reports, feasibility studies, benchmark reports, incident reports, progress reports, tradeoff analyses |
+| `skills/write-simplified-technical-english` | ASD-STE100-style drafting, rewriting, and audits for controlled technical English, with explicit vocabulary and conformance limits |
 
 ## Topic-Type Coverage
 
@@ -59,6 +61,8 @@ The core documentation triad is covered by separate skills so agents do not mix 
 - **Reference topics** answer "What are the exact facts, syntax, values, fields, messages, or limits?" Use `reference-docs-writer`.
 
 `proposal-argument-crafter` and `technical-report-writer` are document-genre skills. They can link to or draw from task, concept, and reference topics, but they should not replace the topic-type skills.
+
+`write-simplified-technical-english` is a controlled-language layer, not a fourth topic type. Apply it after choosing the task, concept, or reference structure. Use it only when the user explicitly requests ASD-STE100 or STE writing, rewriting, or auditing; generic simplification and other controlled-language standards remain outside its scope.
 
 For broad requests such as "document this system," split the output into discrete topic types instead of one mixed article: a concept overview, task procedures, and reference facts.
 
@@ -74,14 +78,21 @@ This repository is an original Agent Skills bundle. The skills draw on general t
 - Michael Alley, *The Craft of Scientific Writing*, 4th ed., Springer, 2018. DOI: 10.1007/978-1-4419-8288-9.
 - Gretchen Hargis, Michelle Carey, Ann Kilty Hernandez, Polly Hughes, Deirdre Longo, Shannon Rouiller, and Elizabeth Wilde, *Developing Quality Technical Information: A Handbook for Writers and Editors*, 2nd ed., IBM Press, 2004. ISBN 978-0-13-147749-0.
 - Google for Developers, "Technical Writing Courses for Engineers" and related public developer documentation resources, https://developers.google.com/tech-writing.
+- Aerospace, Security and Defence Industries Association of Europe (ASD), *ASD-STE100 Simplified Technical English: Standard for Technical Documentation*, Issue 9, January 15, 2025, https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf.
+- ASD, "ASD-STE100 Simplified Technical English" and "What Is Simplified Technical English (STE)?", https://www.asd-europe.org/standards-specifications/simplified-technical-english/.
+- ASD Simplified Technical English Maintenance Group (STEMG), "Frequently Asked Questions", https://www.asd-ste100.org/STE_faq.html.
 
 The skills do not reproduce source text, examples, exercises, figures, tables, templates, or other expressive presentation from those works. They paraphrase and operationalize noncopyrightable ideas such as audience analysis, topic-type separation, task-focused procedures, evidence-based reports, objective claims, and concise reference structures. This project is not affiliated with, sponsored by, or endorsed by the listed authors, publishers, or Google.
+
+The Simplified Technical English skill does not bundle or reproduce the ASD-STE100 writing rules, controlled dictionary, or official examples. It provides an original operating profile and directs users to ASD's official material for authoritative rule and vocabulary decisions. It cannot certify conformance. ASD-STE100 Simplified Technical English is a registered trademark owned by ASD; this project is not affiliated with or endorsed by ASD or STEMG.
 
 ## License
 
 This project's original files are licensed under the MIT License. Reuse is allowed with preservation of the copyright and permission notice.
 
 The cited books, publishers, and Google resources retain their own copyrights and license terms. Google Developers documentation is generally licensed under Creative Commons Attribution 4.0, with code samples under Apache 2.0 unless otherwise noted; see Google's site policies at https://developers.google.com/terms/site-policies.
+
+ASD retains the copyright and trademark rights stated in the official ASD-STE100 document. Free official access does not place the standard or its dictionary under this repository's MIT License.
 
 ## Security Note
 
@@ -96,6 +107,7 @@ These skills often operate on external documents such as RFPs, reports, logs, or
 - Put templates, checklists, and deeper guidance in one-level `references/` files.
 - Prefer concrete quality checks over vague style advice.
 - Preserve honesty: do not fabricate evidence, claims, benchmarks, qualifications, schedules, or source support.
+- Distinguish an STE-aligned draft from a source-checked or organization-approved result; never present an automated review as certification.
 
 This bundle also borrows skill-design discipline from public engineering skill packs without copying their wording or templates: Matt Pocock's `mattpocock/skills` emphasizes small composable skills, precise trigger descriptions, progressive disclosure, and checkable completion criteria; Addy Osmani's `addyosmani/agent-skills` emphasizes process-oriented skills, anti-shortcut checks, and verification evidence. In this repo, those ideas show up as source-led writing checks and evals that punish invented facts, mixed topic types, unsupported certainty, and missing verification.
 

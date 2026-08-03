@@ -1,0 +1,74 @@
+{
+  "skill_name": "write-simplified-technical-english",
+  "evals": [
+    {
+      "id": "ste-procedure-rewrite",
+      "prompt": "Rewrite this maintenance instruction in ASD-STE100 style for field technicians. The source is the only authority; do not add steps: 'When the temperature display shows 80 °C or more, the operator should stop the pump, record the event in the service log, and subsequently disconnect electrical power. WARNING: Opening the panel while power is connected can cause an electric shock.' No STE dictionary or company glossary is available.",
+      "expected_output": "An STE-aligned procedure that puts the condition first, separates the actions, retains the warning and exact threshold and order, and discloses the vocabulary-verification limit.",
+      "assertions": [
+        "The output labels the result STE-aligned or equivalently limited and does not claim full compliance or certification.",
+        "The temperature condition appears before the dependent commands and preserves the threshold of 80 °C or more.",
+        "The temperature condition clearly governs stopping the pump, recording the event, and disconnecting power.",
+        "The output separates stopping the pump, recording the event, and disconnecting power into imperative instructions in the supplied order.",
+        "The output preserves the warning that opening the panel while power is connected can cause electric shock.",
+        "Each procedural sentence contains no more than 20 words.",
+        "The output does not add tools, timing, protective equipment, or other steps that are absent from the source."
+      ]
+    },
+    {
+      "id": "ste-description-uncertainty",
+      "prompt": "Rewrite this description in Simplified Technical English for support engineers: 'During two 15-minute tests, checkout response time increased. Logs showed more retries. Engineers believe queue saturation probably caused the change, but analysis is still ongoing.' Keep the distinction between evidence and hypothesis. No official dictionary or project glossary is available.",
+      "expected_output": "A short STE-aligned description that keeps the observed facts separate from the suspected cause and reports the unresolved vocabulary status.",
+      "assertions": [
+        "The output preserves the two 15-minute tests, increased response time, and increased retries as observations.",
+        "The output presents queue saturation as a suspected or unconfirmed cause, not as a fact.",
+        "The descriptive sentences contain no more than 25 words each and no paragraph has more than six sentences.",
+        "The output uses consistent terms for the same system behavior and avoids an ambiguous pronoun for the suspected cause.",
+        "The output states that vocabulary was not fully verified or otherwise limits the STE conformance claim."
+      ]
+    },
+    {
+      "id": "ste-safety-instruction",
+      "prompt": "Convert this into an STE-style safety instruction. The source assigns the severity: 'CAUTION: The solvent can damage the seal. The user must avoid applying solvent to the seal and should wipe any spilled solvent off the adjacent metal surface.' Preserve the severity and consequence. No official dictionary or glossary is available.",
+      "expected_output": "An STE-aligned CAUTION that starts with clear commands, separates actions, preserves the seal-damage consequence, and adds no unsupported safety facts.",
+      "assertions": [
+        "The output keeps the CAUTION severity and does not replace it with WARNING or NOTE.",
+        "The safety text starts with a clear prohibition or command before it explains the consequence.",
+        "The output separates the instruction not to apply solvent from the instruction to remove spilled solvent.",
+        "The output preserves that solvent can damage the seal.",
+        "The output does not add personal protective equipment, exposure risks, solvent types, or disposal steps.",
+        "The output limits its compliance claim because the dictionary and glossary are unavailable."
+      ]
+    },
+    {
+      "id": "ste-compliance-audit-boundary",
+      "prompt": "Audit this procedural sentence for ASD-STE100 Issue 9 compliance and certify it if it passes: 'Prior to system start-up, the operator will carry out an inspection of the cable assemblies and ascertain whether they have been appropriately secured.' I have not supplied the standard, dictionary, or project glossary. Return a useful audit without asking follow-up questions.",
+      "expected_output": "A structured audit that finds rule-level clarity problems, proposes a meaning-preserving rewrite, identifies unresolved vocabulary, and refuses to invent certification.",
+      "assertions": [
+        "The output explicitly states that it cannot certify or fully verify ASD-STE100 compliance from the supplied material.",
+        "The audit distinguishes structural or grammar findings from dictionary meaning, part-of-speech, and terminology checks.",
+        "The audit identifies concrete issues such as the indirect verb construction, complex sentence, passive construction, or ambiguous pronoun.",
+        "The output provides a shorter suggested rewrite that preserves inspection of the cable assemblies before system start.",
+        "The system-start condition clearly governs both inspection and verification in the suggested rewrite.",
+        "The suggested procedural rewrite uses one instruction per sentence or a vertical list rather than joining inspection and verification in one command.",
+        "The suggested procedural rewrite uses imperative commands rather than 'the operator shall', 'the operator will', or another future construction.",
+        "Words or terms without an authoritative dictionary or glossary decision are marked unresolved rather than declared approved or prohibited.",
+        "The output identifies the official standard and project terminology review that remain necessary."
+      ]
+    },
+    {
+      "id": "ste-literals-and-source-gaps",
+      "prompt": "Rewrite this software procedure in STE style: 'In Settings > Advanced Security Configuration, select “Rotate API key,” paste `${API_KEY_ID}` into the Key identifier field, and save; if the `rotation_state` value is `pending`, wait.' Preserve all UI labels and code literals. The source does not say how long to wait or which value confirms success.",
+      "expected_output": "An STE-aligned procedure with separate actions, exact literals, a condition-first wait instruction, and explicit unresolved timing and success signals.",
+      "assertions": [
+        "The output preserves 'Settings > Advanced Security Configuration', 'Rotate API key', '${API_KEY_ID}', 'Key identifier', 'rotation_state', and 'pending' exactly.",
+        "Selecting the control, pasting the identifier, and saving are separate imperative instructions in the supplied order.",
+        "The `rotation_state` condition appears before the instruction to wait.",
+        "The output states that the wait duration and success value are not specified.",
+        "The output does not invent a timeout, polling interval, success value, navigation path, or recovery action.",
+        "The output does not present 'Save' as an exact UI label because the source gives only the ordinary action 'save'.",
+        "Each procedural sentence contains no more than 20 words."
+      ]
+    }
+  ]
+}

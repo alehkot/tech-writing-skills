@@ -13,6 +13,7 @@ This human-facing map summarizes reusable technical-writing principles reflected
 | Front-load the main point | Lead sections, summaries, and paragraphs with the decision-relevant message. | `technical-content-clarifier`, `proposal-argument-crafter`, `technical-report-writer` |
 | Be concise | Remove filler, duplicated background, and praise that does not help the reader act or decide. | All skills |
 | Use consistent terminology | Pick one term for each concept, command, field, or role and use it throughout. | All skills |
+| Control vocabulary when requested | For STE work, verify general words against the applicable official dictionary and domain terms against an approved project source; mark unverified terms instead of guessing. | `write-simplified-technical-english` |
 | Define terms on first use | Expand acronyms and explain unfamiliar terms before relying on them. | All skills |
 | Use concrete examples | Pair abstract claims with scenarios, snippets, examples, nonexamples, or observable consequences. | All skills |
 | Write informative headings | Use headings that reveal the section's point or lookup item, not vague labels. | All skills |
@@ -26,3 +27,4 @@ This human-facing map summarizes reusable technical-writing principles reflected
 | Isolate procedures from concepts | Keep background out of numbered steps and move long procedures out of concept/reference topics. | Documentation triad skills |
 | Provide clean code samples | Use copyable snippets, defined placeholders, expected results, and annotations outside the code block. | `task-docs-writer`, `reference-docs-writer` |
 | Use honest, objective language | Label assumptions, evidence, uncertainty, limits, and risks instead of overstating claims. | All skills |
+| Separate alignment from conformance | Distinguish a style-aligned draft, a check against named sources, and organizational approval; do not call automated output certified. | `write-simplified-technical-english` |
