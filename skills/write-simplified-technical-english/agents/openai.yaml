@@ -1,0 +1,4 @@
+interface:
+  display_name: "Simplified Technical English"
+  short_description: "Write and audit clear ASD-STE100 text"
+  default_prompt: "Use $write-simplified-technical-english to rewrite this technical text in ASD-STE100 Simplified Technical English."
