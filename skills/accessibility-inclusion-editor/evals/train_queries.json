@@ -1,0 +1,53 @@
+{
+  "skill_name": "accessibility-inclusion-editor",
+  "queries": [
+    {
+      "query": "Do an accessibility review of this install guide. I think the alt text and the color-coded status table are the worst parts.",
+      "should_trigger": true
+    },
+    {
+      "query": "inclusive language pass on this draft plz, we still say whitelist and master all over it",
+      "should_trigger": true
+    },
+    {
+      "query": "Write alt text for the four architecture diagrams in this design doc, using the descriptions already in the captions.",
+      "should_trigger": true
+    },
+    {
+      "query": "Our style guide bans 'sanity check'. Go through this runbook and replace the ableist and gendered wording.",
+      "should_trigger": true
+    },
+    {
+      "query": "Style question: our CLI has a literal --whitelist flag. How should the docs refer to it in prose without using the term?",
+      "should_trigger": true
+    },
+    {
+      "query": "Audit this troubleshooting page for screen-reader problems: it has 'see the image above', a screenshot of the error log, and a red/green table.",
+      "should_trigger": true
+    },
+    {
+      "query": "Make this incident explanation accessible to our customer success team, who have never heard of consumer lag.",
+      "should_trigger": false
+    },
+    {
+      "query": "Copyedit this page for word choice and heading style: kill the 'via', the 'allows you to', and the drop-down wording.",
+      "should_trigger": false
+    },
+    {
+      "query": "Run an axe scan on our settings page components and fix the WCAG violations in the React code.",
+      "should_trigger": false
+    },
+    {
+      "query": "Turn these deployment notes into a runbook with prerequisites, rollback, and verification.",
+      "should_trigger": false
+    },
+    {
+      "query": "Pick an accessible color palette for the charts on our status dashboard.",
+      "should_trigger": false
+    },
+    {
+      "query": "Summarize this postmortem in five bullets for the executive review.",
+      "should_trigger": false
+    }
+  ]
+}

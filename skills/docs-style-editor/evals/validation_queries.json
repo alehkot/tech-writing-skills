@@ -1,0 +1,37 @@
+{
+  "skill_name": "docs-style-editor",
+  "queries": [
+    {
+      "query": "Apply our style guide to this doc: hyphenation, code font, number formatting, and example values.",
+      "should_trigger": true
+    },
+    {
+      "query": "Swap the made-up domains, IP addresses, and phone numbers in these samples for documentation-safe values.",
+      "should_trigger": true
+    },
+    {
+      "query": "style-check this changelog entry pls, the capitalization is all over the place",
+      "should_trigger": true
+    },
+    {
+      "query": "In our docs, when I mean cause, is 'since' fine or do we always write 'because'?",
+      "should_trigger": true
+    },
+    {
+      "query": "Draft a recommendation report comparing two queueing systems for the platform team.",
+      "should_trigger": false
+    },
+    {
+      "query": "Replace the blacklist and whitelist wording in this guide, but keep the --whitelist flag as written.",
+      "should_trigger": false
+    },
+    {
+      "query": "Turn these notes into a runbook for rotating the staging API key.",
+      "should_trigger": false
+    },
+    {
+      "query": "Tighten this architecture explainer so new hires stop drowning in jargon.",
+      "should_trigger": false
+    }
+  ]
+}

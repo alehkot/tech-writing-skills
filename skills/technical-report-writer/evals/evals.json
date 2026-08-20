@@ -10,7 +10,8 @@
         "The criteria are listed before the option analysis.",
         "Each option is evaluated against the criteria.",
         "The conclusions are separate from recommendations.",
-        "The recommendation is traceable to the criteria and findings."
+        "The recommendation is traceable to the criteria and findings.",
+        "The output does not describe any option with superlatives or unconditional guarantees such as 'best', 'fastest', 'always', or 'guarantees'."
       ]
     },
     {
@@ -22,7 +23,8 @@
         "The output separates observed facts from likely causes.",
         "The output includes remediation or prevention actions.",
         "The output calls out missing data or limitations.",
-        "The output avoids unsupported blame."
+        "The output avoids unsupported blame.",
+        "Passive voice appears only where the actor is unknown, irrelevant, or deliberately de-emphasized to avoid blame; sentences where the actor matters use active voice."
       ]
     },
     {
@@ -46,7 +48,9 @@
         "Known benchmark facts are separated from missing cost and reliability evidence.",
         "The output does not declare a definitive best option without addressing evidence gaps.",
         "Conclusions and recommendations trace back to the available evidence and limitations.",
-        "The output includes next actions to close the evidence gaps or make a bounded decision."
+        "The output includes next actions to close the evidence gaps or make a bounded decision.",
+        "Caveats about benchmark results appear as inline notes, parentheticals, or notes placed directly after the table, not as page-bottom footnotes, and no caveat is dropped.",
+        "Numbers in comparison tables use consistent digit grouping and consistent units across options."
       ]
     }
   ]

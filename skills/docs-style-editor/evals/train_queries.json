@@ -1,0 +1,53 @@
+{
+  "skill_name": "docs-style-editor",
+  "queries": [
+    {
+      "query": "Copyedit this API overview draft for punctuation, capitalization, and word choice, and don't change any of the facts.",
+      "should_trigger": true
+    },
+    {
+      "query": "can you proofread this section before it ships? the commas and hyphens are inconsistent all the way through",
+      "should_trigger": true
+    },
+    {
+      "query": "Do we use the serial comma in our docs, and should headings be sentence case or title case?",
+      "should_trigger": true
+    },
+    {
+      "query": "Run a style pass over this release note draft and flag anything that will read as dated in six months.",
+      "should_trigger": true
+    },
+    {
+      "query": "Is it 'log in' or 'login' when I mean the action, and does 'sign into' ever work?",
+      "should_trigger": true
+    },
+    {
+      "query": "This page is full of 'click here' links and 03/04/2026 dates. Fix the link text and the date formats and list what you changed.",
+      "should_trigger": true
+    },
+    {
+      "query": "Clean up these setup steps for the new CLI so people stop missing the auth step.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this blog post clearer and more engaging for developers.",
+      "should_trigger": false
+    },
+    {
+      "query": "Make this incident explanation accessible to customer success.",
+      "should_trigger": false
+    },
+    {
+      "query": "Rewrite this maintenance procedure in Simplified Technical English.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write an endpoint reference for POST /invoices with parameters, defaults, and status codes.",
+      "should_trigger": false
+    },
+    {
+      "query": "Add alt text to the diagrams in this guide and check the status cues that rely on color alone.",
+      "should_trigger": false
+    }
+  ]
+}

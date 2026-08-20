@@ -1,0 +1,59 @@
+{
+  "skill_name": "accessibility-inclusion-editor",
+  "evals": [
+    {
+      "id": "inclusion-terminology-pass",
+      "prompt": "Inclusive-language pass on this paragraph from our replication guide, please: \"Before you promote the master node, run a quick sanity check on the config. Add the client IP to the whitelist. The on-call engineer should confirm the failover window with his manager; the last migration took about 40 man-hours.\" Nothing in there is a literal command, flag, or branch name, it is all prose.",
+      "expected_output": "A revised paragraph in which every flagged term is replaced by precise inclusive wording, including singular they for the unknown-gender engineer, with the technical meaning unchanged.",
+      "assertions": [
+        "The word 'whitelist' does not appear in the revised paragraph, and the list is named as an allowlist, trustlist, or safelist.",
+        "The list term is used as a noun, so the action reads as adding the client IP to the list rather than as a coined verb such as 'allowlist the IP'.",
+        "'master node' is replaced with a domain-accurate term such as primary, main, or controller node.",
+        "'sanity check' is replaced with a non-ableist check such as a confidence check, completeness check, or quick check.",
+        "'man-hours' is replaced with 'person-hours' or an equivalent neutral unit, and the quantity 40 is unchanged.",
+        "The gendered pronoun 'his' is replaced with singular they or their, or by a second-person rewrite, and no 'he/she', 's/he', or '(s)he' construction appears.",
+        "The revised paragraph keeps the same sequence of actions and adds no new step, tool, or technical claim."
+      ]
+    },
+    {
+      "id": "accessibility-audit-images-and-color",
+      "prompt": "Can you run an accessibility audit on this section of our monitoring docs? Output stays Markdown. Draft: \"![](queue-dashboard.png) See the image above for the current queue state. Rows in red need attention and green rows are fine. The screenshot below shows the output of `acme queue ls` after the fix.\" The only description we have for the dashboard image is the file ticket note: ingest queue paused with two idle workers.",
+      "expected_output": "An audited section that gives the informative image alt text from the supplied description, replaces directional document references, pairs the red and green status with text labels, and removes or flags the screenshot of terminal output.",
+      "assertions": [
+        "The dashboard image has non-empty alt text based on the supplied ticket note, and the alt text adds no detail the note does not contain.",
+        "The alt text does not begin with 'Image of' or 'Picture of', is not written in all caps, and ends with punctuation.",
+        "'the image above' is replaced with a non-directional reference such as 'the preceding figure' or a named figure, and neither 'above' nor 'below' is used to point within the document.",
+        "Each row state is named in text, for example Failed and Healthy, so the meaning does not depend on red and green alone.",
+        "The queue state the image carries is also stated in body text rather than only in the image.",
+        "The screenshot of `acme queue ls` output is replaced with real text or reported as a screenshot of terminal output that must be replaced.",
+        "The output makes no claim of WCAG conformance for the page or the product."
+      ]
+    },
+    {
+      "id": "code-literal-flag-exception",
+      "prompt": "quick one before release: our CLI really does have a `--whitelist` flag and a config field named `whitelist_domains`, and we cannot rename either this quarter. the doc paragraph is: \"Use --whitelist to whitelist a domain. Domains in the whitelist skip the scanner. You can also set whitelist_domains in acme.yaml.\" fix the wording but do not break the commands.",
+      "expected_output": "A revision that keeps both literals byte-for-byte in code font, uses allowlist wording in the surrounding prose, and reports the kept literals for maintainers.",
+      "assertions": [
+        "The literal `--whitelist` appears exactly as `--whitelist`, unchanged and in code font.",
+        "The literal `whitelist_domains` appears exactly as `whitelist_domains`, unchanged and in code font.",
+        "No renamed or invented identifier such as `--allowlist` or `allowlist_domains` appears anywhere in the output.",
+        "Outside code font, the prose uses allowlist, trustlist, or safelist, and the verb phrase 'to whitelist a domain' is rewritten as adding the domain to the allowlist.",
+        "The first mention ties the prose term to the literal once, and that pairing is not repeated in later sentences.",
+        "The output includes a 'Code literals kept as-is' list that names both `--whitelist` and `whitelist_domains` with a suggested prose alternative for maintainers."
+      ]
+    },
+    {
+      "id": "unknown-community-preference-flagged",
+      "prompt": "Please review the participants section of our accessibility research report before we circulate it. Draft: \"We interviewed 12 users who are Deaf or hard of hearing and 8 normal users as a control group. Several participants suffering from low vision were wheelchair-bound. One group we recruited through a regional advocacy organization asked us to use their own terminology for themselves, but the intake notes do not record which terms they asked for.\" Flag anything you are not certain about rather than guessing.",
+      "expected_output": "A revised participants section with community-preferred disability wording and an explicit verification flag for the terminology preference the source does not record.",
+      "assertions": [
+        "'normal users' is replaced with a non-judgmental contrast class such as nondisabled, hearing, or sighted participants, as the context requires.",
+        "'suffering from low vision' is replaced with a neutral framing such as participants with low vision.",
+        "'wheelchair-bound' is replaced with 'uses a wheelchair' or an equivalent phrasing.",
+        "The unrecorded terminology preference of the advocacy organization's group appears under a 'Flagged for human verification' list instead of being resolved in the revised text.",
+        "The output does not supply a preferred term, identity label, or community name for that group.",
+        "The participant counts 12 and 8 are unchanged, and no participant characteristic is added that the draft does not state."
+      ]
+    }
+  ]
+}

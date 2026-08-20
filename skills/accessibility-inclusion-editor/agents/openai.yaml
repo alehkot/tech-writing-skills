@@ -1,0 +1,4 @@
+interface:
+  display_name: "Accessibility and Inclusion Editor"
+  short_description: "Review docs for accessibility and inclusive language"
+  default_prompt: "Use $accessibility-inclusion-editor to review this documentation for accessibility and inclusive language."

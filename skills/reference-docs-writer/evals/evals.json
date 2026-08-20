@@ -11,19 +11,22 @@
         "Required, optional, default, type, and error information are included.",
         "The example matches the documented endpoint and fields.",
         "The endpoint heading uses the static endpoint name rather than a gerund task heading.",
-        "The output separates any task guidance from the reference entry."
+        "The output separates any task guidance from the reference entry.",
+        "The endpoint description opens with a third-person present verb such as Creates, not an imperative such as Create."
       ]
     },
     {
       "id": "reference-cli-command",
-      "prompt": "Document the CLI reference for acme deploy. Syntax: acme deploy --env <env> [--dry-run] [--timeout <seconds>]. --env is required and accepts dev, staging, prod. --dry-run defaults false. --timeout defaults 300.",
+      "prompt": "Document the CLI reference for acme deploy. Syntax: acme deploy --env <env> [--dry-run] [--timeout <seconds>]. --env is required and accepts dev, staging, prod. --dry-run defaults false. --timeout defaults 300. Requires acme CLI 2.2+.",
       "expected_output": "A CLI command reference with purpose, syntax, options table, valid values, defaults, example, and usage notes.",
       "assertions": [
         "The syntax distinguishes required and optional elements.",
         "The options table includes defaults and valid values.",
         "The example is copyable and uses documented options.",
         "The heading uses the command name rather than a task-style gerund.",
-        "The output includes restrictions or usage notes where relevant."
+        "The output includes restrictions or usage notes where relevant.",
+        "The copyable example contains no syntax characters such as square brackets, curly braces, or pipes.",
+        "The version requirement is written as 2.2 or later rather than 2.2+ or above."
       ]
     },
     {
@@ -40,14 +43,28 @@
     },
     {
       "id": "reference-partial-config-schema",
-      "prompt": "Create reference docs for these config fields. retry_mode: string, valid values off, linear, exponential, default linear. timeout_ms: integer, default 30000, max 120000. beta_feature: boolean, default and compatibility unknown. log_level: valid values not supplied.",
+      "prompt": "Create reference docs for these config fields. retry_mode: string, valid values off, linear, exponential, default linear. timeout_ms: integer, default 30000, max 120000. beta_feature: boolean, default and compatibility unknown. log_level: valid values not supplied. max_payload: maximum payload size 64 MiB.",
       "expected_output": "A lookup-oriented config reference that documents known types, defaults, valid values, and limits while marking unknown defaults, compatibility, and valid values.",
       "assertions": [
         "The output uses a repeated item pattern or table suitable for lookup.",
         "Known defaults, valid values, types, and limits are captured accurately.",
         "Unknown beta_feature default and compatibility are marked rather than invented.",
         "Unknown log_level valid values are marked rather than invented.",
-        "The output avoids turning the config reference into a setup procedure."
+        "The output avoids turning the config reference into a setup procedure.",
+        "The max_payload limit is documented as 64 MiB and is not converted to MB or another byte system."
+      ]
+    },
+    {
+      "id": "reference-api-doc-comments",
+      "prompt": "Write API reference doc comments for the SessionCache class. Methods: isExpired() returns boolean; getTimeout() returns int, the timeout in seconds; setTimeout(int seconds), where seconds defaults to 60; purge(boolean force), where force true removes active entries and false removes only expired entries. purge can throw an exception, but the source does not say when. Source note: a connection pool can hold several of these caches.",
+      "expected_output": "Doc-comment reference entries in present tense with standardized first verbs, both boolean behaviors stated, an explicit Default label for setTimeout, and the unknown exception condition marked rather than invented.",
+      "assertions": [
+        "The isExpired description opens with Checks whether, and the getTimeout description opens with Gets the.",
+        "The setTimeout entry states the default of 60 with an explicit Default label.",
+        "The purge entry states the behavior for both the true and false values of force.",
+        "The unknown exception condition is marked as Not specified or an open question rather than invented.",
+        "All descriptions use present tense, and none opens with an imperative.",
+        "Multiple instances are referred to as SessionCache objects rather than by pluralizing the class name as SessionCaches."
       ]
     }
   ]

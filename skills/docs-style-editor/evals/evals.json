@@ -1,0 +1,59 @@
+{
+  "skill_name": "docs-style-editor",
+  "evals": [
+    {
+      "id": "docs-style-copyedit-pass",
+      "prompt": "Copyedit this section of our log retention docs before it ships. Facts are already signed off, so change the writing only.\n\n## Configuring The Retention Policy\n\nThe retention service applies separate limits to logs, traces and metrics. It currently supports two storage classes. Before you change the policy you should have the `retention.admin` role. To see every field, click here. The stricter limits take effect on 5/6/2026. Set the `mode` field to “strict” so the service rejects writes once the quota is reached.",
+      "expected_output": "A copyedited section plus a report that separates applied mechanical fixes from the ambiguous date flagged as a question, with every fact and literal intact.",
+      "assertions": [
+        "The series about logs, traces, and metrics carries a serial comma before 'and'.",
+        "The heading is in sentence case, with 'The' lowercased, and it does not end with a period.",
+        "The time-anchored word 'currently' is gone, and no version number or release date was invented to replace it.",
+        "The link text 'click here' is gone and the replacement text names the destination.",
+        "The ambiguous numeric date 5/6/2026 is flagged as a question for the author rather than silently resolved into one month-day reading.",
+        "The curly quotation marks around the literal value are gone, replaced by straight quotes or code font.",
+        "The 'should' before the required role is replaced with 'must' or a bare imperative.",
+        "The literals `retention.admin`, `mode`, and `strict` appear with their exact original spelling.",
+        "The output separates applied changes from flagged items instead of listing everything as changed."
+      ]
+    },
+    {
+      "id": "docs-style-usage-question",
+      "prompt": "Quick one for you: our console docs have both \"log in to the console\" and \"login to the console\", and one page says \"sign into your account\". Which forms are right? The button in the product is labeled Login.",
+      "expected_output": "A direct usage ruling that fixes the part-of-speech split and the preposition, states the house preference, and preserves the literal UI label.",
+      "assertions": [
+        "The answer states that 'login' is the noun or adjective and 'log in' is the verb.",
+        "The answer rejects 'sign into' and 'log into' and gives 'sign in to' or 'log in to' as the correct verb-plus-preposition form.",
+        "The answer names 'sign in' as the preferred verb over 'log in' for the doc set.",
+        "The answer keeps the UI label Login exactly as the product spells it rather than correcting it.",
+        "The answer stays a style ruling and does not rewrite or restructure the pages."
+      ]
+    },
+    {
+      "id": "docs-style-example-values",
+      "prompt": "Style-check the sample block in this networking how-to. Everything in it is invented for the walkthrough except the upstream resolver: 9.9.9.9 is the real address the vendor spec tells customers to configure, and it has to stay.\n\nExample configuration:\n\n- Tenant contact: Maria Gonzalez, maria.gonzalez@northwind-logistics.com, (415) 226-9981\n- Egress address: 54.239.28.85\n- Upstream resolver: 9.9.9.9\n- Project: foo-test-2",
+      "expected_output": "A revised sample using documentation-reserved values for the illustrative data, with the real resolver address preserved and flagged rather than substituted.",
+      "assertions": [
+        "The invented person name, email address, and phone number are replaced with reserved values: a given name with a surname initial, an example.com-family domain, and a number in the 800-555-0100 to 800-555-0199 range.",
+        "The egress address 54.239.28.85 is replaced with an address from 192.0.2.0/24, 198.51.100.0/24, or 203.0.113.0/24.",
+        "The resolver address 9.9.9.9 appears unchanged in the revised sample.",
+        "The resolver address is listed as flagged or as a question for the author, not as an applied change.",
+        "The project name foo-test-2 is replaced with a descriptive name rather than another meaningless token.",
+        "Each substitution is reported with both the original value and the reserved value that replaced it."
+      ]
+    },
+    {
+      "id": "docs-style-ste-draft-deference",
+      "prompt": "This procedure is Simplified Technical English output for our maintenance manual and has to stay ASD-STE100 compliant. Give it a style pass anyway if there is anything safe to fix.\n\n## Removing The Pump Housing\n\nWarning: Do not open the housing before you disconnect the power.\n\n1. Set the main switch to OFF.\n2. Remove the four screws.\n3. If the seal is damaged, install a new seal.\n\nThe pump does not start if the pressure is more than 4 bar.",
+      "expected_output": "A pass that applies only the mechanics STE does not govern, states that the STE rules take precedence, and leaves the controlled-language wording untouched.",
+      "assertions": [
+        "No contraction is introduced anywhere; 'does not' and 'Do not' stay spelled out.",
+        "No semicolon is added to the draft.",
+        "No conversational or recommendation phrasing such as 'We recommend' is introduced, and the steps stay imperative.",
+        "The output states that the write-simplified-technical-english rules take precedence over this skill's contraction, modal, and register defaults.",
+        "The heading is corrected to sentence case, because heading case is not governed by STE.",
+        "The warning label, its severity, the screw count, and the value 4 bar are unchanged."
+      ]
+    }
+  ]
+}

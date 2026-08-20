@@ -1,0 +1,4 @@
+interface:
+  display_name: "Task Docs Writer"
+  short_description: "Write task docs, runbooks, and procedures"
+  default_prompt: "Use $task-docs-writer to turn these notes into a task procedure with prerequisites, ordered steps, and verification."

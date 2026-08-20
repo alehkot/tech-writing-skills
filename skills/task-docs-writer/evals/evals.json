@@ -10,6 +10,8 @@
         "The output has a prerequisites section before the steps.",
         "The procedure uses numbered steps with imperative actions.",
         "The command examples are fenced code blocks.",
+        "Each command is introduced by what it accomplishes, not with a phrase like 'run the following command'.",
+        "Command input and expected output do not share a single code block.",
         "The output includes at least one verification step."
       ]
     },
@@ -22,6 +24,7 @@
         "The output separates the rotation procedure from explanatory background.",
         "The output includes verification after the secret update and deployment restart.",
         "The output includes rollback or recovery guidance.",
+        "No prerequisite, required action, or expected result is placed inside a note callout.",
         "The output does not invent exact console paths or secret names unless labeled as assumptions."
       ]
     },
@@ -33,6 +36,7 @@
         "The output presents the calls in chronological order.",
         "The polling step is explicit and not buried in prose.",
         "The output defines placeholders such as workspace id or job id.",
+        "Placeholders follow one consistent convention and use informative names, never x or foo-style names.",
         "The output includes expected success signals.",
         "The output avoids turning the guide into a general feature overview."
       ]
@@ -45,8 +49,22 @@
         "The output states the intended reader and task outcome.",
         "The output labels missing bucket name, region, lifecycle policy, command, permission, and success output as assumptions, placeholders, open questions, or verification gaps.",
         "The procedure uses placeholders instead of fake concrete values.",
+        "Any illustrative example values use documentation-reserved data such as example.com domains or RFC 5737 IP ranges rather than real-looking values.",
         "The output includes a verification section or explicitly states what verification signal is missing.",
         "The output does not invent console paths, command flags, IAM policies, or success messages."
+      ]
+    },
+    {
+      "id": "task-docs-ui-procedure-rewrite",
+      "prompt": "Clean up this draft step for our admin console guide: 'To enable backups, please just click on the Settings icon, check the Auto-backup checkbox, and hit SAVE. A confirmation popup displays.' The console also lets you get there via Menu > Preferences > Backups if that helps.",
+      "expected_output": "A rewritten procedure that bolds visible UI labels, uses standard interaction verbs, names the dialog in the step that produced it, documents one path, and flags the icon's missing accessible name instead of inventing one.",
+      "assertions": [
+        "Named UI elements are bold and match their visible labels.",
+        "The output uses standard interaction verbs: click without 'on', select instead of check, and no use of 'hit'.",
+        "The instructions contain no 'please', 'just', 'simply', or 'easily'.",
+        "The confirmation element is called a dialog rather than a popup, and its appearance is stated after the action that produced it, not as a separate step.",
+        "The icon-only control is referred to by a tooltip or accessible name from the source, or the missing name is flagged as an open question rather than invented.",
+        "The output documents exactly one path to the task, with any alternative moved under a separate heading or dropped, never inline."
       ]
     }
   ]

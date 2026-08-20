@@ -1,0 +1,37 @@
+{
+  "skill_name": "accessibility-inclusion-editor",
+  "queries": [
+    {
+      "query": "Review this concept doc for bias. It uses he/she throughout and every example user is either Bob or Alice.",
+      "should_trigger": true
+    },
+    {
+      "query": "Replace the non-inclusive terminology in this migration guide, but do not rename anything inside the code samples.",
+      "should_trigger": true
+    },
+    {
+      "query": "Check whether the disability wording in this onboarding doc is respectful, and flag anything you are unsure about instead of guessing.",
+      "should_trigger": true
+    },
+    {
+      "query": "we need an a11y pass on the release notes before publishing - none of the screenshots have alt text",
+      "should_trigger": true
+    },
+    {
+      "query": "Rewrite this maintenance procedure in Simplified Technical English for technicians who read English as a second language.",
+      "should_trigger": false
+    },
+    {
+      "query": "Add ARIA attributes and keyboard focus handling to this login form component.",
+      "should_trigger": false
+    },
+    {
+      "query": "Write an API endpoint reference for POST /workspaces with fields, defaults, and status codes.",
+      "should_trigger": false
+    },
+    {
+      "query": "Translate our onboarding guide into Spanish and keep the product names as they are.",
+      "should_trigger": false
+    }
+  ]
+}

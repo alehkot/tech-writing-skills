@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docs Style Editor"
+  short_description: "Copyedit docs for style, usage, and formatting"
+  default_prompt: "Use $docs-style-editor to copyedit this documentation draft for punctuation, grammar, word choice, formatting, and number style."

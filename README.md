@@ -51,6 +51,8 @@ The root `scripts/` directory is for repository maintenance only. It is not a bu
 | `skills/proposal-argument-crafter` | Internal pitches, RFP responses, vendor proposals, engineering investment requests, project plans |
 | `skills/technical-report-writer` | Recommendation reports, feasibility studies, benchmark reports, incident reports, progress reports, tradeoff analyses |
 | `skills/write-simplified-technical-english` | ASD-STE100-style drafting, rewriting, and audits for controlled technical English, with explicit vocabulary and conformance limits |
+| `skills/docs-style-editor` | Copyediting and style passes over an existing draft: punctuation, grammar and usage, word choice and term rulings, numbers, dates, units, link text, formatting mechanics, timeless wording, safe example values |
+| `skills/accessibility-inclusion-editor` | Accessibility and inclusive-language reviews of an existing draft: alt text, media alternatives, independence from color, size, and position cues, screen-reader-safe wording, neutral terminology |
 
 ## Topic-Type Coverage
 
@@ -64,11 +66,15 @@ The core documentation triad is covered by separate skills so agents do not mix 
 
 `write-simplified-technical-english` is a controlled-language layer, not a fourth topic type. Apply it after choosing the task, concept, or reference structure. Use it only when the user explicitly requests ASD-STE100 or STE writing, rewriting, or auditing; generic simplification and other controlled-language standards remain outside its scope.
 
+`docs-style-editor` is an editorial layer, not a fourth topic type. Apply it after a topic-type or genre skill has produced the draft, so it corrects mechanics such as punctuation, usage, word choice, numbers, link text, and formatting without changing meaning, facts, or structure. When `write-simplified-technical-english` is active, the STE rules take precedence wherever the two overlap.
+
+`accessibility-inclusion-editor` is a review layer, not a fourth topic type. Apply it after the draft exists to check alt text, text alternatives for media, independence from color, size, and position cues, screen-reader-safe wording, and inclusive terminology. It never renames literal commands, flags, or identifiers, and it defers to `write-simplified-technical-english` whenever STE is active.
+
 For broad requests such as "document this system," split the output into discrete topic types instead of one mixed article: a concept overview, task procedures, and reference facts.
 
 ## Writing Principle Coverage
 
-The shared human-facing writing principles are mapped at [docs/writing-principles.md](docs/writing-principles.md). The main cross-skill checks are: know the reader, choose the right topic type, put the main point first, define terms, keep terminology consistent, make lists parallel, provide concrete examples, stay concise, use active voice, avoid culture-bound wording, and preserve objective evidence and uncertainty.
+The shared human-facing writing principles are mapped at [docs/writing-principles.md](docs/writing-principles.md). The main cross-skill checks are: know the reader, choose the right topic type, put the main point first, define terms, keep terminology consistent, make lists parallel, provide concrete examples, stay concise, use active voice, avoid culture-bound wording, keep style mechanics consistent, write timeless wording that does not age, write descriptive link text, use inclusive language, keep information reachable without color, size, or position cues, and preserve objective evidence and uncertainty.
 
 ## Source Basis and Attribution
 
@@ -78,11 +84,12 @@ This repository is an original Agent Skills bundle. The skills draw on general t
 - Michael Alley, *The Craft of Scientific Writing*, 4th ed., Springer, 2018. DOI: 10.1007/978-1-4419-8288-9.
 - Gretchen Hargis, Michelle Carey, Ann Kilty Hernandez, Polly Hughes, Deirdre Longo, Shannon Rouiller, and Elizabeth Wilde, *Developing Quality Technical Information: A Handbook for Writers and Editors*, 2nd ed., IBM Press, 2004. ISBN 978-0-13-147749-0.
 - Google for Developers, "Technical Writing Courses for Engineers" and related public developer documentation resources, https://developers.google.com/tech-writing.
+- Google, *Google developer documentation style guide*, https://developers.google.com/style, used under Creative Commons Attribution 4.0 (CC BY 4.0) and modified. Guidance is adapted and paraphrased: the rulings and term tables are original restatements of the underlying editorial ideas, and the examples are written for this repository. Where a rule prescribes a fixed phrase, format, or term form, the rule states that phrase, format, or form.
 - Aerospace, Security and Defence Industries Association of Europe (ASD), *ASD-STE100 Simplified Technical English: Standard for Technical Documentation*, Issue 9, January 15, 2025, https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf.
 - ASD, "ASD-STE100 Simplified Technical English" and "What Is Simplified Technical English (STE)?", https://www.asd-europe.org/standards-specifications/simplified-technical-english/.
 - ASD Simplified Technical English Maintenance Group (STEMG), "Frequently Asked Questions", https://www.asd-ste100.org/STE_faq.html.
 
-The skills do not reproduce source text, examples, exercises, figures, tables, templates, or other expressive presentation from those works. They paraphrase and operationalize noncopyrightable ideas such as audience analysis, topic-type separation, task-focused procedures, evidence-based reports, objective claims, and concise reference structures. This project is not affiliated with, sponsored by, or endorsed by the listed authors, publishers, or Google.
+The skills do not reproduce source text, exercises, figures, tables, templates, or other expressive presentation from those works, and their examples are written for this repository rather than lifted from a source. Where a rule consists of a prescribed phrase, format, or term form, that short functional string is stated as the rule itself. They paraphrase and operationalize noncopyrightable ideas such as audience analysis, topic-type separation, task-focused procedures, evidence-based reports, objective claims, and concise reference structures. This project is not affiliated with, sponsored by, or endorsed by the listed authors, publishers, or Google.
 
 The Simplified Technical English skill does not bundle or reproduce the ASD-STE100 writing rules, controlled dictionary, or official examples. It provides an original operating profile and directs users to ASD's official material for authoritative rule and vocabulary decisions. It cannot certify conformance. ASD-STE100 Simplified Technical English is a registered trademark owned by ASD; this project is not affiliated with or endorsed by ASD or STEMG.
 

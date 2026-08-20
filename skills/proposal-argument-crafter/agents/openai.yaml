@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proposal Argument Crafter"
+  short_description: "Build persuasive, compliant technical proposals"
+  default_prompt: "Use $proposal-argument-crafter to build a proposal argument with constraints, evidence, and objection handling."

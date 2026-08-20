@@ -10,19 +10,22 @@
         "The proposal frames benefits in terms leadership can evaluate.",
         "The plan includes deliverables or milestones.",
         "The proposal includes risks with mitigations.",
-        "The proposal does not make unsupported guarantees."
+        "The proposal does not make unsupported guarantees.",
+        "The proposal does not disparage competing or vendor products; any comparison names the mechanism or points to supporting data.",
+        "Any material drawn from outside sources is paraphrased and linked, not copied verbatim."
       ]
     },
     {
       "id": "proposal-rfp-compliance",
-      "prompt": "We need to respond to an RFP. Required sections are Executive Summary, Technical Approach, Security, Staffing, Timeline, Cost. Limit is 5 pages. Please outline the proposal and note compliance risks.",
+      "prompt": "We need to respond to an RFP. Required sections are Executive summary, Technical approach, Security, Staffing, Timeline, Cost. Limit is 5 pages. Please outline the proposal and note compliance risks.",
       "expected_output": "An RFP-aware outline that preserves the required section labels and calls out page-limit or evidence risks.",
       "assertions": [
         "The output preserves all required section names.",
         "The output identifies the page limit as a compliance constraint.",
         "The output includes compliance risks or open questions.",
         "The output does not reorder or rename required RFP sections without explanation.",
-        "The output distinguishes proposal content from missing source information."
+        "The output distinguishes proposal content from missing source information.",
+        "The output reproduces the required section headings with their supplied wording and casing instead of restyling them."
       ]
     },
     {
@@ -46,7 +49,9 @@
         "The output explicitly names missing benchmark, staffing, and customer evidence.",
         "The plan includes schedule or milestones and a realistic next proof step.",
         "Risks and mitigations are visible.",
-        "The ask is explicit and does not rely on unsupported guarantees."
+        "The ask is explicit and does not rely on unsupported guarantees.",
+        "Every specific performance or cost figure carries a source or is labeled unverified.",
+        "The output does not use ensure, guarantee, or prevents for outcomes that are not unconditionally true."
       ]
     }
   ]

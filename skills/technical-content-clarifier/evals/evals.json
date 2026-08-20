@@ -9,7 +9,9 @@
         "The opening states why the audience should care.",
         "Kafka or event-driven terms are defined before being relied on.",
         "The output uses a concrete scenario or example.",
+        "Section headings are noun phrases that do not begin with an -ing word.",
         "The output includes tradeoffs or caveats.",
+        "Jargon terms are written around, glossed inline, or defined at first mention.",
         "The tone avoids hype and empty praise."
       ]
     },
@@ -34,7 +36,9 @@
         "The output ties features to reader value.",
         "The output includes at least one concrete example or use case.",
         "The output ends with a next action.",
-        "The output avoids exaggerated marketing language."
+        "The output avoids exaggerated marketing language.",
+        "Consecutive sentences do not all begin with the same word or phrase.",
+        "The output does not add roadmap promises or unreleased features beyond the listed items."
       ]
     },
     {
@@ -47,6 +51,19 @@
         "The output avoids presenting queue saturation as a confirmed root cause.",
         "The output uses plain language instead of unnecessary implementation jargon.",
         "The output ends with a concrete next action, monitoring point, or message guidance."
+      ]
+    },
+    {
+      "id": "content-durable-claims-rewrite",
+      "prompt": "Clarify this product overview paragraph for developer readers: 'AcmeCache is the fastest cache on the market and guarantees zero downtime. It syncs replicas 3x faster than RivalDB, which is slow and outdated. AcmeCache sees when a node fails and decides to reroute traffic. Multi-region support will arrive eventually.'",
+      "expected_output": "A rewritten overview with superlatives scoped, guarantees conditioned, the unsourced figure sourced or labeled unverified, competitor disparagement replaced with mechanism, anthropomorphic verbs replaced with technical verbs, and the roadmap statement removed or flagged.",
+      "assertions": [
+        "Superlatives such as 'fastest' are replaced with measurable, scoped statements.",
+        "The zero-downtime guarantee is conditioned or rephrased rather than kept as an absolute promise.",
+        "The 3x figure is given a source, labeled unverified, or removed.",
+        "Disparaging statements about RivalDB are removed; any comparison names the mechanism or points to data.",
+        "Anthropomorphic verbs such as 'sees' and 'decides' are replaced with precise technical verbs.",
+        "The statement about future multi-region support is removed or flagged as requiring approval before publication."
       ]
     }
   ]

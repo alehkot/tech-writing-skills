@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Content Clarifier"
+  short_description: "Explain technical concepts for a chosen audience"
+  default_prompt: "Use $technical-content-clarifier to explain this system clearly for the audience I name."
