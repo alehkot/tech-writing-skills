@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Report Writer"
+  short_description: "Write evidence-based technical reports"
+  default_prompt: "Use $technical-report-writer to write a recommendation report with criteria, evidence, limitations, and next actions."

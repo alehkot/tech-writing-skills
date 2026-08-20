@@ -61,6 +61,8 @@ Action needed to close the gap:
 - Use the same term for each option, system, metric, and risk throughout the report.
 - Keep criteria rows parallel: same unit, time window, baseline, and level of precision where possible.
 - Label estimates, assumptions, and incomplete evidence instead of letting them read like measured facts.
+- Avoid footnotes in benchmark and comparison tables; move the content into a cross-reference, an inline note, or a parenthetical.
+- When a footnote is unavoidable, such as a table caveat that fits nowhere else, mark it with a superscript number and place the note directly after the table. Never drop the caveat itself: caveats are load-bearing evidence.
 
 ## Executive Summary Pattern
 

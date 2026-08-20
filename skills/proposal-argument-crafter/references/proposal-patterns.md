@@ -14,12 +14,12 @@ Load this reference for internal pitches, project proposals, architecture invest
 
 ## Constraint Extraction
 
-Create a visible constraint list before drafting when the prompt includes an RFP, template, grading rubric, or stakeholder request.
+Create a visible constraint list before drafting when the prompt includes an RFP, template, grading rubric, or stakeholder request. Mandated headings and casing always override house heading style, including sentence case.
 
 ```markdown
 ## Constraints
 - Required sections:
-- Exact heading names:
+- Exact heading names and casing:
 - Page or word limit:
 - Formatting rules:
 - Evaluation criteria:
@@ -110,7 +110,7 @@ Decision point: [When we reassess.]
 - Required instructions are satisfied exactly.
 - The summary contains problem, solution, value, and ask.
 - The proposal makes reviewer benefits explicit.
-- The proposal preserves exact required headings when supplied.
+- The proposal preserves exact required headings and casing when supplied.
 - Likely reviewer objections are answered.
 - Claims have evidence or are labeled as assumptions.
 - Evidence gaps are acknowledged and converted into assumptions, proof requests, or pilot success metrics.

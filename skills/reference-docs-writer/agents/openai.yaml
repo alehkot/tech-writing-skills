@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reference Docs Writer"
+  short_description: "Write API, CLI, and config reference entries"
+  default_prompt: "Use $reference-docs-writer to write a reference entry with syntax, parameters, valid values, and error behavior."

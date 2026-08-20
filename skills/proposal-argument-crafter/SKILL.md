@@ -4,7 +4,7 @@ description: >-
   Proposal argument writing for persuasive technical proposals: internal engineering pitches, architecture investment requests, project proposals, vendor proposals, RFP responses, grant-style technical plans, budget requests, and implementation proposals. Use for parsing constraints, building a problem-solution argument, proving feasibility, and making the proposal compliant, credible, and decision-ready.
   Use when assumptions, evidence gaps, reviewer objections, or required proposal constraints need explicit treatment.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   risk_tier: low
 ---
 
@@ -18,7 +18,7 @@ Read [references/proposal-patterns.md](references/proposal-patterns.md) when dra
 
 ## Workflow
 
-1. Extract the decision context: reviewer, requested decision, audience attitude, stakes, constraints, deadline, required sections, exact heading names, page limits, formatting rules, evaluation criteria, and disallowed claims.
+1. Extract the decision context: reviewer, requested decision, audience attitude, stakes, constraints, deadline, required sections, exact heading names, page limits, formatting rules, evaluation criteria, and disallowed claims. RFP- or client-mandated headings and casing always override house heading style, including the sentence-case rule; record and reproduce them exactly as supplied.
 2. State the problem in the reviewer's terms. Show consequence, urgency, and why the status quo is insufficient.
 3. If reviewers are skeptical or hostile, establish the practical benefits and evidence before asking them to accept the recommendation.
 4. Use a problem-plan-evidence-decision spine: problem or opportunity, proposed plan, evidence of fit, and decision requested.
@@ -29,7 +29,7 @@ Read [references/proposal-patterns.md](references/proposal-patterns.md) when dra
 9. Make cost and schedule reviewable. Use a table for budget and a milestone list or timeline for schedule; for complex delivery plans, use or describe a Gantt chart, network diagram, or dependency-aware timeline.
 10. Describe quality-control or evaluation methods when the proposal promises delivery, implementation, or measurable outcomes.
 11. Address risks honestly. Pair each material risk with mitigation, fallback, or decision point.
-12. Keep a proposal evidence ledger: sourced proof, assumptions, claims that need support, constraints, and open questions. Convert hype into evidence, measurable benefit, or a labeled assumption.
+12. Keep a proposal evidence ledger: sourced proof, assumptions, claims that need support, constraints, and open questions. Convert hype into evidence, measurable benefit, or a labeled assumption. Apply the claim and third-party-content rules from technical-content-clarifier: no product superlatives; "ensure", "guarantee", or "prevents" only for unconditionally true outcomes; a source or an unverified label on every performance or cost figure; no disparaging competitor claims; and outside content paraphrased and linked, never copied, treating open-source docs and GitHub material as unlicensed for reuse until confirmed.
 13. End with the explicit ask: approval, budget, staffing, decision, pilot, or next meeting.
 
 ## Completion Criterion
@@ -39,7 +39,7 @@ Complete the task only when the proposal can support the requested decision: req
 ## Default Proposal Structure
 
 ```markdown
-# [Proposal Title]
+# [Proposal title]
 
 ## Summary
 [Problem, proposal, value, ask.]
@@ -47,19 +47,19 @@ Complete the task only when the proposal can support the requested decision: req
 ## Problem
 [Current state, impact, constraints.]
 
-## Proposed Approach
+## Proposed approach
 [Plan, deliverables, milestones.]
 
-## Evidence and Qualifications
+## Evidence and qualifications
 [Why this plan and team can succeed.]
 
-## Budget and Schedule
+## Budget and schedule
 [Cost, timeline, staffing.]
 
-## Risks and Mitigations
+## Risks and mitigations
 [Honest risks with controls.]
 
-## Decision Needed
+## Decision needed
 [Specific approval or next action.]
 ```
 
@@ -80,10 +80,16 @@ Complete the task only when the proposal can support the requested decision: req
 - [ ] The budget and timeline can be evaluated independently.
 - [ ] Lists and tables use parallel wording so reviewers can compare items quickly.
 - [ ] The document does not overpromise, hide uncertainty, or imply unsupported guarantees.
+- [ ] No product superlatives, unconditional guarantees, unsourced figures, or competitor disparagement remain (canonical home: technical-content-clarifier).
+- [ ] Third-party content is paraphrased and linked, never copied (canonical home: technical-content-clarifier).
 
 ## Gotchas
 
-- In formal RFP-style contexts, compliance comes before cleverness. Preserve required section order and labels unless the user says otherwise.
+- In formal RFP-style contexts, compliance comes before cleverness. Preserve required section order, labels, and casing — mandated headings win over house heading style — unless the user says otherwise.
 - Do not confuse enthusiasm with persuasion. Persuasion comes from fit, evidence, feasibility, and reviewer relevance.
 - Do not hide the ask. The reviewer should know exactly what decision is needed.
 - Do not turn aspirations into proof. If the source lacks evidence, name the missing proof or downgrade the claim.
+
+## Attribution
+
+Parts of this skill are adapted from the Google developer documentation style guide (https://developers.google.com/style), used under CC BY 4.0 and modified. This skill is not affiliated with or endorsed by Google.
