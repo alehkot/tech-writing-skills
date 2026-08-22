@@ -54,6 +54,18 @@
         "The heading is corrected to sentence case, because heading case is not governed by STE.",
         "The warning label, its severity, the screw count, and the value 4 bar are unchanged."
       ]
+    },
+    {
+      "id": "docs-style-rfc-example-values-sanitization",
+      "prompt": "Style-check this webhook configuration guide: 'Set webhook_url to https://api.mycompany.internal/v1/hook, phone_number to +1-555-123-4567, and customer_email to john.doe@gmail.com. We currently support this feature as of now.'",
+      "expected_output": "A copyedited snippet that removes temporal words ('currently', 'as of now') and replaces private/real domains with reserved documentation samples (example.com, example.net).",
+      "assertions": [
+        "The temporal phrases 'currently' and 'as of now' are removed or rewritten into timeless technical statements.",
+        "The domain 'mycompany.internal' or 'gmail.com' is replaced with 'example.com' or another RFC 2606 reserved domain.",
+        "The email address uses an RFC 2606 sample domain (such as 'user@example.com' or 'customer@example.com').",
+        "The phone number uses the reserved fictional range (+1-555-0100 to +1-555-0199) or is noted as a sample format.",
+        "The output retains the exact identifier names `webhook_url`, `phone_number`, and `customer_email` in code font."
+      ]
     }
   ]
 }

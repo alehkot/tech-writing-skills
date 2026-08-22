@@ -30,14 +30,42 @@ def validate_frontmatter(skill_dir: Path) -> None:
     metadata = data.get("metadata")
     if not isinstance(metadata, dict):
         raise ValueError(f"{path}: metadata must include version and risk_tier")
-    if not isinstance(metadata.get("version"), str) or not metadata["version"].strip():
-        raise ValueError(f"{path}: metadata.version must be a nonempty string")
+    version = metadata.get("version")
+    if not isinstance(version, str) or not re.match(r"^\d+\.\d+\.\d+$", version.strip()):
+        raise ValueError(f"{path}: metadata.version must be a semver string (e.g. 1.0.0)")
     if metadata.get("risk_tier") not in {"low", "medium", "high"}:
         raise ValueError(f"{path}: metadata.risk_tier must be low, medium, or high")
     if data["name"] != skill_dir.name:
         raise ValueError(f"{path}: name must match directory name {skill_dir.name}")
     if len(data["description"]) > 1024:
         raise ValueError(f"{path}: description must be 1024 characters or fewer")
+
+
+def validate_openai_metadata(skill_dir: Path) -> None:
+    openai_yaml = skill_dir / "agents" / "openai.yaml"
+    if not openai_yaml.exists():
+        raise ValueError(f"{skill_dir}: missing agents/openai.yaml")
+    data = yaml.safe_load(openai_yaml.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"{openai_yaml}: root must be a YAML object")
+    interface = data.get("interface")
+    if not isinstance(interface, dict):
+        raise ValueError(f"{openai_yaml}: missing interface mapping")
+    for key in ("display_name", "short_description", "default_prompt"):
+        val = interface.get(key)
+        if not isinstance(val, str) or not val.strip():
+            raise ValueError(f"{openai_yaml}: interface.{key} must be a nonempty string")
+
+
+def validate_markdown_references(skill_dir: Path) -> None:
+    skill_md = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
+    ref_dir = skill_dir / "references"
+    actual_refs = {p.name for p in ref_dir.glob("*.md")} if ref_dir.is_dir() else set()
+    linked_refs = set(re.findall(r"references/([a-zA-Z0-9_\-]+\.md)", skill_md))
+
+    missing = linked_refs - actual_refs
+    if missing:
+        raise ValueError(f"{skill_dir}/SKILL.md: broken reference links: {sorted(missing)}")
 
 
 def validate_skill_files(skill_dir: Path) -> None:
@@ -69,17 +97,31 @@ def validate_output_evals(skill_dir: Path) -> None:
     evals = data.get("evals")
     if not isinstance(evals, list) or len(evals) < 3:
         raise ValueError(f"{path}: expected at least 3 output-quality evals")
+    seen_ids: set[str] = set()
     for item in evals:
         if not isinstance(item, dict):
             raise ValueError(f"{path}: each eval must be an object")
         for field in ("id", "prompt", "expected_output", "assertions"):
             if field not in item:
                 raise ValueError(f"{path}: eval {item.get('id')} missing {field}")
+            if not isinstance(item[field], str) and field != "assertions":
+                raise ValueError(f"{path}: eval {item.get('id')} field {field} must be a string")
+        eval_id = item["id"].strip()
+        if not eval_id:
+            raise ValueError(f"{path}: eval id must be a nonempty string")
+        if eval_id in seen_ids:
+            raise ValueError(f"{path}: duplicate eval id '{eval_id}'")
+        seen_ids.add(eval_id)
         assertions = item["assertions"]
         if not isinstance(assertions, list) or len(assertions) < 3:
             raise ValueError(
                 f"{path}: eval {item.get('id')} needs at least 3 assertions"
             )
+        for idx, assertion in enumerate(assertions):
+            if not isinstance(assertion, str) or not assertion.strip():
+                raise ValueError(
+                    f"{path}: eval {item.get('id')} assertion {idx + 1} must be a nonempty string"
+                )
 
 
 def validate_trigger_queries(skill_dir: Path) -> None:
@@ -108,6 +150,17 @@ def validate_trigger_queries(skill_dir: Path) -> None:
             if not isinstance(item.get("should_trigger"), bool):
                 raise ValueError(f"{path}: each query must include boolean should_trigger")
 
+    train_queries = [item["query"] for item in train["queries"]]
+    validation_queries = [item["query"] for item in validation["queries"]]
+
+    if len(set(train_queries)) != len(train_queries):
+        raise ValueError(f"{train_path}: contains duplicate queries")
+    if len(set(validation_queries)) != len(validation_queries):
+        raise ValueError(f"{validation_path}: contains duplicate queries")
+    overlap = set(train_queries) & set(validation_queries)
+    if overlap:
+        raise ValueError(f"{skill_dir}: query overlap between train and validation: {overlap}")
+
     all_queries = train["queries"] + validation["queries"]
     should = sum(1 for item in all_queries if item["should_trigger"])
     should_not = len(all_queries) - should
@@ -130,6 +183,8 @@ def main() -> int:
 
     for skill_dir in skill_dirs:
         validate_frontmatter(skill_dir)
+        validate_openai_metadata(skill_dir)
+        validate_markdown_references(skill_dir)
         validate_skill_files(skill_dir)
 
     json_files = sorted(SKILLS_DIR.glob("*/evals/*.json"))

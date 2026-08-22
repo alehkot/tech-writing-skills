@@ -35,7 +35,7 @@
         "The output is shaped as a progress report rather than a proposal.",
         "Completed work, blockers, and next steps are clearly separated.",
         "The blocker includes impact or decision relevance.",
-        "The output is concise enough for a steering-group audience.",
+        "The output is concise and scannable for a steering-group audience, structured in under 300 words without narrative filler.",
         "The output does not invent dates or metrics."
       ]
     },

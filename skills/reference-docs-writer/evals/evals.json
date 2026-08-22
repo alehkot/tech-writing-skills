@@ -66,6 +66,18 @@
         "All descriptions use present tense, and none opens with an imperative.",
         "Multiple instances are referred to as SessionCache objects rather than by pluralizing the class name as SessionCaches."
       ]
+    },
+    {
+      "id": "reference-deprecated-and-breaking-change-matrix",
+      "prompt": "Create a reference topic for our v3 API breaking changes: `account_id` string replaced by `tenant_id` uuid, `status` enum values changed from (active, disabled) to (enabled, suspended, archived). Version v2 support sunset is 2026-12-31.",
+      "expected_output": "A lookup reference table or matrix listing old parameter/value, replacement parameter/value, type changes, sunset dates, and compatibility notes.",
+      "assertions": [
+        "The reference uses a structured comparison table or repeated lookup matrix rather than a narrative guide.",
+        "The migration fact for `account_id` to `tenant_id` (string to uuid) is explicitly documented with type info.",
+        "All new enum valid values (enabled, suspended, archived) and deprecated values (active, disabled) are documented.",
+        "The sunset date 2026-12-31 is documented without vague temporal words like 'soon' or 'next year'.",
+        "The entry opens with a descriptive static heading rather than a task-style heading."
+      ]
     }
   ]
 }

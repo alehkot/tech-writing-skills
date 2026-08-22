@@ -267,7 +267,7 @@ def mean_std(values: list[float]) -> dict[str, float | None]:
         return {"mean": None, "stddev": None}
     if len(values) == 1:
         return {"mean": values[0], "stddev": None}
-    return {"mean": statistics.mean(values), "stddev": statistics.pstdev(values)}
+    return {"mean": statistics.mean(values), "stddev": statistics.stdev(values)}
 
 
 def timing_value(timing: dict[str, Any], key: str) -> float | None:

@@ -33,7 +33,7 @@
       "prompt": "Help me pitch a 6-week pilot for using service mesh in one payments service. The audience is skeptical because the last platform project ran late.",
       "expected_output": "A focused pilot proposal that acknowledges skepticism, narrows scope, defines success metrics, and asks for a specific decision.",
       "assertions": [
-        "The output addresses the audience's skepticism directly.",
+        "The output includes a dedicated section or explicit point directly addressing past schedule overruns or audience skepticism.",
         "The scope is limited to a pilot rather than broad adoption.",
         "The proposal includes success metrics or decision criteria.",
         "The proposal includes schedule or milestone detail.",

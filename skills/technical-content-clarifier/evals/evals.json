@@ -6,7 +6,7 @@
       "prompt": "Explain our event-driven architecture to frontend engineers who know REST but are new to Kafka. Make it engaging but not fluffy.",
       "expected_output": "An audience-aware explainer with a clear reason to care, definitions, concrete scenario, mechanism, tradeoffs, and next steps.",
       "assertions": [
-        "The opening states why the audience should care.",
+        "The opening section explicitly states the practical relevance or benefit for frontend developers.",
         "Kafka or event-driven terms are defined before being relied on.",
         "The output uses a concrete scenario or example.",
         "Section headings are noun phrases that do not begin with an -ing word.",
