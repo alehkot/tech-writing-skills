@@ -128,43 +128,71 @@ Each skill includes three eval files:
 
 Each skill keeps 20 trigger queries total: 12 train, 8 validation, 10 should-trigger, and 10 should-not-trigger. The should-not-trigger queries include near-misses that share writing vocabulary but belong to another skill.
 
-Use these fixtures to evaluate skill changes with isolated runs:
+The eval workflow scaffolds isolated run workspaces under `workspaces/`, executes them with the [pi](https://github.com/earendil-works/pi) CLI calling a hosted model through OpenRouter, grades the results, and aggregates the numbers:
 
 ```bash
-uv run python scripts/eval_workflow.py init --skill task-docs-writer
+# 1. Scaffold the next iteration for every skill (or one, with --skill)
+uv run python scripts/eval_workflow.py init
+
+# 2. Produce answers for both the with_skill and without_skill runs
+uv run python scripts/eval_workflow.py run-codex --iteration latest
+
+# 3. Grade the saved answers against each eval's assertions
+uv run python scripts/eval_workflow.py grade-codex --iteration latest
+
+# 4. Refresh grading summaries and write benchmark.json
+uv run python scripts/eval_workflow.py aggregate --iteration latest
+
+# 5. Reclaim disk from old iterations (dry run without --apply)
+uv run python scripts/eval_workflow.py prune --keep 3
 ```
 
-1. Run each eval once with the skill and once without it, or against the previous skill version.
-2. Save outputs in the generated ignored workspace, for example `workspaces/task-docs-writer/iteration-1/...`.
-3. Grade assertions with concrete evidence from the output.
-4. Review the outputs manually for qualities that are hard to assert mechanically.
-5. Capture token and duration data in each `timing.json`.
-6. Optional: run and grade scaffolded prompts with Codex CLI:
+Then review `benchmark.json`, `feedback.json`, and the answers themselves for qualities that are hard to assert mechanically, and revise a skill only when the failure pattern generalizes beyond one prompt. Narrow any step with `--skill` and `--eval-id`; `--iteration` accepts a number or `latest`. Pass `--runs with_skill old_skill` when comparing against a previous skill snapshot.
+
+Single runs are noisy. Measure before concluding:
 
 ```bash
-uv run python scripts/eval_workflow.py run-codex --skill task-docs-writer --iteration 1
-uv run python scripts/eval_workflow.py grade-codex --skill task-docs-writer --iteration 1
+# Repeat the same evals N times, each into a fresh iteration, then report the spread
+uv run python scripts/eval_workflow.py sample --skill task-docs-writer --samples 5
+
+# Per-eval failure spread and every assertion that flipped across samples
+uv run python scripts/eval_workflow.py stats --iterations 1,2,3 --verbose
+
+# Assertion-level diff; pass several iterations per side to fold in repeat samples
+uv run python scripts/eval_workflow.py compare --baseline 1 --candidate 2
+
+# Re-grade only the failures with a second model and flag disagreements
+uv run python scripts/eval_workflow.py recheck --iteration 2 --model openai/gpt-5.4-mini
+
+# Route every trigger query through the frontmatter descriptions
+uv run python scripts/eval_workflow.py trigger-eval --verbose
 ```
 
-7. Aggregate graded results:
+`stats` reads as pure variance only when every sampled iteration ran against the same skill content; across a change it mixes variance with effect, so use `compare` for before and after. A `recheck` disagreement means the failure is unresolved, not that it is a pass. `benchmark.json` reports `pass_rate` over graded evals only, so it carries a `coverage` block and a `complete` flag; a rate from a partial run is not a suite result.
 
-```bash
-uv run python scripts/eval_workflow.py aggregate --skill task-docs-writer --iteration 1
-```
+### Executors
 
-8. Review `benchmark.json` and `feedback.json`.
-9. Revise the skill only when the failure pattern generalizes beyond one prompt.
+`run-codex`, `grade-codex`, `recheck`, `sample`, and `trigger-eval` take `--executor pi` (default) or `--executor codex`:
 
-Run all skills by omitting `--skill`, or pass `--runs with_skill old_skill` when comparing against a previous skill snapshot.
+- **pi** runs `pi --provider openrouter --model ~google/gemini-flash-latest --thinking <level>` in single-shot JSON mode, isolated per call: fresh empty `HOME` and `TMPDIR`, a clean working directory, skill/extension/context-file/prompt-template discovery disabled, no tools, startup network off. The credential travels in `OPENROUTER_API_KEY`, sourced from the environment or `pi auth print-api-key --provider openrouter`, and is never written to any artifact. `--model` accepts any OpenRouter model id; `--reasoning-effort` is the pi thinking level (`off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`). The harness is verified against pi-cli `0.84.x`; set `SKILL_EVALS_ALLOW_UNVERIFIED_PI_CLI=1` to run on another series.
+- **codex** is the legacy path: `codex exec` in the read-only sandbox with `--model gpt-5.4-mini` by default and a server-side output schema for grading, recheck, and routing.
+
+pi has no server-side output schema, so structured phases embed the JSON Schema in the prompt and the harness validates the reply locally. An unusable reply (no assistant text, an `error` stop reason, prose or off-schema JSON) is retried up to four times with 5/10/15 s backoff; every attempt is recorded in `timing.json` (`attempts`, `executor`, `executor_details`) and in the `grader` block of `grading.json`, and the raw JSONL streams sit next to the answer as `pi_stdout.jsonl` / `grader_stdout.jsonl`. Every model call has a `--timeout-seconds` wall-clock limit (default 300).
+
+Because a pi run has no file access, the with-skill prompt carries the complete `SKILL.md` plus every file under the skill's `references/` inline (for `docs-style-editor` that is about 70 KB of rulings), and `run-codex` refuses a scaffold whose prompt no longer matches the skill on disk: start a fresh iteration after editing a skill, or `init --iteration <n> --force` to re-scaffold one. Under the pi defaults the same model generates and grades; the harness prints a self-grading warning per file, and `recheck --model <other-openrouter-model>` is the way to get a second opinion.
+
+> [!NOTE]
+> The model-calling commands send each eval prompt, the selected skill's deployable text, and generated answers to OpenRouter and the model provider behind it (Google for the default model). Run them only when that disclosure is acceptable; `init`, `aggregate`, `stats`, `compare`, and `prune` are local.
 
 This follows the official Agent Skills evaluation pattern at https://agentskills.io/skill-creation/evaluating-skills: compare with-skill and baseline runs, record timing, grade assertions with evidence, aggregate results, and review the actual outputs with a human.
 
 ## Validation
 
-Validate a skill after changes:
+Validate a skill after changes, and run the eval-harness tests:
 
 ```bash
 uv run python scripts/validate.py
+uv run python -m unittest discover -s tests -v
 ```
 
 Also scan for pending-work markers before publishing:
