@@ -69,14 +69,14 @@
     },
     {
       "id": "task-docs-destructive-action-with-recovery",
-      "prompt": "Write a procedure for database failover in production: promote replica, update DNS, and drain connections. The engineer might lose writes if replication lag is over 5s.",
-      "expected_output": "A production procedure with prominent pre-requisite warnings, replication lag threshold checks, step-by-step failover commands, and rollback or verification steps.",
+      "prompt": "Write a procedure for database failover in production from these notes: run `db-admin check-lag --replica r1` (returns `lag_ms: 1200`). If lag is over 5000ms, warn that promoting risks write loss. Run `db-admin promote --replica r1`, run `dns-cli update --record db.internal --target r1.internal`, and run `db-admin drain-connections --host old-primary`. Include verification.",
+      "expected_output": "A production procedure with a warning before the promotion step, replication lag check ordered before promotion, separate code blocks for commands, and explicit post-failover verification.",
       "assertions": [
-        "The output contains a warning or caution callout before the promotion step stating the risk of write loss if lag exceeds 5 seconds.",
-        "The procedure places the verification of replication lag before the promotion command.",
+        "The output warns about the risk of write loss if replication lag exceeds 5000ms before the promotion step.",
+        "The procedure places the replication lag check command before the promotion command.",
         "The steps are sequentially numbered using active-voice imperative verbs.",
-        "Command snippets and command outputs are formatted in separate code blocks.",
-        "The procedure provides a post-failover verification step to check DNS propagation or connection draining."
+        "Command inputs (such as `db-admin promote --replica r1`) appear in fenced code blocks.",
+        "The procedure provides a post-failover verification step to verify DNS resolution or connection draining."
       ]
     }
   ]
