@@ -95,6 +95,18 @@
         "The sunset date 2026-12-31 is documented without vague temporal words like 'soon' or 'next year'.",
         "The entry opens with a descriptive static heading rather than a task-style heading."
       ]
+    },
+    {
+      "id": "reference-transfer-mixed-config-evidence",
+      "prompt": "Prepare a compact configuration reference for Mica 2.8 from these captured notes only. The following is an example deployment snippet, not a schema: `retention_days: 14` and `cache_dir: .cache/mica`. It shows two settings and one value for each, but their types, requiredness, defaults, and full value ranges were not captured. A separate authoritative declaration says `format` is an optional string setting, accepts exactly `json` or `text`, and defaults to `json`. Include the three named settings; do not claim this is the full product inventory. The old quickstart says format defaults to text, but the Mica 2.8 declaration supersedes it. No runtime or repository access is available.",
+      "expected_output": "A versioned reference that separates sample values from schema facts, preserves explicitly declared fields, and labels remaining unknowns.",
+      "assertions": [
+        "All three named settings appear and the reference is scoped to captured Mica 2.8 material rather than a complete live product inventory.",
+        "The values 14 and .cache/mica are presented as examples only, not as defaults or evidence of requiredness, types, or exhaustive valid values.",
+        "The unknown schema details for retention_days and cache_dir remain visibly unspecified rather than invented or asserted absent.",
+        "The declared format type string, optionality, exact json/text values, and json default are all stated accurately rather than suppressed as unknown.",
+        "The conflicting old text default is not presented as current, and no repository inspection or runtime verification is claimed."
+      ]
     }
   ]
 }

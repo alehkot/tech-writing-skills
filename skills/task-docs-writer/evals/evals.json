@@ -104,6 +104,30 @@
         "Command inputs (such as `db-admin promote --replica r1`) appear in fenced code blocks.",
         "The procedure provides a post-failover verification step to verify DNS resolution or connection draining."
       ]
+    },
+    {
+      "id": "task-docs-transfer-three-state-release",
+      "prompt": "Write a short release procedure for experienced operators of Harbor. The CLI is installed. Verified notes: `harbor permit inspect` returns one of `current`, `stale`, or `blocked`. For `current`, continue to `harbor release start`; for `stale`, run `harbor permit renew` and inspect the permit again. If it is still stale, stop. If blocked at either check, stop and follow the access runbook at /ops/access-blocked. `harbor release start` prints a release key; `harbor release inspect <release-key>` returns `live` for success or `rejected` for failure. On rejected, contact the release coordinator as specified in our operational policy. No retry cadence, other states, or additional recovery steps were supplied. Preserve the tested decision paths.",
+      "expected_output": "A compact procedure with all three permit states mapped explicitly, the supplied recovery contact preserved, and no guessed retry policy.",
+      "assertions": [
+        "The current, stale, and blocked permit states each have an explicit next action, including the ordinary current-to-release path.",
+        "The stale path renews and rechecks, then stops if still stale; blocked at either check stops and uses the supplied access runbook.",
+        "The supplied start and inspect commands are preserved and release-key is defined from the start output.",
+        "The live and rejected outcomes retain their supplied meanings and the rejected case retains the supplied release-coordinator contact action.",
+        "The procedure adds no unsupported command, interval, status, role, or recovery action."
+      ]
+    },
+    {
+      "id": "task-docs-transfer-ui-tutorial",
+      "prompt": "Write a hands-on tutorial for an analyst trying Lumen reports for the first time. They already have report-editor access and are on the Reports screen. Our tested UI exercise: click New report; the editor displays Untitled report. Enter Trial in the Name field. Click Save; the editor displays Saved. Click Preview; the preview displays No records. Click Close to close the preview; no post-close message was recorded. Importing a data feed is a separate untested path; a teammate wants to add it and a tour of every chart type before the exercise. Use only these test notes for actions and observed behavior.",
+      "expected_output": "A supported UI exercise with early and later checkpoints, no untested teaching detour, and no invented post-close result.",
+      "assertions": [
+        "The tutorial names the concrete saved Trial report as its outcome and targets the analyst starting on the Reports screen.",
+        "The New report action is paired with the Untitled report checkpoint before saving, and Save and Preview are paired with Saved and No records respectively.",
+        "The supplied UI labels, action order, report name, and exact observed strings are preserved.",
+        "The tutorial does not add an import path, chart-type tour, alternative method, shortcut, or unsupplied control.",
+        "Closing the preview is included without an invented post-close message, navigation result, or extra verification action."
+      ]
     }
   ]
 }

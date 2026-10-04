@@ -187,6 +187,15 @@ pi has no server-side output schema, so structured phases embed the JSON Schema 
 
 Because a pi run has no file access, the with-skill prompt carries the complete `SKILL.md` plus every file under the skill's `references/` inline (for `docs-style-editor` that is about 70 KB of rulings), and `run-codex` refuses a scaffold whose prompt no longer matches the skill on disk: start a fresh iteration after editing a skill, or `init --iteration <n> --force` to re-scaffold one. Under the pi defaults the same model generates and grades; the harness prints a self-grading warning per file, and `recheck --model <other-openrouter-model>` is the way to get a second opinion.
 
+For alternative assertion grading with TypeSafe Jev, set `TYPESAFE_API_KEY` in the environment, then run:
+
+```bash
+uv run python scripts/grade_with_jev.py workspaces/<skill>/iteration-<n>/<eval>/with_skill/grading.json
+```
+
+This uses the [TypeSafe Choice API](https://docs.typesafe.ai/api) and writes `grading.jev.json` beside the original grade. It batches the assertions over the same source and answer, hides the generation condition and prior verdicts, and preserves the actual model, probabilities, confidence, usage, and request/answer hashes. `uncertain` remains unresolved. `--model`, `--timeout-seconds`, and explicit `--force` are supported. The original grades are preserved. Jev does not supply evidence explanations; check disagreements against the source. In the initial calibration it missed two known defects, so its scores are an alternative judgment, not an automatic release gate.
+
+
 > [!NOTE]
 > The model-calling commands send each eval prompt, the selected skill's deployable text, and generated answers to OpenRouter and the model provider behind it (Google for the default model). Run them only when that disclosure is acceptable; `init`, `aggregate`, `stats`, `compare`, and `prune` are local.
 
