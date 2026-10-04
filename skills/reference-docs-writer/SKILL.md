@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   risk_tier: low
 ---
 
@@ -19,9 +19,9 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 ## Workflow
 
 1. Identify the reference family: API, CLI, config, schema, error code, status code, syntax, limit, compatibility, or data dictionary.
-2. Extract objective facts from the source material. Move procedures to task topics and extended explanation to concept topics instead of burying them in the reference.
-3. Choose a retrieval order: alphabetical, numerical, lifecycle order, endpoint path order, or category grouping. Use one order consistently.
-4. Define the repeated item pattern before writing entries. Each item should have the same headings unless a field is truly not applicable.
+2. Extract objective facts from the source material. When code, schemas, or generated metadata are available, verify names and inventory claims against the authoritative source for the documented version; follow the source-verification pattern in [references/reference-patterns.md](references/reference-patterns.md). Move procedures to task topics and extended explanation to concept topics instead of burying them in the reference.
+3. Choose a retrieval order: alphabetical, numerical, lifecycle order, endpoint path order, or category grouping. Mirror the documented public surface, such as command groups or schema sections, when it helps readers locate the same item in the product. Use one order consistently.
+4. Define the repeated item pattern before writing entries. Each item should have the same headings unless a field is truly not applicable. Match every type, requiredness, default, and valid-value claim to an explicit source declaration; selected invocations do not establish these fields. Use `Not specified` for missing information; write `None` or `No options` only when the source explicitly establishes absence.
 5. Use static item names for headings. Do not use gerund headings such as `Creating a workspace`; gerunds signal task topics.
 6. Open every method, endpoint, or command description with a third-person present verb stating what it does, such as `Creates`, `Lists`, or `Returns`. Never open with an imperative; the imperative belongs in task steps. Use precise technical verbs, not anthropomorphic ones such as `knows` or `sees`.
 7. Use consistent names for fields, parameters, commands, statuses, and errors. Define acronyms, aliases, and specialized terms at first use or in a glossary-style entry.
@@ -50,15 +50,15 @@ Use this reference to look up [item type].
 
 Purpose: [One-sentence factual purpose.]
 
-Syntax:
+Syntax or example:
 ```text
-[syntax]
+[Declared syntax, or a selected invocation explicitly labeled as an example]
 ```
 
 Parameters:
 | Name | Type | Required | Default | Description |
 | --- | --- | --- | --- | --- |
-| [name] | [type] | [yes/no] | [default] | [description] |
+| [name] | [type or Not specified] | [yes/no/Not specified] | [default or Not specified] | [description] |
 
 Returns:
 [Return value, response shape, output, or side effect.]
@@ -82,6 +82,7 @@ Related:
 - [ ] Entry headings are static nouns or item names, not gerund task headings.
 - [ ] Method, endpoint, and command descriptions open with a third-person present verb, not an imperative.
 - [ ] Items are ordered for quick retrieval.
+- [ ] Entries match the documented public surface, and counts or trees have a stated scope, source version, and a reproducible check or an explicit verification gap.
 - [ ] Tables or lists carry dense facts instead of long paragraphs.
 - [ ] Terms, field names, parameter names, and statuses are consistent across entries.
 - [ ] Tables and lists use parallel wording and comparable detail.

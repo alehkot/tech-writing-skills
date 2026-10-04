@@ -21,6 +21,14 @@ Load this reference for installation docs, setup guides, runbooks, API workflows
 - Which actions are destructive, expensive, slow, or hard to undo?
 - Which details are sourced, assumed, unknown, or unsafe to guess?
 
+## Tutorials and How-To Guides
+
+Keep both forms within task documentation, but plan them for different reader needs:
+
+- For a tutorial, name the small working result the learner will create. Choose a supported exercise path, resolve incidental choices from the source, and place an observable checkpoint early and after later milestones. Keep only the explanation needed to perform the next action; link broader background separately. Mark missing setup or checkpoint evidence instead of inventing it.
+- For a how-to guide, state the practical end state and assume the stated prerequisites. Keep conditions that change the required action, such as renewing an expired credential before deployment. Give each branch a decision criterion before its action. Separate alternative methods, and omit practice exercises or background lessons that do not help finish the job.
+- When the request leaves the form unclear, use the reader's goal and experience to choose it and state the assumption. Split a request for both forms into separately named topics.
+
 ## Step Rules
 
 - Title tasks by user goal and base-form action verb, such as `Find an address`, not by product UI or an `-ing` phrase, such as `Using the Address window`.
@@ -42,7 +50,7 @@ Load this reference for installation docs, setup guides, runbooks, API workflows
 - Introduce commands by what they accomplish, never with `run the following command`: `Deploy the load generator:`.
 - Fold pressing Enter into the step it completes; do not make it its own step.
 - Instruct through named UI actions, not keyboard shortcuts: `Paste the connection string into the field`, not `Press Command+V`.
-- Document exactly one way to complete a task: the keyboard-accessible, shortest path your audience knows. Put unavoidable alternatives under separate headings or tabs, never inline.
+- Choose one recommended, keyboard-accessible method that fits the reader. Preserve necessary conditional actions within that method; put competing methods under separate headings or tabs.
 - Link to an already-documented procedure instead of repeating its steps.
 - Use bullets only for choices, notes, or examples inside a step.
 - Keep bullets and substeps parallel: do not mix commands, explanations, and outcomes at the same level.

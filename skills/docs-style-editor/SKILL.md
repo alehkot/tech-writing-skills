@@ -1,18 +1,16 @@
 ---
 name: docs-style-editor
 description: >-
-  Copyediting and style layer for technical documentation prose: punctuation, capitalization, hyphenation,
-  grammar and usage, word choice and term rulings, numbers, dates, units, link text, code font, lists,
-  tables, timeless wording, and safe fictional example values. Use when the user asks to copyedit,
-  proofread, style-check, or apply a style guide to an existing draft, or asks a specific style or usage
-  question (serial comma, sentence case, since vs because, login vs log in). Apply after the draft exists:
-  it corrects mechanics, never meaning, facts, or structure. Do not use it to write or restructure task,
-  concept, reference, proposal, or report content; inclusive terminology, ableist or socially charged term
-  replacement, example people and personas, alt text, media alternatives, and color or position cues belong
-  to accessibility-inclusion-editor, so report them and name that skill; and do not use it for ASD-STE100
-  work, where the STE skill's stricter rules win.
+  Copyedit existing technical documentation for grammar, punctuation, word choice, capitalization,
+  formatting, numbers, dates, units, links, timeless wording, and safe example values. Use for proofreading,
+  style-guide rulings, or unslop and slop cleanup: repetitive framing, inflated wording, empty filler,
+  and overcompressed prose. Preserve meaning, facts, uncertainty, and structure. Apply after a task,
+  concept, reference, proposal, or report draft exists; do not draft or restructure those artifacts.
+  Route inclusive terminology, example people and personas, alt text, media alternatives, and color or
+  position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
+  For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   risk_tier: low
 ---
 
@@ -27,11 +25,12 @@ Treat this skill as an editing layer, not a document type. Use the task, concept
 Load the reference for each pass you run:
 
 - [references/punctuation.md](references/punctuation.md): commas, colons, semicolons, dashes, hyphens, quotation marks, parentheses, periods, ellipses, slashes, example punctuation.
-- [references/grammar-and-usage.md](references/grammar-and-usage.md): articles, person, tense, voice, modal verbs, contractions, pronouns, plurals, possessives, prepositions, sentence and paragraph mechanics, global-audience usage.
-- [references/word-choice.md](references/word-choice.md): term-by-term rulings, register rules, timeless wording, abbreviations, spelling policy, product and trademark names.
+- [references/grammar-and-usage.md](references/grammar-and-usage.md): articles, person, tense, voice, modal verbs, contractions, pronouns, plurals, possessives, prepositions, sentence and paragraph mechanics, compressed prose, global-audience usage.
+- [references/word-choice.md](references/word-choice.md): term-by-term rulings, register rules, redundant framing, timeless wording, abbreviations, spelling policy, product and trademark names.
 - [references/formatting-mechanics.md](references/formatting-mechanics.md): capitalization, headings, lists, tables, notices, text and code font, links, figures, footnotes.
 - [references/numbers-dates-units.md](references/numbers-dates-units.md): numbers, dates, times, units, mathematical notation, phone-number formatting.
 - [references/safe-example-values.md](references/safe-example-values.md): reserved domains, IP ranges, phone range, example names, organizations, project names.
+- [references/unslop-guide.md](references/unslop-guide.md): concrete patterns and examples for removing filler, repetitive framing, decorative jargon, and overcompressed prose while preserving meaning and evidence.
 
 ## Precedence
 
@@ -54,8 +53,8 @@ Apply a deliberate deviation from any default consistently across the whole docu
 1. Confirm the operation: a full copyedit pass, a targeted pass over one category, or an answer to a specific style question. Edit mechanics only; do not add, remove, reorder, or reframe content.
 2. Record the precedence inputs: the project's style guide, the doc set's established conventions (heading case, placeholder form, spelling locale, byte units, date format), and the dictionary the project names as its tie-breaker for spelling variants. When the draft's own usage is internally inconsistent and no project rule exists, pick the form that appears most often, apply it everywhere, and report the choice.
 3. Establish the evidence boundary. List every exact literal in the draft: commands, flags, paths, filenames, environment variables, identifiers, UI labels, error strings, code output, quoted text, versions, quantities, and severities. These are unchangeable. Style rules apply to the prose around them.
-4. Run the passes in this order, one category at a time, and record each hit with its location: punctuation; grammar and usage; word choice; formatting mechanics; numbers, dates, and units; example values.
-5. Classify each hit before touching it. Change it only when the fix is mechanical and the meaning, facts, and emphasis survive intact. Flag it instead when the fix could change meaning, when the correct wording depends on a fact the source does not state, or when a value may be real rather than illustrative.
+4. Run the requested passes in this order, one category at a time, and record each hit with its location: punctuation; grammar and usage; word choice; formatting mechanics; numbers, dates, and units; example values; prose cleanup using [references/unslop-guide.md](references/unslop-guide.md). A full copyedit includes every pass; a targeted unslop pass loads that guide and the mechanics references needed for its findings.
+5. Classify each hit before touching it. Change it only when the fix is mechanical and the meaning, facts, and emphasis survive intact. Prefer the smallest useful edit and leave clear wording unchanged. Flag it instead when the fix could change meaning, when the correct wording depends on a fact the source does not state, or when a value may be real rather than illustrative.
 6. Apply the code-literal exception to every rule. When a banned or disfavored term is a literal command, flag, keyword, field, or label, keep the literal exactly as-is in code font, use the preferred term in the surrounding prose, and flag the literal for maintainers.
 7. Report, rather than re-decide, defects whose canonical home is another skill: inclusive terminology, alt text, media alternatives, and color or position cues belong to accessibility-inclusion-editor; UI interaction verbs, placeholder conventions, and required-information-in-notes belong to task-docs-writer; reference-entry heading style, code-element grammar, byte systems, and version-range wording belong to reference-docs-writer; anthropomorphism and excessive claims belong to technical-content-clarifier.
 8. Verify that no meaning drifted. Compare the revision against the source for actors, order, conditions, quantities, units, negation, severity, uncertainty, and literals. Restore anything that changed.
@@ -86,6 +85,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Changes are mechanical: no fact, condition, actor, number, unit, severity, hedge, or caveat was added, deleted, or reweighted.
 - [ ] Values that may be real rather than illustrative are flagged as questions, never swapped for reserved example values.
 - [ ] Time-anchored, ease-claim, and register fillers are gone, except in the exempted time-stamped genres.
+- [ ] Cleanup removes empty framing and repeated list-label wording while preserving real contrasts, uncertainty, technical terms, and required reusable text; revised phrases remain grammatical, and incomplete prose is expanded only when its meaning is established.
 - [ ] Defects owned by another skill are reported with that skill named, not re-decided here.
 - [ ] When STE is active, its stricter rules took precedence and none was relaxed.
 - [ ] The report separates applied changes from flagged questions.

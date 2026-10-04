@@ -22,6 +22,15 @@ Load this reference for API endpoints, CLI commands, config options, schemas, da
 
 If the draft answers more than one question, split it or add links between topics.
 
+## Source Verification
+
+- Identify the authoritative source for the documented version: a schema, public command registry, code declarations, captured help output, or supplied specification. Resolve conflicts against that source; if authority or version is unclear, flag the conflict instead of silently choosing.
+- Keep actual identifiers and paths. Organize entries around public command groups, endpoint families, or schema sections when that makes lookup easier; do not expose internal implementation details merely to mirror the code tree.
+- Prefer an existing generator or read-only inspection command for inventories when available. Check its version, scope, and output before relying on it, and review generated facts for missing descriptions or constraints. Do not run commands that modify the product merely to write its reference.
+- Distinguish declarations from examples. A schema or formal syntax declaration can establish types, requiredness, defaults, and valid values; a selected invocation only shows one use. Do not infer those schema facts from argument names, sample values, or the presence of an argument in an example. Label selected invocations as examples instead of promoting them to complete syntax declarations.
+- Treat an inventory as evidence only for the facts it contains. A command name or brief description does not establish accepted states, return fields, or the absence of additional options; leave those details unspecified unless the source establishes them.
+- For counts and directory trees, state what is included and excluded and tie the claim to the inspected version or snapshot. Include the regeneration command or source location in a short maintenance note. If a fresh check is unavailable, label the snapshot or verification gap; never imply that supplied output was executed during the writing task.
+
 ## Retrieval Orders
 
 Choose one:
@@ -52,7 +61,7 @@ Choose one:
 - Follow one placeholder convention across the doc set, the house `<angle-bracket>` form by default (canonical placeholder rules: task-docs-writer).
 - Wrap literal values, data types, commands, fields, parameters, headers, retry signals, and error codes in code font when they appear in prose or tables.
 - If you mention a response header or field in a status-code, error-code, or recovery entry, define what it means.
-- Use `Not specified` or an explicit open question when the source does not provide a type, default, valid value, limit, compatibility boundary, response field, or error behavior.
+- Use `Not specified` or an explicit open question when the source does not provide a type, default, valid value, limit, compatibility boundary, response field, or error behavior. An empty template field is not evidence of absence: use `None` or `No options` only when the source explicitly says so.
 - Avoid `e.g.`, `i.e.`, `etc.`, and `and so on`; use `for example`, `that is`, or a clearly scoped non-exhaustive list (canonical Latin-abbreviation rule: docs-style-editor).
 
 ## API Endpoint Pattern
