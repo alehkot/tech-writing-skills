@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
   risk_tier: low
 ---
 
@@ -15,6 +15,12 @@ metadata:
 Turn technical workflows into task topics that let a reader complete a task with minimal interruption. Optimize for task-first structure, concrete steps, reader context, and verifiable outcomes.
 
 Read [references/task-docs-patterns.md](references/task-docs-patterns.md) when drafting a full procedure, revising a messy guide, or checking a document before handoff.
+
+## Plan From Evidence
+
+Before drafting, extract the supplied or independently verified actions and pair each with its documented result. Keep unsupported actions and outcomes in a gap list instead of the procedure. Do not add a conventional next step or alternative method merely because it usually accompanies this kind of task.
+
+For each check with named states, map every supplied state to its next action, recheck, or stop condition. Include the ordinary continuation state explicitly; documenting only the exception leaves the reader to infer when to proceed. Draft from this map, keeping the working notes out of the delivered procedure unless requested.
 
 ## Workflow
 

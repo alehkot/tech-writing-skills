@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
   risk_tier: low
 ---
 
@@ -21,7 +21,7 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 1. Identify the reference family: API, CLI, config, schema, error code, status code, syntax, limit, compatibility, or data dictionary.
 2. Extract objective facts from the source material. When code, schemas, or generated metadata are available, verify names and inventory claims against the authoritative source for the documented version; follow the source-verification pattern in [references/reference-patterns.md](references/reference-patterns.md). Move procedures to task topics and extended explanation to concept topics instead of burying them in the reference.
 3. Choose a retrieval order: alphabetical, numerical, lifecycle order, endpoint path order, or category grouping. Mirror the documented public surface, such as command groups or schema sections, when it helps readers locate the same item in the product. Use one order consistently.
-4. Define the repeated item pattern before writing entries. Each item should have the same headings unless a field is truly not applicable. Match every type, requiredness, default, and valid-value claim to an explicit source declaration; selected invocations do not establish these fields. Use `Not specified` for missing information; write `None` or `No options` only when the source explicitly establishes absence.
+4. Build a fact map before choosing the entry pattern: for each item and attribute, record the value and the source statement that establishes it. Assign `Not specified` immediately when that statement is missing. A selected invocation or example value does not establish type, requiredness, default, or valid-value range. Preserve fields that are explicitly declared, and use `None` or `No options` only for sourced absence. Then choose consistent headings and fill entries from this map; do not decide missing facts while filling a template.
 5. Use static item names for headings. Do not use gerund headings such as `Creating a workspace`; gerunds signal task topics.
 6. Open every method, endpoint, or command description with a third-person present verb stating what it does, such as `Creates`, `Lists`, or `Returns`. Never open with an imperative; the imperative belongs in task steps. Use precise technical verbs, not anthropomorphic ones such as `knows` or `sees`.
 7. Use consistent names for fields, parameters, commands, statuses, and errors. Define acronyms, aliases, and specialized terms at first use or in a glossary-style entry.
