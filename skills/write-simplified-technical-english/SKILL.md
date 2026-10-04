@@ -3,7 +3,7 @@ name: write-simplified-technical-english
 description: >-
   Write, rewrite, and audit technical documentation using ASD-STE100 Simplified Technical English (STE) principles. Use when the user explicitly requests ASD-STE100, Simplified Technical English, STE in a technical-writing context, an STE-style rewrite, or an STE audit of procedures, descriptions, warnings, manuals, service instructions, and other technical content. Apply this skill as a controlled-language layer after selecting the appropriate task, concept, or reference topic type. Do not use it for generic plain-language simplification, another controlled-language standard, translation, creative copy, English teaching, or an explanation of ASD-STE100 that does not also request drafting, rewriting, or auditing.
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   risk_tier: low
 ---
 
@@ -16,6 +16,8 @@ Make technical text easier to understand and translate by applying a compact, so
 Treat STE as a writing layer, not a document type. Use the task, concept, or reference skill for the information architecture when the request needs one of those topic types.
 
 Read [references/ste-writing-guide.md](references/ste-writing-guide.md) before drafting, rewriting, or auditing text. Use the current official ASD-STE100 issue and the user's approved terminology sources when the requested result requires more than an STE-aligned draft.
+
+Adapt topic organization and examples to the reader within the applicable STE controls. Treat sentence limits, condition scope, exact literals, source fidelity, and the reported verification status as requirements; the forms labeled mandatory remain mandatory.
 
 ## Workflow
 
@@ -85,6 +87,10 @@ For an audit, include:
 7. A final statement that distinguishes checks completed from checks still required.
 
 For a procedural audit, construct the final revised passage independently with the Mandatory Procedure Forms. Do not concatenate suggested phrases from the findings table. If a source condition controls multiple non-simultaneous actions, the final revision must use the condition as a lead-in and one imperative command per vertical-list item.
+
+## Verify and Correct
+
+Use the term ledger and self-check internally. Correct confirmed in-scope failures once, then rerun the sentence/action controls, condition-scope checks, and source/literal comparison on the complete final passage. For an audit, verify findings against the unchanged source and recheck the proposed passage separately. Report unresolved checks accurately; a caller's explicit review budget takes precedence.
 
 ## Completion Criterion
 

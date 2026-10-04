@@ -4,7 +4,7 @@ description: >-
   Technical report writing for rigorous engineering decision documents: recommendation reports, feasibility studies, benchmark reports, incident reports, postmortems, progress reports, evaluation memos, tradeoff analyses, migration assessments, and architecture decision reports. Use for separating evidence, criteria, analysis, conclusions, and recommendations.
   Use when evidence traceability, limitations, missing data, or decision criteria must be explicit.
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   risk_tier: low
 ---
 
@@ -15,6 +15,8 @@ metadata:
 Build reports that let a technical or management reader understand what was studied, how it was evaluated, what the evidence means, and what action should follow.
 
 Read [references/report-patterns.md](references/report-patterns.md) when the task involves analysis, comparison, recommendations, incidents, benchmarks, or status reporting.
+
+Adapt the default structure and level of detail to the report type and audience. Keep required formats, source qualifications, criteria, units, and arithmetic exact.
 
 ## Workflow
 
@@ -33,6 +35,10 @@ Read [references/report-patterns.md](references/report-patterns.md) when the tas
 13. Audit every major claim through this chain: evidence, finding, conclusion, recommendation, next action. If a link is missing, revise, downgrade confidence, or list the gap.
 14. End with a forward-looking action: the specific action, owner, decision point, or follow-up the audience should take next.
 15. Put the executive summary last in the drafting process, but first in the final report.
+
+## Verify and Correct
+
+Use the evidence chain and self-check to track internal progress. Verify the complete report against the sources, criteria, and arithmetic; correct confirmed in-scope gaps once, then recheck findings, conclusions, recommendations, and the executive summary together. In review-only work, verify findings without editing the report. Report remaining gaps; a caller's explicit review budget takes precedence.
 
 ## Completion Criterion
 

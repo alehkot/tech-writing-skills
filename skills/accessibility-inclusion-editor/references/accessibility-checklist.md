@@ -40,7 +40,7 @@ When the write-simplified-technical-english skill is also active, its stricter s
 
 Run the following punctuation and casing checks as well, but report each hit against its canonical home instead of re-deciding the rule:
 
-- A semicolon that pushes two clauses into one long spoken sentence. Prefer a period, and keep a semicolon only where docs-style-editor allows one (canonical home docs-style-editor punctuation).
+- A semicolon that pushes two clauses into one long spoken sentence. Prefer a period. Outside STE, keep a semicolon only between tightly coupled independent clauses, before a connective such as `therefore` or `that is`, or between series items that contain commas. These exceptions apply here even when docs-style-editor is not installed; report the finding under that canonical punctuation category. STE allows no semicolons.
 - An exclamation mark in technical prose (canonical home docs-style-editor word-choice).
 - An `&` written for `and` in prose or headings; an ampersand is acceptable only when it mirrors a UI label or sits in a space-constrained table (canonical home docs-style-editor formatting-mechanics).
 - An all-caps word or an invented camel-case coinage, which a screen reader may spell out letter by letter; reproduce literal identifiers exactly regardless (canonical home docs-style-editor formatting-mechanics).

@@ -1,5 +1,21 @@
 # Inclusive Terms
 
+## Contents
+
+- [Use When](#use-when)
+- [Replacement Principles](#replacement-principles)
+- [Gendered Language](#gendered-language)
+- [Ableist Terms](#ableist-terms)
+- [Violent and Figurative Terms](#violent-and-figurative-terms)
+- [Socially Charged Terms](#socially-charged-terms)
+- [Disability Language](#disability-language)
+- [Older Adults](#older-adults)
+- [Example Names and Personas](#example-names-and-personas)
+- [Legacy-Term Introduction Pattern](#legacy-term-introduction-pattern)
+- [Code-Literal Exception](#code-literal-exception)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference before scanning a draft for non-inclusive terminology or replacing flagged terms during an accessibility and inclusion review.

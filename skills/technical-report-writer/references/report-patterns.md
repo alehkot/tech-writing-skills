@@ -1,5 +1,19 @@
 # Technical Report Patterns
 
+## Contents
+
+- [Use When](#use-when)
+- [Source Principles](#source-principles)
+- [Report Type Picker](#report-type-picker)
+- [Criteria Matrix](#criteria-matrix)
+- [Evidence Chain](#evidence-chain)
+- [Comparison Discipline](#comparison-discipline)
+- [Executive Summary Pattern](#executive-summary-pattern)
+- [Purpose and Order](#purpose-and-order)
+- [Modular Audience Pattern](#modular-audience-pattern)
+- [Review Checklist](#review-checklist)
+
+
 ## Use When
 
 Load this reference for recommendation reports, feasibility studies, benchmark reports, tradeoff analyses, postmortems, incident reports, migration assessments, progress reports, and architecture decision reports.

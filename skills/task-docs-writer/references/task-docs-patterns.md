@@ -1,5 +1,20 @@
 # Task Documentation Patterns
 
+## Contents
+
+- [Use When](#use-when)
+- [Source Principles](#source-principles)
+- [Procedure Planning Questions](#procedure-planning-questions)
+- [Tutorials and How-To Guides](#tutorials-and-how-to-guides)
+- [Step Rules](#step-rules)
+- [UI Writing](#ui-writing)
+- [Code and Command Rules](#code-and-command-rules)
+- [Placeholder Rules](#placeholder-rules)
+- [Provide the Why](#provide-the-why)
+- [Review Checklist](#review-checklist)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference for installation docs, setup guides, runbooks, API workflows, CLI instructions, tutorials, and troubleshooting procedures.

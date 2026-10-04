@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.3.0"
+  version: "1.3.1"
   risk_tier: low
 ---
 

@@ -1,5 +1,21 @@
 # Proposal Patterns
 
+## Contents
+
+- [Use When](#use-when)
+- [Source Principles](#source-principles)
+- [Constraint Extraction](#constraint-extraction)
+- [Argument Spine](#argument-spine)
+- [Audience Attitude](#audience-attitude)
+- [Evidence Types](#evidence-types)
+- [Evidence Gap Handling](#evidence-gap-handling)
+- [Assertion Emphasis](#assertion-emphasis)
+- [Language and Format Checks](#language-and-format-checks)
+- [Schedule and Evaluation](#schedule-and-evaluation)
+- [Risk Language](#risk-language)
+- [Review Checklist](#review-checklist)
+
+
 ## Use When
 
 Load this reference for internal pitches, project proposals, architecture investments, vendor proposals, RFP responses, grant-like technical plans, and budget or staffing requests.

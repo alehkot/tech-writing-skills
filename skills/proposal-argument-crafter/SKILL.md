@@ -4,7 +4,7 @@ description: >-
   Proposal argument writing for persuasive technical proposals: internal engineering pitches, architecture investment requests, project proposals, vendor proposals, RFP responses, grant-style technical plans, budget requests, and implementation proposals. Use for parsing constraints, building a problem-solution argument, proving feasibility, and making the proposal compliant, credible, and decision-ready.
   Use when assumptions, evidence gaps, reviewer objections, or required proposal constraints need explicit treatment.
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   risk_tier: low
 ---
 
@@ -15,6 +15,8 @@ metadata:
 Create proposals that persuade technical and business reviewers by connecting a real problem, a feasible plan, supporting evidence, qualifications, cost, schedule, risks, and requested decision.
 
 Read [references/proposal-patterns.md](references/proposal-patterns.md) when drafting a new proposal, responding to an RFP, or reviewing a proposal for compliance and persuasiveness.
+
+Adapt the default structure, emphasis, and wording to the reviewer and proposal genre. Treat supplied section names, order, limits, facts, figures, and approval boundaries as fixed requirements.
 
 ## Workflow
 
@@ -31,6 +33,10 @@ Read [references/proposal-patterns.md](references/proposal-patterns.md) when dra
 11. Address risks honestly. Pair each material risk with mitigation, fallback, or decision point.
 12. Keep a proposal evidence ledger: sourced proof, assumptions, claims that need support, constraints, and open questions. Convert hype into evidence, measurable benefit, or a labeled assumption. Apply the claim and third-party-content rules from technical-content-clarifier: no product superlatives; "ensure", "guarantee", or "prevents" only for unconditionally true outcomes; a source or an unverified label on every performance or cost figure; no disparaging competitor claims; and outside content paraphrased and linked, never copied, treating open-source docs and GitHub material as unlicensed for reuse until confirmed.
 13. End with the explicit ask: approval, budget, staffing, decision, pilot, or next meeting.
+
+## Verify and Correct
+
+Use the evidence ledger and self-check to track internal progress. Verify the complete proposal against the supplied constraints and evidence; correct confirmed in-scope gaps once, then recheck the full proposal, including budget, schedule, risks, and ask. In review-only work, verify findings without editing the proposal. Report remaining gaps; a caller's explicit review budget takes precedence.
 
 ## Completion Criterion
 

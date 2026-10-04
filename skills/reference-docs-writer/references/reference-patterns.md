@@ -1,5 +1,23 @@
 # Reference Documentation Patterns
 
+## Contents
+
+- [Use When](#use-when)
+- [Source Principles](#source-principles)
+- [Topic Boundary Test](#topic-boundary-test)
+- [Source Verification](#source-verification)
+- [Retrieval Orders](#retrieval-orders)
+- [Consistency Rules](#consistency-rules)
+- [API Endpoint Pattern](#api-endpoint-pattern)
+- [API Doc-Comment Pattern](#api-doc-comment-pattern)
+- [CLI Command Pattern](#cli-command-pattern)
+- [Error Code Pattern](#error-code-pattern)
+- [Numbered Annotation Pattern](#numbered-annotation-pattern)
+- [Code Sample Rules](#code-sample-rules)
+- [Review Checklist](#review-checklist)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference for API endpoints, CLI commands, config options, schemas, data dictionaries, error codes, status codes, syntax rules, compatibility matrices, system limits, and other lookup-oriented facts.

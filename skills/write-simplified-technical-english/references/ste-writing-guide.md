@@ -2,13 +2,15 @@
 
 ## Contents
 
-- Purpose and source boundary
-- Local review status
-- Source-preservation gate
-- Vocabulary gate
-- Sentence controls
-- Procedural, descriptive, and safety text
-- Audit method
+- [Purpose and Source Boundary](#purpose-and-source-boundary)
+- [Local Review Status](#local-review-status)
+- [Source-Preservation Gate](#source-preservation-gate)
+- [Vocabulary Gate](#vocabulary-gate)
+- [Sentence Controls](#sentence-controls)
+- [Procedural Text](#procedural-text)
+- [Descriptive Text](#descriptive-text)
+- [Safety Text](#safety-text)
+- [Audit Method](#audit-method)
 
 ## Purpose and Source Boundary
 

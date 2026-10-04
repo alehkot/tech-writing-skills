@@ -1,5 +1,25 @@
 # Grammar and Usage
 
+## Contents
+
+- [Use When](#use-when)
+- [Scope Notes](#scope-notes)
+- [Articles](#articles)
+- [Person](#person)
+- [Tense](#tense)
+- [Voice](#voice)
+- [Modal Verbs](#modal-verbs)
+- [Contractions](#contractions)
+- [Pronouns](#pronouns)
+- [Plurals](#plurals)
+- [Possessives](#possessives)
+- [Prepositions](#prepositions)
+- [Sentence Mechanics](#sentence-mechanics)
+- [Paragraph Mechanics](#paragraph-mechanics)
+- [Global-Audience Usage](#global-audience-usage)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference for the grammar pass: articles, person, tense, voice, modal verbs, contractions, pronouns, plurals, possessives, prepositions, sentence and paragraph mechanics, and global-audience usage.
