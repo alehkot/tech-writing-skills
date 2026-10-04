@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Docs Reviewer"
+  short_description: "Verify technical drafts against source evidence"
+  default_prompt: "Use $technical-docs-reviewer to check this draft against its original sources and report supported findings or a scoped clean review."
