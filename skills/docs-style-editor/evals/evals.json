@@ -31,7 +31,7 @@
     },
     {
       "id": "docs-style-copyedit-pass",
-      "prompt": "Copyedit this section of our log retention docs before it ships. Facts are already signed off, so change the writing only.\n\n## Configuring The Retention Policy\n\nThe retention service applies separate limits to logs, traces and metrics. It currently supports two storage classes. Before you change the policy you should have the `retention.admin` role. To see every field, click here. The stricter limits take effect on 5/6/2026. Set the `mode` field to “strict” so the service rejects writes once the quota is reached.",
+      "prompt": "Copyedit this section of our log retention docs before it ships. Facts are already signed off, so change the writing only.\n\n## Configuring The Retention Policy\n\nThe retention service applies separate limits to logs, traces and metrics. It currently supports two storage classes. Before you change the policy you should have the `retention.admin` role. To see every field, click here. The stricter limits take effect on 5/6/2026. Set the `mode` field to “strict” so the service rejects writes once the quota is reached. Verify the final result against the supplied source after any correction; keep progress checklists private.",
       "expected_output": "A copyedited section plus a report that separates applied mechanical fixes from the ambiguous date flagged as a question, with every fact and literal intact.",
       "assertions": [
         "The series about logs, traces, and metrics carries a serial comma before 'and'.",
@@ -42,7 +42,8 @@
         "The curly quotation marks around the literal value are gone, replaced by straight quotes or code font.",
         "The 'should' before the required role is replaced with 'must' or a bare imperative.",
         "The literals `retention.admin`, `mode`, and `strict` appear with their exact original spelling.",
-        "The output separates applied changes from flagged items instead of listing everything as changed."
+        "The output separates applied changes from flagged items instead of listing everything as changed.",
+        "The final artifact preserves the supplied facts, exact literals, qualifications, and required format after corrections; unresolved evidence stays visible without printing an internal progress checklist."
       ]
     },
     {

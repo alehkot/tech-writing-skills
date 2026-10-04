@@ -4,7 +4,7 @@ description: >-
   Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
   Use when caveats, uncertainty, audience proximity, or source-backed simplification matter.
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   risk_tier: low
 ---
 
@@ -15,6 +15,8 @@ metadata:
 Turn dense technical material into concept topics or explanatory content that a target reader can follow, remember, and use. Optimize for audience fit, concrete examples, accurate simplification, and a clear through-line.
 
 Read [references/clarity-patterns.md](references/clarity-patterns.md) when drafting or revising explainers, content, overviews, or conceptual documentation.
+
+Choose the explanatory sequence, examples, and analogies to fit the reader. Treat the default structure as an adaptable scaffold; preserve supplied facts, qualifications, exact literals, and the user's required format.
 
 ## Workflow
 
@@ -36,6 +38,10 @@ Read [references/clarity-patterns.md](references/clarity-patterns.md) when draft
 16. Prefer active voice and short sentences. Split long sentences that carry multiple ideas. Treat a paragraph past five or six sentences as a signal to split or cut, but never split a single idea; one-sentence paragraphs are fine. Shorten sentences and paragraphs together — never merge sentences just to lower the count. Vary sentence openers, and rewrite runs of consecutive sentences that start with the same phrase.
 17. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, name it only as "an internal technical change" and focus on user impact. Prefer plain phrases such as "during traffic spikes," "the slowest 1% of requests," and "peak-demand delays."
 18. End with a concrete next action, decision, or mental model. For release narratives, make the final sentence tell the reader what to try, monitor, adopt, or understand next.
+
+## Verify and Correct
+
+Use the existing self-check internally. Check the complete explanation, including examples and analogies, against the sources and reader's question. Correct confirmed in-scope gaps once, then recheck the final explanation for meaning, caveats, and literals. In review-only work, verify findings without editing the source. Report remaining gaps; a caller's explicit review budget takes precedence.
 
 ## Completion Criterion
 

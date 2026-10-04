@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   risk_tier: low
 ---
 
@@ -69,6 +69,10 @@ Use this order, and omit a section that has no entries rather than inventing ent
 3. `Flagged, not changed`: the passage or value, why it was not edited (possible real value, meaning at risk, missing source fact), and the question the author must answer.
 4. `Project style overrides`: each house default that the project's documented style replaced, and the rule that replaced it.
 5. `Canonical home elsewhere`: defects reported for another skill, each with the skill named.
+
+## Verify and Correct
+
+Use the existing self-check internally. Correct confirmed mechanical failures within the requested scope once, then rerun the affected passes and the complete meaning/literal comparison. For findings-only work, verify the findings against the unchanged source. Report remaining gaps rather than repeating indefinitely; a caller's explicit review budget takes precedence.
 
 ## Completion Criterion
 

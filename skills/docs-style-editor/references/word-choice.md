@@ -1,5 +1,27 @@
 # Word Choice
 
+## Contents
+
+- [Use When](#use-when)
+- [Scope Notes](#scope-notes)
+- [Ambiguous Words](#ambiguous-words)
+- [Connectors, Latin Abbreviations, and Chat-isms](#connectors-latin-abbreviations-and-chat-isms)
+- [Register and Ease Words](#register-and-ease-words)
+- [Redundant Framing](#redundant-framing)
+- [Timeless Wording](#timeless-wording)
+- [Precise Verbs and Nouns](#precise-verbs-and-nouns)
+- [Compound Spellings](#compound-spellings)
+- [Part-of-Speech Splits](#part-of-speech-splits)
+- [Sense-Dependent Spellings](#sense-dependent-spellings)
+- [Agreement and Article Rulings](#agreement-and-article-rulings)
+- [Term Formatting](#term-formatting)
+- [Abbreviations](#abbreviations)
+- [Spelling and Dictionary Policy](#spelling-and-dictionary-policy)
+- [Product Names and Trademarks](#product-names-and-trademarks)
+- [Document Self-Reference](#document-self-reference)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference for the word-choice pass: term-by-term rulings, register rules, timeless wording, abbreviations, spelling policy, and product and trademark names.

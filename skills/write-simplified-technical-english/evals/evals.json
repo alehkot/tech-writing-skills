@@ -58,7 +58,7 @@
     },
     {
       "id": "ste-literals-and-source-gaps",
-      "prompt": "Rewrite this software procedure in STE style: 'In Settings > Advanced Security Configuration, select “Rotate API key,” paste `${API_KEY_ID}` into the Key identifier field, and save; if the `rotation_state` value is `pending`, wait.' Preserve all UI labels and code literals. The source does not say how long to wait or which value confirms success.",
+      "prompt": "Rewrite this software procedure in STE style: 'In Settings > Advanced Security Configuration, select “Rotate API key,” paste `${API_KEY_ID}` into the Key identifier field, and save; if the `rotation_state` value is `pending`, wait.' Preserve all UI labels and code literals. The source does not say how long to wait or which value confirms success. Verify the final result against the supplied source after any correction; keep progress checklists private.",
       "expected_output": "An STE-aligned procedure with separate actions, exact literals, a condition-first wait instruction, and explicit unresolved timing and success signals.",
       "assertions": [
         "The output preserves 'Settings > Advanced Security Configuration', 'Rotate API key', '${API_KEY_ID}', 'Key identifier', 'rotation_state', and 'pending' exactly.",
@@ -67,7 +67,8 @@
         "The output states that the wait duration and success value are not specified.",
         "The output does not invent a timeout, polling interval, success value, navigation path, or recovery action.",
         "The output does not present 'Save' as an exact UI label because the source gives only the ordinary action 'save'.",
-        "Each procedural sentence contains no more than 20 words."
+        "Each procedural sentence contains no more than 20 words.",
+        "The final artifact preserves the supplied facts, exact literals, qualifications, and required format after corrections; unresolved evidence stays visible without printing an internal progress checklist."
       ]
     }
   ]

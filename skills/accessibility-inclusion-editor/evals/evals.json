@@ -31,7 +31,7 @@
     },
     {
       "id": "code-literal-flag-exception",
-      "prompt": "quick one before release: our CLI really does have a `--whitelist` flag and a config field named `whitelist_domains`, and we cannot rename either this quarter. the doc paragraph is: \"Use --whitelist to whitelist a domain. Domains in the whitelist skip the scanner. You can also set whitelist_domains in acme.yaml.\" fix the wording but do not break the commands.",
+      "prompt": "quick one before release: our CLI really does have a `--whitelist` flag and a config field named `whitelist_domains`, and we cannot rename either this quarter. the doc paragraph is: \"Use --whitelist to whitelist a domain. Domains in the whitelist skip the scanner. You can also set whitelist_domains in acme.yaml.\" fix the wording but do not break the commands. Verify the final result against the supplied source after any correction; keep progress checklists private.",
       "expected_output": "A revision that keeps both literals byte-for-byte in code font, uses allowlist wording in the surrounding prose, and reports the kept literals for maintainers.",
       "assertions": [
         "The literal `--whitelist` appears exactly as `--whitelist`, unchanged and in code font.",
@@ -39,7 +39,8 @@
         "No renamed or invented identifier such as `--allowlist` or `allowlist_domains` appears anywhere in the output.",
         "Outside code font, the prose uses allowlist, trustlist, or safelist, and the verb phrase 'to whitelist a domain' is rewritten as adding the domain to the allowlist.",
         "The first mention ties the prose term to the literal once, and that pairing is not repeated in later sentences.",
-        "The output includes a 'Code literals kept as-is' list that names both `--whitelist` and `whitelist_domains` with a suggested prose alternative for maintainers."
+        "The output includes a 'Code literals kept as-is' list that names both `--whitelist` and `whitelist_domains` with a suggested prose alternative for maintainers.",
+        "The final artifact preserves the supplied facts, exact literals, qualifications, and required format after corrections; unresolved evidence stays visible without printing an internal progress checklist."
       ]
     },
     {
@@ -53,6 +54,18 @@
         "The unrecorded terminology preference of the advocacy organization's group appears under a 'Flagged for human verification' list instead of being resolved in the revised text.",
         "The output does not supply a preferred term, identity label, or community name for that group.",
         "The participant counts 12 and 8 are unchanged, and no participant characteristic is added that the draft does not state."
+      ]
+    },
+    {
+      "id": "standalone-spoken-punctuation-audit",
+      "prompt": "Only accessibility-inclusion-editor is installed. Give findings only on spoken instructions in this draft; leave the draft untouched. \"The source queue is read-only; the destination queue accepts writes. The copy is complete; therefore, the destination is ready. Runs are scheduled for Porto, Portugal; Accra, Ghana; and Osaka, Japan. To finish, save the file; close the editor; restart the worker.\" Treat the supplied facts and names as verified. Do not ask me to install another skill.",
+      "expected_output": "A standalone findings review that recognizes the allowed non-STE semicolon contexts, flags the chained instruction for separate list items, suggests a source-faithful repair, and leaves the original unchanged.",
+      "assertions": [
+        "The review completes without requiring docs-style-editor or another sibling installation.",
+        "Tightly coupled independent clauses, a connective such as therefore, and comma-containing series items are not rejected merely for having semicolons.",
+        "The save/close/restart instruction is flagged for separate instruction list items rather than retained as a chained spoken sentence.",
+        "The response reports findings and suggested repairs without claiming to have edited the original draft.",
+        "The suggested instruction repair preserves the order and invents no additional action or outcome."
       ]
     }
   ]

@@ -10,6 +10,8 @@ from pathlib import Path
 
 import yaml
 
+from skill_resources import validate_reference_resources
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
@@ -58,14 +60,7 @@ def validate_openai_metadata(skill_dir: Path) -> None:
 
 
 def validate_markdown_references(skill_dir: Path) -> None:
-    skill_md = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
-    ref_dir = skill_dir / "references"
-    actual_refs = {p.name for p in ref_dir.glob("*.md")} if ref_dir.is_dir() else set()
-    linked_refs = set(re.findall(r"references/([a-zA-Z0-9_\-]+\.md)", skill_md))
-
-    missing = linked_refs - actual_refs
-    if missing:
-        raise ValueError(f"{skill_dir}/SKILL.md: broken reference links: {sorted(missing)}")
+    validate_reference_resources(skill_dir)
 
 
 def validate_skill_files(skill_dir: Path) -> None:

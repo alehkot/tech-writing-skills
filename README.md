@@ -238,6 +238,8 @@ This follows the official Agent Skills evaluation pattern at https://agentskills
 
 ## Validation
 
+The [29-skill authoring audit](docs/authoring-audit.md) records the repairs and per-skill evidence. Local gates require each reference to be linked directly from its entrypoint, reject links outside a standalone skill, verify heading anchors, and require linked contents for references over 100 lines. Fenced examples do not count as headings or runtime resource links.
+
 Validate a skill after changes, and run the eval-harness tests:
 
 ```bash

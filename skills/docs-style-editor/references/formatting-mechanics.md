@@ -1,5 +1,23 @@
 # Formatting Mechanics
 
+## Contents
+
+- [Use When](#use-when)
+- [Scope Notes](#scope-notes)
+- [Capitalization](#capitalization)
+- [Headings and Titles](#headings-and-titles)
+  - [Reference-Template Exceptions](#reference-template-exceptions)
+- [Lists](#lists)
+- [Tables](#tables)
+- [Notices](#notices)
+- [Text Formatting](#text-formatting)
+- [Code Font](#code-font)
+- [Links and Cross-References](#links-and-cross-references)
+- [Figures and Images](#figures-and-images)
+- [Footnotes](#footnotes)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference for the formatting pass: capitalization, headings, lists, tables, notices, bold and italics, code font, links and cross-references, figures and captions, footnotes, and markup mechanics.

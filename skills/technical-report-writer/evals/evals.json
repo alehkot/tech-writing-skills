@@ -41,7 +41,7 @@
     },
     {
       "id": "report-incomplete-benchmark-evidence",
-      "prompt": "Write a recommendation report from these benchmark notes. Criteria should include latency, cost, reliability, and migration effort. Option A: 120 ms p95 at 500 requests/second, cost unknown. Option B: 80 ms p95 at 500 requests/second, reliability history unknown. Option C: failed under load; migration effort lowest. We need a recommendation but the evidence is incomplete.",
+      "prompt": "Write a recommendation report from these benchmark notes. Criteria should include latency, cost, reliability, and migration effort. Option A: 120 ms p95 at 500 requests/second, cost unknown. Option B: 80 ms p95 at 500 requests/second, reliability history unknown. Option C: failed under load; migration effort lowest. We need a recommendation but the evidence is incomplete. Verify the final result against the supplied source after any correction; keep progress checklists private.",
       "expected_output": "A report that defines criteria, compares options with available evidence, labels missing cost and reliability data, avoids an overconfident ranking, and recommends a next decision or evidence-gathering step.",
       "assertions": [
         "The criteria appear before the option analysis.",
@@ -50,7 +50,8 @@
         "Conclusions and recommendations trace back to the available evidence and limitations.",
         "The output includes next actions to close the evidence gaps or make a bounded decision.",
         "Caveats about benchmark results appear as inline notes, parentheticals, or notes placed directly after the table, not as page-bottom footnotes, and no caveat is dropped.",
-        "Numbers in comparison tables use consistent digit grouping and consistent units across options."
+        "Numbers in comparison tables use consistent digit grouping and consistent units across options.",
+        "The final artifact preserves the supplied facts, exact literals, qualifications, and required format after corrections; unresolved evidence stays visible without printing an internal progress checklist."
       ]
     }
   ]

@@ -1,5 +1,19 @@
 # Clarity Patterns
 
+## Contents
+
+- [Use When](#use-when)
+- [Source Principles](#source-principles)
+- [Audience Snapshot](#audience-snapshot)
+- [Explanation Moves](#explanation-moves)
+- [Jargon Decision Tree](#jargon-decision-tree)
+- [Anthropomorphism](#anthropomorphism)
+- [Durable Claims](#durable-claims)
+- [Engagement Without Hype](#engagement-without-hype)
+- [Revision Checklist](#revision-checklist)
+- [Attribution](#attribution)
+
+
 ## Use When
 
 Load this reference for conceptual documentation, architecture explainers, engineering blog posts, onboarding overviews, executive technical summaries, release narratives, and educational technical content.

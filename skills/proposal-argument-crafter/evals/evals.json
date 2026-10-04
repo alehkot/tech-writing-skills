@@ -17,7 +17,7 @@
     },
     {
       "id": "proposal-rfp-compliance",
-      "prompt": "We need to respond to an RFP. Required sections are Executive summary, Technical approach, Security, Staffing, Timeline, Cost. Limit is 5 pages. Please outline the proposal and note compliance risks.",
+      "prompt": "We need to respond to an RFP. Required sections are Executive summary, Technical approach, Security, Staffing, Timeline, Cost. Limit is 5 pages. Please outline the proposal and note compliance risks. Verify the final result against the supplied source after any correction; keep progress checklists private.",
       "expected_output": "An RFP-aware outline that preserves the required section labels and calls out page-limit or evidence risks.",
       "assertions": [
         "The output preserves all required section names.",
@@ -25,7 +25,8 @@
         "The output includes compliance risks or open questions.",
         "The output does not reorder or rename required RFP sections without explanation.",
         "The output distinguishes proposal content from missing source information.",
-        "The output reproduces the required section headings with their supplied wording and casing instead of restyling them."
+        "The output reproduces the required section headings with their supplied wording and casing instead of restyling them.",
+        "The final artifact preserves the supplied facts, exact literals, qualifications, and required format after corrections; unresolved evidence stays visible without printing an internal progress checklist."
       ]
     },
     {
