@@ -2,6 +2,23 @@
   "skill_name": "reference-docs-writer",
   "evals": [
     {
+      "id": "reference-versioned-command-inventory",
+      "prompt": "Make a compact CLI reference from this supplied Acme 4.2.0 public registry snapshot at commit 7bc219e. It was captured with `python tools/export_cli_reference.py --public --format json`. The export lists all public command names with summaries and selected syntax examples; it does not contain complete option schemas. Registry groups: cache: `acme cache status` reports cache size; `acme cache purge --age <days>` removes entries older than the supplied number of days, whose default is not specified. jobs: `acme jobs list` lists jobs; `acme jobs cancel <job-id>` cancels the named job. An internal registry also contains `acme debug inspect`; it is excluded from the public export. The old README says there are five public commands and calls the cancellation command `acme jobs stop`. Our editor wants a total, a grouped command tree, and a short maintenance note. Work from this captured material only; no repository checkout or live execution is available.",
+      "expected_output": "A reference that mirrors the two public registry groups, corrects stale names and counts using the versioned source, labels the supplied snapshot, and includes a reproducible inventory note without claiming execution.",
+      "assertions": [
+        "The command tree or lookup grouping follows cache and jobs, rather than exposing internal registry organization as public commands.",
+        "The total is four public leaf commands, with acme debug inspect excluded from that total and from the public reference entries.",
+        "The reference uses acme jobs cancel rather than presenting acme jobs stop as a valid command or alias.",
+        "The inventory is tied to the supplied Acme 4.2.0 snapshot at commit 7bc219e rather than asserted as a verified live inventory.",
+        "A source or maintenance note preserves the supplied export command so the inventory can be regenerated, regardless of its heading or location.",
+        "The output does not claim to have executed the exporter or inspected a checkout.",
+        "The unknown default for the purge age is marked as unspecified rather than invented.",
+        "The command descriptions do not invent supported job states, extra status output beyond cache size, or claims that undocumented options do not exist.",
+        "Any types stated for --age or job-id are explicitly marked as unspecified or unverified; the output does not assert Integer or String types from the selected examples.",
+        "The output does not infer requiredness or default absence for --age or job-id from their use in the selected examples. If included, those fields are marked as unspecified rather than asserted as Yes, None, or an equivalent fact."
+      ]
+    },
+    {
       "id": "reference-api-endpoint",
       "prompt": "Create reference docs for POST /workspaces. Body fields: name string required, region string optional default us-east-1, tags object optional. Returns 201 with id, name, region, created_at. Errors: 400 invalid_name, 409 duplicate_name.",
       "expected_output": "An API endpoint reference with request fields, response fields, status/errors, syntax or request shape, example, and usage notes.",

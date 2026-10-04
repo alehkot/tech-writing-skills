@@ -7,11 +7,13 @@ This human-facing map summarizes reusable technical-writing principles reflected
 | Analyze the reader's proximity to the subject | Capture role, goal, prior knowledge, and closeness to the system before choosing depth and vocabulary. | All skills |
 | Organize by topic type | Split task, concept, and reference material unless the requested genre intentionally combines them. | `task-docs-writer`, `technical-content-clarifier`, `reference-docs-writer` |
 | Focus on user tasks | Frame procedures around the user's job and outcome rather than feature tours. | `task-docs-writer` |
+| Distinguish learning from execution | Give tutorials a supported exercise path with early checkpoints; give practiced readers focused how-to guides with necessary decision branches. | `task-docs-writer` |
 | Use active voice | Make the actor clear, especially in steps, reports, risks, and recommendations. | All skills |
 | Use imperative mood for instructions | Start procedural steps with action verbs and one primary action. | `task-docs-writer` |
 | State goals and conditions before actions | Put prerequisites, conditions, locations, and the reason for non-obvious steps before the action. | `task-docs-writer`, `reference-docs-writer` |
 | Front-load the main point | Lead sections, summaries, and paragraphs with the decision-relevant message. | `technical-content-clarifier`, `proposal-argument-crafter`, `technical-report-writer` |
 | Be concise | Remove filler, duplicated background, and praise that does not help the reader act or decide. | All skills |
+| Edit redundant framing without meaning drift | Apply the [unslop guide](../skills/docs-style-editor/references/unslop-guide.md) to empty framing and repetition; preserve real contrasts, uncertainty, domain terms, and relationships lost in compressed prose. | `docs-style-editor` |
 | Use consistent terminology | Pick one term for each concept, command, field, or role and use it throughout. | All skills |
 | Control vocabulary when requested | For STE work, verify general words against the applicable official dictionary and domain terms against an approved project source; mark unverified terms instead of guessing. | `write-simplified-technical-english` |
 | Define terms on first use | Expand acronyms and explain unfamiliar terms before relying on them. | All skills |
@@ -21,6 +23,7 @@ This human-facing map summarizes reusable technical-writing principles reflected
 | Connect problem, method, and answer | For proposals and reports, connect the problem or question, method or plan, evidence, and decision. | `proposal-argument-crafter`, `technical-report-writer` |
 | Use progressive disclosure | Put essentials first and move detailed evidence, templates, or background to later sections or references. | All skills |
 | Maintain an evidence gate | Separate supplied facts, assumptions, open questions, and missing evidence before drafting; label uncertainty instead of fabricating complete-looking detail. | All skills |
+| Verify reference inventories | Match the documented public surface; check names, counts, and trees against a stated source version and record how to reproduce the inventory. | `reference-docs-writer` |
 | Test against shortcuts | Treat unsupported certainty, mixed topic types, invented facts, and missing verification as eval-worthy failure modes. | All skills |
 | Write for global readers | Remove idioms, slang, sports metaphors, and culture-specific shortcuts unless the audience clearly shares them. | `technical-content-clarifier`, all public-facing docs |
 | Put the bottom line first | Do not build suspense when the reader needs a decision, recommendation, or ask. | `proposal-argument-crafter`, `technical-report-writer` |

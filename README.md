@@ -51,14 +51,14 @@ The root `scripts/` directory is for repository maintenance only. It is not a bu
 | `skills/proposal-argument-crafter` | Internal pitches, RFP responses, vendor proposals, engineering investment requests, project plans |
 | `skills/technical-report-writer` | Recommendation reports, feasibility studies, benchmark reports, incident reports, progress reports, tradeoff analyses |
 | `skills/write-simplified-technical-english` | ASD-STE100-style drafting, rewriting, and audits for controlled technical English, with explicit vocabulary and conformance limits |
-| `skills/docs-style-editor` | Copyediting and style passes over an existing draft: punctuation, grammar and usage, word choice and term rulings, numbers, dates, units, link text, formatting mechanics, timeless wording, safe example values |
+| `skills/docs-style-editor` | Copyediting, unslop cleanup, and style passes over an existing draft: punctuation, grammar and usage, word choice and term rulings, numbers, dates, units, link text, formatting mechanics, timeless wording, safe example values |
 | `skills/accessibility-inclusion-editor` | Accessibility and inclusive-language reviews of an existing draft: alt text, media alternatives, independence from color, size, and position cues, screen-reader-safe wording, neutral terminology |
 
 ## Topic-Type Coverage
 
 The core documentation triad is covered by separate skills so agents do not mix information types:
 
-- **Task topics** answer "How do I do this?" Use `task-docs-writer`.
+- **Task topics** answer "How do I do this?" Use `task-docs-writer`. Distinguish tutorials that guide learning through a concrete exercise from how-to guides that help practiced readers finish a job.
 - **Concept topics** answer "What is this and why does it matter?" Use `technical-content-clarifier`.
 - **Reference topics** answer "What are the exact facts, syntax, values, fields, messages, or limits?" Use `reference-docs-writer`.
 
@@ -67,6 +67,8 @@ The core documentation triad is covered by separate skills so agents do not mix 
 `write-simplified-technical-english` is a controlled-language layer, not a fourth topic type. Apply it after choosing the task, concept, or reference structure. Use it only when the user explicitly requests ASD-STE100 or STE writing, rewriting, or auditing; generic simplification and other controlled-language standards remain outside its scope.
 
 `docs-style-editor` is an editorial layer, not a fourth topic type. Apply it after a topic-type or genre skill has produced the draft, so it corrects mechanics such as punctuation, usage, word choice, numbers, link text, and formatting without changing meaning, facts, or structure. When `write-simplified-technical-english` is active, the STE rules take precedence wherever the two overlap.
+
+Its [Unslop Guide for Technical Writing](skills/docs-style-editor/references/unslop-guide.md) provides a shared prose cleanup pass for task, concept, reference, proposal, and report drafts. The guide gives concrete revisions for common filler and repetition, distinguishes edits from evidence gaps, and protects technical terms, uncertainty, warnings, and exact literals. Full copyedits include this pass; a targeted request to unslop a draft can use it directly through `docs-style-editor`.
 
 `accessibility-inclusion-editor` is a review layer, not a fourth topic type. Apply it after the draft exists to check alt text, text alternatives for media, independence from color, size, and position cues, screen-reader-safe wording, and inclusive terminology. It never renames literal commands, flags, or identifiers, and it defers to `write-simplified-technical-english` whenever STE is active.
 
@@ -117,6 +119,10 @@ These skills often operate on external documents such as RFPs, reports, logs, or
 - Distinguish an STE-aligned draft from a source-checked or organization-approved result; never present an automated review as certification.
 
 This bundle also borrows skill-design discipline from public engineering skill packs without copying their wording or templates: Matt Pocock's `mattpocock/skills` emphasizes small composable skills, precise trigger descriptions, progressive disclosure, and checkable completion criteria; Addy Osmani's `addyosmani/agent-skills` emphasizes process-oriented skills, anti-shortcut checks, and verification evidence. In this repo, those ideas show up as source-led writing checks and evals that punish invented facts, mixed topic types, unsupported certainty, and missing verification.
+
+A review of Cursor's [pstack technical-writing skill](https://github.com/cursor/plugins/blob/main/pstack/skills/technical-writing/SKILL.md) informed two refinements, written in original wording: distinguish guided tutorials from operational how-to guides within `task-docs-writer`, and organize and verify reference inventories against the documented public surface in `reference-docs-writer`. This bundle retains its separate topic and review skills, applies STE only on explicit request, and has no dependency on pstack's other skills.
+
+The companion [pstack unslop skill](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md) informed additional checks in `docs-style-editor` for redundant framing and overcompressed prose. These are meaning-preserving editing checks, not an authorship detector or a blanket ban on vocabulary. Real contrasts, evidence qualifiers, precise technical terms, and useful reusable text remain intact; missing support is flagged rather than invented.
 
 ## Evaluation Fixtures
 

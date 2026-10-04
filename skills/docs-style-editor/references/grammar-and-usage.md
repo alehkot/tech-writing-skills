@@ -99,8 +99,9 @@ Classify every `should` as required, recommended, or optional, and then reword i
 - Put the condition, goal, or circumstance before the action, in every topic type, not only in procedures. Avoid: `Click Revoke if the token is compromised.` Prefer: `If the token is compromised, click Revoke.` (canonical procedure rules: task-docs-writer)
 - Put a conditional clause that governs a list before the list's lead-in sentence, never after the items.
 - Order a cross-reference purpose first: `For more information about quotas, see ...`, not `See ... for more information about quotas.`
-- Treat a sentence past about 26 words as a split signal, not a failure. Split at a conjunction or move a qualifier into its own sentence.
+- Treat a sentence past about 26 words as a review signal, not a failure. Keep a readable sentence that expresses one connected idea; split when separate ideas or nested clauses make readers backtrack. Do not detach a condition or qualification from the claim it limits.
 - Vary sentence openers, and flag a run of consecutive sentences that begin with the same phrase.
+- Expand compressed running prose into sentences with explicit articles and verbs when the source establishes the relationship. `If token expires, client disconnects; no retry` can become `If the token expires, the client disconnects and does not retry`. Flag an unknown actor or relationship instead of supplying one. Preserve literal symbols, diagram notation, and concise table cells where their format makes the meaning clear.
 
 ## Paragraph Mechanics
 

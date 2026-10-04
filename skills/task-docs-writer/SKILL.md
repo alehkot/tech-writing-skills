@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   risk_tier: low
 ---
 
@@ -18,10 +18,10 @@ Read [references/task-docs-patterns.md](references/task-docs-patterns.md) when d
 
 ## Workflow
 
-1. Identify the reader, task, starting state, target outcome, and environment. If the source lacks required versions, permissions, credentials, or platform assumptions, mark them as assumptions or questions instead of inventing them.
+1. Identify the reader, task, starting state, target outcome, and environment. Distinguish a tutorial that builds experience through a guided exercise from a how-to guide that helps a practiced reader finish a job; apply the matching pattern in [references/task-docs-patterns.md](references/task-docs-patterns.md). If the source lacks required versions, permissions, credentials, or platform assumptions, mark them as assumptions or questions instead of inventing them.
 2. Title and frame the task around the user's goal, not the product surface or internal feature name. Prefer a base-form action verb such as `Create`, `Configure`, or `Verify`; avoid `-ing` task titles such as `Creating`. Keep articles in titles and headings: `Create a VM instance`, never `Create VM instance`.
 3. Separate task content from conceptual background. Keep long explanations before or after the procedure, not inside the steps.
-4. Create the procedure in this order: purpose, prerequisites, before-you-start checks, steps, expected result, verification, rollback or troubleshooting. Document exactly one way to complete the task: the keyboard-accessible, shortest path the audience knows. Put unavoidable alternatives under separate headings or tabs, and link to already-documented procedures instead of repeating their steps.
+4. Create the procedure in this order: purpose, prerequisites, before-you-start checks, steps, expected result, verification, rollback or troubleshooting. Choose one recommended, keyboard-accessible path that fits the audience. Keep tutorials on a supported exercise path; retain necessary condition-based branches in how-to guides and say how to choose. Put alternative methods under separate headings or tabs, and link to already-documented procedures instead of repeating their steps.
 5. Start each action step with an imperative verb. Use one primary action per step; the only multi-action step is a menu path joined with `>`. Format a one-step procedure as a single bulleted sentence, never a numbered list of one. Put conditions first: `If you use Kubernetes, set ...`.
 6. Provide the why when it changes user behavior. Use `To [goal], [action]` when a step's purpose is not obvious; switch to the colon form (`Rotate the signing key: click Rotate.`) when the `To ...` form could read as optional.
 7. State location before action when the reader must act in a specific UI, file, directory, console, or service. Restate the acting context in the first step under each new heading, even when it is unchanged. Use named locations instead of directional cues such as `above`, `below`, or `right`.
@@ -31,7 +31,7 @@ Read [references/task-docs-patterns.md](references/task-docs-patterns.md) when d
 11. Make command examples copyable and adaptable. Introduce each command by what it accomplishes, never with `run the following command`. Use one placeholder convention across the doc set: the house form is lowercase `<angle-bracket>` names, and a target doc set's existing convention wins when one exists. Give placeholders informative names and define each near its command with `Replace <placeholder> with ...` or a `Replace the following:` list.
 12. Keep lists and substeps parallel: same grammar, same level of detail, and no mixed choices/actions in one list.
 13. Split procedures that grow beyond roughly nine steps into smaller tasks, phases, or subtasks.
-14. Maintain a source ledger while drafting: supplied facts, assumptions, open questions, and omitted details that would affect execution.
+14. Audit every action against a source ledger: supplied facts, assumptions, open questions, and omitted details that would affect execution. Include troubleshooting advice, recovery actions, escalation routes, and responsible roles in this audit. Preserve sourced stop conditions. Remove unsupported executable advice and flag the gap as an open question; a plausible diagnosis or an unknown error message does not justify an invented recovery action.
 15. Add verification points where the reader can tell whether the step worked. State the action before its result, in the same paragraph: `Click Deploy. The rollout status appears.` Prefer observable signals: command output, status code, UI state, log line, or file path. If the source does not provide an exact signal, label the verification gap.
 
 ## Completion Criterion
@@ -40,7 +40,7 @@ Complete the task only when the output gives the reader a usable procedure: ever
 
 ## Output Shape
 
-Use this default structure unless the user or repo has an established template:
+Use this default structure unless the user or repo has an established template. Include troubleshooting actions only when the source supplies them; otherwise replace that section with the relevant open questions or verification gaps.
 
 ```markdown
 # [Task name]
@@ -58,12 +58,13 @@ Use this procedure to [outcome].
 - [Observable success signal]
 
 ## Troubleshoot
-- If [symptom], [diagnosis or fix].
+- If [symptom], [sourced diagnosis or recovery action; otherwise flag the gap].
 ```
 
 ## Self-Check
 
 - [ ] The document names its intended reader and outcome.
+- [ ] Tutorials name a concrete exercise outcome and provide early and subsequent checkpoints; how-to guides preserve necessary decisions without adding teaching detours.
 - [ ] The title and opening are framed around the user's goal rather than the product surface, task headings use base-form action verbs, and headings keep their articles and use sentence case (canonical rules: docs-style-editor formatting-mechanics).
 - [ ] Prerequisites are visible before the first step.
 - [ ] Steps are chronological and do not hide decisions in paragraphs.
@@ -96,7 +97,7 @@ Use this procedure to [outcome].
 - Do not combine setup, execution, and verification in one long step.
 - Do not use passive voice when it hides the actor. Tell the reader what to do.
 - Do not fill gaps with plausible commands, console paths, file names, or output strings.
-- Do not document a second way to do the same task inline; a single best path keeps readers moving.
+- Do not interleave competing ways to do the same task; separate alternative methods while keeping conditions that determine the required action.
 
 ## Attribution
 

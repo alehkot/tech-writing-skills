@@ -53,6 +53,7 @@ These exceptions apply only inside reference topics that follow a repeated item 
 - End an item with a period only when it contains a verb or reads as a sentence. Leave bare words, verbless fragments, code-only items, and link-only items unpunctuated, and never mix the two styles in one list.
 - When only one item needs an explanatory tail, convert the whole list to a description list so every item carries one.
 - In a description list, capitalize the term, use one separator for the whole list, and never use a dash. After a colon the description starts lowercase; after a period it starts uppercase and ends with a period.
+- Remove a label's repeated wording by rewriting the explanation: `**Retention:** Retention lasts seven days` becomes `**Retention:** seven days`. Check the label and explanation together for grammatical agreement and unchanged meaning; do not leave a verb without its subject. Keep useful labels and parallel item formatting; omit a redundant label only when it adds no navigation value. Preserve every item's facts, membership, and order.
 - Label nested levels with lowercase letters, then lowercase Roman numerals.
 - Use real paragraphs for multi-paragraph list items, never forced line breaks.
 - In running prose, separate listed items with serial commas and never trail off with `etc.`; signal a non-exhaustive list in the lead-in with `such as` or `including`.

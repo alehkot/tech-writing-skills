@@ -10,7 +10,7 @@
       "should_trigger": true
     },
     {
-      "query": "style-check this changelog entry pls, the capitalization is all over the place",
+      "query": "This release note sounds like slop. Cut the salesy framing and repeated labels without changing the claims or reshuffling it.",
       "should_trigger": true
     },
     {

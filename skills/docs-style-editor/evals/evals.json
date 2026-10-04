@@ -2,6 +2,34 @@
   "skill_name": "docs-style-editor",
   "evals": [
     {
+      "id": "docs-style-redundant-framing-boundaries",
+      "prompt": "Unslop this documentation draft for engineers; keep the section and list structure. The domain terms vector and test harness are intentional.\n\n## Export behavior\n\nGreat question! It is important to note that the exporter not only writes CSV but also writes JSON. The exporter writes metadata, not credentials. Under low load, batching might reduce latency in this sample. The vector stores three coordinates. The test harness checks serialization. Industry experts say the exporter is dramatically faster.\n\n- **Retries:** Retries stop after three attempts.\n- **Permissions:** The service account needs the export.read role.\n\nWarning: Back up the destination before replacing its files.\n\nI hope this helps!\n\nThe unnamed experts and their measurement are not in our source packet. Return the edited draft and an edit report.",
+      "expected_output": "A restrained copyedit that removes empty conversation and repeated framing while preserving technical distinctions, uncertainty, structure, and the warning, and flags unsupported attribution instead of inventing evidence.",
+      "assertions": [
+        "The edited draft removes Great question, It is important to note that, and I hope this helps without adding replacement conversational padding.",
+        "The exporter still writes both CSV and JSON, expressed directly without the not-only-but-also framing.",
+        "The metadata-versus-credentials distinction is preserved, including that credentials are not written.",
+        "The batching claim retains its possibility, low-load condition, and restriction to this sample.",
+        "The technical terms vector and test harness and the three-coordinate fact remain intact.",
+        "The retry item no longer repeats Retries as both label and sentence opening; the two list items and their facts remain in place.",
+        "Revised list items remain grammatical and preserve the original descriptive meaning; in particular, the plural label Retries is not paired with the singular verb stops.",
+        "The warning to back up the destination before replacing files remains with its severity and condition intact.",
+        "The unsupported attribution and speed claim are flagged for a source or measurement rather than silently removed or supplied with invented experts, numbers, or mechanisms."
+      ]
+    },
+    {
+      "id": "docs-style-compressed-prose-boundaries",
+      "prompt": "Give this parser note a grammar pass for new contributors. Keep the code and diagram unchanged. The source confirms that the parser validates dates, exits with code 3 if validation fails, and writes no output in that case. It does not identify the actor or order in the final cache note.\n\nParser checks date. If validation fails, parser exits with code 3; no output. Valid dates continue to serialization.\n\n```text\nvalidate -> serialize\n```\n\nThe log string is `bad_date -> exit=3`.\n\nCache cleared; retried.\n\nReturn the edited note and flag any ambiguity you cannot resolve from the source.",
+      "expected_output": "Complete grammatical running prose that preserves the validation condition and literal notation, with the unresolved cache actor and sequence flagged instead of invented.",
+      "assertions": [
+        "The first sentence supplies the missing articles without changing the parser's date-checking behavior.",
+        "The failed-validation condition still governs both exit code 3 and the absence of output; the output does not turn either into an unconditional behavior.",
+        "The validate -> serialize code block and the bad_date -> exit=3 log string remain unchanged.",
+        "The cache note is flagged for its unresolved actor or sequence; the editor does not invent automatic retries, a command, or an acting component.",
+        "The note still states that valid dates continue to serialization."
+      ]
+    },
+    {
       "id": "docs-style-copyedit-pass",
       "prompt": "Copyedit this section of our log retention docs before it ships. Facts are already signed off, so change the writing only.\n\n## Configuring The Retention Policy\n\nThe retention service applies separate limits to logs, traces and metrics. It currently supports two storage classes. Before you change the policy you should have the `retention.admin` role. To see every field, click here. The stricter limits take effect on 5/6/2026. Set the `mode` field to “strict” so the service rejects writes once the quota is reached.",
       "expected_output": "A copyedited section plus a report that separates applied mechanical fixes from the ambiguous date flagged as a question, with every fact and literal intact.",

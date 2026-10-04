@@ -14,7 +14,7 @@
       "should_trigger": true
     },
     {
-      "query": "Run a style pass over this release note draft and flag anything that will read as dated in six months.",
+      "query": "Unslop this generated README draft: remove stock praise, padded transitions, and repetitive wording, but keep the facts and caveats.",
       "should_trigger": true
     },
     {
@@ -30,7 +30,7 @@
       "should_trigger": false
     },
     {
-      "query": "Make this blog post clearer and more engaging for developers.",
+      "query": "Tell me whether this blog post was written by AI and give me a confidence percentage.",
       "should_trigger": false
     },
     {

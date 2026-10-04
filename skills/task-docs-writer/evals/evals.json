@@ -2,6 +2,32 @@
   "skill_name": "task-docs-writer",
   "evals": [
     {
+      "id": "task-docs-first-local-app-tutorial",
+      "prompt": "Write a hands-on tutorial for a backend engineer trying Acme for the first time. The CLI is already installed and the learner starts in an empty writable directory. Notes from our tested exercise: `acme init hello --template minimal` creates `hello/acme.yaml`; `cd hello` enters the project; `acme run` stays in the foreground and prints `Ready at http://localhost:4400`; opening that address shows `Hello`; Control+C stops the server, but we did not record a shutdown message. The CLI also has a full template with authentication and tracing, but we have not tested that path for this exercise. A teammate suggested adding a full template comparison and explaining the request router before the first command.",
+      "expected_output": "A tutorial built around a working local app, with the tested minimal path, early and later observable checkpoints, short action-relevant explanations, and no invented shutdown output.",
+      "assertions": [
+        "The opening names the concrete result the learner will create or run, not only what the learner will learn.",
+        "The exercise follows the tested minimal template path without making the learner choose an untested template or adding a template comparison table.",
+        "The creation of hello/acme.yaml is an early checkpoint associated with initialization, before starting the server.",
+        "The Ready at http://localhost:4400 output and the Hello browser result are associated with the actions that produce them, rather than appearing only in a final checklist.",
+        "The tutorial keeps extended request-router explanation out of the action sequence.",
+        "Every executable action, alternative path, and observable result in the tutorial is supported by the supplied exercise notes. It does not introduce new commands, an alternative GET verification method, shutdown output, return-to-shell confirmation, or other unverified process behavior. Missing details may be raised as questions, but not presented as steps or expected results.",
+        "Troubleshooting does not add unsourced diagnoses or recovery actions, such as checking port conflicts or closing the terminal session. Missing troubleshooting details are omitted or flagged as questions rather than presented as instructions."
+      ]
+    },
+    {
+      "id": "task-docs-how-to-required-branch",
+      "prompt": "Write a short staging deployment guide for release engineers who already know Acme. They have staging access and the CLI installed. Our notes: `acme auth status` returns `valid` or `expired`. Run `acme login` only for expired credentials, then rerun the status check; stop if it still says expired. With valid credentials, run `acme deploy --env staging`, which returns a job ID. Use that ID in `acme job get <job-id>`; `finished` confirms the deployment and `failed` means the engineer follows the existing incident runbook. We have no runbook URL or polling interval in these notes. Keep it useful during a release window.",
+      "expected_output": "A concise operational how-to with an explicit credential decision and stop condition, deployment verification, and missing runbook and polling details kept visible.",
+      "assertions": [
+        "The output targets the stated release engineers and staging deployment outcome without adding a beginner exercise or an authentication lesson.",
+        "The valid and expired credential states lead to explicit actions: valid proceeds, expired requires login and another status check.",
+        "The guide stops deployment when the repeated status check still reports expired.",
+        "The output preserves the supplied deployment and job-check commands and defines the job-id placeholder.",
+        "The finished and failed job states are explained as supplied, without inventing a runbook URL, polling interval, recovery command, other recovery action, escalation route, or responsible role. Missing details may be flagged as questions, but the guide does not instruct the reader to contact an administrator or team absent from the source."
+      ]
+    },
+    {
       "id": "task-docs-install-guide",
       "prompt": "We have rough notes for installing our CLI: install node 22, npm install -g acme-cli, run acme login, then acme deploy --env staging. Can you turn this into setup docs for backend engineers?",
       "expected_output": "A task-oriented setup guide with purpose, prerequisites, ordered steps, command blocks, verification, and troubleshooting.",

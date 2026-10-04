@@ -88,6 +88,10 @@ Load this reference for the word-choice pass: term-by-term rulings, register rul
 
 Avoid: `Simply click Deploy, and the pipeline will just handle the rest!` Prefer: `Click Deploy. The pipeline builds the image and starts the rollout.`
 
+## Redundant Framing
+
+Apply [unslop-guide.md](unslop-guide.md) to conversational padding, ornamental contrast, repeated framing, and decorative jargon. That guide owns the cleanup decisions and evidence boundaries; this reference owns term-by-term rulings.
+
 ## Timeless Wording
 
 Describe what the product does now. Do not narrate how it differs from earlier versions or how it might change.
