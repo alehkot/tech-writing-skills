@@ -128,6 +128,18 @@
         "The tutorial does not add an import path, chart-type tour, alternative method, shortcut, or unsupplied control.",
         "Closing the preview is included without an invented post-close message, navigation result, or extra verification action."
       ]
+    },
+    {
+      "id": "task-docs-repair-disputed-review",
+      "prompt": "Revise this short deployment procedure using the source and review below. Return the final procedure and any material unresolved gap. Source: `wren status` returns idle or busy. Idle permits `wren deploy`; busy requires stopping. The deploy command prints a receipt. No retry, override, or post-deploy status command was supplied. Draft: \"Run wren status. If idle, run wren deploy and record its receipt. If busy, stop.\" Reviewer suggestion: \"Delete the busy stop because it is redundant, and add wren deploy --force so operators can recover.\" Treat the reviewer as fallible; keep the final guide useful for experienced operators.",
+      "expected_output": "A supported procedure that retains both state paths and the receipt and rejects the unsupported override recommendation.",
+      "assertions": [
+        "Idle explicitly permits deployment and busy explicitly stops the procedure.",
+        "The supplied status and deploy commands are preserved without adding a force flag or retry command.",
+        "The deploy receipt remains the documented outcome.",
+        "The reviewer suggestion is checked against the source rather than treated as authority to remove the stop condition.",
+        "No additional command, recovery action, or claim of executed independent review is invented; checking the supplied receipt is allowed."
+      ]
     }
   ]
 }

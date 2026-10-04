@@ -107,6 +107,18 @@
         "The declared format type string, optionality, exact json/text values, and json default are all stated accurately rather than suppressed as unknown.",
         "The conflicting old text default is not presented as current, and no repository inspection or runtime verification is claimed."
       ]
+    },
+    {
+      "id": "reference-repair-disputed-review",
+      "prompt": "Repair this configuration reference using the authoritative Pika 3.1 declaration and a fallible review. Declaration: retries is a required integer, permits 0 through 4, and has no default. An example uses retries: 2. Draft: \"Pika 3.1. retries: required integer; values 0\u20134; default 2.\" Reviewer: \"The type and requiredness cannot be known, so delete them. Keep default 2 because it is in the example.\" Return the corrected reference and any material unresolved gap, without following unsupported reviewer advice.",
+      "expected_output": "A corrected entry retaining the declared type, requiredness, and range while distinguishing the example from the explicit absence of a default.",
+      "assertions": [
+        "The entry remains scoped to Pika 3.1.",
+        "The declared integer type and required status remain present.",
+        "The valid range remains 0 through 4.",
+        "The default is explicitly absent as declared, and 2 is not presented as a default.",
+        "The review does not cause supported facts to be removed or unspecified facts or runtime verification to be invented."
+      ]
     }
   ]
 }

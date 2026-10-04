@@ -1,0 +1,1170 @@
+{
+  "date": "2026-10-04",
+  "interpretation": "Reached 74/74 once; unchanged repeat 73/74; holdouts 15/15. All reviewed answers equal their initial drafts; no measured review benefit in this configuration.",
+  "grading_method": "Fresh-context blind agents; source, answer, and fixed assertions only. Identical task/answer pairs share a judgment. No human expert calibration.",
+  "baseline_commit": "d73d8185346886745d561e649d75590bc6e7aa3a",
+  "reviewer_skill_version": "1.1.0",
+  "codex_cli_version": "0.160.0",
+  "campaigns": {
+    "focused": {
+      "local_workspace": "workspaces/writing-passes-20261004-codex-focused",
+      "manifest_sha256": "40b3307163bb6e94c89b02734e454b213bf11d12afb6739cf6e810a9942ec8db",
+      "blind_results_sha256": "b470437216f7ae461c27e08b3a43fe7031ba3a6eb6d40fcefd693db31b17cdd5",
+      "runner_sha256": "e9d43b67b239f28460fc71956a5739fd59494f79cb9ba3129e60ad95303208f3",
+      "cases_sha256": "648b5bb98cb9e0ae913f9a4a887a48343d4dd8cb62d269e869f3a21e4e2ce970",
+      "writer_snapshot_sha256": {
+        "task-docs-writer": "56d4a4c9def334660cce769841158d57e10e28fde5b2382409057d95b381e50d",
+        "reference-docs-writer": "aa61f960324f0c054910bf5bdb4647c6959de0bbb647a3c16060a8df9cb9690b"
+      },
+      "reviewer_snapshot_sha256": "006947a24184fc6cc035e0bc773761280cfb01803569e6bd2a231bf51febf697",
+      "configuration": {
+        "samples": 2,
+        "arms": [
+          "single_pass",
+          "specialist_review"
+        ],
+        "generator": {
+          "executor": "codex",
+          "model": "gpt-6.1-sol",
+          "effort": "low"
+        },
+        "reviewer": {
+          "executor": "codex",
+          "model": "gpt-6.1-sol",
+          "effort": "medium"
+        },
+        "max_repairs": 2,
+        "timeout_seconds": 120.0
+      },
+      "reported_grades_from_configured_automatic_grader": false,
+      "totals": {
+        "single_pass": {
+          "passed": 74,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 74
+        },
+        "specialist_review": {
+          "passed": 74,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 74
+        }
+      },
+      "paired_vs_initial": {
+        "improved": 0,
+        "regressed": 0,
+        "unchanged": 74,
+        "unresolved": 0
+      },
+      "workflow_states": {
+        "single_pass": {
+          "draft_only": 12
+        },
+        "specialist_review": {
+          "review_clear_with_limits": 12
+        }
+      },
+      "resource_use": {
+        "draft": {
+          "stages": 12,
+          "reported_tokens": 197600,
+          "summed_duration_ms": 224951,
+          "statuses": {
+            "complete": 12
+          }
+        },
+        "review": {
+          "stages": 12,
+          "reported_tokens": 192256,
+          "summed_duration_ms": 256479,
+          "statuses": {
+            "complete": 12
+          }
+        }
+      },
+      "outputs": [
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "7d08e73f6f698cb5efdcd36ca062a57724c5aff8732af2af5e272c7f8106ca6f",
+          "workflow_status": "draft_only",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "7d08e73f6f698cb5efdcd36ca062a57724c5aff8732af2af5e272c7f8106ca6f",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "1549d2b3fb21201b781862832eb5c0644af84fca78481756ec4892b91ceb87ce",
+          "workflow_status": "draft_only",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "1549d2b3fb21201b781862832eb5c0644af84fca78481756ec4892b91ceb87ce",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "abc0f850cbb927e0894d73a358672f8f276127e993380b371866d077b4dfe57b",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "abc0f850cbb927e0894d73a358672f8f276127e993380b371866d077b4dfe57b",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "caf2c113438a2429c3fe2eb87cf482407a32f144b1d6481337198270080c5a16",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "caf2c113438a2429c3fe2eb87cf482407a32f144b1d6481337198270080c5a16",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "33ea6d03497c4ba9a3df842ae9758ec3aea3f5449df95145139fa0d5696422a1",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "33ea6d03497c4ba9a3df842ae9758ec3aea3f5449df95145139fa0d5696422a1",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "1f30df4efe56c03b2874e4046c4a327cadc2e620098026b7b47adf22f755cc92",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "1f30df4efe56c03b2874e4046c4a327cadc2e620098026b7b47adf22f755cc92",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "823938d9981c03776c37e82518542beaed63bce8ed04c36e956ecc7cea4ee58d",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "823938d9981c03776c37e82518542beaed63bce8ed04c36e956ecc7cea4ee58d",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "ede8b60f75fa86557b7ec519ac27ad68b2eda4c59d90e0f9508f27b75b46edd8",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "ede8b60f75fa86557b7ec519ac27ad68b2eda4c59d90e0f9508f27b75b46edd8",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "07a5b2ad8575d81ad2306a4414fb1791d7bb2ff44214ba1bb5342c0f77cc8205",
+          "workflow_status": "draft_only",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "07a5b2ad8575d81ad2306a4414fb1791d7bb2ff44214ba1bb5342c0f77cc8205",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "1b57affa46ab9770642d63f2c3c7762a59f1a6658242331be305e0e849a565fd",
+          "workflow_status": "draft_only",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "1b57affa46ab9770642d63f2c3c7762a59f1a6658242331be305e0e849a565fd",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "503672795add731a76000e5c132be25e0d6a61e40a278ebc8a77b3b513d4acb9",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "503672795add731a76000e5c132be25e0d6a61e40a278ebc8a77b3b513d4acb9",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "96828da3bafb124943de70979d7ae37a46a8a8d45837d84715aca2414f8be1a8",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "96828da3bafb124943de70979d7ae37a46a8a8d45837d84715aca2414f8be1a8",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        }
+      ]
+    },
+    "repeat": {
+      "local_workspace": "workspaces/writing-passes-20261004-codex-repeat",
+      "manifest_sha256": "40b3307163bb6e94c89b02734e454b213bf11d12afb6739cf6e810a9942ec8db",
+      "blind_results_sha256": "68cc2f6d51993872b62b82df65cbc58e658e2d7112e14d6b885cf4fa0f96be96",
+      "runner_sha256": "e9d43b67b239f28460fc71956a5739fd59494f79cb9ba3129e60ad95303208f3",
+      "cases_sha256": "648b5bb98cb9e0ae913f9a4a887a48343d4dd8cb62d269e869f3a21e4e2ce970",
+      "writer_snapshot_sha256": {
+        "task-docs-writer": "56d4a4c9def334660cce769841158d57e10e28fde5b2382409057d95b381e50d",
+        "reference-docs-writer": "aa61f960324f0c054910bf5bdb4647c6959de0bbb647a3c16060a8df9cb9690b"
+      },
+      "reviewer_snapshot_sha256": "006947a24184fc6cc035e0bc773761280cfb01803569e6bd2a231bf51febf697",
+      "configuration": {
+        "samples": 2,
+        "arms": [
+          "single_pass",
+          "specialist_review"
+        ],
+        "generator": {
+          "executor": "codex",
+          "model": "gpt-6.1-sol",
+          "effort": "low"
+        },
+        "reviewer": {
+          "executor": "codex",
+          "model": "gpt-6.1-sol",
+          "effort": "medium"
+        },
+        "max_repairs": 2,
+        "timeout_seconds": 120.0
+      },
+      "reported_grades_from_configured_automatic_grader": false,
+      "totals": {
+        "single_pass": {
+          "passed": 73,
+          "failed": 1,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 74
+        },
+        "specialist_review": {
+          "passed": 73,
+          "failed": 1,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 74
+        }
+      },
+      "paired_vs_initial": {
+        "improved": 0,
+        "regressed": 0,
+        "unchanged": 74,
+        "unresolved": 0
+      },
+      "workflow_states": {
+        "single_pass": {
+          "draft_only": 12
+        },
+        "specialist_review": {
+          "review_clear_with_limits": 12
+        }
+      },
+      "resource_use": {
+        "draft": {
+          "stages": 12,
+          "reported_tokens": 180298,
+          "summed_duration_ms": 189491,
+          "statuses": {
+            "complete": 12
+          }
+        },
+        "review": {
+          "stages": 12,
+          "reported_tokens": 165243,
+          "summed_duration_ms": 266829,
+          "statuses": {
+            "complete": 12
+          }
+        }
+      },
+      "outputs": [
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "71519d5fd259e554d9461aa3875792f52a85f6c6898dda099a4a785e7669e60c",
+          "workflow_status": "draft_only",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "71519d5fd259e554d9461aa3875792f52a85f6c6898dda099a4a785e7669e60c",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "650eb43b514cb34724b92c68d1d46e56e425fbae0d5a6e8cd2a6c1b35c4120b8",
+          "workflow_status": "draft_only",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "650eb43b514cb34724b92c68d1d46e56e425fbae0d5a6e8cd2a6c1b35c4120b8",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 7,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "413a06b69f2ce5aeaffe563c76878eb688953cbecb5dcd7304e35ac4a7b4bd9c",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "413a06b69f2ce5aeaffe563c76878eb688953cbecb5dcd7304e35ac4a7b4bd9c",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "31672652daeff524a1c0aaa0c81c5c6f53c28527a2f33a45c46fb1aa36f5792e",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "31672652daeff524a1c0aaa0c81c5c6f53c28527a2f33a45c46fb1aa36f5792e",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "889d24100005cc688de3b8250992c89cf2c0aea30034d323c721750a25ae414e",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "889d24100005cc688de3b8250992c89cf2c0aea30034d323c721750a25ae414e",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "2cc2e38fe18d7c5410299b91b80c2fe9146904561231a91f7d2eb949b5e1879c",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "2cc2e38fe18d7c5410299b91b80c2fe9146904561231a91f7d2eb949b5e1879c",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "1c983bbfec72c204883f51d13f1c7fc48f8343fcb25304a06fe4c3b7132db0d7",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "1c983bbfec72c204883f51d13f1c7fc48f8343fcb25304a06fe4c3b7132db0d7",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "0b49bf9d245b88071e449b5a41600f7d2ef2099759121070335dfb41b1aae0c9",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "0b49bf9d245b88071e449b5a41600f7d2ef2099759121070335dfb41b1aae0c9",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "c229bfca31678389b71303335d495a45d50e6c73ef5f2fa34c5739cfed857967",
+          "workflow_status": "draft_only",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "c229bfca31678389b71303335d495a45d50e6c73ef5f2fa34c5739cfed857967",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "f80c9a1bdac0a6c2adc73efb93aac04cce180d53529a71e340e4d16108a4843f",
+          "workflow_status": "draft_only",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "f80c9a1bdac0a6c2adc73efb93aac04cce180d53529a71e340e4d16108a4843f",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 10,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "e40d327486269ecb2df7239f4310f5caddc8879c6bb4b6590589bbb3f82ae7a7",
+          "workflow_status": "draft_only",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 4,
+              "passed": false,
+              "evidence": "The source authoritatively declares format an optional string accepting exactly json or text and defaulting to json. The table correctly states all four facts, but the final source note then says constraints are not specified in the captured notes without limiting that claim to additional constraints or the other settings. This contradicts the explicitly known format type and allowed-value constraints, so the answer does not consistently preserve the declared facts throughout."
+            }
+          ],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "e40d327486269ecb2df7239f4310f5caddc8879c6bb4b6590589bbb3f82ae7a7",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 4,
+              "passed": false,
+              "evidence": "The source authoritatively declares format an optional string accepting exactly json or text and defaulting to json. The table correctly states all four facts, but the final source note then says constraints are not specified in the captured notes without limiting that claim to additional constraints or the other settings. This contradicts the explicitly known format type and allowed-value constraints, so the answer does not consistently preserve the declared facts throughout."
+            }
+          ],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 2,
+          "arm": "single_pass",
+          "answer_sha256": "e13141add9c88596e382ccef3b5e9f2b7763f85b62e7032421cbbdb4b48d5210",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 2,
+          "arm": "specialist_review",
+          "answer_sha256": "e13141add9c88596e382ccef3b5e9f2b7763f85b62e7032421cbbdb4b48d5210",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        }
+      ]
+    },
+    "holdouts": {
+      "local_workspace": "workspaces/writing-passes-20261004-codex-holdouts",
+      "manifest_sha256": "469711c4aeec4c075f397143c42f87c1b7f3cba232cfe5d79561c3596e1eb45d",
+      "blind_results_sha256": "39540c1061c1bf78ac692689fe1dd3c9e3fe3798e19db4b22162a323f6f046ed",
+      "runner_sha256": "e9d43b67b239f28460fc71956a5739fd59494f79cb9ba3129e60ad95303208f3",
+      "cases_sha256": "282f81d40a9dfd1a65572d047a56426d5630dca4b4de0b78d2f5da0c02ad0bbf",
+      "writer_snapshot_sha256": {
+        "task-docs-writer": "56d4a4c9def334660cce769841158d57e10e28fde5b2382409057d95b381e50d",
+        "reference-docs-writer": "aa61f960324f0c054910bf5bdb4647c6959de0bbb647a3c16060a8df9cb9690b"
+      },
+      "reviewer_snapshot_sha256": "006947a24184fc6cc035e0bc773761280cfb01803569e6bd2a231bf51febf697",
+      "configuration": {
+        "samples": 1,
+        "arms": [
+          "single_pass",
+          "specialist_review"
+        ],
+        "generator": {
+          "executor": "codex",
+          "model": "gpt-6.1-sol",
+          "effort": "low"
+        },
+        "reviewer": {
+          "executor": "codex",
+          "model": "gpt-6.1-sol",
+          "effort": "medium"
+        },
+        "max_repairs": 2,
+        "timeout_seconds": 120.0
+      },
+      "reported_grades_from_configured_automatic_grader": false,
+      "totals": {
+        "single_pass": {
+          "passed": 15,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 15
+        },
+        "specialist_review": {
+          "passed": 15,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 15
+        }
+      },
+      "paired_vs_initial": {
+        "improved": 0,
+        "regressed": 0,
+        "unchanged": 15,
+        "unresolved": 0
+      },
+      "workflow_states": {
+        "single_pass": {
+          "draft_only": 3
+        },
+        "specialist_review": {
+          "review_clear_with_limits": 3
+        }
+      },
+      "resource_use": {
+        "draft": {
+          "stages": 3,
+          "reported_tokens": 32864,
+          "summed_duration_ms": 49569,
+          "statuses": {
+            "complete": 3
+          }
+        },
+        "review": {
+          "stages": 3,
+          "reported_tokens": 37545,
+          "summed_duration_ms": 62081,
+          "statuses": {
+            "complete": 3
+          }
+        }
+      },
+      "outputs": [
+        {
+          "case": "holdout-session-observation-order",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "2536d9978d480c9da95d88b3853382a5b78c34e913aecb07efd6220bf55866c9",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "holdout-session-observation-order",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "2536d9978d480c9da95d88b3853382a5b78c34e913aecb07efd6220bf55866c9",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "holdout-api-example-and-declaration",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "b61b1b83cbf53e551acc9a4dc70c876e53ee6000c5dc5a2e661c9bdd6bd6960d",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "holdout-api-example-and-declaration",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "b61b1b83cbf53e551acc9a4dc70c876e53ee6000c5dc5a2e661c9bdd6bd6960d",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "holdout-archive-state-continuations",
+          "sample": 1,
+          "arm": "single_pass",
+          "answer_sha256": "d433e5dfbaf85606eff7d8ec6a1343a50fb57a2b38a4b0190a939d2252b260b6",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        },
+        {
+          "case": "holdout-archive-state-continuations",
+          "sample": 1,
+          "arm": "specialist_review",
+          "answer_sha256": "d433e5dfbaf85606eff7d8ec6a1343a50fb57a2b38a4b0190a939d2252b260b6",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "missing": 0,
+          "planned": 5,
+          "failed_or_unresolved_assertions": [],
+          "extra_findings": []
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "The model and executor changed along with reviewer instructions; prompt-only causality is not identified.",
+    "Fixed cases were already observed during earlier development; the full repeat measures new samples, not unseen tasks.",
+    "Holdouts are three related synthetic tasks with one sample each, not a broad reliability estimate.",
+    "The workflow reviewer marked every draft clear with limitations and missed the repeat contradiction.",
+    "The assessment plan incorrectly called its unused automatic grader pi; the saved manifest configures Codex. Blind agents supplied reported scores.",
+    "Resource counts exclude abandoned execution, smoke checks, focused reviewer regressions, source audit, blind grading, and repository work."
+  ],
+  "holdout_fixture": {
+    "sha256": "0c598f7d43d27048ffb79bd1ea178f61733be472194b8afcbe4f6b02a22a06db",
+    "frozen_before_execution": true,
+    "cases": [
+      {
+        "id": "holdout-session-observation-order",
+        "skill": "task-docs-writer",
+        "split": "new_holdout",
+        "prompt": "Write a short hands-on tutorial for an engineer observing a temporary Lilt snapshot for the first time. Lilt is installed and the engineer has snapshot access. Tested notes: `lilt snapshot open` creates the temporary snapshot and prints Opened. While that snapshot is open, `lilt snapshot count` prints Count: 6. `lilt snapshot close` closes and removes that temporary snapshot; no close output was recorded. The count command requires the open snapshot. The exercise should let the engineer observe Count: 6 and then close the snapshot. No alternate interface, reopen operation, or automatic refresh was tested. Use only these notes for product actions and observations.",
+        "assertions": [
+          "The tutorial names observing the count in a temporary snapshot and closing it as the exercise outcome, without promising a persistent snapshot at completion.",
+          "The supplied open, count, and close commands occur in that execution order, with count before removal of the required snapshot.",
+          "Opened and Count: 6 are paired with the actions producing them, rather than deferred to an executable check after closing.",
+          "No alternate interface, reopen or refresh action, extra command, or unrecorded close result is invented.",
+          "The supplied installation and access prerequisites are preserved, and no runtime execution or independent product validation is claimed."
+        ]
+      },
+      {
+        "id": "holdout-api-example-and-declaration",
+        "skill": "reference-docs-writer",
+        "split": "new_holdout",
+        "prompt": "Create a compact API reference for Taro API v3 from this capture only. The captured public endpoint is `GET /events`; its authoritative summary is 'lists visible events'. The `limit` query parameter is declared optional, type integer, accepts 1 through 50 inclusive, and defaults to 20. A captured response example is `{\"items\":[{\"tag\":\"alpha\"}]}`. That response is an example, not a schema; response-field types, requiredness, allowed values, pagination, and completeness guarantees were not captured. Document this endpoint and distinguish the declared query parameter from the illustrative response. No runtime or repository access is available, and this is not a full endpoint inventory.",
+        "assertions": [
+          "The reference preserves Taro API v3, GET /events, and the supplied visible-events scope without claiming a full endpoint inventory.",
+          "The limit declaration retains optionality, integer type, the inclusive 1 through 50 range, and default 20.",
+          "The response JSON is identified as an example and does not establish a response schema or make tag a required string or alpha a fixed allowed value.",
+          "Pagination and result completeness remain unspecified; the reference does not promise all events, all visible events, or an invented pagination mechanism.",
+          "No omitted response property, error behavior, authentication requirement, or runtime verification is invented to complete the entry."
+        ]
+      },
+      {
+        "id": "holdout-archive-state-continuations",
+        "skill": "task-docs-writer",
+        "split": "new_holdout",
+        "prompt": "Write a concise how-to for an experienced operator exporting a Rook archive. Verified notes: `rook archive verify` returns ready, mismatch, or locked. Ready permits export. On mismatch, run `rook archive reindex` once and verify again; ready then permits export, mismatch then requires stopping, and locked at either check requires stopping and following `/ops/storage-lock`. Export with `rook archive export`; it prints a bundle path. `rook bundle inspect <bundle-path>` uses that returned path and reports readable or broken. Readable confirms the bundle; broken requires following `/ops/bundle-failure`. No retry interval, additional reindex attempt, force option, contact role, or other status was supplied. Keep every supplied branch explicit and use only these notes.",
+        "assertions": [
+          "Both initial ready and ready after reindex explicitly lead to rook archive export rather than skipping export or leaving the continuation implicit.",
+          "Mismatch triggers at most one reindex and a new verify; a repeated mismatch stops, and locked at either check stops and uses /ops/storage-lock.",
+          "The export and inspect commands remain intact, and the inspect placeholder is defined as the path returned by export.",
+          "Readable confirms the bundle, while broken follows /ops/bundle-failure without inventing recovery actions.",
+          "No retry cadence, extra reindex attempt, force option, unsupported contact role, status, or executed-validation claim is added."
+        ]
+      }
+    ],
+    "reference_correction": {
+      "reason": "Independent pre-execution source audit found that opening placement was not required by the task. Preserve the outcome requirement without adding that presentation constraint.",
+      "old_assertion": "The opening names observing the count in a temporary snapshot and closing it as the exercise outcome, without promising a persistent snapshot at completion.",
+      "new_assertion": "The tutorial names observing the count in a temporary snapshot and closing it as the exercise outcome, without promising a persistent snapshot at completion.",
+      "original_sha256": "e83454b0ade5c14f72a861f2da994df1d036dc024a0ba11d1d119fe84d7745f7",
+      "audit": "holdout-reference-audit.json",
+      "fixed_74_assertions_changed": false,
+      "holdout_candidate_outputs_seen": false
+    }
+  },
+  "prior_interrupted_attempt": {
+    "local_workspace": "workspaces/writing-passes-20261004-focused",
+    "status": "stopped at provider credit limit",
+    "completed_stages": 14,
+    "error_stages": 4,
+    "published_initial_drafts": 3,
+    "published_reviewed_outputs": 1,
+    "semantically_graded": false
+  },
+  "focused_reviewer_regressions": {
+    "totals": {
+      "without_skill": {
+        "passed": 9,
+        "failed": 1,
+        "unresolved": 0,
+        "planned": 10
+      },
+      "with_skill": {
+        "passed": 9,
+        "failed": 1,
+        "unresolved": 0,
+        "planned": 10
+      }
+    },
+    "rows": [
+      {
+        "case": "review-replay-session-lifetime",
+        "arm": "without_skill",
+        "answer_sha256": "4998b2914d0bda0687e820f0de828a048c41f86334cbad92fcbdc832cd5a771a",
+        "passed": 4,
+        "failed": 1,
+        "unresolved": 0,
+        "planned": 5,
+        "failed_or_unresolved_assertions": [
+          {
+            "index": 2,
+            "passed": false,
+            "evidence": "The supported repair would place sable sample and its Sample ready observation before sable disconnect. The review correctly diagnoses the sequence and says 'no sample is read before disconnection,' but provides no repair that moves sampling and its observed result before disconnect. It does not invent reconnection, but the affirmative repair part of this assertion is absent. This is an assertion omission, not a claim that the requested findings-only artifact needed a rewritten procedure."
+          }
+        ],
+        "extra_findings": []
+      },
+      {
+        "case": "review-bounded-reference-example",
+        "arm": "without_skill",
+        "answer_sha256": "f99641b89fecd26111802d92838e36c7ad3c34e54951b99d8952fe1c50cbd7d6",
+        "passed": 5,
+        "failed": 0,
+        "unresolved": 0,
+        "planned": 5,
+        "failed_or_unresolved_assertions": [],
+        "extra_findings": []
+      },
+      {
+        "case": "review-replay-session-lifetime",
+        "arm": "with_skill",
+        "answer_sha256": "eeb949900a53565e9930f80f8d314627fdd27668b5c1ea4dfbfefbcdc6f7e6dd",
+        "passed": 4,
+        "failed": 1,
+        "unresolved": 0,
+        "planned": 5,
+        "failed_or_unresolved_assertions": [
+          {
+            "index": 2,
+            "passed": false,
+            "evidence": "The review offers the supported repair 'place sampling and verification before disconnecting,' but also offers 'or explicitly reopen the channel before sampling.' The source supplies the initial connect, open-channel sample, and disconnect sequence; it does not establish a reopen recovery. Because this assertion requires the repair to avoid invented reconnection alternatives, the additional reopen option causes failure even though the first option is supported."
+          }
+        ],
+        "extra_findings": []
+      },
+      {
+        "case": "review-bounded-reference-example",
+        "arm": "with_skill",
+        "answer_sha256": "167927db34703d9c7bf7f67fe1b1876db432914e935564cb204ea44bfd69157f",
+        "passed": 5,
+        "failed": 0,
+        "unresolved": 0,
+        "planned": 5,
+        "failed_or_unresolved_assertions": [],
+        "extra_findings": []
+      }
+    ],
+    "blind_report_sha256": "e995201c4c461ebc699f13a4137d2cf1b179d950e9fca0fbfe8c714a3947f252"
+  }
+}

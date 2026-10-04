@@ -1,0 +1,77 @@
+{
+  "skill_name": "technical-docs-reviewer",
+  "evals": [
+    {
+      "id": "review-task-source-and-order",
+      "prompt": "Review this runbook against the verified notes, returning findings only. Audience: release engineers. Notes: `lark access check` returns ready or denied. Ready permits `lark release`; denied means stop. The release command prints a ticket. `lark release status <ticket>` returns live or rejected; rejected means follow the incident runbook. No timing, team contact, or retry policy was supplied. Draft: Check access with `lark access check`. If denied, ask the platform administrator to grant access and then run `lark release`. When a ticket appears, wait 30 seconds and run `lark release status <ticket>`. Live means success. Rejected means run the release command again. The draft contains no explicit ready branch.",
+      "expected_output": "Evidence-backed findings for the changed denied path, missing ready continuation, invented wait, and replaced rejected recovery; no rewritten runbook.",
+      "assertions": [
+        "The review identifies that denied must stop and that contacting an administrator and proceeding is unsupported.",
+        "The missing explicit ready-to-release continuation is identified.",
+        "The unsupported 30-second wait is identified as an evidence gap rather than endorsed.",
+        "The review identifies the invented rejected retry and preserves the supplied incident-runbook response.",
+        "Findings cite concrete draft passages and source obligations; the response does not rewrite the runbook or claim it executed commands."
+      ]
+    },
+    {
+      "id": "review-valid-reference-alternatives",
+      "prompt": "Review for factual accuracy and coverage only. Source: Kestrel 6.0 public configuration declaration lists two settings: mode is an optional string, accepts batch or live, and defaults to batch. The path setting is required and has type string; no default is declared. This is the complete public configuration declaration. Draft: \"Kestrel 6.0 configuration. This declaration defines two public settings. mode \u2014 optional string; accepted values: batch, live; default: batch. path \u2014 required string; default: not specified.\" Accept concise prose instead of a table. Return findings or a scoped clean review.",
+      "expected_output": "A scoped clean review that accepts equivalent accurate presentation and preserves the unspecified default.",
+      "assertions": [
+        "The review accepts the draft as factually supported and complete for the supplied declaration.",
+        "It does not demand a table, extra headings, or a tutorial as correctness repairs.",
+        "It does not invent a default for path or replace its declared type or requiredness with unknown.",
+        "It identifies the source/version and bounded review scope without claiming execution or external inspection.",
+        "It makes no universal certification or guarantee that the product has been validated."
+      ]
+    },
+    {
+      "id": "review-portable-grader-and-missing-evidence",
+      "prompt": "Use the available local reviewer for this review; Jev is not installed here. Check this reference draft against the captured material only. Captured material: the public name is `marlin queue inspect`; the command reports the queued item count. The option schema and output format were not captured. Draft: \"marlin queue inspect \u2014 reports the queued item count. Options: none. Output: JSON. All details are verified.\" A previous automated grader returned pass with confidence 0.99 but gave no supporting evidence. Return source-based findings and limitations.",
+      "expected_output": "A provider-independent review that rejects unsupported absence/output and verification claims, preserving schema uncertainty.",
+      "assertions": [
+        "The review proceeds using the available reviewer without requiring Jev or its credentials.",
+        "Options none and output JSON are identified as unsupported by the captured material.",
+        "The unsupported all-details-verified claim is identified and the source gaps remain visible.",
+        "The previous high-confidence pass is not accepted as source evidence and no rationale is fabricated for that grader.",
+        "The supplied command name and queued-item-count behavior remain accepted; the review does not invent options, types, or actual execution."
+      ]
+    },
+    {
+      "id": "review-documented-unknown-is-not-a-defect",
+      "prompt": "Review this source-only reference for factual support. Source: the captured registry includes a `cycle` setting with example value 8. Its type, default, requiredness, and complete valid range were not captured. Draft: \"Captured setting: cycle. Example value: 8. Type, default, requiredness, and valid range: not specified in this capture.\" The task is to document only what this capture supports, not to recover a complete schema. Return confirmed defects, blocking evidence gaps, and ordinary scope limitations separately. Do not rewrite a supported draft merely because the source is incomplete.",
+      "expected_output": "No confirmed defect or blocking gap for the bounded task; optional scope note distinguishes uncaptured schema from an error.",
+      "assertions": [
+        "The draft is accepted as supported for the explicitly limited source-only task.",
+        "The unknown schema details are treated as ordinary scope limitations rather than a defect or a blocking verification gap.",
+        "No missing type, default, requiredness, or range is invented from the example value.",
+        "The reviewer does not recommend rewriting a valid draft or fetching a complete schema to satisfy this bounded request.",
+        "The result states its checked scope without claiming complete product validation."
+      ]
+    },
+    {
+      "id": "review-replay-session-lifetime",
+      "prompt": "Review this short procedure against the captured operator notes. Source: the operator has a valid device session. `sable connect` opens a channel and prints Connected. While that channel is open, `sable sample` prints Sample ready. `sable disconnect` closes the channel; sampling requires an open channel. No alternate sampling interface was tested. Draft: 'Read a device sample. 1. Run sable connect. Connected appears. 2. Run sable disconnect. Verify: run sable sample, or use the web console, and check for Sample ready.' Return evidence-backed findings without rewriting the procedure. Follow the order actually written, including the Verify section.",
+      "expected_output": "A source-based review that identifies sampling after disconnection and the untested web-console alternative, while retaining the valid connection observation.",
+      "assertions": [
+        "The review identifies that the draft disconnects before the verification action and that sampling requires an open channel.",
+        "The repair puts sampling and its observed result before disconnection rather than inventing reconnection or another command.",
+        "The web-console alternative is identified as unsupported by the source.",
+        "The source-supported connect command and Connected result are not rejected or replaced with unknowns.",
+        "The checked evidence reflects the draft's actual sequence and names the Verify section instead of claiming the draft already samples before disconnecting."
+      ]
+    },
+    {
+      "id": "review-bounded-reference-example",
+      "prompt": "Review this compact reference against the supplied capture only. Source: Oriole 5.0 has a public command `oriole inspect <record-id>` whose summary is 'reports a record status'. The angle-bracket value is a user-supplied record identifier. This capture does not include the parameter schema, output format, default, or complete command inventory. It supplies no particular identifier value. Draft: 'Oriole 5.0: oriole inspect <record-id> — reports a record status. Replace <record-id> with a record identifier. Parameter type, requiredness, default, and output format: not specified in this capture. This entry covers one captured command, not the full product inventory.' Check the bounded reference; do not require the original export or runtime access when the supplied text establishes the claims.",
+      "expected_output": "A scoped clean review that accepts the placeholder explanation and unknowns without inventing product behavior or demanding unavailable evidence beyond the request.",
+      "assertions": [
+        "The review accepts the draft as supported within the capture and does not manufacture a required repair.",
+        "The placeholder explanation is accepted without inferring schema type or requiredness from notation.",
+        "Unknown schema and output details remain ordinary source limitations rather than blocking gaps for this task.",
+        "The reviewer does not require an original export, runtime execution, a concrete example identifier, or a complete inventory to verify the supplied claims.",
+        "The review supports its conclusion with the actual command, summary, and scoped unknowns rather than a universal product-validation claim."
+      ]
+    }
+  ]
+}

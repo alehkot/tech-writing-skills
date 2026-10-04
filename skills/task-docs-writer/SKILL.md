@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.2.1"
+  version: "1.3.0"
   risk_tier: low
 ---
 
@@ -39,6 +39,23 @@ For each check with named states, map every supplied state to its next action, r
 13. Split procedures that grow beyond roughly nine steps into smaller tasks, phases, or subtasks.
 14. Audit every action against a source ledger: supplied facts, assumptions, open questions, and omitted details that would affect execution. Include troubleshooting advice, recovery actions, escalation routes, and responsible roles in this audit. Preserve sourced stop conditions. Remove unsupported executable advice and flag the gap as an open question; a plausible diagnosis or an unknown error message does not justify an invented recovery action.
 15. Add verification points where the reader can tell whether the step worked. State the action before its result, in the same paragraph: `Click Deploy. The rollout status appears.` Prefer observable signals: command output, status code, UI state, log line, or file path. If the source does not provide an exact signal, label the verification gap.
+
+## Verification Handoff
+
+Keep a complete draft separate from its review. Give the original request,
+sources, and draft to the user- or project-specified reviewer or grader. Use
+`technical-docs-reviewer` when available; no particular provider is required.
+Prefer a fresh read-only reviewer when available and authorized. Otherwise run
+the self-check explicitly and identify it as self-review if reporting the mode.
+Do not claim that an unavailable requested grader ran.
+
+Check each finding against the sources before repairing it. Preserve supported
+actions and facts even if a reviewer proposes removing them. By default, allow
+one repair and a final review of the complete revision; a caller's explicit
+review budget takes precedence. Keep remaining material gaps visible. After a
+style or unslop edit, recheck the final meaning, conditions, sequence, and literals.
+Deliver the procedure and consequential gaps; include internal review records
+only when requested.
 
 ## Completion Criterion
 

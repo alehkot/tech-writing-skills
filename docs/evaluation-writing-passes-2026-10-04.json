@@ -1,0 +1,672 @@
+{
+  "date": "2026-10-04",
+  "target_assertions": 74,
+  "target_achieved": false,
+  "baseline_commit": "d73d8185346886745d561e649d75590bc6e7aa3a",
+  "initial_campaign": {
+    "totals": {
+      "single_pass": {
+        "passed": 67,
+        "failed": 4,
+        "unresolved": 3,
+        "planned": 74
+      },
+      "generic_review": {
+        "passed": 69,
+        "failed": 4,
+        "unresolved": 1,
+        "planned": 74
+      },
+      "specialist_review": {
+        "passed": 73,
+        "failed": 1,
+        "unresolved": 0,
+        "planned": 74
+      }
+    },
+    "paired_vs_initial": {
+      "generic_review": {
+        "improved": 2,
+        "regressed": 1,
+        "unchanged": 68,
+        "unresolved": 3
+      },
+      "specialist_review": {
+        "improved": 4,
+        "regressed": 0,
+        "unchanged": 67,
+        "unresolved": 3
+      }
+    },
+    "automated_grader_against_blind_labels": {
+      "false_pass": 5,
+      "known_defects": 9,
+      "false_fail": 13,
+      "known_valid": 209,
+      "unresolved_labels": 4
+    }
+  },
+  "method": "Fresh blind agents; one independent source-based judgment per unique task/answer, reused for identical outputs. Not human expert calibration.",
+  "limitations": [
+    "The final fixed-case campaign reused recorded initial drafts after infrastructure failure.",
+    "One workflow review used an explicit fresh-agent fallback after four invalid-JSON attempts.",
+    "An output may satisfy every fixed assertion while retaining defects outside that assertion set."
+  ],
+  "revised_campaigns": {
+    "fixed_cases": {
+      "totals": {
+        "single_pass": {
+          "passed": 64,
+          "failed": 10,
+          "unresolved": 0,
+          "planned": 74
+        },
+        "specialist_review": {
+          "passed": 71,
+          "failed": 3,
+          "unresolved": 0,
+          "planned": 74
+        }
+      },
+      "paired_vs_initial": {
+        "improved": 7,
+        "regressed": 0,
+        "unchanged": 67,
+        "unresolved": 0
+      },
+      "workflow_states": {
+        "single_pass": {
+          "draft_only": 12
+        },
+        "specialist_review": {
+          "review_clear_with_limits": 10,
+          "review_unresolved": 1,
+          "external_review_clear_with_limits": 1
+        }
+      },
+      "outputs": [
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "C01",
+          "answer_sha256": "b2812ccfa42a7eff8a87965de248a4c3c7bbd5d988e46a374b8cec47affb85fe",
+          "workflow_status": "draft_only",
+          "passed": 6,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 7,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 6,
+              "passed": false,
+              "evidence": "Source supports \"Control+C stops the server\" only. Answer step 5 instead says \"press Control+C (Command+C on macOS)\", introducing an unsupported alternative shortcut. Its prerequisite \"A web browser or HTTP client\" also introduces an unsupplied alternative to the tested browser path."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "C05",
+          "answer_sha256": "c7197467f8ad960d011125c06eeb7ba1a7fe3e657073825d77c200b5763f3b47",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 7,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 7,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 2,
+          "arm": "single_pass",
+          "packet": "D12",
+          "answer_sha256": "f9b32a0fc22ef9f1dcb98bb64a99a8e80ab525eef6fa136304f5af7411b6d673",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 2,
+          "unresolved": 0,
+          "planned": 7,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 4,
+              "passed": false,
+              "evidence": "Ready at http://localhost:4400 is associated with acme run in step 3, but the Hello browser result appears only under the final Verify checklist. The assertion requires both action/result pairs in the action sequence rather than only the checklist."
+            },
+            {
+              "index": 6,
+              "passed": false,
+              "evidence": "The source verifies Hello only by opening the address while the foreground server runs. The answer adds \"or make an HTTP request\" as an alternate verification method and places verification after step 4 stops the server with Control+C. The resulting executable path is not the supplied tested sequence."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-first-local-app-tutorial",
+          "sample": 2,
+          "arm": "specialist_review",
+          "packet": "D12",
+          "answer_sha256": "f9b32a0fc22ef9f1dcb98bb64a99a8e80ab525eef6fa136304f5af7411b6d673",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 2,
+          "unresolved": 0,
+          "planned": 7,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 4,
+              "passed": false,
+              "evidence": "Ready at http://localhost:4400 is associated with acme run in step 3, but the Hello browser result appears only under the final Verify checklist. The assertion requires both action/result pairs in the action sequence rather than only the checklist."
+            },
+            {
+              "index": 6,
+              "passed": false,
+              "evidence": "The source verifies Hello only by opening the address while the foreground server runs. The answer adds \"or make an HTTP request\" as an alternate verification method and places verification after step 4 stops the server with Control+C. The resulting executable path is not the supplied tested sequence."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "C10",
+          "answer_sha256": "c2e19df0f3b4a40b08f74d3a2d6bfe0f5418a15025ac28d5c4833ad8057e3ea6",
+          "workflow_status": "draft_only",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 2,
+              "passed": false,
+              "evidence": "The answer explicitly handles only \"If the status returns expired\" and the repeated expired stop. It never states a valid result or the action for valid credentials; step 3 simply says \"Deploy to the staging environment\". Sequential fall-through suggests proceeding, but it does not satisfy the assertion requiring explicit actions for both valid and expired states."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "C02",
+          "answer_sha256": "19116b2ff219551d75fe657847d2c88977c305d3df63a46268de09fc3fdf1246",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 2,
+          "arm": "single_pass",
+          "packet": "D05",
+          "answer_sha256": "22344e837f13c9c54af13184473065f5742c8f7978ab63b839cc20f5acacbb72",
+          "workflow_status": "draft_only",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 5,
+              "passed": false,
+              "evidence": "The source permits only the existing incident runbook for failed and stopping for persistently expired credentials. Although finished and failed are handled correctly, the answer invents contacting the team lead for the runbook location and escalating expired credentials to that lead."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-how-to-required-branch",
+          "sample": 2,
+          "arm": "specialist_review",
+          "packet": "D06",
+          "answer_sha256": "5324751583b4911560cd62c17c1f52e5c5fe6f26d03b316835cdb55d38b946bb",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "C09",
+          "answer_sha256": "1f082f44340532dfa86561b4ebf6d2c1188c0b6e9a58fdc5a586b22cb87555aa",
+          "workflow_status": "draft_only",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 1,
+              "passed": false,
+              "evidence": "Source requires current to continue to \"harbor release start\". In the answer, both current branches instead say \"proceed to step 4\"; step 4 is \"harbor release inspect <release-key>\" and the start command is in skipped step 3. Thus the ordinary current-to-release path is broken."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "C06",
+          "answer_sha256": "7b7d9b7abe8cf3932b3570825c0efaf19992f1f076c005baaf12d0f0f1141348",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 2,
+          "arm": "single_pass",
+          "packet": "D07",
+          "answer_sha256": "2f71bbd61848e99bb2712fb8ab0703a438da613f6e77abcdab87cf6e488de93a",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-transfer-three-state-release",
+          "sample": 2,
+          "arm": "specialist_review",
+          "packet": "D09",
+          "answer_sha256": "bdc79e8f74b08d1e4b616fd6ceccd680cafb5ebeb26235e11189a1c78cea208a",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "C07",
+          "answer_sha256": "15bf3aaee5ff8e4dd9a5e260ec60d603f1f98f13efc9e3abfaef315d906183d6",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "C07",
+          "answer_sha256": "15bf3aaee5ff8e4dd9a5e260ec60d603f1f98f13efc9e3abfaef315d906183d6",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 2,
+          "arm": "single_pass",
+          "packet": "D04",
+          "answer_sha256": "0254cb44144d3360b386c42752f8b2fedc51d4120af99c14a6ce5b43a961d308",
+          "workflow_status": "draft_only",
+          "passed": 3,
+          "failed": 2,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [
+            {
+              "issue": "The prerequisite assumes a browser environment that the source does not establish.",
+              "evidence": "The source says the analyst is on the Reports screen. The answer changes this to \"The Reports screen open in your browser.\"",
+              "impact": "This introduces an unsupported platform prerequisite into an exercise limited to tested UI notes."
+            }
+          ],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 1,
+              "passed": false,
+              "evidence": "The source outcome is a saved report named Trial for an analyst already on Reports. The answer identifies the analyst and Reports prerequisite, but frames the outcome only as \"creating and previewing an initial report\"; Trial appears as field input, not as the named saved outcome."
+            },
+            {
+              "index": 5,
+              "passed": false,
+              "evidence": "The source records only Saved after Save and nothing after Close. The answer includes Close but adds a Verify instruction that \"The report title in the editor displays Trial after saving,\" an unrecorded UI result and extra verification check."
+            }
+          ]
+        },
+        {
+          "case": "task-docs-transfer-ui-tutorial",
+          "sample": 2,
+          "arm": "specialist_review",
+          "packet": "D15",
+          "answer_sha256": "6c532abfcde9e8880be26e11fafeb22de05d58cad92021720a9e380dc754df5b",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [
+            {
+              "issue": "The prerequisite assumes a browser environment that the source does not establish.",
+              "evidence": "The source starts the analyst on the Reports screen; the answer requires that screen to be \"open in your browser,\" although no browser environment is supplied.",
+              "impact": "This adds an unsupported platform prerequisite to a source-only tested exercise."
+            }
+          ],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 1,
+              "passed": false,
+              "evidence": "The source asks for the concrete saved Trial report outcome. The opening names only \"creating and previewing an initial report\"; Trial is supplied as Name input in the steps, but the saved Trial report is not identified as the tutorial outcome. The analyst and Reports starting context are preserved."
+            }
+          ]
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "C04",
+          "answer_sha256": "1a0ee7c45c151a17032ee5561fd3635aff2d330b428de3119638c2d5e263dd1f",
+          "workflow_status": "draft_only",
+          "passed": 8,
+          "failed": 2,
+          "unresolved": 0,
+          "planned": 10,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 8,
+              "passed": false,
+              "evidence": "Source says the export contains \"selected syntax examples\" and \"does not contain complete option schemas\". Nevertheless, the cache status and jobs list parameter rows assert \"None | Not applicable | Not applicable | Not applicable | No options declared in registry snapshot\". Those schema-style None/N/A entries infer an absence of parameters from incomplete examples. Later uncertainty notes do not remove the conflicting assertion."
+            },
+            {
+              "index": 10,
+              "passed": false,
+              "evidence": "Although the parameter tables mark requiredness unknown, the answer defines \"<placeholder> indicates a required user-supplied value\" and then uses <days> and <job-id>. Source provides selected examples without complete option schemas, so this global notation asserts unsupported requiredness."
+            }
+          ]
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "C03",
+          "answer_sha256": "402709dd29f86528b36c15818d422f634b7c8c03728844e35b5e07eec7fd88f7",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 10,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 2,
+          "arm": "single_pass",
+          "packet": "D13",
+          "answer_sha256": "eaef3eb6e7d72a03ea8ad888a66bef712226aa009b4525f8e5050aaf18743e56",
+          "workflow_status": "draft_only",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 10,
+          "extra_findings": [
+            {
+              "issue": "The jobs-list example expands the captured command scope.",
+              "evidence": "The source says acme jobs list \"lists jobs.\" The answer says its example \"lists all jobs.\" No completeness, pagination, visibility, or filtering scope was captured.",
+              "impact": "The reference promises an exhaustive result that the public snapshot does not establish, even though it does not invent supported job states."
+            }
+          ],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "reference-versioned-command-inventory",
+          "sample": 2,
+          "arm": "specialist_review",
+          "packet": "D13",
+          "answer_sha256": "eaef3eb6e7d72a03ea8ad888a66bef712226aa009b4525f8e5050aaf18743e56",
+          "workflow_status": "review_unresolved",
+          "passed": 10,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 10,
+          "extra_findings": [
+            {
+              "issue": "The jobs-list example expands the captured command scope.",
+              "evidence": "The source says acme jobs list \"lists jobs.\" The answer says its example \"lists all jobs.\" No completeness, pagination, visibility, or filtering scope was captured.",
+              "impact": "The reference promises an exhaustive result that the public snapshot does not establish, even though it does not invent supported job states."
+            }
+          ],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "C08",
+          "answer_sha256": "dadbf6becdb713b1d6d16639dcde93d6373f141b475c37d18c46b41418c5ca3e",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [
+            {
+              "issue": "The reference adds setting semantics that were not captured in the supplied notes.",
+              "evidence": "The source supplies example values for retention_days and cache_dir and schema facts for format, but does not describe their operational effects. The answer asserts \"Sets the data retention period in days\", \"Sets the directory path used for Mica cache storage\", and \"Specifies the output format used by Mica\" as established purposes.",
+              "impact": "In particular, the data-retention statement implies a confirmed data-lifetime control. These plausible interpretations of names should remain unverified unless supported by additional source material; the fixed assertions primarily test schema metadata and do not cover this added behavioral meaning."
+            }
+          ],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "C08",
+          "answer_sha256": "dadbf6becdb713b1d6d16639dcde93d6373f141b475c37d18c46b41418c5ca3e",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [
+            {
+              "issue": "The reference adds setting semantics that were not captured in the supplied notes.",
+              "evidence": "The source supplies example values for retention_days and cache_dir and schema facts for format, but does not describe their operational effects. The answer asserts \"Sets the data retention period in days\", \"Sets the directory path used for Mica cache storage\", and \"Specifies the output format used by Mica\" as established purposes.",
+              "impact": "In particular, the data-retention statement implies a confirmed data-lifetime control. These plausible interpretations of names should remain unverified unless supported by additional source material; the fixed assertions primarily test schema metadata and do not cover this added behavioral meaning."
+            }
+          ],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 2,
+          "arm": "single_pass",
+          "packet": "D03",
+          "answer_sha256": "3528ae4e3d999d0f79598f30aad9a5c55859f3af5ed2c44e93ff692db4223a1c",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [
+            {
+              "issue": "Setting descriptions infer product behavior that the captured notes do not declare.",
+              "evidence": "The source supplies only names and example values for cache_dir and retention_days, and schema facts for format. The answer adds \"Sets the cache directory path,\" \"Sets the retention period in days,\" and \"Sets the output format.\"",
+              "impact": "Plausible interpretations of names become authoritative behavior in a reference that was required to use captured notes only. The fixed schema assertions still pass."
+            }
+          ],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "reference-transfer-mixed-config-evidence",
+          "sample": 2,
+          "arm": "specialist_review",
+          "packet": "D11",
+          "answer_sha256": "64ce141887f120efd14f8f4b1f64e746295b56480afb9cde15a237b57be392fa",
+          "workflow_status": "external_review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        }
+      ]
+    },
+    "new_holdouts": {
+      "totals": {
+        "single_pass": {
+          "passed": 14,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 15
+        },
+        "specialist_review": {
+          "passed": 15,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 15
+        }
+      },
+      "paired_vs_initial": {
+        "improved": 1,
+        "regressed": 0,
+        "unchanged": 14,
+        "unresolved": 0
+      },
+      "workflow_states": {
+        "single_pass": {
+          "draft_only": 3
+        },
+        "specialist_review": {
+          "review_clear_with_limits": 3
+        }
+      },
+      "outputs": [
+        {
+          "case": "holdout-ui-device-access",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "D10",
+          "answer_sha256": "b1c22dec68f6897b06531ddbdd454031f933e0a103bd9d1ad5825bc5c634e86d",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "holdout-ui-device-access",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "D08",
+          "answer_sha256": "66eed21a2ed2ea9b9b2fee303c15e3d6070078d29ffdfeea36217fe376e08b1a",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "holdout-reference-error-conditions",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "D01",
+          "answer_sha256": "84049bcc55b8742c3976101ef2f7ed41fc20e3e9d071bf5e42b13de5d6445afd",
+          "workflow_status": "draft_only",
+          "passed": 4,
+          "failed": 1,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": [
+            {
+              "index": 3,
+              "passed": false,
+              "evidence": "The source only says Retry-After may be present and supplies no recovery instruction. Although the answer conditions header use on its presence and leaves units/default wait unspecified, it invents: \"Wait before retrying the request\" and \"use it to pace subsequent requests.\""
+            }
+          ]
+        },
+        {
+          "case": "holdout-reference-error-conditions",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "D02",
+          "answer_sha256": "cfbb971b81f879d862c04d09f3d1cd3d62804a6a0a60dfe711ecb99723fac2b9",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "holdout-task-preview-is-not-apply",
+          "sample": 1,
+          "arm": "single_pass",
+          "packet": "D14",
+          "answer_sha256": "a1241f5545c8cddf758f1787ff47274d3ecf16e5593d2267f0a999f06ed71c20",
+          "workflow_status": "draft_only",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        },
+        {
+          "case": "holdout-task-preview-is-not-apply",
+          "sample": 1,
+          "arm": "specialist_review",
+          "packet": "D14",
+          "answer_sha256": "a1241f5545c8cddf758f1787ff47274d3ecf16e5593d2267f0a999f06ed71c20",
+          "workflow_status": "review_clear_with_limits",
+          "passed": 5,
+          "failed": 0,
+          "unresolved": 0,
+          "planned": 5,
+          "extra_findings": [],
+          "failed_or_unresolved_assertions": []
+        }
+      ]
+    }
+  },
+  "artifact_sha256": {
+    "workspaces/writing-passes-20261004-round3/manifest.json": "712f104bff98a8c12f1150f8375c9a6cdc41021b241a37d6384ab1fda40b99a2",
+    "workspaces/writing-passes-20261004-round3/blind-final/review-a.json": "e3bb35a8b82ffda9474614067faa7ca628bb2cd158a5925f20133a4a0a8b9a85",
+    "workspaces/writing-passes-20261004-round3/blind-final/review-b.json": "54472a928bbfd38ee94039b9fe884f41a2029d6c04ec195a281580eddca716e0",
+    "workspaces/writing-passes-20261004-round3/blind-final-results.json": "3efdfad39ab194f3edd4512d32b3460cdd1730199ad8ef3a6005c48d9732cfc8",
+    "workspaces/writing-passes-20261004-holdouts/manifest.json": "d3b17f4ea85a308d98af471510f633dfed2fe918bdba3a6bb4926e5bea5037ac"
+  }
+}

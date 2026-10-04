@@ -53,6 +53,7 @@ The root `scripts/` directory is for repository maintenance only. It is not a bu
 | `skills/write-simplified-technical-english` | ASD-STE100-style drafting, rewriting, and audits for controlled technical English, with explicit vocabulary and conformance limits |
 | `skills/docs-style-editor` | Copyediting, unslop cleanup, and style passes over an existing draft: punctuation, grammar and usage, word choice and term rulings, numbers, dates, units, link text, formatting mechanics, timeless wording, safe example values |
 | `skills/accessibility-inclusion-editor` | Accessibility and inclusive-language reviews of an existing draft: alt text, media alternatives, independence from color, size, and position cues, screen-reader-safe wording, neutral terminology |
+| `skills/technical-docs-reviewer` | Source-based verification of existing technical drafts: factual claims, required coverage, task decisions, reference fields, and repaired documents |
 
 ## Topic-Type Coverage
 
@@ -73,6 +74,14 @@ Its [Unslop Guide for Technical Writing](skills/docs-style-editor/references/uns
 `accessibility-inclusion-editor` is a review layer, not a fourth topic type. Apply it after the draft exists to check alt text, text alternatives for media, independence from color, size, and position cues, screen-reader-safe wording, and inclusive terminology. It never renames literal commands, flags, or identifiers, and it defers to `write-simplified-technical-english` whenever STE is active.
 
 For broad requests such as "document this system," split the output into discrete topic types instead of one mixed article: a concept overview, task procedures, and reference facts.
+
+## Writing With Verification
+
+Task and reference writing separate drafting from review and repair. The writer gives the original request, sources, and complete draft to the configured reviewer, verifies its findings, repairs confirmed defects, and requests a final review. The default allowance is one repair and one final review; an explicit caller budget takes precedence. Style, unslop, and accessibility remain editorial layers, followed by a check that the final edits preserved meaning.
+
+`technical-docs-reviewer` checks both directions: draft claims against source evidence, and required source information against the draft. It returns actionable findings or a scoped clean review. It accepts a user- or project-specified agent, model, skill, or grading tool. No provider is required: Jev is optional, a fresh agent is preferred when available and authorized, and explicit self-review is the fallback. An unavailable required grader is reported rather than silently substituted. A numeric score or a grader's confidence does not replace source evidence.
+
+For example: "Use task-docs-writer to draft this procedure. Use the available fresh agent with technical-docs-reviewer to check it, and allow one repair before the final review." A project can specify a different grader without changing the writing skill. Internal review records stay out of the delivered document unless requested; consequential unresolved gaps remain visible.
 
 ## Writing Principle Coverage
 
@@ -195,9 +204,35 @@ uv run python scripts/grade_with_jev.py workspaces/<skill>/iteration-<n>/<eval>/
 
 This uses the [TypeSafe Choice API](https://docs.typesafe.ai/api) and writes `grading.jev.json` beside the original grade. It batches the assertions over the same source and answer, hides the generation condition and prior verdicts, and preserves the actual model, probabilities, confidence, usage, and request/answer hashes. `uncertain` remains unresolved. `--model`, `--timeout-seconds`, and explicit `--force` are supported. The original grades are preserved. Jev does not supply evidence explanations; check disagreements against the source. In the initial calibration it missed two known defects, so its scores are an alternative judgment, not an automatic release gate.
 
+### Comparing Writing Passes
+
+The separate `scripts/eval_writing_passes.py` pilot reuses the shared executor without modifying `eval_workflow.py`. It freezes six task/reference cases and skill snapshots, generates two drafts per case, and compares each draft with generic review and specialist review using the same review settings and repair cap. Both review methods receive the same initial draft. The final grader sees the original task, assertions, and answer, without method names, prior verdicts, or review notes. The generator and workflow reviewer never receive the benchmark assertions.
+
+```bash
+uv run python scripts/eval_writing_passes.py init \
+  --workspace workspaces/writing-passes-example --baseline-ref HEAD \
+  --reviewer-model '~google/gemini-flash-latest' \
+  --grader-executor pi --grader-model openai/gpt-5.4-mini
+uv run python scripts/eval_writing_passes.py run --workspace workspaces/writing-passes-example
+uv run python scripts/eval_writing_passes.py grade --workspace workspaces/writing-passes-example
+uv run python scripts/eval_writing_passes.py report --workspace workspaces/writing-passes-example
+```
+
+Select models and executors during `init`: `--executor` and `--model` control writing, `--reviewer-executor` and `--reviewer-model` control workflow review, and `--grader-executor` and `--grader-model` control final grading. The writing and review executors support `pi` or `codex`; final grading also supports optional `jev` with `--grader-executor jev --grader-model jev-latest`. Use a fresh workspace for a different configuration. The manifest records the selected providers and models; later stages use that frozen configuration.
+
+Use executor-specific model names. For example, a Codex configuration can use `--executor codex --model gpt-6.1-sol --reviewer-executor codex --reviewer-model gpt-6.1-sol --reviewer-effort medium --grader-executor codex --grader-model gpt-6.1-sol --grader-effort medium` during `init`, when that model is available to the account. This pilot isolates Codex in an empty temporary directory with ambient instructions, skill discovery, memory, shell, browsing, apps, plugins, and delegation disabled. Candidate inputs are the inlined task and frozen skill text. This additional isolation is specific to the writing-pass pilot; the shared harness remains unchanged.
+
+The defaults allow one repair and a final review, with at most two provider/schema attempts per stage and an 8,192-token output cap for pi models. The cap uses each call's temporary model configuration and does not change global settings or store credentials. Configure it with `--max-output-tokens`; reviewer and grader reasoning can be set with `--reviewer-effort` and `--grader-effort`. A provider credit-limit error cancels queued cases instead of continuing the campaign.
+
+Use `--arms single_pass specialist_review` for a narrower comparison. `--drafts-from <workspace>` reuses every recorded initial draft only when cases, writer snapshots, samples, and generator settings match; it retains hashes and provenance and is a paired continuation, not a fresh confirmation run. Saved stages are reused only when their inputs and answer hashes match; recorded failures are preserved. A review that finds no defect retains the draft. Ordinary source limitations are recorded separately from missing evidence that blocks verification.
+
+Reports retain missing and unresolved assertions in the planned denominator and show workflow status separately. `review_clear` or `review_clear_with_limits` records a workflow judgment, not a benchmark pass. Compare actual outputs, regressions, and resource use before claiming improvement. This pilot evaluates the review/repair core; it does not add a separate style-edit stage or establish that an interactive agent automatically follows the entire workflow.
+
+The [initial 2026-10-04 pilot](docs/evaluation-writing-passes-2026-10-04.md) improved from 64/74 to 71/74 after review; three new holdouts improved from 14/15 to 15/15. A [focused follow-up using Codex](docs/evaluation-writing-passes-focused-2026-10-04.md) reached 74/74 once, then 73/74 on an unchanged fresh repeat and 15/15 on new holdouts. Initial and reviewed drafts had identical scores in that follow-up: no repair occurred, and review missed the repeat's contradiction. These results do not establish reliable perfect performance or added benefit from review with that writer configuration.
+
 
 > [!NOTE]
-> The model-calling commands send each eval prompt, the selected skill's deployable text, and generated answers to OpenRouter and the model provider behind it (Google for the default model). Run them only when that disclosure is acceptable; `init`, `aggregate`, `stats`, `compare`, and `prune` are local.
+> The model-calling commands send eval prompts, selected skill text, and relevant generated answers through the chosen executor: OpenRouter and its selected model provider for pi, the configured Codex service for Codex, or TypeSafe for Jev grading. Use an executor authorized for that material. `init`, `aggregate`, `stats`, `compare`, and `prune` are local.
 
 This follows the official Agent Skills evaluation pattern at https://agentskills.io/skill-creation/evaluating-skills: compare with-skill and baseline runs, record timing, grade assertions with evidence, aggregate results, and review the actual outputs with a human.
 

@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.2.1"
+  version: "1.3.0"
   risk_tier: low
 ---
 
@@ -32,6 +32,23 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 12. For API endpoints, include error response information when status codes or failure modes appear. For error-code references, define any headers, fields, or retry signals you mention, such as `Retry-After`.
 13. Track unknown facts while drafting. If the source omits a default, valid value, field type, status behavior, limit, or compatibility boundary, mark it as `Not specified` or an open question instead of inventing it.
 14. Add cross-links or "Related topics" only when they help the reader move to a task or concept without cluttering the lookup surface.
+
+## Verification Handoff
+
+Keep a complete draft separate from its review. Give the original request,
+versioned sources, and draft to the user- or project-specified reviewer or grader.
+Use `technical-docs-reviewer` when available; no particular provider is required.
+Prefer a fresh read-only reviewer when available and authorized. Otherwise run
+the self-check explicitly and identify it as self-review if reporting the mode.
+Do not claim that an unavailable requested grader ran.
+
+Check each finding against the sources before repairing it. Preserve declared
+fields and supported facts even if a reviewer proposes suppressing them. By
+default, allow one repair and a final review of the complete revision; a caller's
+explicit review budget takes precedence. Keep remaining material gaps visible.
+After a style or unslop edit, recheck the final scope, values, uncertainty, and
+literals. Deliver the reference and consequential gaps; include internal review
+records only when requested.
 
 ## Completion Criterion
 

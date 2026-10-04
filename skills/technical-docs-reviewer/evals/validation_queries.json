@@ -1,0 +1,37 @@
+{
+  "skill_name": "technical-docs-reviewer",
+  "queries": [
+    {
+      "query": "This reference says No options, but we only saved example invocations. Is the draft supported?",
+      "should_trigger": true
+    },
+    {
+      "query": "Verify that the revised migration instructions preserve the stop condition and documented recovery.",
+      "should_trigger": true
+    },
+    {
+      "query": "Give a scoped clean review or concrete source-backed defects for this accurate configuration table.",
+      "should_trigger": true
+    },
+    {
+      "query": "Our grader approved the draft but the source is incomplete. Review the claims and state the limits.",
+      "should_trigger": true
+    },
+    {
+      "query": "Remove slop and redundant phrasing from this introduction.",
+      "should_trigger": false
+    },
+    {
+      "query": "Explain caching to a new engineer using an analogy.",
+      "should_trigger": false
+    },
+    {
+      "query": "Compare two grading models on these saved evaluation labels.",
+      "should_trigger": false
+    },
+    {
+      "query": "Create a fresh CLI reference from this registry export.",
+      "should_trigger": false
+    }
+  ]
+}

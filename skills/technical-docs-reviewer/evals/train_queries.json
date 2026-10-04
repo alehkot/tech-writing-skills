@@ -1,0 +1,53 @@
+{
+  "skill_name": "technical-docs-reviewer",
+  "queries": [
+    {
+      "query": "Check this deployment guide against the tested command notes and flag unsupported steps.",
+      "should_trigger": true
+    },
+    {
+      "query": "Review this API reference against the schema, especially missing fields and inferred defaults.",
+      "should_trigger": true
+    },
+    {
+      "query": "The writer repaired these findings. Verify the complete updated procedure against the source.",
+      "should_trigger": true
+    },
+    {
+      "query": "Can you check whether this explanation turns an observed correlation into a causal claim?",
+      "should_trigger": true
+    },
+    {
+      "query": "Use our available local reviewer to verify this technical draft; we do not have Jev.",
+      "should_trigger": true
+    },
+    {
+      "query": "Audit this tutorial for missing prerequisites, lost branches, and made-up success messages.",
+      "should_trigger": true
+    },
+    {
+      "query": "Write a new deployment runbook from these notes.",
+      "should_trigger": false
+    },
+    {
+      "query": "Fix commas and capitalization in this guide without checking technical facts.",
+      "should_trigger": false
+    },
+    {
+      "query": "Design a benchmark to measure whether our documentation grader is accurate.",
+      "should_trigger": false
+    },
+    {
+      "query": "Implement a release CLI command and its tests.",
+      "should_trigger": false
+    },
+    {
+      "query": "Rewrite this proposal to persuade the finance team.",
+      "should_trigger": false
+    },
+    {
+      "query": "Improve the alt text and inclusive terminology in this existing article.",
+      "should_trigger": false
+    }
+  ]
+}
