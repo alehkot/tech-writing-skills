@@ -189,6 +189,10 @@ uv run python scripts/eval_workflow.py trigger-eval --verbose
 
 `stats` reads as pure variance only when every sampled iteration ran against the same skill content; across a change it mixes variance with effect, so use `compare` for before and after. A `recheck` disagreement means the failure is unresolved, not that it is a pass. `benchmark.json` reports `pass_rate` over graded evals only, so it carries a `coverage` block and a `complete` flag; a rate from a partial run is not a suite result.
 
+`recheck` sends the original task (including supplied source material) and expected-output description saved in `grading.json` along with each failed assertion and the answer. It does not substitute today's eval fixture for historical sources. A missing, blank, or non-string saved task stops the recheck before a model call; restore the original task from that run's evidence or start a fresh iteration. An optional expected-output description must be a string. Runs with no failed assertions remain a no-op.
+
+The second opinion does not receive the first grader's verdict or rationale, and its prompt treats task/source and answer blocks as evaluation data. This is a prompt safeguard, not a guarantee against injection. Rechecks remain supplementary: they never replace original verdicts or increase the recorded pass rate. Offline context-contract regressions verify what reaches the judge and what is preserved; they do not establish better model judgment or writing quality.
+
 ### Executors
 
 `run-codex`, `grade-codex`, `recheck`, `sample`, and `trigger-eval` take `--executor pi` (default) or `--executor codex`:
