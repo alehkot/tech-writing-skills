@@ -135,10 +135,13 @@ def has_recorded_results(path: Path) -> bool:
         return True
     results = data.get("assertion_results")
     if isinstance(results, list) and any(
-        isinstance(item, dict) and isinstance(item.get("passed"), bool) for item in results
+        isinstance(item, dict) and (
+            isinstance(item.get("passed"), bool) or bool(item.get("evidence")) or "recheck" in item
+        )
+        for item in results
     ):
         return True
-    return any(
+    return any(key in data for key in ("grader", "deterministic_checks")) or any(
         data.get(key) is not None for key in ("exit_code", "duration_ms", "total_tokens")
     )
 
@@ -296,7 +299,7 @@ def check_prompt_current(prompt_path: Path, expected: dict[tuple[str, str], str]
         raise ValueError(
             f"{prompt_path}: prompt does not match the current skill text. Start a fresh "
             "iteration with init so every answer in it reflects one skill version, or "
-            "re-scaffold this one with init --iteration <n> --force (recorded results are kept)"
+            "refresh an unexecuted scaffold with init --iteration <n> --force"
         )
 
 
@@ -340,6 +343,46 @@ def initial_timing(skill_dir: Path, eval_case: dict[str, Any], run_name: str) ->
     }
 
 
+def check_scaffold_evidence(run_dir: Path, prompt: str, grading: dict[str, Any]) -> None:
+    """Do not relabel a populated run with another task, rubric, or treatment.
+
+    Even --reset-results leaves answers on disk, so it cannot make a populated
+    run safe to retask. Validate before writing any part of this iteration.
+    """
+    prompt_path = run_dir / "prompt.md"
+    grading_path = run_dir / "grading.json"
+    populated = (
+        (run_dir / "outputs" / "answer.md").exists()
+        or (run_dir / "grading.jev.json").exists()
+        or has_recorded_results(grading_path)
+        or has_recorded_results(run_dir / "timing.json")
+    )
+    if not populated:
+        return
+    error = (
+        f"{run_dir}: populated run inputs differ or cannot be verified. "
+        "Start a fresh iteration with init; --force and --reset-results cannot "
+        "replace the task, rubric, or skill instructions attached to saved evidence."
+    )
+    if not prompt_path.is_file() or not grading_path.is_file():
+        raise ValueError(error)
+    try:
+        saved = load_json(grading_path)
+    except ValueError as cause:
+        raise ValueError(error) from cause
+    results = saved.get("assertion_results")
+    fields = ("skill_name", "eval_id", "run", "prompt", "expected_output")
+    if (
+        prompt_path.read_text(encoding="utf-8") != prompt
+        or any(saved.get(field) != grading[field] for field in fields)
+        or not isinstance(results, list)
+        or not all(isinstance(item, dict) for item in results)
+        or [item.get("text") for item in results]
+        != [item["text"] for item in grading["assertion_results"]]
+    ):
+        raise ValueError(error)
+
+
 def init_skill_workspace(
     skill_dir: Path,
     iteration: str | None,
@@ -349,41 +392,40 @@ def init_skill_workspace(
 ) -> Path:
     iter_name = iteration_name(iteration) if iteration else next_iteration(skill_dir)
     workspace = WORKSPACES_DIR / skill_dir.name / iter_name
-    workspace.mkdir(parents=True, exist_ok=True)
-
     feedback = {
         "skill_name": skill_dir.name,
         "iteration": iter_name,
         "feedback": {},
     }
-
+    plans = []
     for eval_case in read_evals(skill_dir):
         eval_id = str(eval_case["id"])
-        feedback["feedback"].setdefault(
-            eval_id,
-            {run_name: "" for run_name in runs},
-        )
+        feedback["feedback"].setdefault(eval_id, {run_name: "" for run_name in runs})
         for run_name in runs:
             run_dir = workspace / eval_id / run_name
-            output_dir = run_dir / "outputs"
-            output_dir.mkdir(parents=True, exist_ok=True)
             prompt_text = run_prompt(skill_dir, eval_case, run_name)
-            prompt_path = run_dir / "prompt.md"
-            if force or not prompt_path.exists():
-                prompt_path.write_text(prompt_text, encoding="utf-8")
-            scaffolds = (
-                (run_dir / "timing.json", initial_timing(skill_dir, eval_case, run_name)),
-                (run_dir / "grading.json", initial_grading(skill_dir, eval_case, run_name)),
-            )
-            for target, payload in scaffolds:
-                if not reset_results and has_recorded_results(target):
-                    if force:
-                        print(
-                            f"Preserved results in {target.relative_to(ROOT)} "
-                            "(pass --reset-results to discard them)"
-                        )
-                    continue
-                write_json(target, payload, force=force)
+            grading = initial_grading(skill_dir, eval_case, run_name)
+            check_scaffold_evidence(run_dir, prompt_text, grading)
+            plans.append((run_dir, prompt_text, grading,
+                          initial_timing(skill_dir, eval_case, run_name)))
+
+    # A later conflicting run must not leave earlier scaffolds partially updated.
+    workspace.mkdir(parents=True, exist_ok=True)
+    for run_dir, prompt_text, grading, timing in plans:
+        (run_dir / "outputs").mkdir(parents=True, exist_ok=True)
+        prompt_path = run_dir / "prompt.md"
+        if force or not prompt_path.exists():
+            prompt_path.write_text(prompt_text, encoding="utf-8")
+        for target, payload in ((run_dir / "timing.json", timing),
+                                (run_dir / "grading.json", grading)):
+            if not reset_results and has_recorded_results(target):
+                if force:
+                    print(
+                        f"Preserved results in {target.relative_to(ROOT)} "
+                        "(pass --reset-results to discard them)"
+                    )
+                continue
+            write_json(target, payload, force=force)
 
     write_json(workspace / "feedback.json", feedback, force=force)
     benchmark = aggregate_skill_workspace(skill_dir, iter_name, runs, write=False)
@@ -2413,7 +2455,7 @@ def build_parser() -> argparse.ArgumentParser:
     init.add_argument(
         "--force",
         action="store_true",
-        help="Overwrite scaffold files, preserving recorded grading and timing results",
+        help="Refresh scaffolds without changing inputs attached to saved evidence",
     )
     init.add_argument(
         "--reset-results",
