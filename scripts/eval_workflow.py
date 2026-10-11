@@ -2209,7 +2209,8 @@ Available skills and when each applies:
 For each numbered request below, answer with the single skill name that should
 handle it, or the exact string "none" when no skill above applies. Judge each
 request independently; they are unrelated to each other. Answer with the skill
-name only, never an explanation.
+name only, never an explanation. Return one result for every request, with its
+1-based index exactly once. Do not omit requests, including those routed to "none".
 
 Requests:
 {queries}
@@ -2238,12 +2239,28 @@ def run_trigger_batch(
         raise ValueError(f"trigger routing failed: {error}") from error
     payload = json.loads(reply.text)
 
-    predictions = ["none"] * len(batch)
-    for item in payload.get("results", []):
-        position = item.get("index")
-        if isinstance(position, int) and 1 <= position <= len(batch):
-            predictions[position - 1] = str(item.get("skill", "none")).strip()
-    return predictions
+    # Missing answers are not abstentions: treating them as "none" would award
+    # true negatives to a router that never answered those requests.
+    issues = schema_issues(payload, TRIGGER_SCHEMA)
+    if issues:
+        raise ValueError("invalid trigger routing response: " + "; ".join(issues))
+    results = payload["results"]
+    if len(results) != len(batch):
+        raise ValueError(
+            f"invalid trigger routing response: expected {len(batch)} results, got {len(results)}"
+        )
+    predictions: dict[int, str] = {}
+    for item in results:
+        position = item["index"]
+        if not 1 <= position <= len(batch) or position in predictions:
+            raise ValueError(
+                f"invalid trigger routing response: out-of-range or duplicate index {position}"
+            )
+        predicted = item["skill"].strip()
+        if predicted != "none" and predicted not in descriptions:
+            raise ValueError(f"invalid trigger routing response: unknown skill {predicted!r}")
+        predictions[position] = predicted
+    return [predictions[index] for index in range(1, len(batch) + 1)]
 
 
 def trigger_eval_command(args: argparse.Namespace) -> int:

@@ -187,6 +187,8 @@ uv run python scripts/eval_workflow.py recheck --iteration 2 --model openai/gpt-
 uv run python scripts/eval_workflow.py trigger-eval --verbose
 ```
 
+`trigger-eval` requires exactly one result per request, with a unique in-range integer index and a known skill name or explicit `none`. Invalid or incomplete routing responses stop the command with a nonzero exit before precision, recall, or accuracy are reported. Missing answers are not counted as correct non-activations. Shuffled complete responses are aligned by index; surrounding whitespace in skill names is ignored. A failed later batch may leave progress lines for earlier batches, but no final metrics are emitted. These checks validate response accounting, not the model's routing quality.
+
 `stats` reads as pure variance only when every sampled iteration ran against the same skill content; across a change it mixes variance with effect, so use `compare` for before and after. A `recheck` disagreement means the failure is unresolved, not that it is a pass. `benchmark.json` reports `pass_rate` over graded evals only, so it carries a `coverage` block and a `complete` flag; a rate from a partial run is not a suite result.
 
 `recheck` sends the original task (including supplied source material) and expected-output description saved in `grading.json` along with each failed assertion and the answer. It does not substitute today's eval fixture for historical sources. A missing, blank, or non-string saved task stops the recheck before a model call; restore the original task from that run's evidence or start a fresh iteration. An optional expected-output description must be a string. Runs with no failed assertions remain a no-op.
