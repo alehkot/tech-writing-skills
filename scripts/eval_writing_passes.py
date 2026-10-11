@@ -380,8 +380,19 @@ def report_evidence(directory: Path, manifest: dict, case: dict) -> tuple[str, l
         grader = grading.get("grader")
         if (not isinstance(request, dict) or not isinstance(grader, dict)
             or request.get("state") != {"task": case["prompt"], "answer": answer}
-            or grader.get("requested_model") != manifest["grader"]["model"]):
+            or request.get("model") != manifest["grader"]["model"]
+            or grader.get("requested_model") != manifest["grader"]["model"]
+            or grading.get("request_sha256") != digest(json.dumps(request))):
             raise ValueError(f"stale Jev grading: {grade_path}")
+        questions = request.get("questions")
+        expected_keys = {f"a{i}" for i in range(1, len(case["assertions"]) + 1)}
+        if not isinstance(questions, dict) or set(questions) != expected_keys:
+            raise ValueError(f"stale Jev questions: {grade_path}")
+        for index, assertion in enumerate(case["assertions"], 1):
+            question = questions[f"a{index}"]
+            instructions = question.get("instructions") if isinstance(question, dict) else None
+            if not isinstance(instructions, dict) or instructions.get("assertion") != assertion:
+                raise ValueError(f"stale Jev assertion: {grade_path}")
     elif grading.get("prompt") != case["prompt"]:
         raise ValueError(f"stale task grading: {grade_path}")
     results = grading.get("assertion_results")

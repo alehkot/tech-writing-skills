@@ -47,9 +47,11 @@ class WritingPassReportTests(unittest.TestCase):
 
     def use_jev(self):
         self.manifest["grader"] = {"executor": "jev", "model": "jev-test"}
+        request = pilot.jev.make_request(self.grading, self.answer, "jev-test")
         self.grading.pop("prompt")
         self.grading["grader"] = {"requested_model": "jev-test"}
-        self.grading["request"] = {"state": {"task": self.case["prompt"], "answer": self.answer}}
+        self.grading["request"] = request
+        self.grading["request_sha256"] = pilot.digest(json.dumps(request))
         self.write_grade()
 
     def test_valid_verdicts_and_workflow_status_are_separate(self):
@@ -146,6 +148,38 @@ class WritingPassReportTests(unittest.TestCase):
                     self.grading["request"]["state"][field] = "Changed"
                 self.write_grade()
                 self.assert_rejected("stale Jev grading")
+
+    def test_jev_request_consistency_is_verified(self):
+        self.use_jev()
+        original = copy.deepcopy(self.grading)
+        mutations = {
+            "model": lambda g: g["request"].update(model="other-model"),
+            "assertion": lambda g: g["request"]["questions"]["a1"]["instructions"].update(assertion="Different"),
+            "missing_question": lambda g: g["request"]["questions"].pop("a1"),
+            "extra_question": lambda g: g["request"]["questions"].update(a4={}),
+            "invalid_question": lambda g: g["request"]["questions"].update(a1=None),
+            "invalid_instructions": lambda g: g["request"]["questions"]["a1"].update(instructions=[]),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                self.grading = copy.deepcopy(original)
+                mutate(self.grading)
+                # A coherent checksum alone must not hide a contradictory request.
+                self.grading["request_sha256"] = pilot.digest(json.dumps(self.grading["request"]))
+                self.write_grade()
+                self.assert_rejected("stale Jev")
+
+    def test_jev_request_hash_is_verified(self):
+        self.use_jev()
+        self.grading["request_sha256"] = "stale"
+        self.write_grade()
+        self.assert_rejected("stale Jev grading")
+
+    def test_jev_partial_verdicts_allow_a_complete_original_request(self):
+        self.use_jev()
+        self.grading["assertion_results"] = self.grading["assertion_results"][:1]
+        self.write_grade()
+        self.assertEqual(self.run_report()["totals"]["single_pass"]["missing"], 2)
 
     def test_invalid_record_shapes_fail_cleanly(self):
         original = copy.deepcopy(self.grading)
