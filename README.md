@@ -164,6 +164,10 @@ uv run python scripts/eval_workflow.py prune --keep 3
 
 Then review `benchmark.json`, `feedback.json`, and the answers themselves for qualities that are hard to assert mechanically, and revise a skill only when the failure pattern generalizes beyond one prompt. Narrow any step with `--skill` and `--eval-id`; `--iteration` accepts a number or `latest`. Pass `--runs with_skill old_skill` when comparing against a previous skill snapshot.
 
+`run-codex --force` regenerates an answer through a fresh staging file. Only a successful, nonempty output replaces `outputs/answer.md`. Success clears the old assertion verdicts, evidence, rechecks, grader metadata, deterministic checks, Jev grade, and generated grader artifacts, while retaining the saved task, rubric, and human notes. The old `benchmark.json` is removed before publication; rerun grading and aggregation for the new answer.
+
+If generation fails, an existing answer, its grades, and its timing remain unchanged. `outputs/failed_run.json` records the failed attempt separately; raw generator streams describe the latest attempt. A failed first attempt records its timing but never publishes a partial answer. These safeguards cover serial harness commands, not concurrent writers or arbitrary edits to saved artifacts. An interruption during final filesystem publication can leave a run ungraded; rerun generation and grading rather than trusting an earlier summary.
+
 Single runs are noisy. Measure before concluding:
 
 ```bash
