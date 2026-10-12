@@ -347,17 +347,79 @@ def grade_case(workspace: Path, manifest: dict, case: dict, sample: int) -> None
     print(f"Graded {case['id']} sample {sample}", flush=True)
 
 
-def report(workspace: Path, manifest: dict) -> dict:
+def report_evidence(directory: Path, manifest: dict, case: dict) -> tuple[str, list[dict]]:
+    """Read only grades that still describe this saved answer and frozen case.
+
+    Missing grades are normal in a partial campaign. Present but inconsistent
+    evidence is an error, rather than a pass, failure, or silently missing row.
+    """
     suffix = "grading.jev.json" if manifest["grader"]["executor"] == "jev" else "grading.json"
+    grade_path = directory / suffix
+    workflow_path = directory / "workflow.json"
+    answer_path = directory / "outputs/answer.md"
+    if not workflow_path.exists():
+        if grade_path.exists():
+            raise ValueError(f"grade has no saved workflow: {grade_path}")
+        return "missing", []
+    workflow = json.loads(workflow_path.read_text())
+    statuses = {"draft_only", "review_clear", "review_clear_with_limits", "review_unresolved"}
+    if (not isinstance(workflow, dict) or not isinstance(workflow.get("status"), str)
+        or workflow["status"] not in statuses):
+        raise ValueError(f"invalid saved workflow: {workflow_path}")
+    answer = answer_path.read_text()
+    answer_hash = digest(answer)
+    if workflow.get("answer_sha256") != answer_hash:
+        raise ValueError(f"saved final answer changed: {answer_path}")
+    if not grade_path.exists():
+        return workflow["status"], []
+    grading = json.loads(grade_path.read_text())
+    if not isinstance(grading, dict) or grading.get("answer_sha256") != answer_hash:
+        raise ValueError(f"stale answer grading: {grade_path}")
+    if manifest["grader"]["executor"] == "jev":
+        request = grading.get("request")
+        grader = grading.get("grader")
+        if (not isinstance(request, dict) or not isinstance(grader, dict)
+            or request.get("state") != {"task": case["prompt"], "answer": answer}
+            or request.get("model") != manifest["grader"]["model"]
+            or grader.get("requested_model") != manifest["grader"]["model"]
+            or grading.get("request_sha256") != digest(json.dumps(request))):
+            raise ValueError(f"stale Jev grading: {grade_path}")
+        questions = request.get("questions")
+        expected_keys = {f"a{i}" for i in range(1, len(case["assertions"]) + 1)}
+        if not isinstance(questions, dict) or set(questions) != expected_keys:
+            raise ValueError(f"stale Jev questions: {grade_path}")
+        for index, assertion in enumerate(case["assertions"], 1):
+            question = questions[f"a{index}"]
+            instructions = question.get("instructions") if isinstance(question, dict) else None
+            if not isinstance(instructions, dict) or instructions.get("assertion") != assertion:
+                raise ValueError(f"stale Jev assertion: {grade_path}")
+    elif grading.get("prompt") != case["prompt"]:
+        raise ValueError(f"stale task grading: {grade_path}")
+    results = grading.get("assertion_results")
+    if not isinstance(results, list):
+        raise ValueError(f"invalid assertion results: {grade_path}")
+    by_index = {}
+    for result in results:
+        if not isinstance(result, dict):
+            raise ValueError(f"invalid assertion result: {grade_path}")
+        index = result.get("index")
+        if type(index) is not int or not 1 <= index <= len(case["assertions"]) or index in by_index:
+            raise ValueError(f"invalid or duplicate assertion index: {grade_path}")
+        if result.get("text") != case["assertions"][index - 1]:
+            raise ValueError(f"stale assertion text: {grade_path}")
+        if "passed" not in result or (result["passed"] is not None and type(result["passed"]) is not bool):
+            raise ValueError(f"invalid assertion verdict: {grade_path}")
+        by_index[index] = result
+    return workflow["status"], [by_index[index] for index in sorted(by_index)]
+
+
+def report(workspace: Path, manifest: dict) -> dict:
     rows = []
     for case in manifest["cases"]:
         for sample in range(1, manifest["samples"] + 1):
             for arm in manifest.get("arms", ARMS):
                 directory = workspace / case["id"] / f"sample-{sample}" / arm
-                path = directory / suffix
-                verdicts = json.loads(path.read_text())["assertion_results"] if path.exists() else []
-                state_path = directory / "workflow.json"
-                state = json.loads(state_path.read_text())["status"] if state_path.exists() else "missing"
+                state, verdicts = report_evidence(directory, manifest, case)
                 rows.append({"case": case["id"], "split": case["split"], "sample": sample, "arm": arm,
                              "workflow_status": state,
                              "passed": sum(x["passed"] is True for x in verdicts),
