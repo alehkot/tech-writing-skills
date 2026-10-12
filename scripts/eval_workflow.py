@@ -2370,12 +2370,91 @@ def trigger_eval_command(args: argparse.Namespace) -> int:
 
 
 def iteration_has_results(skill_dir: Path, number: int) -> bool:
+    """Keep evidence-bearing iterations in the retention pool, not just grades.
+
+    Only an exact, current, untouched scaffold is disposable. Unknown artifacts
+    and anything we cannot safely recognize count as results, including paid
+    attempts that have not reached grading yet. This is intentionally conservative
+    when the skill or fixtures have changed since the workspace was created.
+    """
     workspace = WORKSPACES_DIR / skill_dir.name / f"iteration-{number}"
-    for path in workspace.glob("*/*/grading.json"):
-        results = load_json(path).get("assertion_results", [])
-        if results and all(isinstance(r.get("passed"), bool) for r in results):
+    try:
+        if workspace.is_symlink():
             return True
-    return False
+        # Explicit traversal propagates unreadable-directory errors; globbing can
+        # silently skip them and mistake hidden evidence for an empty directory.
+        entries: list[Path] = []
+        pending = [workspace]
+        while pending:
+            for path in pending.pop().iterdir():
+                if path.is_symlink():
+                    return True
+                entries.append(path)
+                if path.is_dir():
+                    pending.append(path)
+        if not entries:
+            return False
+        directories = {path.relative_to(workspace) for path in entries if path.is_dir()}
+        files = {path.relative_to(workspace) for path in entries if path.is_file()}
+        if len(directories) + len(files) != len(entries):
+            return True
+
+        # Single-arm scaffolds are normal (sample creates them). Custom baseline
+        # labels cannot be reconstructed from the standard run definitions.
+        run_names = {path.parts[1] for path in directories if len(path.parts) == 2}
+        if not run_names or not run_names.issubset(DEFAULT_RUNS):
+            return True
+        runs = tuple(name for name in DEFAULT_RUNS if name in run_names)
+        expected_directories: set[Path] = set()
+        expected_files: dict[Path, str | dict[str, Any]] = {}
+        feedback: dict[str, Any] = {
+            "skill_name": skill_dir.name,
+            "iteration": f"iteration-{number}",
+            "feedback": {},
+        }
+        for case in read_evals(skill_dir):
+            eval_id = str(case["id"])
+            expected_directories.add(Path(eval_id))
+            feedback["feedback"][eval_id] = {run: "" for run in runs}
+            for run in runs:
+                run_path = Path(eval_id) / run
+                expected_directories.update((run_path, run_path / "outputs"))
+                expected_files[run_path / "prompt.md"] = run_prompt(skill_dir, case, run)
+                expected_files[run_path / "grading.json"] = initial_grading(skill_dir, case, run)
+                expected_files[run_path / "timing.json"] = initial_timing(skill_dir, case, run)
+        expected_files[Path("feedback.json")] = feedback
+        if directories != expected_directories or files != set(expected_files) | {Path("benchmark.json")}:
+            return True
+
+        def unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+            result: dict[str, Any] = {}
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError(f"duplicate JSON key: {key}")
+                result[key] = value
+            return result
+
+        def matches_json(path: Path, expected: dict[str, Any]) -> bool:
+            actual = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique_object)
+            # Canonical JSON distinguishes booleans from integers and rejects
+            # non-finite values; ordinary dict equality does neither.
+            return json.dumps(actual, sort_keys=True, allow_nan=False) == json.dumps(
+                expected, sort_keys=True, allow_nan=False
+            )
+
+        for relative, expected in expected_files.items():
+            path = workspace / relative
+            if isinstance(expected, str):
+                if path.read_text(encoding="utf-8") != expected:
+                    return True
+            elif not matches_json(path, expected):
+                return True
+        # All inputs have now been checked against their initial values. The
+        # read-only aggregator gives the corresponding initial benchmark.
+        benchmark = aggregate_skill_workspace(skill_dir, f"iteration-{number}", runs, write=False)
+        return not matches_json(workspace / "benchmark.json", benchmark)
+    except (OSError, ValueError, TypeError, KeyError):
+        return True
 
 
 def prune_command(args: argparse.Namespace) -> int:
@@ -2384,15 +2463,14 @@ def prune_command(args: argparse.Namespace) -> int:
     removed = kept_scaffolds = 0
     for skill_dir in skill_dirs(args.skill):
         numbers = iteration_numbers(skill_dir)
-        graded = [n for n in numbers if iteration_has_results(skill_dir, n)]
-        # Graded iterations are the results; ungraded ones are scaffolds that cost
-        # nothing to recreate. Keeping purely by recency would drop a graded
-        # baseline while preserving an empty directory that happens to be newer.
-        keep = set(graded[-args.keep :])
+        meaningful = [n for n in numbers if iteration_has_results(skill_dir, n)]
+        # Empty, reproducible scaffolds must not displace generated answers,
+        # incomplete work, human notes, or completed grades in the retention pool.
+        keep = set(meaningful[-args.keep :])
         stale = [n for n in numbers if n not in keep]
         for number in stale:
             path = WORKSPACES_DIR / skill_dir.name / f"iteration-{number}"
-            label = "graded" if number in graded else "scaffold"
+            label = "results or other evidence" if number in meaningful else "empty scaffold"
             if args.apply:
                 shutil.rmtree(path)
                 print(f"Removed {path.relative_to(ROOT)} ({label})")
@@ -2401,11 +2479,11 @@ def prune_command(args: argparse.Namespace) -> int:
             removed += 1
         kept_scaffolds += len(keep)
     if not removed:
-        print(f"Nothing to prune; every skill has at most {args.keep} graded iterations.")
+        print(f"Nothing to prune; every skill has at most {args.keep} evidence-bearing iterations.")
     elif not args.apply:
         print(
             f"Dry run: {removed} iterations would be removed, keeping the "
-            f"{args.keep} most recent graded ones per skill. Re-run with --apply."
+            f"{args.keep} most recent evidence-bearing ones per skill. Re-run with --apply."
         )
     return 0
 
@@ -2631,7 +2709,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--keep",
         type=int,
         default=3,
-        help="Number of most recent iterations to keep per skill (default 3)",
+        help="Number of most recent evidence-bearing iterations to keep per skill (default 3)",
     )
     prune.add_argument(
         "--apply",
