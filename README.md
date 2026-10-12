@@ -164,6 +164,10 @@ uv run python scripts/eval_workflow.py prune --keep 3
 
 Then review `benchmark.json`, `feedback.json`, and the answers themselves for qualities that are hard to assert mechanically, and revise a skill only when the failure pattern generalizes beyond one prompt. Narrow any step with `--skill` and `--eval-id`; `--iteration` accepts a number or `latest`. Pass `--runs with_skill old_skill` when comparing against a previous skill snapshot.
 
+`run-codex --force` regenerates an answer through a fresh staging file. Only a successful, nonempty output replaces `outputs/answer.md`. Success clears the old assertion verdicts, evidence, rechecks, grader metadata, deterministic checks, Jev grade, and generated grader artifacts, while retaining the saved task, rubric, and human notes. The old `benchmark.json` is removed before publication; rerun grading and aggregation for the new answer.
+
+If generation fails, an existing answer, its grades, and its timing remain unchanged. `outputs/failed_run.json` records the failed attempt separately; raw generator streams describe the latest attempt. A failed first attempt records its timing but never publishes a partial answer. These safeguards cover serial harness commands, not concurrent writers or arbitrary edits to saved artifacts. An interruption during final filesystem publication can leave a run ungraded; rerun generation and grading rather than trusting an earlier summary.
+
 Single runs are noisy. Measure before concluding:
 
 ```bash
@@ -183,7 +187,13 @@ uv run python scripts/eval_workflow.py recheck --iteration 2 --model openai/gpt-
 uv run python scripts/eval_workflow.py trigger-eval --verbose
 ```
 
+`trigger-eval` requires exactly one result per request, with a unique in-range integer index and a known skill name or explicit `none`. Invalid or incomplete routing responses stop the command with a nonzero exit before precision, recall, or accuracy are reported. Missing answers are not counted as correct non-activations. Shuffled complete responses are aligned by index; surrounding whitespace in skill names is ignored. A failed later batch may leave progress lines for earlier batches, but no final metrics are emitted. These checks validate response accounting, not the model's routing quality.
+
 `stats` reads as pure variance only when every sampled iteration ran against the same skill content; across a change it mixes variance with effect, so use `compare` for before and after. A `recheck` disagreement means the failure is unresolved, not that it is a pass. `benchmark.json` reports `pass_rate` over graded evals only, so it carries a `coverage` block and a `complete` flag; a rate from a partial run is not a suite result.
+
+`recheck` sends the original task (including supplied source material) and expected-output description saved in `grading.json` along with each failed assertion and the answer. It does not substitute today's eval fixture for historical sources. A missing, blank, or non-string saved task stops the recheck before a model call; restore the original task from that run's evidence or start a fresh iteration. An optional expected-output description must be a string. Runs with no failed assertions remain a no-op.
+
+The second opinion does not receive the first grader's verdict or rationale, and its prompt treats task/source and answer blocks as evaluation data. This is a prompt safeguard, not a guarantee against injection. Rechecks remain supplementary: they never replace original verdicts or increase the recorded pass rate. Offline context-contract regressions verify what reaches the judge and what is preserved; they do not establish better model judgment or writing quality.
 
 ### Executors
 
@@ -202,7 +212,7 @@ For alternative assertion grading with TypeSafe Jev, set `TYPESAFE_API_KEY` in t
 uv run python scripts/grade_with_jev.py workspaces/<skill>/iteration-<n>/<eval>/with_skill/grading.json
 ```
 
-This uses the [TypeSafe Choice API](https://docs.typesafe.ai/api) and writes `grading.jev.json` beside the original grade. It batches the assertions over the same source and answer, hides the generation condition and prior verdicts, and preserves the actual model, probabilities, confidence, usage, and request/answer hashes. `uncertain` remains unresolved. `--model`, `--timeout-seconds`, and explicit `--force` are supported. The original grades are preserved. Jev does not supply evidence explanations; check disagreements against the source. In the initial calibration it missed two known defects, so its scores are an alternative judgment, not an automatic release gate.
+This uses the [TypeSafe Choice API](https://docs.typesafe.ai/api) and writes `grading.jev.json` beside the original grade. It batches the assertions over the same source and answer, hides the generation condition and prior verdicts, and preserves the actual model, probabilities, confidence, usage, and request/answer hashes. `uncertain` remains unresolved. Assertion indices and text come from the saved rubric, and pass/fail/unresolved values are derived only from the validated `choice`; additional provider fields cannot override them. Other provider metadata is retained for inspection. `--model`, `--timeout-seconds`, and explicit `--force` are supported. The original grades are preserved. Jev does not supply evidence explanations; check disagreements against the source. In the initial calibration it missed two known defects, so its scores are an alternative judgment, not an automatic release gate.
 
 ### Comparing Writing Passes
 

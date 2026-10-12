@@ -58,7 +58,8 @@ def validate_response(response: dict, request: dict) -> None:
     if not isinstance(answers, dict) or set(answers) != set(request["questions"]):
         raise ValueError("Jev response does not cover exactly the requested assertions")
     for key, value in answers.items():
-        if not isinstance(value, dict) or value.get("type") != "choice" or value.get("choice") not in CHOICES:
+        if (not isinstance(value, dict) or value.get("type") != "choice"
+            or not isinstance(value.get("choice"), str) or value["choice"] not in CHOICES):
             raise ValueError(f"invalid Jev choice for {key}")
         probabilities = value.get("probabilities")
         if not isinstance(probabilities, dict) or set(probabilities) != CHOICES:
@@ -91,9 +92,10 @@ def grade(path: Path, *, model: str, timeout: float, force: bool = False) -> Pat
     results = []
     for index, assertion in enumerate(grading["assertion_results"], 1):
         verdict = response["answers"][f"a{index}"]
-        results.append({"index": index, "text": assertion["text"],
-                        "passed": {"pass": True, "fail": False, "uncertain": None}[verdict["choice"]],
-                        **verdict})
+        # Assertion identity and the normalized verdict belong to this harness,
+        # not to optional fields supplied by the remote response.
+        results.append({**verdict, "index": index, "text": assertion["text"],
+                        "passed": {"pass": True, "fail": False, "uncertain": None}[verdict["choice"]]})
     report = {
         "grader": {"provider": "typesafe", "model": response["model"], "requested_model": model},
         "source_grading": str(path), "answer_sha256": hashlib.sha256(answer.encode()).hexdigest(),

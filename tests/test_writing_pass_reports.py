@@ -4,10 +4,12 @@ import contextlib
 import copy
 import io
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import eval_writing_passes as pilot
@@ -63,6 +65,34 @@ class WritingPassReportTests(unittest.TestCase):
     def test_jev_valid_verdicts_preserve_uncertainty(self):
         self.use_jev()
         self.assertEqual(self.run_report()["totals"]["single_pass"]["unresolved"], 1)
+
+    def test_real_jev_producer_report_boundary_preserves_normalized_evidence(self):
+        self.manifest["grader"] = {"executor": "jev", "model": "jev-test"}
+        self.manifest["timeout_seconds"] = 1
+        response = {"model": "resolved-jev-version", "answers": {}}
+        for index, choice in enumerate(("pass", "uncertain", "fail"), 1):
+            response["answers"][f"a{index}"] = {
+                "type": "choice", "choice": choice, "confidence": 0.8,
+                "probabilities": {label: 0.8 if label == choice else 0.1
+                                  for label in ("pass", "fail", "uncertain")},
+                # Provider extras must not replace the harness's assertion identity.
+                "index": 99, "text": "Unrelated", "passed": True,
+            }
+        with patch.dict(os.environ, {"TYPESAFE_API_KEY": "offline-test"}), patch.object(
+            pilot.jev.urllib.request, "urlopen", return_value=io.StringIO(json.dumps(response))
+        ) as request, contextlib.redirect_stdout(io.StringIO()):
+            pilot.grade_case(self.workspace, self.manifest, self.case, 1)
+        request.assert_called_once()
+        result = self.run_report()
+        self.assertEqual(result["rows"][0]["verdicts"], [True, None, False])
+        self.assertEqual(result["totals"]["single_pass"],
+                         {"passed": 1, "failed": 1, "unresolved": 1, "missing": 0, "planned": 3})
+        path = self.directory / "grading.jev.json"
+        grading = json.loads(path.read_text())
+        grading["request"]["state"]["answer"] = "Changed answer"
+        pilot.save_json(path, grading)
+        with self.assertRaisesRegex(ValueError, "stale Jev grading"):
+            self.run_report()
 
     def test_modified_final_answer_is_rejected(self):
         (self.directory / "outputs/answer.md").write_text("Unsafe changed answer")
