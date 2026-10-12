@@ -492,6 +492,26 @@ def aggregate_skill_workspace(
     if not workspace.exists():
         raise ValueError(f"{workspace}: workspace does not exist")
 
+    # Discover saved run directories rather than only surviving grade files:
+    # a missing grade must not silently shrink the coverage denominator. Check
+    # every selected arm before updating any summaries, and use historical
+    # workspace contents rather than today's potentially changed fixtures.
+    paths_by_run: dict[str, list[Path]] = {}
+    for run_name in runs:
+        paths_by_run[run_name] = [
+            run_dir / "grading.json"
+            for run_dir in sorted(workspace.glob(f"*/{run_name}"))
+            if run_dir.is_dir()
+        ]
+        for grading_path in paths_by_run[run_name]:
+            if not grading_path.is_file():
+                if write:
+                    (workspace / "benchmark.json").unlink(missing_ok=True)
+                raise ValueError(
+                    f"{grading_path}: missing or invalid grading file for a saved run; "
+                    "restore the run metadata or use a fresh iteration before aggregating"
+                )
+
     run_summary: dict[str, Any] = {}
     for run_name in runs:
         pass_rates: list[float] = []
@@ -506,7 +526,7 @@ def aggregate_skill_workspace(
             "total_evals": 0,
         }
 
-        for grading_path in sorted(workspace.glob(f"*/{run_name}/grading.json")):
+        for grading_path in paths_by_run[run_name]:
             raw["total_evals"] += 1
             if write:
                 summary = summarise_grading(grading_path)
