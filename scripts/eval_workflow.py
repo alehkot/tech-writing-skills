@@ -820,12 +820,18 @@ def invoke_codex(
     schema: dict[str, Any] | None,
     timeout_seconds: float,
 ) -> ModelReply:
-    with tempfile.TemporaryDirectory(prefix="skill-evals-codex-") as scratch:
+    # A successful exit does not prove that -o produced a new file. Always give
+    # Codex a fresh path, preserving any previous result until this attempt has
+    # passed validation. Stage beside the destination for atomic replacement.
+    with tempfile.TemporaryDirectory(
+        prefix=".codex-output-", dir=result_path.parent if result_path is not None else None
+    ) as scratch:
         schema_path: Path | None = None
         if schema is not None:
             schema_path = Path(scratch) / "schema.json"
             schema_path.write_text(json.dumps(schema), encoding="utf-8")
-        output_path = result_path if result_path is not None else Path(scratch) / "result.txt"
+        output_path = Path(scratch) / "output" / (result_path.name if result_path is not None else "result.txt")
+        output_path.parent.mkdir()
         command = codex_exec_command(
             model=model,
             reasoning_effort=reasoning_effort,
@@ -893,6 +899,8 @@ def invoke_codex(
                     "codex structured output does not match the schema: " + "; ".join(issues[:5]),
                     outcome,
                 )
+        if result_path is not None:
+            output_path.replace(result_path)
         attempt["outcome"] = "success"
         return outcome
 
