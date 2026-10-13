@@ -203,6 +203,10 @@ This check uses historical run directories, not today's potentially changed eval
 
 The second opinion does not receive the first grader's verdict or rationale, and its prompt treats task/source and answer blocks as evaluation data. This is a prompt safeguard, not a guarantee against injection. Rechecks remain supplementary: they never replace original verdicts or increase the recorded pass rate. Offline context-contract regressions verify what reaches the judge and what is preserved; they do not establish better model judgment or writing quality.
 
+Aggregation derives counts from saved assertion verdicts, never a cached `summary`. Every verdict must be a JSON boolean or null; a missing `passed` remains ungraded for historical scaffold compatibility. Strings such as `"false"`, numbers such as `0` or `1`, and malformed assertion rows stop aggregation with a file path and assertion position instead of disappearing from coverage and producing a false complete result.
+
+All selected grading files are validated before any per-run summaries are refreshed. If grading validation fails during a writing aggregation, the old derived `benchmark.json` is removed; source grades, answers, timing, and notes are preserved. Restore the saved verdict from its evidence or regrade before retrying. Read-only aggregation computes the same summary without modifying files. These checks do not authenticate edited grades, validate grader accuracy, or provide a transaction across concurrent writers or later filesystem failures.
+
 ### Executors
 
 `run-codex`, `grade-codex`, `recheck`, `sample`, and `trigger-eval` take `--executor pi` (default) or `--executor codex`:
