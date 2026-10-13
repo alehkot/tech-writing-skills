@@ -1915,16 +1915,22 @@ def collect_samples(
     return samples
 
 
-def stats_command(args: argparse.Namespace) -> int:
+def report_sample_stats(
+    cohorts: dict[Path, list[str]],
+    *,
+    run_name: str,
+    eval_id: str | None,
+    verbose: bool,
+) -> int:
+    """Report spread for explicit per-skill iteration cohorts."""
     flaky_total = 0
-    for skill_dir in skill_dirs(args.skill):
-        iterations = parse_iterations(args.iterations, skill_dir)
-        samples = collect_samples(skill_dir, iterations, args.run, args.eval_id)
+    for skill_dir, iterations in cohorts.items():
+        samples = collect_samples(skill_dir, iterations, run_name, eval_id)
         if not samples:
             continue
         print(f"\n{skill_dir.name}  ({len(iterations)} iterations)")
-        for eval_id in sorted(samples):
-            assertions = samples[eval_id]
+        for current_eval_id in sorted(samples):
+            assertions = samples[current_eval_id]
             depth = max(len(v) for v in assertions.values())
             fails = [
                 sum(1 for verdicts in assertions.values() if len(verdicts) > i and not verdicts[i])
@@ -1942,10 +1948,10 @@ def stats_command(args: argparse.Namespace) -> int:
             marker = " FLAKY" if flaky else ""
             std_text = "n/a" if std is None else f"{std:.2f}"
             print(
-                f"  {eval_id:<46} n={depth} fails={fails} "
+                f"  {current_eval_id:<46} n={depth} fails={fails} "
                 f"mean={mean:.2f} stddev={std_text}{marker}"
             )
-            if args.verbose:
+            if verbose:
                 for text, verdicts in flaky.items():
                     rate = sum(verdicts) / len(verdicts)
                     print(f"      unstable ({rate:.0%} pass): {text[:88]}")
@@ -1958,6 +1964,16 @@ def stats_command(args: argparse.Namespace) -> int:
     else:
         print("\nNo assertion flipped across the sampled iterations.")
     return 0
+
+
+def stats_command(args: argparse.Namespace) -> int:
+    return report_sample_stats(
+        {skill_dir: parse_iterations(args.iterations, skill_dir)
+         for skill_dir in skill_dirs(args.skill)},
+        run_name=args.run,
+        eval_id=args.eval_id,
+        verbose=args.verbose,
+    )
 
 
 RECHECK_SCHEMA: dict[str, Any] = {
@@ -2184,6 +2200,7 @@ def sample_command(args: argparse.Namespace) -> int:
     grader_effort = check_reasoning_effort(executor, args.grader_effort)
     runs = (args.run,)
     created: list[str] = []
+    cohorts: dict[Path, list[str]] = {}
     for index in range(args.samples):
         for skill_dir in skill_dirs(args.skill):
             iteration = next_iteration(skill_dir)
@@ -2216,17 +2233,18 @@ def sample_command(args: argparse.Namespace) -> int:
                     timeout_seconds=args.timeout_seconds,
                 )
             created.append(f"{skill_dir.name}/{iteration}")
+            cohorts.setdefault(skill_dir, []).append(iteration)
         print(f"Sample {index + 1}/{args.samples} complete")
 
     print("\nCreated: " + ", ".join(created))
-    stats_args = argparse.Namespace(
-        skill=args.skill,
-        iterations=",".join(sorted({c.split("/")[1] for c in created})),
-        run=args.run,
+    # Iteration numbers are local to each skill. A union could include an old
+    # result from another skill whose iteration counter is further ahead.
+    return report_sample_stats(
+        cohorts,
+        run_name=args.run,
         eval_id=args.eval_id,
         verbose=True,
     )
-    return stats_command(stats_args)
 
 
 TRIGGER_SCHEMA: dict[str, Any] = {
