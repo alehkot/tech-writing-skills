@@ -441,23 +441,35 @@ def pass_rate(results: list[dict[str, Any]]) -> float | None:
     return passed / len(graded)
 
 
-def summarise_grading(path: Path) -> dict[str, Any]:
-    grading = load_json(path)
+def grading_summary(grading: dict[str, Any], path: Path) -> dict[str, Any]:
+    """Derive counts from saved verdicts, never from a cached summary."""
     results = grading.get("assertion_results", [])
     if not isinstance(results, list):
         raise ValueError(f"{path}: assertion_results must be a list")
+    for index, item in enumerate(results, start=1):
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: assertion result {index} must be an object")
+        verdict = item.get("passed")
+        if verdict is not None and type(verdict) is not bool:
+            raise ValueError(
+                f"{path}: assertion result {index}: passed must be boolean or null; "
+                "restore the saved verdict or regrade before aggregating"
+            )
     passed = sum(1 for item in results if item.get("passed") is True)
     failed = sum(1 for item in results if item.get("passed") is False)
     ungraded = sum(1 for item in results if item.get("passed") is None)
-    total = len(results)
-    rate = pass_rate(results)
-    grading["summary"] = {
+    return {
         "passed": passed,
         "failed": failed,
         "ungraded": ungraded,
-        "total": total,
-        "pass_rate": rate,
+        "total": len(results),
+        "pass_rate": pass_rate(results),
     }
+
+
+def summarise_grading(path: Path) -> dict[str, Any]:
+    grading = load_json(path)
+    grading["summary"] = grading_summary(grading, path)
     path.write_text(json.dumps(grading, indent=2) + "\n", encoding="utf-8")
     return grading["summary"]
 
@@ -493,6 +505,21 @@ def aggregate_skill_workspace(
         raise ValueError(f"{workspace}: workspace does not exist")
 
     run_summary: dict[str, Any] = {}
+    # Validate every selected grade before publishing any derived summaries.
+    # Keep the parsed snapshot so read-only and writing calls use identical
+    # evidence even when a cached summary is stale or malformed.
+    grades: dict[Path, dict[str, Any]] = {}
+    try:
+        for run_name in runs:
+            for path in sorted(workspace.glob(f"*/{run_name}/grading.json")):
+                grading = load_json(path)
+                grading["summary"] = grading_summary(grading, path)
+                grades[path] = grading
+    except (ValueError, OSError):
+        if write:
+            (workspace / "benchmark.json").unlink(missing_ok=True)
+        raise
+
     for run_name in runs:
         pass_rates: list[float] = []
         tokens: list[float] = []
@@ -508,12 +535,10 @@ def aggregate_skill_workspace(
 
         for grading_path in sorted(workspace.glob(f"*/{run_name}/grading.json")):
             raw["total_evals"] += 1
+            grading = grades[grading_path]
+            summary = grading["summary"]
             if write:
-                summary = summarise_grading(grading_path)
-            else:
-                summary = load_json(grading_path).get("summary", {})
-            if not isinstance(summary, dict):
-                raise ValueError(f"{grading_path}: summary must be an object")
+                grading_path.write_text(json.dumps(grading, indent=2) + "\n", encoding="utf-8")
             raw["passed"] += int(summary.get("passed") or 0)
             raw["failed"] += int(summary.get("failed") or 0)
             raw["ungraded"] += int(summary.get("ungraded") or 0)
