@@ -2120,34 +2120,91 @@ def recheck_command(args: argparse.Namespace) -> int:
     return 0
 
 
+def collect_comparison_samples(
+    skill_dir: Path,
+    iterations: list[str],
+    run_name: str,
+    eval_id: str | None,
+) -> dict[str, dict[str, list[bool]]]:
+    """Load complete, aligned saved evidence without silently dropping observations."""
+    samples: dict[str, dict[str, list[bool]]] = {}
+    expected: dict[str, set[str]] | None = None
+    for iteration in iterations:
+        workspace = WORKSPACES_DIR / skill_dir.name / iteration
+        if not workspace.is_dir():
+            raise ValueError(f"{workspace}: comparison workspace does not exist")
+        cases = ([workspace / eval_id] if eval_id is not None else
+                 sorted(path for path in workspace.iterdir() if path.is_dir()))
+        if not cases:
+            raise ValueError(f"{workspace}: no saved evals to compare")
+        observed: dict[str, set[str]] = {}
+        for case in cases:
+            path = case / run_name / "grading.json"
+            if not path.is_file():
+                raise ValueError(f"{path}: comparison requires a saved grading file")
+            grading = load_json(path)
+            if str(grading.get("eval_id", "")) != case.name:
+                raise ValueError(f"{path}: eval_id does not match its saved directory")
+            summary = grading_summary(grading, path)
+            if not summary["total"] or summary["ungraded"]:
+                raise ValueError(f"{path}: comparison requires fully graded assertions")
+            assertions: dict[str, bool] = {}
+            for item in grading["assertion_results"]:
+                text = item.get("text")
+                if not isinstance(text, str) or not text.strip():
+                    raise ValueError(f"{path}: comparison assertion text must be nonempty")
+                if text in assertions:
+                    raise ValueError(f"{path}: duplicate comparison assertion {text!r}")
+                assertions[text] = item["passed"]
+            observed[case.name] = set(assertions)
+            bucket = samples.setdefault(case.name, {})
+            for text, verdict in assertions.items():
+                bucket.setdefault(text, []).append(verdict)
+        if expected is not None and observed != expected:
+            raise ValueError(
+                f"{workspace}: comparison eval/assertion sets differ across selected "
+                "iterations; use matching saved evidence or narrow --eval-id"
+            )
+        expected = observed
+    return samples
+
+
 def compare_command(args: argparse.Namespace) -> int:
     baseline_iters = [part.strip() for part in args.baseline.split(",") if part.strip()]
     candidate_iters = [part.strip() for part in args.candidate.split(",") if part.strip()]
+    if not baseline_iters or not candidate_iters:
+        raise ValueError("comparison requires at least one iteration on each side")
     totals = {"fixed": 0, "regressed": 0, "still": 0, "baseline": 0, "candidate": 0}
+    compared_skills = 0
     detail: dict[str, list[tuple[str, str]]] = {"fixed": [], "regressed": [], "still": []}
 
     for skill_dir in skill_dirs(args.skill):
         # Resolve per skill: iteration numbers diverge once evals are sampled
         # individually, so "latest" is the only portable way to name a run.
-        before = collect_samples(
-            skill_dir,
-            [resolve_iteration(skill_dir, i) for i in baseline_iters],
-            args.run,
-            args.eval_id,
-        )
-        after = collect_samples(
-            skill_dir,
-            [resolve_iteration(skill_dir, i) for i in candidate_iters],
-            args.run,
-            args.eval_id,
-        )
-        if not after:
+        if args.eval_id is not None and args.skill == "all" and not iteration_numbers(skill_dir):
             continue
+        baseline = [resolve_iteration(skill_dir, i) for i in baseline_iters]
+        candidate = [resolve_iteration(skill_dir, i) for i in candidate_iters]
+        if args.eval_id is not None and args.skill == "all" and not any(
+            (WORKSPACES_DIR / skill_dir.name / i / args.eval_id).exists()
+            for i in baseline + candidate
+        ):
+            continue
+        if len(set(baseline)) != len(baseline) or len(set(candidate)) != len(candidate):
+            raise ValueError(f"{skill_dir.name}: duplicate resolved comparison iterations")
+        before = collect_comparison_samples(skill_dir, baseline, args.run, args.eval_id)
+        after = collect_comparison_samples(skill_dir, candidate, args.run, args.eval_id)
+        if {key: set(value) for key, value in before.items()} != {
+            key: set(value) for key, value in after.items()
+        }:
+            raise ValueError(
+                f"{skill_dir.name}: baseline/candidate comparison eval/assertion sets "
+                "differ; use matching saved evidence or narrow --eval-id"
+            )
+        compared_skills += 1
         for eval_id, assertions in sorted(after.items()):
             for text, verdicts in assertions.items():
-                was = before.get(eval_id, {}).get(text)
-                if was is None:
-                    continue
+                was = before[eval_id][text]
                 # With repeat samples, an assertion counts as failing when any sample failed.
                 failed_before = not all(was)
                 failed_after = not all(verdicts)
@@ -2163,6 +2220,9 @@ def compare_command(args: argparse.Namespace) -> int:
                 elif failed_after and failed_before:
                     totals["still"] += 1
                     detail["still"].append((label, text))
+
+    if not compared_skills:
+        raise ValueError("no matching saved evals to compare; check --skill and --eval-id")
 
     print(
         f"baseline {args.baseline} -> candidate {args.candidate} ({args.run})\n"
