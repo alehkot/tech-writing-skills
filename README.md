@@ -34,3 +34,11 @@ uv run ruff check scripts tests
 ```
 
 The checker validates metadata, local resources, and the tracked bundle inventory. Update `public-files.json` deliberately when adding a distributable file.
+
+Metadata checks require YAML mappings and frontmatter delimiters on their own lines.
+Skill names follow the [Agent Skills naming constraints](https://agentskills.io/specification#name-field):
+1–64 characters after Unicode NFKC normalization, lowercase letters/digits and hyphens,
+with no leading, trailing, or consecutive hyphens. Names must still exactly match their
+directory. Invalid YAML reports its file and source location when the parser supplies one.
+These checks preserve this repository’s required version and risk tier; they are not a
+complete schema for every optional metadata field.

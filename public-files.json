@@ -43,6 +43,7 @@
   "skills/write-simplified-technical-english/agents/openai.yaml",
   "skills/write-simplified-technical-english/references/ste-writing-guide.md",
   "tests/test_inventory.py",
+  "tests/test_metadata.py",
   "tests/test_skill_resources.py",
   "uv.lock"
 ]
