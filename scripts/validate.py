@@ -1,6 +1,7 @@
 from __future__ import annotations
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 import yaml
@@ -15,15 +16,42 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 
 
+def load_yaml_mapping(text: str, path: Path, line_offset: int = 0) -> dict:
+    """Turn malformed metadata into path-specific validation failures."""
+    try:
+        data = yaml.safe_load(text)
+    except (yaml.YAMLError, ValueError, TypeError, AttributeError, OverflowError) as error:
+        # SafeLoader's scalar constructors can raise native errors (for example,
+        # invalid timestamps) rather than a YAMLError. Keep this catch scoped to
+        # parsing, so bugs in the validation checks are not hidden.
+        mark = getattr(error, "problem_mark", None)
+        location = (
+            f" at line {mark.line + line_offset + 1}, column {mark.column + 1}"
+            if mark is not None else ""
+        )
+        problem = getattr(error, "problem", None) or str(error)
+        raise ValueError(f"{path}: invalid YAML{location}: {problem}") from error
+    if not isinstance(data, dict):
+        raise ValueError(f"{path}: YAML root must be a mapping")
+    return data
+
+
 def validate_frontmatter(skill_dir: Path) -> None:
     path = skill_dir / "SKILL.md"
     if not path.exists():
         raise ValueError(f"{skill_dir}: missing SKILL.md")
     content = path.read_text(encoding="utf-8")
-    match = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
-    if not match:
-        raise ValueError(f"{path}: missing YAML frontmatter")
-    data = yaml.safe_load(match.group(1))
+    # read_text normalizes CRLF/CR; do not rewrite other YAML characters.
+    lines = content.split("\n")
+    if not lines or lines[0].rstrip(" \t") != "---":
+        raise ValueError(f"{path}: YAML frontmatter must start with a --- line")
+    end = next(
+        (index for index, line in enumerate(lines[1:], 1)
+         if line.rstrip(" \t") == "---"), None
+    )
+    if end is None:
+        raise ValueError(f"{path}: YAML frontmatter must close with a --- line")
+    data = load_yaml_mapping("\n".join(lines[1:end]) + "\n", path, line_offset=1)
     for field in ("name", "description"):
         if not isinstance(data.get(field), str) or not data[field].strip():
             raise ValueError(f"{path}: {field} must be a nonempty string")
@@ -33,8 +61,23 @@ def validate_frontmatter(skill_dir: Path) -> None:
     version = metadata.get("version")
     if not isinstance(version, str) or not re.match(r"^\d+\.\d+\.\d+$", version.strip()):
         raise ValueError(f"{path}: metadata.version must be a semver string (e.g. 1.0.0)")
-    if metadata.get("risk_tier") not in {"low", "medium", "high"}:
+    risk_tier = metadata.get("risk_tier")
+    if not isinstance(risk_tier, str) or risk_tier not in {"low", "medium", "high"}:
         raise ValueError(f"{path}: metadata.risk_tier must be low, medium, or high")
+    # Match the reference validator's Unicode-compatible name constraints.
+    name = unicodedata.normalize("NFKC", data["name"])
+    if (
+        not 1 <= len(name) <= 64
+        or name != name.lower()
+        or not all(char.isalnum() or char == "-" for char in name)
+        or name.startswith("-")
+        or name.endswith("-")
+        or "--" in name
+    ):
+        raise ValueError(
+            f"{path}: name must be 1-64 lowercase alphanumeric characters or hyphens, "
+            "without leading, trailing, or consecutive hyphens"
+        )
     if data["name"] != skill_dir.name:
         raise ValueError(f"{path}: name must match directory name {skill_dir.name}")
     if len(data["description"]) > 1024:
@@ -45,9 +88,7 @@ def validate_openai_metadata(skill_dir: Path) -> None:
     openai_yaml = skill_dir / "agents" / "openai.yaml"
     if not openai_yaml.exists():
         raise ValueError(f"{skill_dir}: missing agents/openai.yaml")
-    data = yaml.safe_load(openai_yaml.read_text(encoding="utf-8"))
-    if not isinstance(data, dict):
-        raise ValueError(f"{openai_yaml}: root must be a YAML object")
+    data = load_yaml_mapping(openai_yaml.read_text(encoding="utf-8"), openai_yaml)
     interface = data.get("interface")
     if not isinstance(interface, dict):
         raise ValueError(f"{openai_yaml}: missing interface mapping")
