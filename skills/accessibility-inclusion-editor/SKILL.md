@@ -12,7 +12,7 @@ description: >-
   literals stay exactly as written. Link text, headings, tables, punctuation, and casing stay with
   docs-style-editor. When Simplified Technical English is requested, the STE skill's rules win.
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
   risk_tier: low
 ---
 
@@ -34,7 +34,7 @@ When the write-simplified-technical-english skill is also active, its stricter c
 2. Establish the evidence boundary. List the exact literals in the draft — commands, flags, keywords, branch names, field names, UI labels, and quoted strings — plus every supplied statement about what an image, audio track, or video shows. Do not add or infer content beyond this boundary.
 3. Scan terms. Run the draft against every replacement family in [references/inclusive-terms.md](references/inclusive-terms.md): gendered language, ableist terms, violent and figurative terms, socially charged terms, disability language, older adults, and example names and personas. Record each hit with its location and family.
 4. Classify each hit before replacing it. If the term is a literal identifier, apply the code-literal exception: keep the literal exactly as-is in code font, use the preferred term in the surrounding prose, and flag the literal for maintainers. Otherwise replace the term with the precise wording for its intended meaning; prefer rewriting the sentence over a one-for-one swap, and introduce the legacy term once, in parentheses at first use, only when readers need it for recognition or search.
-5. Check alt text and media parity against [references/accessibility-checklist.md](references/accessibility-checklist.md): alt text on every informative image, empty alt text only on decorative images, identical alt text on repeated icons, no information carried only by an image, no screenshots of text, code, or terminal output, and captions or transcripts for audio and video. Mark any image description the source does not support as unverified.
+5. Check alt text and media parity against [references/accessibility-checklist.md](references/accessibility-checklist.md): alt text on every informative image, empty alt text on decorative or fully text-redundant images without removing a link or control's only name, consistent alt text on repeated icons only when meaning, function, and context match, no information carried only by an image, no screenshots of text, code, or terminal output, and captions or transcripts for audio and video. Mark any image description the source does not support as unverified.
 6. Check color and position independence: pair every color, size, or position cue with a textual cue, and replace document-position words such as `above` and `below` with `earlier`, `preceding`, or `following`.
 7. Check screen-reader-safe prose: confirm the meaning survives with punctuation stripped, give each instruction its own list item, and state abilities positively rather than as double negatives. Run the punctuation and casing checks in the checklist — semicolons, exclamation marks, ampersand-as-`and`, all-caps words, and forced mid-paragraph line breaks — using the locally supplied rules, and report each hit under its canonical docs-style-editor category. A sibling installation is not required.
 8. Run the verification passes in the checklist, and run the audit-pointer checks, reporting each audit-pointer violation against its canonical home skill.
@@ -65,7 +65,7 @@ Complete the task only when every replacement-table family has been scanned; eve
 - [ ] Replacements preserve the technical meaning, and sentence rewrites were preferred over coined one-for-one substitute verbs.
 - [ ] Each legacy term appears at most once, in parentheses at first use, and only because readers need it for recognition or search.
 - [ ] Literal commands, flags, keywords, branch names, and fields are unchanged, in code font, with the preferred term in the surrounding prose and each literal flagged for maintainers.
-- [ ] Every informative image has context-tuned alt text within the length budget; decorative images have empty alt text; repeated icons share identical alt text.
+- [ ] Every informative image has context-tuned alt text within the length budget; decorative or fully text-redundant images have empty alt text without losing a link or control's name; repeated icons share alt text only when meaning, function, and context match.
 - [ ] No information is carried only by an image, color, size, or position; audio and video have captions or transcripts; no screenshot stands in for text, code, or terminal output.
 - [ ] Document positions use `earlier`, `preceding`, or `following`, never `above`, `below`, or a layout direction.
 - [ ] The prose keeps its meaning with punctuation stripped, each instruction is its own list item, and abilities are stated positively.
