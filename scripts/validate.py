@@ -115,14 +115,24 @@ def validate_skill_files(skill_dir: Path) -> None:
             raise ValueError(f"{path}: expected a directory")
 
 
+def validate_skill_license(skill_dir: Path, root_license: bytes) -> None:
+    """Keep the existing repository notice with independently copied skills."""
+    path = skill_dir / "LICENSE"
+    if path.read_bytes() != root_license:
+        raise ValueError(f"{path}: must match the repository LICENSE exactly")
+
+
 def run_checks() -> int:
     bundle_files = check_inventory()
+    require_bundled_file(ROOT / "LICENSE", ROOT, bundle_files)
+    root_license = (ROOT / "LICENSE").read_bytes()
     skill_dirs = sorted(path for path in SKILLS_DIR.iterdir() if path.is_dir() and not path.name.startswith("."))
     if not skill_dirs:
         raise ValueError("No skills found")
     for skill_dir in skill_dirs:
-        for required in (skill_dir / "SKILL.md", skill_dir / "agents" / "openai.yaml"):
+        for required in (skill_dir / "SKILL.md", skill_dir / "agents" / "openai.yaml", skill_dir / "LICENSE"):
             require_bundled_file(required, skill_dir, bundle_files)
+        validate_skill_license(skill_dir, root_license)
         validate_frontmatter(skill_dir)
         validate_markdown_references(skill_dir, bundle_files)
         validate_openai_metadata(skill_dir)

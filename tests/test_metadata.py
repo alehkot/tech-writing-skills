@@ -220,6 +220,8 @@ class MetadataTests(unittest.TestCase):
         self.skill = self.skill.rename(skills / self.skill.name)
         self.entry = self.skill / "SKILL.md"
         self.ui = self.skill / "agents" / "openai.yaml"
+        (self.root / "LICENSE").write_text("Existing license notice.\n")
+        (self.skill / "LICENSE").write_text("Existing license notice.\n")
         inventory = ["public-files.json"] + [
             path.relative_to(self.root).as_posix()
             for path in sorted(self.root.rglob("*")) if path.is_file()
