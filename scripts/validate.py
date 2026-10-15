@@ -6,10 +6,10 @@ from pathlib import Path
 
 import yaml
 try:
-    from scripts.skill_resources import validate_reference_resources
+    from scripts.skill_resources import require_bundled_file, validate_reference_resources
     from scripts.check_inventory import check_inventory
 except ModuleNotFoundError:
-    from skill_resources import validate_reference_resources
+    from skill_resources import require_bundled_file, validate_reference_resources
     from check_inventory import check_inventory
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,8 +98,10 @@ def validate_openai_metadata(skill_dir: Path) -> None:
             raise ValueError(f"{openai_yaml}: interface.{key} must be a nonempty string")
 
 
-def validate_markdown_references(skill_dir: Path) -> None:
-    validate_reference_resources(skill_dir)
+def validate_markdown_references(
+    skill_dir: Path, bundle_files: set[Path] | None = None
+) -> None:
+    validate_reference_resources(skill_dir, bundle_files)
 
 
 def validate_skill_files(skill_dir: Path) -> None:
@@ -114,13 +116,15 @@ def validate_skill_files(skill_dir: Path) -> None:
 
 
 def run_checks() -> int:
-    check_inventory()
+    bundle_files = check_inventory()
     skill_dirs = sorted(path for path in SKILLS_DIR.iterdir() if path.is_dir() and not path.name.startswith("."))
     if not skill_dirs:
         raise ValueError("No skills found")
     for skill_dir in skill_dirs:
+        for required in (skill_dir / "SKILL.md", skill_dir / "agents" / "openai.yaml"):
+            require_bundled_file(required, skill_dir, bundle_files)
         validate_frontmatter(skill_dir)
-        validate_markdown_references(skill_dir)
+        validate_markdown_references(skill_dir, bundle_files)
         validate_openai_metadata(skill_dir)
         validate_skill_files(skill_dir)
     print(f"Validated {len(skill_dirs)} deployable skills.")
