@@ -9,12 +9,26 @@ Load this reference before checking alt text, media alternatives, visual-cue ind
 - Give every informative image alt text: a noun phrase or a full sentence, roughly 155 characters or fewer, with end punctuation so screen readers pause after it.
 - Tune alt text to the image's role in the surrounding context, not only to its content. A chart cited for one trend gets alt text about that trend, not an inventory of every series.
 - Never start alt text with `Image of`, `Picture of`, or a similar frame, and never write alt text in all caps.
-- Give purely decorative or fully text-redundant images empty alt text so assistive technology skips them.
-- Reuse identical alt text for repeated icons and indicators; do not vary the wording between occurrences of the same symbol.
+- Give purely decorative or fully text-redundant images empty alt text so assistive technology skips them. For an image inside a link or control, do this only when the supplied context confirms the link or control remains named; do not remove its only text alternative.
+- Reuse identical alt text for repeated icons and indicators only when their meaning, function, and context match. For a different supplied action, destination, or meaning, adapt the alternative rather than copying a label based on appearance. Flag an unknown purpose instead of guessing.
 - Move explanations longer than the alt-text budget into body text as a figure description. A caption never substitutes for alt text.
 - If the source does not say what an image shows, mark the description as unverified instead of narrating plausible content.
 
 Avoid: `IMAGE OF THE DASHBOARD` Prefer: `Dashboard with the ingest queue paused and two workers idle.`
+
+### Repeated-Icon Review Cases
+
+Use these cases to check the review decision against the supplied context. They concern images in documentation, not an application UI audit.
+
+- **Same meaning:** Two standalone status icons both mean `Upload complete.` and neither duplicates nearby text. Keep the same alternative for both.
+- **Different destinations:** The same arrow image is the only content of two links, one documented as opening installation instructions and the other as opening upgrade instructions. Use `Installation instructions.` and `Upgrade instructions.` rather than one generic arrow description.
+- **Redundant occurrence:** A logo alone links to the documented Acme documentation home page; another occurrence sits inside a link already named `Acme documentation home`. Give the first a destination alternative and the second empty alt text only if the supplied context confirms the link text provides its name. Do not infer redundancy from text outside the link.
+- **Additional information:** An icon next to link text indicates a documented PDF format that the text does not mention. Preserve that information in the alternative; accompanying text alone does not make an image redundant.
+- **Unknown purpose or name:** If an icon's action or destination is not supplied, flag it for human verification. Do not invent a label or erase an existing alternative merely because the icon repeats elsewhere.
+
+In each case, keep supplied destinations, facts, literal identifiers, and existing UI labels unchanged. These are review examples, not evidence of screen-reader testing or WCAG conformance.
+
+See the [W3C WAI Functional Images tutorial](https://www.w3.org/WAI/tutorials/images/functional/) for the distinction between image-only links and images that supplement an already-named link.
 
 ## Information Parity
 
