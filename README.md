@@ -24,6 +24,10 @@ Clone this repository, then copy or symlink the desired folder from `skills/` in
 npx skills add alehkot/tech-writing-skills --skill '*'
 ```
 
+Each skill includes an unchanged copy of the repository `LICENSE`, so the notice
+travels with a standalone folder copy. Keep it with the installed skill. Existing
+source attribution and third-party notices within the skill remain unchanged.
+
 ## Maintenance
 
 ```sh
@@ -52,3 +56,7 @@ with no leading, trailing, or consecutive hyphens. Names must still exactly matc
 directory. Invalid YAML reports its file and source location when the parser supplies one.
 These checks preserve this repository’s required version and risk tier; they are not a
 complete schema for every optional metadata field.
+
+The checker also requires each skill’s `LICENSE` to be tracked and byte-for-byte
+identical to the repository `LICENSE`. If the repository notice is deliberately
+updated, update all bundled copies together; the validator does not rewrite them.

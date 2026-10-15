@@ -37,6 +37,26 @@ class InventoryTests(unittest.TestCase):
                     checker.check_inventory()
 
 
+class StandaloneLicenseTests(unittest.TestCase):
+    def test_all_distributed_skills_keep_existing_notice_and_contents(self):
+        root = Path(__file__).resolve().parents[1]
+        notice = (root / "LICENSE").read_bytes()
+        skills = sorted((root / "skills").glob("*/SKILL.md"))
+        self.assertTrue(skills)
+        with tempfile.TemporaryDirectory() as directory:
+            for entry in skills:
+                with self.subTest(skill=entry.parent.name):
+                    source = entry.parent
+                    destination = Path(directory) / source.name
+                    shutil.copytree(source, destination)
+                    self.assertFalse((source / "LICENSE").is_symlink())
+                    self.assertEqual((destination / "LICENSE").read_bytes(), notice)
+                    for item in source.rglob("*"):
+                        if item.is_file():
+                            self.assertEqual(item.read_bytes(),
+                                             (destination / item.relative_to(source)).read_bytes())
+
+
 class BundleDependencyTests(unittest.TestCase):
     """Exercise the real CLI against isolated Git indexes and tracked exports."""
 
@@ -60,6 +80,8 @@ class BundleDependencyTests(unittest.TestCase):
         (self.root / "scripts").mkdir()
         for name in ("validate.py", "check_inventory.py", "skill_resources.py"):
             shutil.copyfile(source / name, self.root / "scripts" / name)
+        self.write(self.root / "LICENSE", "Existing license notice.\n")
+        self.write(self.skill / "LICENSE", "Existing license notice.\n")
         self.inventory = self.root / "public-files.json"
         self.listed = {"public-files.json"} | {
             path.relative_to(self.root).as_posix()
@@ -128,6 +150,61 @@ class BundleDependencyTests(unittest.TestCase):
     def test_valid_bundle_passes_locally_and_from_tracked_export(self):
         self.assert_success()
         self.assert_success(self.tracked_export())
+
+    def test_licenses_survive_tracked_export_and_standalone_copy(self):
+        exported = self.tracked_export()
+        standalone = self.temporary / "standalone"
+        shutil.copytree(exported / "skills" / "valid-skill", standalone)
+        self.assertEqual((standalone / "LICENSE").read_bytes(),
+                         (exported / "LICENSE").read_bytes())
+        self.assert_success(exported)
+
+    def test_skill_license_drift_is_rejected_without_rewriting(self):
+        path = self.skill / "LICENSE"
+        original = path.read_bytes()
+        for contents in (b"", b"Different notice.\n", original + b"Extra terms.\n"):
+            with self.subTest(contents=contents):
+                path.write_bytes(contents)
+                result = self.assert_rejected("must match the repository LICENSE exactly")
+                self.assertIn(str(path), result.stderr)
+                self.assertEqual(path.read_bytes(), contents)
+                self.assertEqual((self.root / "LICENSE").read_bytes(), original)
+
+    def test_changed_root_notice_requires_updated_skill_copies(self):
+        contents = b"Updated repository notice.\n"
+        (self.root / "LICENSE").write_bytes(contents)
+        self.assert_rejected("must match the repository LICENSE exactly")
+        (self.skill / "LICENSE").write_bytes(contents)
+        self.assert_success()
+
+    def test_untracked_license_is_rejected_even_when_bytes_match(self):
+        for path in (self.skill / "LICENSE", self.root / "LICENSE"):
+            with self.subTest(path=path):
+                relative = path.relative_to(self.root).as_posix()
+                self.git("rm", "--cached", relative)
+                self.listed.remove(relative)
+                self.save_inventory()
+                result = self.assert_rejected("not in the tracked bundle inventory")
+                self.assertIn(str(path), result.stderr)
+                self.listed.add(relative)
+                self.save_inventory()
+                self.git("add", relative)
+
+    def test_absent_license_cannot_be_removed_from_inventory(self):
+        path = self.skill / "LICENSE"
+        relative = path.relative_to(self.root).as_posix()
+        self.git("rm", "-f", relative)
+        self.listed.remove(relative)
+        self.save_inventory()
+        self.assert_rejected("not in the tracked bundle inventory")
+
+    def test_license_symlink_to_matching_root_is_rejected(self):
+        path = self.skill / "LICENSE"
+        path.unlink()
+        path.symlink_to("../../LICENSE")
+        self.assert_rejected("ordinary file without symlinks")
+        self.git("add", str(path))
+        self.assert_rejected("ordinary tracked file")
 
     def test_ignored_reference_cannot_make_local_and_export_checks_disagree(self):
         path = self.skill / "references" / "ignored-guide.md"
