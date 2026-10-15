@@ -35,6 +35,16 @@ uv run ruff check scripts tests
 
 The checker validates metadata, local resources, and the tracked bundle inventory. Update `public-files.json` deliberately when adding a distributable file.
 
+Required skill entrypoints, UI metadata, reference documents, and parsed local
+Markdown link/image targets must be ordinary files in that tracked inventory.
+A file that exists only in your working directory, including an ignored file,
+cannot satisfy a bundled dependency. Update the inventory and `.gitignore`
+allowlist as needed, then stage new files before running the checks. Unreferenced
+local caches and scratch files outside the checked reference documents do not
+need to be bundled.
+These checks use the current working-tree contents and Git index file membership;
+they do not require a clean working tree or expand the supported Markdown syntax.
+
 Metadata checks require YAML mappings and frontmatter delimiters on their own lines.
 Skill names follow the [Agent Skills naming constraints](https://agentskills.io/specification#name-field):
 1–64 characters after Unicode NFKC normalization, lowercase letters/digits and hyphens,

@@ -4,8 +4,32 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from os.path import abspath
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+
+
+def require_bundled_file(
+    path: Path, skill_dir: Path, bundle_files: set[Path] | None
+) -> None:
+    """Check bundle membership without accepting an untracked symlink alias."""
+    if bundle_files is None:
+        return
+    absolute = path.absolute()
+    boundary = skill_dir.absolute()
+    # Check original and lexically normalized prefixes before resolving links.
+    # A canceled missing/non-directory prefix can otherwise hide an alias from
+    # is_symlink(), while resolve() still follows it after removing dot segments.
+    for component in (absolute, *absolute.parents):
+        if component.is_symlink() or Path(abspath(component)).is_symlink():
+            raise ValueError(f"{path}: bundle resource must not traverse a symlink")
+        if component == boundary:
+            break
+    if Path(abspath(path)) not in bundle_files:
+        raise ValueError(
+            f"{path}: file is not in the tracked bundle inventory; "
+            "update public-files.json and stage the file"
+        )
 
 
 def unfenced_lines(text: str) -> list[tuple[int, str]]:
@@ -96,7 +120,9 @@ def validate_contents(path: Path) -> None:
         )
 
 
-def validate_reference_resources(skill_dir: Path) -> None:
+def validate_reference_resources(
+    skill_dir: Path, bundle_files: set[Path] | None = None
+) -> None:
     """Require direct entrypoint links, local targets, valid anchors and long-file indexes."""
     root = skill_dir.resolve()
     skill_md = skill_dir / "SKILL.md"
@@ -107,15 +133,18 @@ def validate_reference_resources(skill_dir: Path) -> None:
             raise ValueError(f"{path}: references must stay one level deep")
     linked: set[Path] = set()
     for path in [skill_md, *paths]:
+        require_bundled_file(path, skill_dir, bundle_files)
         for target in markdown_links(path.read_text(encoding="utf-8")):
             parts = urlsplit(target)
             if parts.scheme or parts.netloc:
                 continue
-            resolved = (
-                (path.parent / unquote(parts.path)).resolve()
+            local_path = (
+                path.parent / unquote(parts.path)
                 if parts.path
-                else path.resolve()
+                else path
             )
+            require_bundled_file(local_path, skill_dir, bundle_files)
+            resolved = local_path.resolve()
             if not resolved.is_relative_to(root):
                 raise ValueError(
                     f"{path}: link {target!r} escapes the standalone skill"
