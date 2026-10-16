@@ -27,13 +27,24 @@ Load this reference before scanning a draft for non-inclusive terminology or rep
 - When an industry term has a precise technical meaning with no accurate synonym, keep the precise term: `terminate` a TCP connection, `execute` permission on a file.
 - Keep one term for one concept across the doc set; do not alternate between a replacement and its synonyms.
 - Apply figurative-language replacements only to figurative uses. A literal use stays: `a blind spot in the camera's coverage` describes optics, not a person.
-- When the write-simplified-technical-english skill is active, its controlled-vocabulary rules take precedence; STE prose avoids pronouns entirely, so the singular-they ruling applies only to non-STE text.
+- When the write-simplified-technical-english skill is active, its vocabulary checks and clear-reference requirement take precedence. Do not infer a ban on all pronouns or approval of a particular singular-they use. Check the applicable dictionary meaning and form, and retain unresolved-term reporting when those checks are incomplete.
 
 ## Gendered Language
 
 - Use singular they, with a plural verb, for a person of unknown or irrelevant gender; or rewrite to second person. Avoid: `Each reviewer submits his comments before he approves the change.` Prefer: `Each reviewer submits their comments before they approve the change.`
 - Never write generic `he`, `she`, `he/she`, `s/he`, or `(s)he`, and never alternate genders as a fairness device.
 - Write `pronouns`, not `preferred pronouns`.
+
+**STE overlap review cases:** These original cases test the editing decision, not full STE conformance. Assume STE is active except in the final control case; do not treat the example vocabulary as dictionary-verified.
+
+- **Clear reference:** `The cover is loose. Replace it.` Do not report a defect merely because `it` is a pronoun. Check its reference and vocabulary separately.
+- **Supplied referent:** In `The cover touched the housing. It is damaged.`, the source separately identifies the cover as damaged. Replace the ambiguous `It` with `The cover`; do not change the damaged item.
+- **Unknown referent:** With the same passage but no evidence identifying the damaged item, flag the ambiguity. Do not choose the cover or housing from plausibility.
+- **Unverified approval:** For a generic person, use inclusive wording but do not label a singular-they construction STE-approved without checking its applicable meaning and form. Keep the STE review status and unresolved terms when verification is incomplete.
+- **Literal:** An exact supplied UI label `Share with them` stays unchanged even when its words need review in surrounding prose. Do not rename a control to satisfy a vocabulary rule.
+- **Non-STE control:** For an unknown-gender reviewer outside STE, the singular-they replacement above still applies.
+
+Basis: [ASD-STE100 Issue 9](https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf), GR-3 and GR-4 (page 1-9-11), distinguish approved vocabulary from ambiguous reference. Consult the applicable standard and project terminology for formal verification; these cases do not replace them.
 
 | Avoid | Prefer |
 | --- | --- |

@@ -12,7 +12,7 @@ description: >-
   literals stay exactly as written. Link text, headings, tables, punctuation, and casing stay with
   docs-style-editor. When Simplified Technical English is requested, the STE skill's rules win.
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
   risk_tier: low
 ---
 
@@ -26,7 +26,7 @@ Treat this skill as a review layer, not a document type. Use the task, concept, 
 
 Read [references/inclusive-terms.md](references/inclusive-terms.md) before scanning or replacing terminology, and [references/accessibility-checklist.md](references/accessibility-checklist.md) before checking alt text, media, visual cues, and prose structure.
 
-When the write-simplified-technical-english skill is also active, its stricter controlled-language rules take precedence. For example, STE prose avoids pronouns entirely, so the singular-they rule applies only to non-STE text; where the two skills overlap, apply the STE rule and note the scope in the review output.
+When the write-simplified-technical-english skill is also active, its controlled-language rules take precedence. STE does not prohibit all pronouns: require a clear referent and check the applicable dictionary meaning and form before claiming approval. Apply inclusive wording within those controls, rather than automatically accepting singular they or removing every pronoun. Flag an unclear referent or unverified vocabulary instead of guessing, and preserve the STE skill's review-status and unresolved-term reporting.
 
 ## Workflow
 
@@ -71,7 +71,7 @@ Complete the task only when every replacement-table family has been scanned; eve
 - [ ] The prose keeps its meaning with punctuation stripped, each instruction is its own list item, and abilities are stated positively.
 - [ ] Punctuation and casing hits — semicolons, exclamation marks, ampersand-as-`and`, all-caps words, forced mid-paragraph line breaks — are reported against docs-style-editor, not re-decided here.
 - [ ] Disability language uses the terms communities prefer, never a `normal` or `healthy` contrast class, a judgment framing, or a euphemism; older people are `older adults`.
-- [ ] Example people have globally diverse names and default to singular they, and no example rests on a gender binary, a stereotyped persona, or a single country's cultural references.
+- [ ] Example people have globally diverse names and use inclusive wording (with STE vocabulary and reference checks when active), and no example rests on a gender binary, a stereotyped persona, or a single country's cultural references.
 - [ ] Unknown community preferences, unverified image content, and missing accessible names are on the flagged list, not guessed.
 - [ ] Audit-pointer checks ran, and each reported violation names its canonical home (docs-style-editor or task-docs-writer).
 - [ ] The HTML appendix was applied only to HTML output.
