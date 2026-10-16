@@ -26,7 +26,7 @@ Load this reference for the grammar pass: articles, person, tense, voice, modal 
 
 ## Scope Notes
 
-- These rulings govern standard documentation prose. When the write-simplified-technical-english skill is active, its stricter rules win: no contractions, an approved-word ledger, imperatives in place of actor-plus-modal constructions, no first person, and hard limits of 20 words per procedural sentence and 25 per descriptive sentence.
+- These rulings govern standard documentation prose. When the write-simplified-technical-english skill is active, its stricter rules win: no contractions, an approved-word ledger, imperatives in procedural instructions, verified vocabulary and clear pronoun references, and hard limits of 20 words per procedural sentence and 25 per descriptive sentence.
 - When a documented standard defines keyword semantics, such as RFC 2119 `MUST`, `SHOULD`, and `MAY`, reproduce those keywords exactly. The modal rulings below do not override a standard's own vocabulary.
 
 ## Articles
@@ -41,6 +41,8 @@ Load this reference for the grammar pass: articles, person, tense, voice, modal 
 - Describe reader actions in second person and system or end-user behavior in third person. In reference prose, state facts about elements in third person and switch to `you` only for reader instructions.
 - Use `we`, `our`, and `us` only for the authoring organization, and only after naming the organization so the antecedent is unambiguous.
 - Name the intended reader near the start of the document and keep the same `you` throughout.
+- STE does not impose a blanket first-person ban. In descriptive text, organizational `we` can identify the authoring organization when the source establishes that actor; do not invent an actor or use `we` for the reader. Apply the STE vocabulary checks and report incomplete verification. See [ASD-STE100 Issue 9](https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf), active-voice Method 4 (page 1-3-8).
+- Review cases: With the manufacturer explicitly identified as the speaker, `We supply replacement seals.` is not automatically a first-person defect; check the vocabulary separately. For a reader's procedural step, `We remove the cover.` becomes `Remove the cover.` only when the source confirms the reader performs that action. If the actor is unknown, flag it rather than reassigning the work.
 - When imperative sentences accumulate in running text, convert them into a formatted procedure (canonical procedure rules: task-docs-writer).
 
 ## Tense

@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
   risk_tier: low
 ---
 
@@ -42,7 +42,7 @@ Apply rules in this order, and stop at the first level that answers the question
 
 Three constraints sit above all three levels:
 
-- When the write-simplified-technical-english skill is active, its stricter controlled-language rules win. STE bans contractions and semicolons outright, sets hard sentence limits, and replaces actor-plus-modal constructions with imperatives; apply the STE rule and note the scope in the report.
+- When the write-simplified-technical-english skill is active, its stricter controlled-language rules win. STE bans contractions and semicolons outright, sets hard sentence limits, and replaces actor-plus-modal constructions in procedural instructions with imperatives; apply the STE rule and note the scope in the report.
 - When the draft documents a standard that defines keyword semantics, such as RFC 2119 `MUST`, `SHOULD`, and `MAY`, reproduce those keywords exactly. Modal rulings do not apply to them.
 - When a rule's canonical home is another skill, report the defect and name that skill instead of restating or re-deciding its rules.
 
