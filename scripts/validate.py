@@ -16,10 +16,47 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 
 
+class _UniqueKeySafeLoader(yaml.SafeLoader):
+    """Reject explicit key collisions without rejecting YAML merge overrides."""
+
+    def __init__(self, stream):
+        super().__init__(stream)
+        self._checked_mappings = set()
+        self._merge_key = object()
+
+    def flatten_mapping(self, node):
+        # Check before SafeLoader expands merges: inherited keys may legally be
+        # overridden. Anchored mappings can be flattened more than once.
+        if node not in self._checked_mappings:
+            self._checked_mappings.add(node)
+            keys = set()
+            for key_node, _ in node.value:
+                if key_node.tag == "tag:yaml.org,2002:merge":
+                    key = self._merge_key
+                elif key_node.tag == "tag:yaml.org,2002:value":
+                    key = key_node.value  # SafeLoader treats an unquoted = as text.
+                else:
+                    key = self.construct_object(key_node, deep=True)
+                try:
+                    duplicate = key in keys
+                    keys.add(key)
+                except TypeError:
+                    raise yaml.constructor.ConstructorError(
+                        "while constructing a mapping", node.start_mark,
+                        "found unhashable key", key_node.start_mark,
+                    ) from None
+                if duplicate:
+                    raise yaml.constructor.ConstructorError(
+                        "while constructing a mapping", node.start_mark,
+                        "found duplicate key", key_node.start_mark,
+                    )
+        super().flatten_mapping(node)
+
+
 def load_yaml_mapping(text: str, path: Path, line_offset: int = 0) -> dict:
     """Turn malformed metadata into path-specific validation failures."""
     try:
-        data = yaml.safe_load(text)
+        data = yaml.load(text, Loader=_UniqueKeySafeLoader)
     except (yaml.YAMLError, ValueError, TypeError, AttributeError, OverflowError) as error:
         # SafeLoader's scalar constructors can raise native errors (for example,
         # invalid timestamps) rather than a YAMLError. Keep this catch scoped to
