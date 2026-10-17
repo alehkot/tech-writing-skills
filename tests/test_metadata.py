@@ -283,6 +283,87 @@ class MetadataTests(unittest.TestCase):
         self.assertIn("name must be 1-64", result.stderr)
         self.assertNotIn("Traceback", result.stderr)
 
+    def test_duplicate_root_key_is_rejected_with_frontmatter_line(self) -> None:
+        text = self.frontmatter().replace(
+            'name: "valid-skill"', 'name: other-skill\nname: "valid-skill"'
+        )
+        with self.assertRaisesRegex(ValueError, "invalid YAML at line 3, column 1.*duplicate"):
+            self.check_frontmatter(text)
+
+    def test_duplicate_nested_metadata_is_rejected(self) -> None:
+        text = self.frontmatter().replace("risk_tier: low", "risk_tier: high\n  risk_tier: low")
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            self.check_frontmatter(text)
+
+    def test_duplicate_ui_fields_are_rejected(self) -> None:
+        self.ui.write_text(self.ui.read_text().replace(
+            "  display_name: Useful skill", "  display_name: ''\n  display_name: Useful skill"
+        ))
+        with self.assertRaisesRegex(ValueError, "invalid YAML at line 3, column 3.*duplicate"):
+            validate.validate_openai_metadata(self.skill)
+
+    def test_duplicate_flow_mapping_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            validate.load_yaml_mapping('{version: 7, version: "1.0.0"}', self.entry)
+
+    def test_duplicate_quoted_or_resolved_keys_are_rejected(self) -> None:
+        for text in ('name: first\n"name": second', '1: first\n0x1: second',
+                     'true: first\non: second', 'true: first\n1: second',
+                     '= : first\n"=": second'):
+            with self.subTest(text=text), self.assertRaisesRegex(ValueError, "duplicate"):
+                validate.load_yaml_mapping(text, self.entry)
+
+    def test_duplicate_in_merge_source_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            validate.load_yaml_mapping('metadata: {<<: &defaults {risk: high, risk: low}}', self.entry)
+
+    def test_repeated_merge_key_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            validate.load_yaml_mapping('x: {<<: {a: 1}, <<: {b: 2}}', self.entry)
+
+    def test_aliases_and_merge_precedence_remain_supported(self) -> None:
+        text = ('first: &first {a: 1, b: 2}\nsecond: &second {a: 9, c: 3}\n'
+                'third: &third {<<: [*first, *second], b: 4}\n'
+                'fourth: {<<: *third, c: 5}\nagain: *third\n')
+        result = validate.load_yaml_mapping(text, self.entry)
+        self.assertEqual(result['third'], {'a': 1, 'b': 4, 'c': 3})
+        self.assertEqual(result['fourth'], {'a': 1, 'b': 4, 'c': 5})
+        self.assertIs(result['third'], result['again'])
+
+    def test_separate_mappings_and_literal_merge_key_remain_supported(self) -> None:
+        result = validate.load_yaml_mapping('one: {a: 1}\ntwo: {a: 2}\n"<<": text', self.entry)
+        self.assertEqual(result, {'one': {'a': 1}, 'two': {'a': 2}, '<<': 'text'})
+        result = validate.load_yaml_mapping('<<: {a: 1}\n"<<": text\n= : value', self.entry)
+        self.assertEqual(result, {'a': 1, '<<': 'text', '=': 'value'})
+
+    def test_recursive_value_alias_remains_supported(self) -> None:
+        result = validate.load_yaml_mapping('root: &root {self: *root}', self.entry)
+        self.assertIs(result['root'], result['root']['self'])
+
+    def test_plain_safe_load_is_not_changed(self) -> None:
+        import yaml
+        self.assertEqual(yaml.safe_load('a: 1\na: 2'), {'a': 2})
+
+    def test_cli_duplicate_rejection_does_not_rewrite_sources(self) -> None:
+        self.prepare_cli_repo()
+        originals = {p: p.read_text() for p in (self.entry, self.ui)}
+        for path, content in (
+            (self.entry, originals[self.entry].replace('risk_tier: low', 'risk_tier: high\n  risk_tier: low')),
+            (self.ui, originals[self.ui] + 'interface: {display_name: X, short_description: X, default_prompt: X}\n'),
+        ):
+            with self.subTest(path=path.name):
+                for original_path, original_content in originals.items():
+                    original_path.write_text(original_content)
+                path.write_text(content)
+                before = {p: p.read_bytes() for p in originals}
+                result = self.run_cli()
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, '')
+                self.assertIn('duplicate', result.stderr)
+                self.assertIn(str(path), result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+                self.assertEqual(before, {p: p.read_bytes() for p in originals})
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -50,6 +50,11 @@ These checks use the current working-tree contents and Git index file membership
 they do not require a clean working tree or expand the supported Markdown syntax.
 
 Metadata checks require YAML mappings and frontmatter delimiters on their own lines.
+Explicit duplicate keys, including nested mappings and keys that resolve to the
+same Python dictionary key, fail instead of silently overwriting a value.
+YAML aliases and merge defaults remain supported: an explicit key may override
+an inherited key, and earlier mappings in a merge sequence take precedence.
+Use one merge key with a sequence for multiple defaults.
 Skill names follow the [Agent Skills naming constraints](https://agentskills.io/specification#name-field):
 1–64 characters after Unicode NFKC normalization, lowercase letters/digits and hyphens,
 with no leading, trailing, or consecutive hyphens. Names must still exactly match their
