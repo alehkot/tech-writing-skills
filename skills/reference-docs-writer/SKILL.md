@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.3.3"
+  version: "1.3.4"
   risk_tier: low
 ---
 
@@ -26,7 +26,7 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 6. Open every method, endpoint, or command description with a third-person present verb stating what it does, such as `Creates`, `Lists`, or `Returns`. Never open with an imperative; the imperative belongs in task steps. Use precise technical verbs, not anthropomorphic ones such as `knows` or `sees`.
 7. Use consistent names for fields, parameters, commands, statuses, and errors. Define acronyms, aliases, and specialized terms at first use or in a glossary-style entry.
 8. Present dense facts in tables or definition lists. Keep prose short and only where it clarifies constraints, defaults, or usage boundaries.
-9. Keep list items and table rows parallel so readers can compare facts quickly. Use consistent units within a column and format numbers with a space before unit abbreviations, such as `16 GB`. Use the byte system the documented technology actually uses: decimal `kB`/`MB`/`GB` for powers of 1000, binary `KiB`/`MiB`/`GiB` for powers of 1024. Repeat the unit on every range endpoint and join endpoints with `to`, not a hyphen. Write version ranges as `2.2 or later`, never `2.2+` or `above`, and write rates with `per` in prose.
+9. Keep list items and table rows parallel so readers can compare facts quickly. Use consistent units within a column and format numbers with a space before unit abbreviations, such as `16 GB`. Use the byte system the documented technology actually uses: decimal `kB`/`MB`/`GB` for powers of 1000, binary `KiB`/`MiB`/`GiB` for powers of 1024. Repeat the unit on every range endpoint and join endpoints with `to`, not a hyphen. Preserve every version boundary and its inclusivity: use `2.2 or later` only for an inclusive lower bound, and retain strict bounds, upper bounds, exclusions, and source-defined version semantics. Follow the version-range guidance in the reference; style must not change the set of supported versions. Write rates with `per` in prose.
 10. Make syntax complete: document required and optional elements, defaults, valid values, data types, units, constraints, return values, and error behavior. Put literal values, data types, commands, fields, parameters, headers, and error codes in code font.
 11. Add examples that match the documented syntax. Use copyable snippets for API/CLI/config references, preserving executable syntax and literal data while keeping synopsis notation and prompt prefixes out of copied command text; if an example is complex, use numbered annotations below the code instead of inline explanation.
 12. For API endpoints, include error response information when status codes or failure modes appear. For error-code references, define any headers, fields, or retry signals you mention, such as `Retry-After`.
@@ -104,7 +104,7 @@ Related:
 - [ ] Terms, field names, parameter names, and statuses are consistent across entries.
 - [ ] Tables and lists use parallel wording and comparable detail.
 - [ ] Units are formatted consistently, and comparable table columns use comparable units.
-- [ ] Byte units match the technology's actual system (`GB` vs `GiB`), ranges repeat the unit and join endpoints with `to`, and version ranges use `or later` wording.
+- [ ] Byte units match the technology's actual system (`GB` vs `GiB`), ranges repeat the unit and join endpoints with `to`, and version ranges preserve the source's complete constraints, including inclusive or exclusive endpoints.
 - [ ] Required, optional, default, valid values, types, units, restrictions, and error behavior are documented where relevant.
 - [ ] Error fields, status codes, and retry signals are documented where relevant.
 - [ ] Literal values, data types, commands, fields, parameters, headers, and error codes use code font where needed.

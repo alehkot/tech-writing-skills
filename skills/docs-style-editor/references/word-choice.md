@@ -43,7 +43,7 @@ Load this reference for the word-choice pass: term-by-term rulings, register rul
 | once | Write `after` when the meaning is sequence |
 | while | Write `although` for contrast; keep `while` for simultaneity |
 | above, below | Never for position in a document; write `earlier`, `preceding`, `later`, `following` |
-| above, below | Never for version ranges; write `2.2 or later`, `2.2 or earlier`, never `2.2+` |
+| above, below | Prefer `later` or `earlier` for version ranges, preserving the boundary: `2.2 or later` includes `2.2`; `later than 2.2` excludes it. Preserve upper bounds and other constraints; flag ambiguous intent. Never rewrite literal range syntax (canonical home: reference-docs-writer). |
 | with | Not for ownership or instrument; write `a node that has 8 vCPUs`, `use the profiler to trace the call` |
 | using | Write `by using` when the phrase could attach to the wrong noun |
 | possible, impossible | Do not use to mean `you can` or `you cannot` |
