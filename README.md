@@ -49,6 +49,13 @@ need to be bundled.
 These checks use the current working-tree contents and Git index file membership;
 they do not require a clean working tree or expand the supported Markdown syntax.
 
+Resource links support single-line inline links and images with bare destinations
+(including balanced or backslash-escaped parentheses), angle-bracket destinations,
+and optional quoted or parenthesized titles. The checker uses a deliberately small
+Markdown parser, not a complete CommonMark renderer: reference-style links,
+multiline links, and complex inline markup are outside its supported syntax.
+Fenced and inline-code examples do not count as resource links.
+
 Metadata checks require YAML mappings and frontmatter delimiters on their own lines.
 Explicit duplicate keys, including nested mappings and keys that resolve to the
 same Python dictionary key, fail instead of silently overwriting a value.

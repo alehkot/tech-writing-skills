@@ -16,6 +16,86 @@ resources = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(resources)
 
 
+class InlineDestinationTests(unittest.TestCase):
+    def test_complete_destinations_and_titles(self) -> None:
+        cases = {
+            "[Guide](references/guide(v2).md)": "references/guide(v2).md",
+            "[Guide](references/guide(a(b(c))).md)": "references/guide(a(b(c))).md",
+            r"[Guide](references/guide\(v2\).md)": "references/guide(v2).md",
+            r"[Guide](references/guide\).md)": "references/guide).md",
+            "[Guide](<references/guide).md>)": "references/guide).md",
+            "[Guide](<references/a b(v2).md>)": "references/a b(v2).md",
+            '[Guide](references/guide(v2).md "Read (this)")': "references/guide(v2).md",
+            "[Guide](references/guide(v2).md 'Read this')": "references/guide(v2).md",
+            r"[Guide](references/guide(v2).md (Read \(this\)))": "references/guide(v2).md",
+            '[Guide](<references/guide).md> "Read this")': "references/guide).md",
+            '[Guide](references/guide(v2).md "[Example](missing.md)")': "references/guide(v2).md",
+            "![Image](assets/chart(v2).png)": "assets/chart(v2).png",
+            "[Guide](  references/guide(v2).md\t)": "references/guide(v2).md",
+            r"[Guide](references/guide\\(v2).md)": r"references/guide\(v2).md",
+            r"[Guide](references/guide\q(v2).md)": r"references/guide\q(v2).md",
+        }
+        for markdown, expected in cases.items():
+            with self.subTest(markdown=markdown):
+                self.assertEqual(resources.markdown_links(markdown), [expected])
+
+    def test_invalid_destinations_are_not_truncated_into_links(self) -> None:
+        for markdown in (
+            "[Guide](references/guide(v2.md)",
+            "[Guide](<references/guide).md)",
+            "[Guide](<references/guide).md>",
+            "[Guide](<references/guide<.md>)",
+            "[Guide](<references/guide.md>extra)",
+            '[Guide](references/guide.md "unterminated)',
+            '[Guide](references/guide.md "title" extra)',
+            "[Guide](references/guide.md (nested (title)))",
+            "[Guide](references/a b.md)",
+            "[Guide](references/a\x00b.md)",
+        ):
+            with self.subTest(markdown=markdown):
+                self.assertEqual(resources.markdown_links(markdown), [])
+
+    def test_two_links_on_one_line_keep_both_destinations(self) -> None:
+        self.assertEqual(
+            resources.markdown_links(
+                '[A](references/a(v2).md "Read") and [B](<references/b).md>)'
+            ),
+            ["references/a(v2).md", "references/b).md"],
+        )
+
+    def test_open_bracket_in_target_or_title_does_not_hide_next_link(self) -> None:
+        for first in (
+            '[A](references/a.md "title [text")',
+            "[A](references/a[text.md)",
+            "[A](<references/a[text.md>)",
+        ):
+            with self.subTest(first=first):
+                self.assertEqual(
+                    resources.markdown_links(first + " [B](../../outside.md)")[-1],
+                    "../../outside.md",
+                )
+
+    def test_linked_heading_uses_label_not_destination_suffix(self) -> None:
+        self.assertEqual(
+            [heading[3] for heading in resources.markdown_headings(
+                "## [Version](references/guide(v2).md)\n"
+                "## [Version](<references/guide).md>)\n"
+                r"## [Version](references/guide\(v2\).md)" "\n"
+                '## [Version](references/guide(v2).md "Read (this)")\n'
+            )],
+            ["version", "version-1", "version-2", "version-3"],
+        )
+
+    def test_parenthesized_example_links_are_excluded(self) -> None:
+        self.assertEqual(
+            resources.markdown_links(
+                "`[Example](missing(v2).md)` [Live](guide(v2).md)\n"
+                "```markdown\n[Example](<missing).md>)\n```\n"
+            ),
+            ["guide(v2).md"],
+        )
+
+
 class ReferenceResourceTests(unittest.TestCase):
     def setUp(self) -> None:
         directory = tempfile.TemporaryDirectory()
@@ -140,6 +220,52 @@ class ReferenceResourceTests(unittest.TestCase):
             "- [Café](#café)\n\n## `POST /jobs`\n\nfirst\n\n## `POST /jobs`\n\nsecond\n\n## Café\n",
         )
         self.check()
+
+    def test_parenthesized_resource_names_pass(self) -> None:
+        for filename, destination in (
+            ("guide(v2).md", "references/guide(v2).md"),
+            ("guide(a(b(c))).md", "references/guide(a(b(c))).md"),
+            ("guide(v2).md", r"references/guide\(v2\).md"),
+            ("guide).md", "<references/guide).md>"),
+            ("guide (v2).md", "<references/guide (v2).md>"),
+        ):
+            with self.subTest(destination=destination):
+                guide = self.guide.with_name(filename)
+                guide.write_text("# Guide\n")
+                self.entry.write_text(f"# Skill\n\n[Guide]({destination})\n")
+                self.check()
+                guide.unlink()
+
+    def test_missing_parenthesized_resource_is_still_rejected(self) -> None:
+        self.entry.write_text("# Skill\n\n[Guide](references/missing(v2).md)\n")
+        with self.assertRaisesRegex(ValueError, "broken local link.*missing"):
+            self.check()
+
+    def test_parenthesized_resource_anchors_are_still_checked(self) -> None:
+        guide = self.guide.with_name("guide(v2).md")
+        guide.write_text("# Guide\n\n## Retry\n")
+        self.entry.write_text("# Skill\n\n[Guide](references/guide(v2).md#retry)\n")
+        self.check()
+        self.entry.write_text("# Skill\n\n[Guide](references/guide(v2).md#missing)\n")
+        with self.assertRaisesRegex(ValueError, "incorrect anchor"):
+            self.check()
+
+    def test_parenthesized_resources_still_need_inventory_membership(self) -> None:
+        guide = self.guide.with_name("guide(v2).md")
+        guide.write_text("# Guide\n")
+        self.entry.write_text("# Skill\n\n[Guide](references/guide(v2).md)\n")
+        with self.assertRaisesRegex(ValueError, "not in the tracked bundle inventory"):
+            resources.validate_reference_resources(self.skill, {self.entry})
+        resources.validate_reference_resources(self.skill, {self.entry, guide})
+
+    def test_title_bracket_does_not_hide_escaping_link(self) -> None:
+        self.guide.write_text("# Guide\n")
+        self.entry.write_text(
+            '# Skill\n\n[Guide](references/guide.md "title [text") '
+            "[Escape](../outside.md)\n"
+        )
+        with self.assertRaisesRegex(ValueError, "escapes the standalone skill"):
+            self.check()
 
     def test_reference_to_sibling_installation_is_rejected(self) -> None:
         self.guide.write_text("# Guide\n\n[Sibling](../../sibling/SKILL.md)\n")
