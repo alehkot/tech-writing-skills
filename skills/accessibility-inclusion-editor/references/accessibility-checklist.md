@@ -1,5 +1,20 @@
 # Accessibility Checklist
 
+## Contents
+
+- [Use When](#use-when)
+- [Alt Text Rules](#alt-text-rules)
+- [Repeated-Icon Review Cases](#repeated-icon-review-cases)
+- [Information Parity](#information-parity)
+- [Media Alternatives](#media-alternatives)
+- [Media Review Cases](#media-review-cases)
+- [Color and Position Independence](#color-and-position-independence)
+- [Screen-Reader-Safe Prose](#screen-reader-safe-prose)
+- [Verification Passes](#verification-passes)
+- [Audit Pointers](#audit-pointers)
+- [HTML Outputs Appendix](#html-outputs-appendix)
+- [Attribution](#attribution)
+
 ## Use When
 
 Load this reference before checking alt text, media alternatives, visual-cue independence, or screen-reader-safe prose during an accessibility and inclusion review.
@@ -34,8 +49,34 @@ See the [W3C WAI Functional Images tutorial](https://www.w3.org/WAI/tutorials/im
 
 - Put nothing only in an image: state in body text everything the image conveys, so the image is never the sole carrier of information.
 - Never present text, code, configuration, or terminal output as a screenshot; present it as real, selectable, copyable text.
-- Provide captions or transcripts for every audio and video asset, and keep them translatable.
+- Select media alternatives by the information channel using the following media pass; a transcript and synchronized captions serve different uses. Keep text alternatives translatable.
 - Never use flashing or flickering content, and never rely on an animation as the only way to convey information.
+
+## Media Alternatives
+
+For each asset, establish whether it is audio-only, video without meaningful audio, or video with meaningful audio, and whether it is recorded or live. Use supplied content and alternatives as evidence; an attachment name or a claimed caption track does not establish coverage or accuracy. This is a documentation review, not media-player testing or a WCAG conformance assessment.
+
+- **Recorded audio-only:** Check for a discoverable transcript covering speech, speaker changes where needed, and meaningful sounds. Do not require video captions for an audio-only asset.
+- **Recorded video with meaningful audio:** Check for synchronized captions covering speech and meaningful sounds. A separate plain transcript does not replace captions for following the video. Also check the visual information independently: actions, results, or on-screen text absent from the soundtrack need description. Flag gaps in supplied narration/audio description and in any descriptive transcript; captions of speech alone do not establish visual coverage.
+- **Video without meaningful audio:** Check for an equivalent description of the meaningful visual sequence, in text or an audio track. Do not request captions for nonexistent audio or background sound that carries no relevant information. Preserve the existing no-image text-parity rule when the sequence carries documentation facts.
+- **Already described or redundant content:** Do not demand a separate narration track when the supplied soundtrack already explains all relevant visuals. If media is explicitly labeled as an alternative to equivalent text, record that relationship and verify equivalence before applying an exception. Do not infer equivalence from a nearby summary.
+- **Live or unknown:** Flag the need for an appropriate live-media accessibility review; a transcript promised after the event does not provide access during it. If the source or timing is unavailable, report what cannot be checked rather than inventing dialogue, sounds, visual actions, or timestamps.
+
+Check auto-generated captions against supplied evidence, especially negation, quantities, technical terms, and meaningful sounds. Their presence alone is not proof of accuracy. Keep captions, transcripts, and visual descriptions distinct in findings and identify the evidence used.
+
+### Media Review Cases
+
+These original decision cases do not establish media playback behavior or conformance:
+
+- **Transcript is not captions:** A recorded narrated demonstration supplies a correct plain transcript but no synchronized captions. Report the caption gap; do not mark synchronized access complete.
+- **Unspoken result:** Captions reproduce `Wait for completion.` while supplied video notes show `Upload failed` without narration. Flag the missing visual result; preserve `Upload failed` exactly.
+- **Silent sequence:** A silent setup clip has a complete accompanying text procedure describing every demonstrated action and result. Do not invent a need for speech captions; check the description against the sequence.
+- **Audio-only control:** A podcast has an accurate, accessible transcript with speakers and relevant sounds. Do not add a video-caption requirement.
+- **Narration control:** A supplied soundtrack already describes every relevant visual. Do not require duplicate audio description merely because no separate track exists.
+- **Unchecked automation:** Only a filename `captions.vtt` is supplied. Report caption accuracy and synchronization as unverified; do not claim either passed.
+- **Live timing:** A live walkthrough promises a transcript tomorrow. Flag the unresolved live-access need rather than treating the future transcript as current access.
+
+Basis: W3C WAI guidance on [captions](https://www.w3.org/WAI/media/av/captions/), [transcripts](https://www.w3.org/WAI/media/av/transcripts/), and [visual description](https://www.w3.org/WAI/media/av/description/). Use the applicable standard and project requirements for formal assessment.
 
 ## Color and Position Independence
 
@@ -62,11 +103,12 @@ Run the following punctuation and casing checks as well, but report each hit aga
 
 ## Verification Passes
 
-Run every pass and record each one as complete or not applicable:
+Run every pass and record the evidence and outcome: checked with no gap found, gap found, unverified, or not applicable. A document-only review must not imply playback or assistive-technology testing:
 
 - No-image pass: with images ignored, all information is still present in text.
 - No-color pass: with color ignored, every state and cue is still distinguishable.
-- No-sound pass: with audio muted, captions or transcripts carry the full content.
+- No-sound pass: check audio information against the appropriate text alternative; for video with meaningful audio, separately verify caption coverage and synchronization when evidence permits.
+- No-visuals pass: check meaningful video information against supplied narration/description or descriptive text, preserving the media distinctions above.
 - Keyboard-only pass: every documented interaction is described in a way a keyboard-only reader can follow, or the gap is flagged.
 - No-punctuation pass: sentences keep their meaning with punctuation stripped.
 
