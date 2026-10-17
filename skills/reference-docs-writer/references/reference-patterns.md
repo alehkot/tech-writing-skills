@@ -14,6 +14,7 @@
 - [Error Code Pattern](#error-code-pattern)
 - [Numbered Annotation Pattern](#numbered-annotation-pattern)
 - [Code Sample Rules](#code-sample-rules)
+- [Copyable Example Review Cases](#copyable-example-review-cases)
 - [Review Checklist](#review-checklist)
 - [Attribution](#attribution)
 
@@ -147,7 +148,7 @@ Syntax notation for CLI syntax lines (define this legend once for the reader):
 - One set of square brackets per optional argument: `[--region <region>]`, as in the pattern above.
 - Curly braces with pipe separators for choose-exactly-one groups: `{--json|--yaml}`.
 - Three unspaced dots for a repeatable argument: `<file>...`, never the ellipsis character.
-- Keep syntax characters such as `[ ]`, `{ }`, `|`, and `...` out of any block the reader is meant to copy and run. Give a runnable common-case command, and handle variants in separate blocks, separate task sections, or with an explicit warning to remove the syntax characters before running.
+- Separate command-synopsis notation from executable syntax. Optional-argument markers (`[--verbose]`), choice groups (`{--json|--yaml}`), and repetition markers (`<file>...`) belong in a labeled syntax block, not a copy-and-run example. Select a source-supported invocation for the task or show alternatives separately; do not tell readers to delete punctuation indiscriminately. Preserve characters that are part of the actual language or data, including shell pipes, test brackets, variable-expansion braces, JSON objects and arrays, and literal strings containing `...`.
 
 ## Error Code Pattern
 
@@ -190,8 +191,25 @@ Use numbered annotations when an example has multiple fields or lines that need 
 - Indent samples the way the language's own style guide does, typically two spaces; never mix tabs and spaces within a sample.
 - Show omitted code with a comment in the sample's own language, such as `# lines omitted`, never with three dots or an ellipsis character.
 - Never present a block that contains an omission as copy-and-run; complete it or label it as abbreviated.
+- Keep prompt prefixes out of copyable commands. Label any prompt-bearing interactive session as a transcript, unless the rendered copy action is verified to exclude the prompts. Preserve executable syntax such as `$HOME`.
 - Never fabricate elided code. If the source does not supply the omitted lines, keep the omission comment and flag the gap.
 - Introduce each code sample with a lead-in sentence: end it with a colon when the sample follows immediately, and with a period when other text intervenes.
+
+## Copyable Example Review Cases
+
+Use these cases to check the distinction when reviewing a draft. They are editorial
+checks, not evidence that a model followed the skill or that an example was run.
+Only claim execution when the relevant command was actually tested.
+
+| Supplied example and context | Expected decision |
+| --- | --- |
+| POSIX shell command: `printf '%s\n' ready \| tr a-z A-Z` | Preserve the pipe; it connects two commands and is not a choice marker. |
+| JSON body: `{"labels":["docs"],"message":"Waiting..."}` | Preserve the braces, brackets, and dots; they are data syntax and string content. |
+| POSIX shell command: `[ -n "${HOME}" ]` | Preserve test brackets, variable expansion, and quoting. |
+| Declared synopsis: `acme list [--verbose] {--json\|--yaml} <file>...` | Keep it labeled as syntax. Give a separate sourced invocation for copying; do not guess an option or filename. |
+| Two input commands prefixed with `$ ` | Remove only the prompt prefixes in the copyable version; preserve commands and line boundaries. Label a retained prompt-bearing version as a transcript. |
+| A command containing `<project-id>` | Define the placeholder and require replacement before execution. Do not claim it runs unchanged or invent a real project identifier. |
+| A sample containing an omitted-code comment | Keep it labeled as abbreviated; do not fabricate the missing code or present it as complete. |
 
 ## Review Checklist
 
@@ -202,7 +220,7 @@ Use numbered annotations when an example has multiple fields or lines that need 
 - Terms are consistent, and acronyms or aliases are defined.
 - Tables and lists are parallel enough for quick comparison.
 - Units and literal values are formatted consistently.
-- Syntax distinguishes required and optional elements, and copyable blocks contain no syntax characters.
+- Syntax distinguishes required and optional elements, and copyable blocks contain no unresolved synopsis notation and preserve executable syntax.
 - Method, endpoint, and command descriptions open with a third-person present verb, not an imperative.
 - Byte units match the technology's actual system, ranges repeat the unit and join endpoints with `to`, and version ranges use `or later` wording.
 - Doc-comment entries cover every public element or mark it `Not specified`.
