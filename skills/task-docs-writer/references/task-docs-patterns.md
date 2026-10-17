@@ -11,6 +11,7 @@
 - [Code and Command Rules](#code-and-command-rules)
 - [Placeholder Rules](#placeholder-rules)
 - [Provide the Why](#provide-the-why)
+- [Copyable Example Review Cases](#copyable-example-review-cases)
 - [Review Checklist](#review-checklist)
 - [Attribution](#attribution)
 
@@ -93,10 +94,10 @@ Keep both forms within task documentation, but plan them for different reader ne
 ## Code and Command Rules
 
 - Use fenced code blocks with language hints.
-- Keep syntax characters such as `[ ]`, `{ }`, `|`, and `...` out of any block the reader is meant to copy and run. Give a runnable common-case command, and handle variants in separate blocks, separate task sections, or with an explicit warning to remove the syntax characters before running.
+- Separate command-synopsis notation from executable syntax. Optional-argument markers (`[--verbose]`), choice groups (`{--json|--yaml}`), and repetition markers (`<file>...`) belong in a labeled syntax block, not a copy-and-run example. Select a source-supported invocation for the task or show alternatives separately; do not tell readers to delete punctuation indiscriminately. Preserve characters that are part of the actual language or data, including shell pipes, test brackets, variable-expansion braces, JSON objects and arrays, and literal strings containing `...`.
 - Break commands longer than 80 characters with a trailing continuation character on every non-final line (backslash for POSIX shells, caret for Windows) and consistent indentation. Verify that the wrapped form runs identically; if you cannot verify it, leave the line long and say so instead of guessing.
 - Never break a line inside a URL or a path; keep such literals intact, on their own line if needed.
-- In a block with multiple input lines, show the prompt symbol on every input line. Never show a directory in the prompt. Switch to a distinct prompt indicator when the execution context changes, such as local to remote.
+- Omit prompt prefixes from copyable command blocks, including multi-command blocks. State the shell, working directory, and local or remote context in prose before the block. If prompts are needed to illustrate an interactive session, label it as a transcript rather than a copy-and-run block, or verify that the rendered copy action excludes every prompt. Do not strip meaningful `$` characters from variables or other executable syntax.
 - Put command input and command output in separate code blocks; never interleave them.
 - Introduce shown output with one fixed lead-in sentence that marks it as illustrative, such as `The output resembles the following:`, and reuse that same lead-in across the doc set. Show output only when the reader copies a value from it or verifies against it.
 - Mark omitted output lines with three unspaced dots (`...`) alone on their own line. Mark omitted code with a comment in the sample's own language, such as `# lines omitted`.
@@ -129,6 +130,22 @@ If a fact appears inside a task topic, state its practical impact on the user's 
 
 Avoid background theory in steps; link to a concept topic when the explanation is broader than the immediate task.
 
+## Copyable Example Review Cases
+
+Use these cases to check the distinction when reviewing a draft. They are editorial
+checks, not evidence that a model followed the skill or that an example was run.
+Only claim execution when the relevant command was actually tested.
+
+| Supplied example and context | Expected decision |
+| --- | --- |
+| POSIX shell command: `printf '%s\n' ready \| tr a-z A-Z` | Preserve the pipe; it connects two commands and is not a choice marker. |
+| JSON body: `{"labels":["docs"],"message":"Waiting..."}` | Preserve the braces, brackets, and dots; they are data syntax and string content. |
+| POSIX shell command: `[ -n "${HOME}" ]` | Preserve test brackets, variable expansion, and quoting. |
+| Declared synopsis: `acme list [--verbose] {--json\|--yaml} <file>...` | Keep it labeled as syntax. Give a separate sourced invocation for copying; do not guess an option or filename. |
+| Two input commands prefixed with `$ ` | Remove only the prompt prefixes in the copyable version; preserve commands and line boundaries. Label a retained prompt-bearing version as a transcript. |
+| A command containing `<project-id>` | Define the placeholder and require replacement before execution. Do not claim it runs unchanged or invent a real project identifier. |
+| A sample containing an omitted-code comment | Keep it labeled as abbreviated; do not fabricate the missing code or present it as complete. |
+
 ## Review Checklist
 
 - Reader and outcome are clear.
@@ -139,7 +156,7 @@ Avoid background theory in steps; link to a concept topic when the explanation i
 - Optional paths are labeled.
 - Important facts explain why they matter to the task.
 - Named UI elements are bold, match their visible labels, and use the standard interaction verbs.
-- Copyable command blocks are runnable as shown: no syntax characters, no interleaved output, no omission presented as complete.
+- Copyable command blocks preserve executable syntax and separate any required placeholder replacements from claims of running unchanged; no unresolved synopsis notation, copied prompt prefixes, interleaved output, or omission is presented as a complete command.
 - Terms and placeholders are defined once and used consistently, under one placeholder convention.
 - No prerequisite, required action, or expected result sits inside a note.
 - Lists and substeps are parallel.

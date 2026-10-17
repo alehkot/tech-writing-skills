@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.3.1"
+  version: "1.3.2"
   risk_tier: low
 ---
 
@@ -28,7 +28,7 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 8. Present dense facts in tables or definition lists. Keep prose short and only where it clarifies constraints, defaults, or usage boundaries.
 9. Keep list items and table rows parallel so readers can compare facts quickly. Use consistent units within a column and format numbers with a space before unit abbreviations, such as `16 GB`. Use the byte system the documented technology actually uses: decimal `kB`/`MB`/`GB` for powers of 1000, binary `KiB`/`MiB`/`GiB` for powers of 1024. Repeat the unit on every range endpoint and join endpoints with `to`, not a hyphen. Write version ranges as `2.2 or later`, never `2.2+` or `above`, and write rates with `per` in prose.
 10. Make syntax complete: document required and optional elements, defaults, valid values, data types, units, constraints, return values, and error behavior. Put literal values, data types, commands, fields, parameters, headers, and error codes in code font.
-11. Add examples that match the documented syntax. Use copyable snippets for API/CLI/config references; if an example is complex, use numbered annotations below the code instead of inline explanation.
+11. Add examples that match the documented syntax. Use copyable snippets for API/CLI/config references, preserving executable syntax and literal data while keeping synopsis notation and prompt prefixes out of copied command text; if an example is complex, use numbered annotations below the code instead of inline explanation.
 12. For API endpoints, include error response information when status codes or failure modes appear. For error-code references, define any headers, fields, or retry signals you mention, such as `Retry-After`.
 13. Track unknown facts while drafting. If the source omits a default, valid value, field type, status behavior, limit, or compatibility boundary, mark it as `Not specified` or an open question instead of inventing it.
 14. Add cross-links or "Related topics" only when they help the reader move to a task or concept without cluttering the lookup surface.
@@ -108,7 +108,7 @@ Related:
 - [ ] Required, optional, default, valid values, types, units, restrictions, and error behavior are documented where relevant.
 - [ ] Error fields, status codes, and retry signals are documented where relevant.
 - [ ] Literal values, data types, commands, fields, parameters, headers, and error codes use code font where needed.
-- [ ] Examples match the documented syntax and use defined placeholders; complex examples use numbered annotations.
+- [ ] Examples preserve executable syntax and literal data, exclude unresolved synopsis notation and copied prompt prefixes, and define placeholders that require replacement; complex examples use numbered annotations.
 - [ ] Placeholders follow one convention across the doc set (canonical placeholder rules: task-docs-writer).
 - [ ] Unknown defaults, valid values, limits, compatibility rules, and response behavior are marked rather than invented.
 - [ ] Acronyms and specialized terms are defined at first use or in a glossary-style entry.

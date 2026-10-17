@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.3.1"
+  version: "1.3.2"
   risk_tier: low
 ---
 
@@ -34,7 +34,7 @@ For each check with named states, map every supplied state to its next action, r
 8. When a step names a UI element, bold its exact visible label and use the standard interaction verbs: click, tap, press, enter (reserve type for characters the reader must literally type), select and clear, drag, turn on or turn off. Refer to an icon-only control by its tooltip or accessible name; if the source supplies none, flag it as an open question instead of inventing one. Apply the UI writing rules in [references/task-docs-patterns.md](references/task-docs-patterns.md).
 9. Label optional work at the start of the sentence: `Optional: ...`.
 10. Use one term consistently for each UI element, command, file, role, or system component. Define unfamiliar terms, acronyms, and placeholders before relying on them.
-11. Make command examples copyable and adaptable. Introduce each command by what it accomplishes, never with `run the following command`. Use one placeholder convention across the doc set: the house form is lowercase `<angle-bracket>` names, and a target doc set's existing convention wins when one exists. Give placeholders informative names and define each near its command with `Replace <placeholder> with ...` or a `Replace the following:` list.
+11. Make command examples copyable and adaptable. Preserve executable syntax and literal data; keep command-synopsis notation and prompt prefixes out of copied command text, as detailed in [references/task-docs-patterns.md](references/task-docs-patterns.md). Introduce each command by what it accomplishes, never with `run the following command`. Use one placeholder convention across the doc set: the house form is lowercase `<angle-bracket>` names, and a target doc set's existing convention wins when one exists. Give placeholders informative names and define each near its command with `Replace <placeholder> with ...` or a `Replace the following:` list.
 12. Keep lists and substeps parallel: same grammar, same level of detail, and no mixed choices/actions in one list.
 13. Split procedures that grow beyond roughly nine steps into smaller tasks, phases, or subtasks.
 14. Audit every action against a source ledger: supplied facts, assumptions, open questions, and omitted details that would affect execution. Include troubleshooting advice, recovery actions, escalation routes, and responsible roles in this audit. Preserve sourced stop conditions. Remove unsupported executable advice and flag the gap as an open question; a plausible diagnosis or an unknown error message does not justify an invented recovery action.
@@ -102,7 +102,7 @@ Use this procedure to [outcome].
 - [ ] Optional steps are explicitly labeled.
 - [ ] Terms, acronyms, and placeholders are defined once and used consistently.
 - [ ] Placeholders follow one convention across the doc set, and each is defined near its command or listed after the output it appears in.
-- [ ] Commands are introduced by what they accomplish; copyable blocks contain no syntax characters, and input and output sit in separate blocks.
+- [ ] Commands are introduced by what they accomplish; copyable blocks preserve executable syntax and contain no unresolved synopsis notation or copied prompt prefixes, and input and output sit in separate blocks.
 - [ ] No prerequisite, required action, or expected result hides in a note, and no note wraps a cross-reference.
 - [ ] Steps contain no `please`, `simply`, `just`, or `easily` (canonical list: docs-style-editor word-choice).
 - [ ] Example values use documentation-reserved data such as `example.com`, RFC 5737 IP ranges, and 800-555-01xx phone numbers (canonical table: docs-style-editor safe-example-values).
