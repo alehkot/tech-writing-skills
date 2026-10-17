@@ -4,7 +4,7 @@ description: >-
   Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
   Use when caveats, uncertainty, audience proximity, or source-backed simplification matter.
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
   risk_tier: low
 ---
 
@@ -27,7 +27,7 @@ Choose the explanatory sequence, examples, and analogies to fit the reader. Trea
 5. Convert abstractions into concrete examples, scenarios, diagrams-in-words, carefully bounded analogies, or small code/config snippets. Use nonexamples when the boundary matters, and label example boundaries clearly.
 6. Define unfamiliar terms at first use. Expand acronyms unless the audience clearly knows them.
 7. Write around jargon or substitute a specific plain term; keep a jargon term only when readers search for it or no accurate synonym exists. Gloss a single occurrence inline with the term in parentheses; define a recurring term in parentheses at first mention and use it consistently after. Treat overloaded words such as "solution", "support", and "workload" as undefined until the text pins their meaning or replaces them. Apply the jargon decision tree in [references/clarity-patterns.md](references/clarity-patterns.md).
-8. For executives, product partners, or other non-implementers, translate implementation terms into user impact, business risk, cost, speed, reliability, or decision consequences. Avoid raw implementation phrases unless the user explicitly asks to keep them. For example, translate `connection pooling changed under burst load` into "a backend efficiency change made the service handle traffic spikes less smoothly."
+8. For executives, product partners, or other non-implementers, explain implementation terms in plain language and lead with source-supported user impact or decision consequences. Do not infer a benefit, regression, cause, cost, or affected population from a technical change alone. For example, `connection pooling changed under burst load` can become "Connection reuse changed during traffic spikes; the source does not specify the effect on users." If the mechanism matters to the decision, retain and explain it. See the source-to-impact checks in [references/clarity-patterns.md](references/clarity-patterns.md).
 9. Use consistent terminology for the same concept throughout the piece. If the source uses competing terms, choose one and mention aliases only when needed.
 10. Strip step-by-step procedures and extensive reference tables from concept topics. Link to task or reference topics instead.
 11. Separate confirmed facts, suspected causes, examples, assumptions, and open questions before simplifying. Do not let a cleaner narrative turn uncertainty into fact.
@@ -36,7 +36,7 @@ Choose the explanatory sequence, examples, and analogies to fit the reader. Trea
 14. Scope every claim so it stays true tomorrow: replace product superlatives (best, fastest, simplest, always, never) with measurable, scoped statements; write "ensure", "guarantee", or "prevents" only for unconditionally true outcomes; attach a source to every performance or cost figure or label it unverified. Apply the durable-claims rules in [references/clarity-patterns.md](references/clarity-patterns.md).
 15. Keep simplification honest. Preserve important caveats and tradeoffs instead of smoothing them away.
 16. Prefer active voice and short sentences. Split long sentences that carry multiple ideas. Treat a paragraph past five or six sentences as a signal to split or cut, but never split a single idea; one-sentence paragraphs are fine. Shorten sentences and paragraphs together — never merge sentences just to lower the count. Vary sentence openers, and rewrite runs of consecutive sentences that start with the same phrase.
-17. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, name it only as "an internal technical change" and focus on user impact. Prefer plain phrases such as "during traffic spikes," "the slowest 1% of requests," and "peak-demand delays."
+17. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, summarize it as "an internal technical change" only when that preserves the source, and focus on documented impact. If impact is unknown, state that gap instead of inventing a consequence. Choose plain phrases that preserve the specified metric and conditions; do not turn unspecified `tail latency` into an invented percentile or average.
 18. End with a concrete next action, decision, or mental model. For release narratives, make the final sentence tell the reader what to try, monitor, adopt, or understand next.
 
 ## Verify and Correct
@@ -82,7 +82,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - [ ] Jargon is written around, replaced, or glossed per the decision tree, and overloaded words are pinned or replaced.
 - [ ] Terminology is consistent, and lists use parallel structure.
 - [ ] Vocabulary matches the audience; executive-facing content avoids unnecessary implementation jargon.
-- [ ] Executive summaries replace implementation labels with plain impact language unless those labels are required for the decision.
+- [ ] Executive summaries simplify vocabulary without inventing impact or causality; direction, scope, conditions, and decision-relevant mechanisms stay source-supported.
 - [ ] Procedural steps and dense reference facts are split out or linked rather than embedded.
 - [ ] Each abstract claim has an example, scenario, or observable consequence.
 - [ ] Examples and nonexamples are clearly labeled or separated from general explanation.
