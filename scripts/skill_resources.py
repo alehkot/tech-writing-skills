@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import string
 import unicodedata
 from os.path import abspath
 from pathlib import Path
@@ -59,7 +60,15 @@ def markdown_headings(text: str) -> list[tuple[int, int, str, str]]:
         if not match:
             continue
         marks, title = match.groups()
-        plain = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", title)
+        # Use the same destination boundaries as resource extraction so a
+        # parenthesized target does not leak into the heading's fragment ID.
+        pieces = []
+        consumed = 0
+        for match, _, end in inline_links(title):
+            pieces.extend((title[consumed:match.start()], match[1]))
+            consumed = end
+        pieces.append(title[consumed:])
+        plain = "".join(pieces)
         plain = re.sub(r"<[^>]+>", "", plain).lower()
         base = "".join(
             char
@@ -76,19 +85,97 @@ def markdown_headings(text: str) -> list[tuple[int, int, str, str]]:
     return result
 
 
+def inline_destination(line: str, start: int) -> tuple[str, int] | None:
+    """Read a single-line destination and optional title after a link's opening (."""
+    position = start
+    while position < len(line) and line[position] in " \t":
+        position += 1
+    angled = position < len(line) and line[position] == "<"
+    if angled:
+        position += 1
+    target: list[str] = []
+    depth = 0
+    while position < len(line):
+        char = line[position]
+        if char == "\\" and position + 1 < len(line):
+            following = line[position + 1]
+            if following in string.punctuation:
+                target.append(following)
+                position += 2
+                continue
+        if angled:
+            if char == ">":
+                position += 1
+                break
+            if char == "<":
+                return None
+        else:
+            if char in " \t" or (char == ")" and depth == 0):
+                break
+            if ord(char) < 32 or ord(char) == 127:
+                return None
+            if char == "(":
+                depth += 1
+            elif char == ")":
+                depth -= 1
+        target.append(char)
+        position += 1
+    else:
+        return None
+    if depth:
+        return None
+
+    end = position
+    while end < len(line) and line[end] in " \t":
+        end += 1
+    if end < len(line) and line[end] == ")":
+        return "".join(target), end + 1
+    # A title must be separated from the destination by whitespace.
+    if end == position or end >= len(line) or line[end] not in "\"'(":
+        return None
+    close = ")" if line[end] == "(" else line[end]
+    end += 1
+    while end < len(line):
+        char = line[end]
+        if char == "\\" and end + 1 < len(line) and line[end + 1] in string.punctuation:
+            end += 2
+            continue
+        if char == close:
+            end += 1
+            break
+        if close == ")" and char == "(":
+            return None
+        end += 1
+    else:
+        return None
+    while end < len(line) and line[end] in " \t":
+        end += 1
+    if end < len(line) and line[end] == ")":
+        return "".join(target), end + 1
+    return None
+
+
+def inline_links(line: str) -> list[tuple[re.Match[str], str, int]]:
+    """Return simple inline labels with complete destinations and source bounds."""
+    result = []
+    position = 0
+    pattern = re.compile(r"\[([^\]\n]*)\]\(")
+    while match := pattern.search(line, position):
+        position = match.end()
+        parsed = inline_destination(line, position)
+        if parsed is not None:
+            target, position = parsed
+            result.append((match, target, position))
+    return result
+
+
 def markdown_links(text: str) -> list[str]:
     """Read inline link destinations outside fenced examples and inline code."""
     result = []
     for _, line in unfenced_lines(text):
         # Code spans are examples, not resource links.
         line = re.sub(r"(`+)(.*?)\1", lambda m: " " * len(m[0]), line)
-        for match in re.finditer(r"\[[^\]\n]*\]\(([^)\n]+)\)", line):
-            target = match[1].strip()
-            if target.startswith("<"):
-                target = target[1:].split(">", 1)[0]
-            else:
-                target = target.split(' "', 1)[0].split(" '", 1)[0]
-            result.append(target)
+        result.extend(target for _, target, _ in inline_links(line))
     return result
 
 
