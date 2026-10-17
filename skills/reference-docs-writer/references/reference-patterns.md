@@ -15,6 +15,7 @@
 - [Numbered Annotation Pattern](#numbered-annotation-pattern)
 - [Code Sample Rules](#code-sample-rules)
 - [Copyable Example Review Cases](#copyable-example-review-cases)
+  - [Line-Wrapping Review Cases](#line-wrapping-review-cases)
 - [Review Checklist](#review-checklist)
 - [Attribution](#attribution)
 
@@ -187,7 +188,8 @@ Use numbered annotations when an example has multiple fields or lines that need 
 
 ## Code Sample Rules
 
-- Keep code sample lines at or under 80 characters; break and re-indent longer lines.
+- Aim for code sample lines of 80 characters or fewer only when the actual language or shell permits an equivalent wrap. Preserve literal values, quoting, argument boundaries, and meaningful newlines. Use valid syntax break points and verify that the result behaves identically; when that cannot be verified, keep the original long line and flag the gap. Never split a URL, path, or string value merely to meet the width target.
+- For shell examples, identify the shell and version from the source, not the operating system. Bash backslash continuation, cmd.exe caret continuation, and PowerShell backtick continuation are not interchangeable. Prefer supported natural syntax breaks and keep explicit continuation characters immediately before the newline, without trailing spaces. An unspecified shell is a reason to leave the command intact. See the [shell comparison](https://learn.microsoft.com/en-us/cli/azure/get-started-tutorial-2-environment-syntax?view=azure-cli-latest#be-aware-of-line-continuation-characters), [Bash escaping rules](https://www.gnu.org/s/bash/manual/html_node/Escape-Character.html) and [PowerShell parsing guidance](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing?view=powershell-7.5#line-continuation).
 - Indent samples the way the language's own style guide does, typically two spaces; never mix tabs and spaces within a sample.
 - Show omitted code with a comment in the sample's own language, such as `# lines omitted`, never with three dots or an ellipsis character.
 - Never present a block that contains an omission as copy-and-run; complete it or label it as abbreviated.
@@ -211,6 +213,19 @@ Only claim execution when the relevant command was actually tested.
 | A command containing `<project-id>` | Define the placeholder and require replacement before execution. Do not claim it runs unchanged or invent a real project identifier. |
 | A sample containing an omitted-code comment | Keep it labeled as abbreviated; do not fabricate the missing code or present it as complete. |
 
+### Line-Wrapping Review Cases
+
+Apply the same editorial-check limitation above; these cases do not establish execution or model behavior.
+
+| Supplied example and context | Expected decision |
+| --- | --- |
+| A long JSON string contains a URL | Preserve the complete value; wrap only at valid structural boundaries after checking equivalence, or leave the line long. |
+| A long quoted string or indentation-sensitive code sample | Follow the actual language and preserve semantics; a width target does not authorize arbitrary newlines or re-indentation. |
+| A command labeled only `Windows` | Keep it intact and flag the missing shell rather than inserting carets. |
+| A PowerShell command runs on Windows or Linux | Apply verified PowerShell syntax, not cmd.exe caret or Bash backslash continuation. |
+| A Bash command runs on Windows | Apply verified Bash syntax rather than choosing caret from the operating system. |
+| A sample already has valid multi-line syntax, or equivalence cannot be verified | Keep valid existing breaks; leave unverified long lines intact and make the gap visible. |
+
 ## Review Checklist
 
 - The reference has a clear retrieval order.
@@ -227,6 +242,7 @@ Only claim execution when the relevant command was actually tested.
 - Defaults, valid values, units, restrictions, and error behavior are present.
 - Headers, fields, retry signals, and related response metadata are defined when mentioned.
 - Source gaps are marked and do not look like complete facts.
+- Line wrapping preserves the actual language or shell semantics and literal values; unverified wrapping is left unchanged with a gap noted.
 - Examples are copyable and match the documented syntax; complex examples use numbered annotations.
 - Long task steps and conceptual background are split out or linked.
 

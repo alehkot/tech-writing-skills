@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.3.2"
+  version: "1.3.3"
   risk_tier: low
 ---
 
@@ -114,6 +114,7 @@ Related:
 - [ ] Acronyms and specialized terms are defined at first use or in a glossary-style entry.
 - [ ] Related task or concept links are helpful and not used as a substitute for missing facts.
 - [ ] Produced-doc headings use sentence case, except entry headings that are literal item names such as `POST /workspaces` (canonical capitalization rules: docs-style-editor).
+- [ ] Line wrapping follows the actual shell or language, preserves literal values and behavior, and leaves long lines intact when safe wrapping cannot be verified.
 
 ## Gotchas
 

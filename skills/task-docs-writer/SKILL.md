@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.3.2"
+  version: "1.3.3"
   risk_tier: low
 ---
 
@@ -112,6 +112,7 @@ Use this procedure to [outcome].
 - [ ] The guide includes at least one verification path.
 - [ ] Missing execution details are captured as assumptions, open questions, or verification gaps.
 - [ ] Warnings and destructive actions appear before the relevant step, not after it.
+- [ ] Line wrapping follows the actual shell or language, preserves literal values and behavior, and leaves long lines intact when safe wrapping cannot be verified.
 
 ## Gotchas
 
