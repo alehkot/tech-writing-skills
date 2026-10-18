@@ -56,7 +56,7 @@ Load this reference for the numeric pass: numbers, dates, times, units of measur
 - Prefix an ambiguous currency amount with a country indicator: `US$40`.
 - Write rates with `per` in prose and keep the slash for space-constrained tables; use established rate abbreviations such as `Mbps`, never `Mb/s`.
 - Use the byte system the documented technology actually uses, decimal or binary; a wrong byte unit is a factual error (canonical ruling: reference-docs-writer).
-- Write version ranges as `2.2 or later` and `2.2 or earlier` (canonical ruling: reference-docs-writer), and remember that the highest version number is not necessarily the most recent release.
+- Preserve version-range boundaries: `or later` and `or earlier` include the named version; `later than` and `earlier than` exclude it. Retain both bounds, exclusions, alternatives, and literal constraints. Flag uncertain semantics instead of guessing (canonical ruling: reference-docs-writer), and remember that the highest version number is not necessarily the most recent release.
 
 ## Mathematical Notation
 

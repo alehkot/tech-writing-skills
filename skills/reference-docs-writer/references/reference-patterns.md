@@ -8,6 +8,8 @@
 - [Source Verification](#source-verification)
 - [Retrieval Orders](#retrieval-orders)
 - [Consistency Rules](#consistency-rules)
+- [Version Ranges](#version-ranges)
+- [Version-Range Review Cases](#version-range-review-cases)
 - [API Endpoint Pattern](#api-endpoint-pattern)
 - [API Doc-Comment Pattern](#api-doc-comment-pattern)
 - [CLI Command Pattern](#cli-command-pattern)
@@ -73,7 +75,7 @@ Choose one:
 - Put a space between a number and a unit abbreviation, and do not pluralize the abbreviation: `16 GB`, not `16GB` or `16 GBs`.
 - Use the byte system the documented technology actually uses: decimal `kB`/`MB`/`GB` for powers of 1000, binary `KiB`/`MiB`/`GiB` for powers of 1024. Never substitute one for the other; a wrong byte unit is a factual error, not a style choice.
 - Repeat the unit on every number in a range and join the endpoints with `to`, never a hyphen: `5 GiB to 20 GiB`, not `5-20 GiB`.
-- Write version ranges as `2.2 or later` or `2.2 or earlier`, never `2.2+`, `above`, or `below`.
+- Preserve the complete set of versions established by the source; apply the [version-range guidance](#version-ranges), not a blanket `or later` rewrite.
 - Write rates with `per` in prose, such as `requests per day`; reserve the slash form for space-constrained tables.
 - Never pluralize a class or type name in code font; add a plural noun instead: `Workspace objects`, never `Workspaces` or an invented inflection. The exception is a class name that is also a common term: when the doc uses it generically, in lowercase and plain font, pluralize it as an ordinary word, such as workspaces for the general concept.
 - Never attach `'s` to a code element such as a method, class, field, or command. Move the possessive to a following noun (`the parseConfig function's return value`) or rewrite (`the value that parseConfig returns`).
@@ -83,6 +85,33 @@ Choose one:
 - If you mention a response header or field in a status-code, error-code, or recovery entry, define what it means.
 - Use `Not specified` or an explicit open question when the source does not provide a type, default, valid value, limit, compatibility boundary, response field, or error behavior. An empty template field is not evidence of absence: use `None` or `No options` only when the source explicitly says so.
 - Avoid `e.g.`, `i.e.`, `etc.`, and `and so on`; use `for example`, `that is`, or a clearly scoped non-exhaustive list (canonical Latin-abbreviation rule: docs-style-editor).
+
+## Version Ranges
+
+Compatibility requirements and affected-version ranges are facts, not just wording choices.
+
+- Use `2.2 or later` for a source-established inclusive lower bound and `2.2 or earlier` for an inclusive upper bound. For a strict bound, use `later than 2.2` or `earlier than 2.2`; do not add the boundary version to the range.
+- Keep both endpoints of a bounded range, and state whether each is included. Preserve exclusions and alternatives as well. Do not turn `2.2 or later, but earlier than 3.0` into `2.2 or later`.
+- Keep machine-readable constraints, version strings, and configuration literals unchanged. If prose would be ambiguous or cumbersome, reproduce the sourced constraint and explain it without replacing it.
+- Use the documented product or ecosystem's ordering and range semantics. Do not assume every version scheme is SemVer, infer support for prereleases, expand shorthand from memory, or replace a strict bound with a guessed next release. A later publication date does not necessarily mean a higher version number.
+- When the source leaves a bound, its inclusivity, or a range's meaning unclear, preserve the supplied wording and flag the specific uncertainty. Do not invent compatibility to make the prose smoother.
+
+The [Google word list](https://developers.google.com/style/word-list#later) supplies the prose preference for `later` and `earlier`; that preference does not change which versions are included. The [npm range documentation](https://github.com/npm/node-semver#ranges) illustrates why strict and inclusive bounds, combined constraints, and prerelease handling must remain distinct. Apply npm semantics only when npm is the documented context.
+
+## Version-Range Review Cases
+
+These original editorial cases check source preservation. They are not model-behavior evaluations or proof that a product supports any example version. For the comparator cases, the source explicitly uses npm ranges and stable releases; retain the literal constraint alongside any prose explanation.
+
+| Supplied source and context | Expected decision | Rewrite to reject |
+| --- | --- | --- |
+| `>=2.2.0` | `2.2.0 or later`, retaining npm's prerelease rules. | Excluding `2.2.0` or claiming every prerelease is included. |
+| `>2.2.0` | `Later than 2.2.0`; preserve the exclusive bound. | `2.2.0 or later` or an invented next release. |
+| `<=3.0.0` | `3.0.0 or earlier`. | `Earlier than 3.0.0`. |
+| `<3.0.0` | `Earlier than 3.0.0`. | `3.0.0 or earlier`. |
+| `>=2.2.0 <3.0.0` | `2.2.0 or later, but earlier than 3.0.0`; keep both bounds. | An unbounded `2.2.0 or later` or including `3.0.0`. |
+| `>=2.2.0 <2.3.0` or `>=2.4.0 <3.0.0` | Keep the alternatives and the gap between them. | Collapsing them to `>=2.2.0 <3.0.0`. |
+| A manifest contains `^2.2.0`, and no interpretation is requested. | Preserve the literal; if an explanation is needed, verify the ecosystem semantics first. | Replacing the manifest value with prose or assuming it means every later major release. |
+| `Supports versions after 2.2`, with no stated version scheme or boundary clarification. | Preserve and flag the intended ordering and bound; do not guess a complete supported-version set. | Treating `2.2` as included or inventing an upper bound. |
 
 ## API Endpoint Pattern
 
@@ -237,7 +266,7 @@ Apply the same editorial-check limitation above; these cases do not establish ex
 - Units and literal values are formatted consistently.
 - Syntax distinguishes required and optional elements, and copyable blocks contain no unresolved synopsis notation and preserve executable syntax.
 - Method, endpoint, and command descriptions open with a third-person present verb, not an imperative.
-- Byte units match the technology's actual system, ranges repeat the unit and join endpoints with `to`, and version ranges use `or later` wording.
+- Byte units match the technology's actual system, ranges repeat the unit and join endpoints with `to`, and version ranges preserve the source's complete constraints, including inclusive or exclusive endpoints.
 - Doc-comment entries cover every public element or mark it `Not specified`.
 - Defaults, valid values, units, restrictions, and error behavior are present.
 - Headers, fields, retry signals, and related response metadata are defined when mentioned.
