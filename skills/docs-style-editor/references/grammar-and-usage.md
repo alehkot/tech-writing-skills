@@ -9,6 +9,7 @@
 - [Tense](#tense)
 - [Voice](#voice)
 - [Modal Verbs](#modal-verbs)
+- [Tense and Modal Review Cases](#tense-and-modal-review-cases)
 - [Contractions](#contractions)
 - [Pronouns](#pronouns)
 - [Plurals](#plurals)
@@ -47,9 +48,9 @@ Load this reference for the grammar pass: articles, person, tense, voice, modal 
 
 ## Tense
 
-- Describe system behavior in the present tense. Avoid: `The scheduler will retry the job.` Prefer: `The scheduler retries the job.`
+- Describe source-established general system behavior in the present tense. Avoid: `The scheduler will retry the job.` Prefer: `The scheduler retries the job.`
 - Use `will` only when the action genuinely happens later than the sentence's frame, such as a scheduled backup or an asynchronous delivery.
-- Replace hypothetical `would` with present-tense cause and effect: `If the token expires, the gateway rejects the request.`
+- Recast `would` as present-tense cause and effect only when the source establishes general behavior: `If the token expires, the gateway rejects the request.` Preserve the condition. Keep proposals, counterfactuals, time-specific statements, and substantive uncertainty in their original frame; a tense edit must not turn a prediction or proposed change into an established fact.
 - Do not narrate unreleased behavior in future tense, and do not describe it at all unless the source states it. Label sourced future behavior as planned.
 
 ## Voice
@@ -59,7 +60,7 @@ Load this reference for the grammar pass: articles, person, tense, voice, modal 
 
 ## Modal Verbs
 
-Classify every `should` as required, recommended, or optional, and then reword it. Applies to non-STE prose only.
+For non-STE prose, identify the source-supported meaning before rewording a modal: an action can be required, recommended, or optional; a state or outcome can be actual, expected, or merely possible. Do not infer requiredness, certainty, or an actor from `should` alone. If the source leaves the meaning unclear, keep the wording and flag the specific question for the author.
 
 | Meaning | Write | Avoid |
 | --- | --- | --- |
@@ -68,11 +69,25 @@ Classify every `should` as required, recommended, or optional, and then reword i
 | Optional action | `can`, or an `Optional:` prefix | `may`, `might`, `could` |
 | Ability or permission | `can` | `is able to`, `is allowed to` |
 | Possible outcome | `might` | `may`, `could`, `would` |
-| Expected outcome | a declarative statement: `The export returns 50 rows.` | `should return` |
+| Expected outcome | a declarative statement only for source-established behavior; otherwise preserve the expectation and its qualifications | replacing an unverified prediction with a fact |
 | Policy or legal permission | `may` | `can` |
 
-- Never describe an actual state with `should`. Avoid: The flag should be true. Prefer, depending on who acts: `Set the flag to true.`, `The installer sets the flag to true.`, or `If the flag is false, do the following:`
+- For an established actual state, use a direct description. For an instruction, identify who must act. The ambiguous sentence `The flag should be true.` does not establish either: use `Set the flag to true.` only when the source requires the reader to set it, and `The installer sets the flag to true.` only when the source confirms that behavior. Otherwise, retain and flag it; do not invent an actor, required action, or troubleshooting step.
 - When several approaches exist, recommend one and say why, rather than listing an unranked menu.
+
+## Tense and Modal Review Cases
+
+Use these original cases to check meaning preservation, not as evidence of measured model performance. The source context is part of each case.
+
+| Source context and passage | Acceptable editorial decision | Meaning drift to reject |
+| --- | --- | --- |
+| The source confirms general gateway behavior: `If the token expires, the gateway would reject the request.` | `If the token expires, the gateway rejects the request.` | Dropping the token-expiry condition. |
+| `The export should return 50 rows, but we have not verified it.` | Keep it, or write `The export is expected to return 50 rows, but we have not verified it.` | `The export returns 50 rows.` |
+| `The flag should be true.` No other context is supplied. | Keep and flag: is this a required setting, an observed value, or an expected default? | Choosing an actor, stating a value as observed, or issuing a new instruction. |
+| The source explicitly describes retrying as a recommendation, not a requirement: `You should retry the request.` | Reword it as a recommendation while preserving that status. | `You must retry the request.` |
+| `The proposed cache would reduce repeated database reads.` | Preserve the proposal and its conditional outcome; leave the clear sentence unchanged. | `The cache reduces repeated database reads.` |
+| `If the replica had been available, the request would have succeeded.` | Preserve the past counterfactual and the source's confidence; leave it unchanged. | Recasting it as current behavior or weakening it to mere possibility. |
+| The document uses RFC-defined `SHOULD` and `MUST`. | Preserve the defined keywords exactly under Scope Notes. | Applying ordinary-prose modal substitutions. |
 
 ## Contractions
 
@@ -144,5 +159,7 @@ Classify every `should` as required, recommended, or optional, and then reword i
 - Avoid humor, idioms, seasons, holidays, sports references, and country-specific cultural references.
 
 ## Attribution
+
+The tense and modal guidance draws on [Google’s tense guidance](https://developers.google.com/style/tense) and [prescriptive-documentation guidance](https://developers.google.com/style/prescriptive-documentation). The evidence checks above apply those style defaults without changing the supplied draft’s meaning.
 
 Parts of this reference are adapted from the Google developer documentation style guide (https://developers.google.com/style), used under CC BY 4.0 and modified.
