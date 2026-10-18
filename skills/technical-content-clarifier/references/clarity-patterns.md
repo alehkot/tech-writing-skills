@@ -7,6 +7,8 @@
 - [Audience Snapshot](#audience-snapshot)
 - [Explanation Moves](#explanation-moves)
 - [Jargon Decision Tree](#jargon-decision-tree)
+- [Source-to-Impact Checks](#source-to-impact-checks)
+- [Audience-Simplification Review Cases](#audience-simplification-review-cases)
 - [Anthropomorphism](#anthropomorphism)
 - [Durable Claims](#durable-claims)
 - [Engagement Without Hype](#engagement-without-hype)
@@ -63,6 +65,32 @@ Apply these steps in order to every jargon term, in-group shorthand, or figurati
 4. Treat overloaded words such as "solution", "support", and "workload" as undefined until the text pins their meaning in context or replaces them with a precise term.
 5. When a jargon or legacy term is a literal command, keyword, or identifier, write it only in code font when referring to that code item, and pair the first mention with the preferred plain term. Example: "add the host to the exception list (run `allowlist add <host>`)."
 
+## Source-to-Impact Checks
+
+Changing the vocabulary does not supply missing evidence. Before replacing a mechanism with an impact statement:
+
+- Identify the observed change, its conditions and affected scope, and any supported consequence. Keep observations separate from suspected explanations.
+- Preserve the direction of the result: a change alone establishes neither improvement nor harm. "After" does not establish "because of."
+- State a missing impact as unknown, not as "no impact." Keep a necessary technical term and explain it when a shorter impact-only sentence would lose the distinction needed for the decision.
+- Preserve the measured quantity when explaining a technical metric. Do not substitute an average for a percentile, select an unstated percentile, or turn an internal measurement into a customer outcome.
+- Carry these limits into the executive summary, even if the detailed explanation remains elsewhere. Do not invent a customer, revenue, cost, or reliability consequence to make an internal measurement sound relevant.
+
+These checks apply the skill's source-preservation contract to audience adaptation. [Google's audience guidance](https://developers.google.com/tech-writing/one/audience) supports explaining unfamiliar terms for the reader; [Microsoft's concise-writing guidance](https://learn.microsoft.com/en-us/style-guide/word-choice/use-simple-words-concise-sentences) pairs simple words with precise meaning. Neither substitutes for evidence about the documented system.
+
+## Audience-Simplification Review Cases
+
+These original cases are manual editorial checks, not model-performance evaluations. The supplied context is the entire evidence boundary for each case; accept equivalent accurate wording.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| `Connection pooling changed under burst load.` No outcome is supplied. | Explain connection reuse and traffic spikes; flag that user impact is unspecified. | Claiming the service became slower, smoother, cheaper, or less reliable. |
+| `After the deployment, checkout errors increased. The cause is under investigation.` | Keep the increase, checkout scope, timing, and unresolved cause in plain language. | Saying the deployment caused the errors. |
+| `In the load test, the cache reduced database reads by 20%; customer latency was not measured.` | Retain the measured reduction and test scope; say customer response-time impact was not measured. | Claiming customers received 20% faster responses. |
+| `The change reduced checkout failures during traffic spikes.` The source establishes this causal result. | `The change caused fewer checkout failures during traffic spikes.` | Removing the condition or weakening a confirmed cause to mere coincidence. |
+| `We have no user-impact measurements for the queue change.` | Say no user-impact measurements are available in the supplied evidence. | `Users were unaffected.` |
+| `Tail latency increased.` No percentile is specified. | Preserve the increase in high-end response times and flag the unspecified statistic if needed. | Stating that average latency or the slowest 1% increased. |
+| The decision is whether to reuse connections or increase connection capacity. | Retain and explain the two mechanisms so the alternatives remain distinct. | Replacing both alternatives with an indistinguishable "internal technical change." |
+
 ## Anthropomorphism
 
 - Do not give software or hardware human faculties: no component "sees", "thinks", "knows", "wants", "decides", or "tells" another component what to do.
@@ -92,8 +120,8 @@ These rules extend the empty-praise ban: a claim must survive tomorrow, not just
 - Vary sentence openers; rewrite runs of consecutive sentences that start with the same phrase.
 - Delete register fillers such as "please note that" and "at this time", "let's do X" phrasing, and exclamation marks (canonical list: docs-style-editor word-choice).
 - Prefer active verbs and specific nouns.
-- Match vocabulary to the audience. For executives and product partners, replace implementation detail with user impact, operational risk, business consequence, or decision context unless the user explicitly asks to keep the technical label. Do not repeat raw implementation phrases from the source when a plain-language explanation would preserve the point.
-- For executive summaries, scan for implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry`. Replace them unless the label is necessary for the decision. If the low-level cause is not decision-relevant, call it "an internal technical change" and spend the detail on user impact.
+- Match vocabulary to the audience. For executives and product partners, explain implementation detail through source-supported impact or decision context; when impact is missing, explain the mechanism and flag the gap. Do not repeat raw implementation phrases from the source when a plain-language explanation would preserve the point.
+- For executive summaries, scan for implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry`. Replace them unless the label is necessary for the decision. If the low-level cause is not decision-relevant, summarize it as "an internal technical change" only when accurate and spend the detail on documented impact. Apply the source-to-impact checks; do not turn missing impact into either a benefit or an assurance of no harm.
 - When a technical metric or implementation term is essential for a non-implementer, define it in plain language at first use.
 - Replace ambiguous pronouns with the noun they refer to when context is unclear.
 - Split long sentences that carry multiple ideas.
@@ -111,7 +139,7 @@ These rules extend the empty-praise ban: a claim must survive tomorrow, not just
 - Each new term is defined before use.
 - Jargon terms passed the decision tree: written around, replaced, glossed, or defined at first mention; overloaded words are pinned or replaced.
 - Vocabulary fits the audience, and non-implementer content avoids unnecessary implementation jargon.
-- Executive summaries use plain impact language for causes, risks, and next actions.
+- Executive summaries use plain language while preserving source-supported impact, causality, scope, and unknowns.
 - One term is used consistently for each concept, and lists use parallel structure.
 - Abstract claims have examples or consequences.
 - Confirmed facts, suspected causes, assumptions, and open questions are labeled when the source material is incomplete or uncertain.
