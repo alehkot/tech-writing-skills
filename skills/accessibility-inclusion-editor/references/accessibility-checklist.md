@@ -13,6 +13,7 @@
 - [Verification Passes](#verification-passes)
 - [Audit Pointers](#audit-pointers)
 - [HTML Outputs Appendix](#html-outputs-appendix)
+  - [Table Header Review Cases](#table-header-review-cases)
 - [Attribution](#attribution)
 
 ## Use When
@@ -119,7 +120,7 @@ Run these checks during the review, but report violations against their canonica
 - Descriptive link text that makes sense out of context, and disclosure of unexpected link behavior: canonical home docs-style-editor.
 - Heading hierarchy without skipped levels, and unique, descriptive, non-empty headings: canonical home docs-style-editor.
 - Referring to UI elements by their visible label or accessible name, and flagging icon controls that have neither: canonical home task-docs-writer.
-- Introducing each table in the preceding text, and never merging table cells: canonical home docs-style-editor.
+- Introducing each table in the preceding text, preferring simple tables without introducing merged cells, and preserving header-to-data relationships when recommending restructuring: canonical home docs-style-editor.
 - The punctuation and casing checks listed under Screen-Reader-Safe Prose: canonical home docs-style-editor.
 
 ## HTML Outputs Appendix
@@ -131,8 +132,26 @@ Apply this section only when the deliverable's output format is HTML. Skip it fo
 - Do not use `br` to fake paragraph spacing; `br` is only for breaks that are part of the content, and spacing belongs to CSS.
 - Prefer native interactive elements, and keep the DOM order matching the reading order.
 - Give every form input a `label` element.
-- Mark table headers with `th` only in the first row or column; add `scope` or `headers` attributes when the header structure is complex.
+- Identify table headers by what they label, not by their position or styling. Use `th` for actual row and column headers, including row headers in a later column; use `td` for data. For simple row and column relationships, use the corresponding `scope="row"` or `scope="col"` on the header cells.
+- Preserve valid existing header associations. For a supplied complex table, check explicit associations against the supplied relationships: `headers` values refer to document-unique `id` values on header cells in the same table. Do not invent associations from visual placement alone or remove meaningful header markup to satisfy a simple-table preference. Flag unknown relationships or uncheckable rendered behavior.
+- Recommend simpler tables under the canonical docs-style-editor table rules when applicable. Restructuring is separate from a mechanical or findings-only review; preserve every cell value, header label, unit, and relationship, and flag any simplification whose equivalence cannot be established.
 - Add an `aria-label` to menu-path separators written with `>` so screen readers announce the separator as `and then`.
+
+### Table Header Review Cases
+
+These original decision cases check instruction coverage for HTML documentation. They are not browser or screen-reader tests and do not establish WCAG conformance.
+
+| Supplied context | Expected review decision | Failure to reject |
+| --- | --- | --- |
+| A simple table has column labels in its first row and row labels in its first column. | Keep semantic headers and their matching row/column scope. | Replacing headers with styled data cells. |
+| Column one contains ordinal numbers; column two contains the supplied row labels. | Keep the second-column labels as `th` with row scope; leave the ordinal values as data. | Removing header semantics because the labels are outside column one. |
+| A first-row cell is a data value, even though it is bold. | Keep it a data cell; identify headers from the supplied meaning. | Making every first-row or bold cell a header. |
+| An existing multi-level table supplies valid header IDs and associations; only a copyedit was requested. | Preserve those associations and report any simplification recommendation separately. | Dropping a group label or association to flatten the table during copyediting. |
+| A proposed split would lose which unit or group applies to a value. | Flag the unresolved relationship and do not apply the split. | Keeping the numbers but changing what they measure or which group owns them. |
+| The source does not establish which header labels a data cell. | Report that association as unverified. | Guessing from proximity or claiming the table passed. |
+| The deliverable is Markdown, or HTML appears only as a literal code example. | Skip the HTML appendix for Markdown; preserve literal example code and flag concerns separately. | Injecting HTML into Markdown or silently rewriting a quoted HTML example. |
+
+Basis: W3C WAI guidance on [two-header tables, including offset row headers](https://www.w3.org/WAI/tutorials/tables/two-headers/) and [multi-level header associations and simpler alternatives](https://www.w3.org/WAI/tutorials/tables/multi-level/). Apply the documentation review's existing evidence and literal-preservation boundaries.
 
 ## Attribution
 

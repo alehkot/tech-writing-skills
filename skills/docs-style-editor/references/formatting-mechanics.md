@@ -82,11 +82,11 @@ These exceptions apply only inside reference topics that follow a repeated item 
 - Turn a one-column table into a list. Never use a table to lay out a page, hold a code sample, or fold a long flat list into columns.
 - Do not drop a table into the middle of a numbered procedure; move it before or after the steps.
 - Introduce every table with a full sentence stating what it shows, and refer to it as `the following table`. Never split a sentence around a table.
-- Mark the first row, and the first column when it labels rows, as true headers. Never signal header status with styling alone, and never merge cells.
+- Mark actual column and row labels as true headers wherever they occur. Position or styling alone does not make a data cell a header. Preserve meaningful header associations; never signal header status with styling alone, and do not introduce merged cells.
 - Write column heads in sentence case, short, with no end punctuation.
 - Sort rows in a stated logical order, or alphabetically when no natural order exists.
 - When a page has several tables, caption each as `Table N. Description` in sentence case and cite it by number with a lowercase `table` mid-sentence, rather than linking to it.
-- Split a table that needs multiple header rows or that has grown hard to scan.
+- Recommend splitting a table that needs multiple header rows or that has grown hard to scan. Do not perform structural changes during a mechanical copyedit or findings-only review. An authorized split must preserve every value, label, unit, and header-to-data relationship; if that equivalence cannot be established, flag the gap and retain the existing associations.
 
 ## Notices
 
