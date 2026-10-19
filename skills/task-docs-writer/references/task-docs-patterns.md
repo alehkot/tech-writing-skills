@@ -49,7 +49,7 @@ Keep both forms within task documentation, but plan them for different reader ne
 ## Step Rules
 
 - Title tasks by user goal and base-form action verb, such as `Find an address`, not by product UI or an `-ing` phrase, such as `Using the Address window`.
-- Use one action per numbered step. The only permitted multi-action step is a menu path joined with `>`: `Click Project > Settings > Integrations`.
+- Use one action per numbered step. The only permitted multi-action step is a documented menu sequence, for example: Select **Project**, then **Settings**, then **Integrations**. Keep the supplied labels and order. Use connecting words or a verified accessible house menu-path format rather than relying on how `>` is pronounced. This exception does not combine unrelated setup, execution, or verification actions.
 - Format a one-step procedure as a single bulleted sentence, never as a numbered list of one.
 - Label sub-steps with lowercase letters (a, b, c) and deeper levels with lowercase Roman numerals; end a step that introduces sub-steps with a colon or a period.
 - Order the parts of a complex step: the action, then the command, then placeholder definitions, then extra detail, then output, then the result as its own paragraph.
@@ -167,7 +167,7 @@ Apply the same editorial-check limitation above; these cases do not establish ex
 - Prerequisites appear before steps.
 - The first step can be performed from the stated starting state.
 - Steps are chronological.
-- Single-step procedures are one bulleted sentence, and multi-action steps appear only as `>` menu paths.
+- Single-step procedures are one bulleted sentence, and multi-action steps appear only as documented menu sequences with explicit textual order or a verified accessible house format.
 - Optional paths are labeled.
 - Important facts explain why they matter to the task.
 - Named UI elements are bold, match their visible labels, and use the standard interaction verbs.

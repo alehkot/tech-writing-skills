@@ -13,6 +13,7 @@
 - [Verification Passes](#verification-passes)
 - [Audit Pointers](#audit-pointers)
 - [HTML Outputs Appendix](#html-outputs-appendix)
+  - [Menu Path Review Cases](#menu-path-review-cases)
   - [Table Header Review Cases](#table-header-review-cases)
 - [Attribution](#attribution)
 
@@ -91,7 +92,7 @@ Basis: W3C WAI guidance on [captions](https://www.w3.org/WAI/media/av/captions/)
 When the write-simplified-technical-english skill is also active, its stricter sentence and structure rules take precedence over these checks.
 
 - The meaning must survive with all punctuation stripped; read each sentence without punctuation as a check.
-- Give each instruction its own list item; never chain steps inside one paragraph.
+- Give each instruction its own list item; never chain unrelated steps inside one paragraph. A documented menu sequence may stay together under the task-docs-writer menu-path exception, with its order explicit in text or a verified accessible house format.
 - State abilities positively, and avoid double negatives and exceptions to exceptions (canonical rules: docs-style-editor grammar-and-usage).
 
 Run the following punctuation and casing checks as well, but report each hit against its canonical home instead of re-deciding the rule:
@@ -135,7 +136,25 @@ Apply this section only when the deliverable's output format is HTML. Skip it fo
 - Identify table headers by what they label, not by their position or styling. Use `th` for actual row and column headers, including row headers in a later column; use `td` for data. For simple row and column relationships, use the corresponding `scope="row"` or `scope="col"` on the header cells.
 - Preserve valid existing header associations. For a supplied complex table, check explicit associations against the supplied relationships: `headers` values refer to document-unique `id` values on header cells in the same table. Do not invent associations from visual placement alone or remove meaningful header markup to satisfy a simple-table preference. Flag unknown relationships or uncheckable rendered behavior.
 - Recommend simpler tables under the canonical docs-style-editor table rules when applicable. Restructuring is separate from a mechanical or findings-only review; preserve every cell value, header label, unit, and relationship, and flag any simplification whose equivalence cannot be established.
-- Add an `aria-label` to menu-path separators written with `>` so screen readers announce the separator as `and then`.
+- Express a documented menu sequence in real text, for example `Select Project, then Settings, then Integrations.`, preserving the supplied labels and their order. A menu path is the task-docs-writer exception to the one-action-per-step rule, whether its separators are words or symbols. Do not rely on a screen reader pronouncing `>` to convey the sequence.
+- Do not add `aria-label` or `aria-labelledby` to a generic separator `span` to replace its pronunciation: generic elements prohibit naming. Do not add an unrelated role or make punctuation focusable to force a name. Prefer visible connecting words, or split the sequence into separate steps when needed.
+- If a documented, tested house component already supplies equivalent accessible text for a symbolic path, preserve it. If its implementation or rendered behavior is unavailable, flag that verification gap rather than promising how it will be announced. Do not silently rewrite literal HTML examples, command operators, or a `>` that is part of a UI label.
+
+### Menu Path Review Cases
+
+These original cases test editorial decisions against supplied evidence, not browser or screen-reader behavior. They do not establish WCAG conformance.
+
+| Supplied context | Expected review decision | Failure to reject |
+| --- | --- | --- |
+| HTML prose documents the menu sequence Project, Settings, Integrations using bare `>` separators. | Use visible connecting words, keeping all three supplied labels in order, or separate steps. | Depending on punctuation pronunciation to carry the sequence. |
+| A generic `span` around each separator has `aria-label="and then"`. | Flag the prohibited naming and prefer real connecting text in the documentation revision. | Marking it accessible merely because an ARIA attribute exists. |
+| A proposed repair gives the separator a button role or a tab stop. | Reject the invented interaction and use ordinary text. | Making punctuation interactive to obtain a spoken name. |
+| A supplied, tested house component already exposes equivalent connecting text and preserves each label. | Preserve it; do not duplicate its text or rewrite it solely because the visual separator is `>`. | Requiring a second spoken connector without inspecting the existing alternative. |
+| Only the rendered screenshot or component name is supplied. | Flag announcement behavior as unverified; suggest a text sequence without claiming the component failed testing. | Inferring accessible behavior from appearance or a component name. |
+| A command contains `output > file`, or the supplied UI label is `Size > 10`. | Preserve the literal operator or full label; the separator rule concerns menu-path prose. | Replacing every greater-than character globally. |
+| A Markdown guide contains a menu path, or a code fence quotes the problematic HTML verbatim. | Do not inject HTML/ARIA into Markdown or alter quoted code; propose plain-language prose or flag the example separately. | Applying the HTML appendix outside its scope or silently changing source literals. |
+
+Basis: [W3C ARIA in HTML naming requirements](https://www.w3.org/TR/html-aria/#requirements-for-use-of-aria-attributes-to-name-elements) and [ARIA naming guidance](https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/). This deliberately replaces the generic-span naming pattern in the adapted Google guidance with ordinary text; no particular assistive-technology announcement is guaranteed.
 
 ### Table Header Review Cases
 
