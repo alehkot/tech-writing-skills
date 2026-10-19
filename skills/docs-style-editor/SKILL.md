@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.5"
+  version: "1.1.6"
   risk_tier: low
 ---
 
@@ -90,7 +90,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Tense and modal edits preserve source-supported requiredness, expectation, uncertainty, and proposal or counterfactual status; ambiguous intent is flagged instead of guessed.
 - [ ] Changes are mechanical: no fact, condition, actor, number, unit, severity, hedge, or caveat was added, deleted, or reweighted.
 - [ ] Values that may be real rather than illustrative are flagged as questions, never swapped for reserved example values.
-- [ ] Time-anchored, ease-claim, and register fillers are gone, except in the exempted time-stamped genres.
+- [ ] Time-anchored and register fillers follow their genre exceptions; ease-word cleanup preserves meaningful restrictions, timing, comparisons, technical terms, and literals.
 - [ ] Cleanup removes empty framing and repeated list-label wording while preserving real contrasts, uncertainty, technical terms, and required reusable text; revised phrases remain grammatical, and incomplete prose is expanded only when its meaning is established.
 - [ ] Defects owned by another skill are reported with that skill named, not re-decided here.
 - [ ] When STE is active, its stricter rules took precedence and none was relaxed.

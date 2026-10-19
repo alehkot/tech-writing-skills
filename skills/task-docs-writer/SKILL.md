@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.3.4"
+  version: "1.3.5"
   risk_tier: low
 ---
 
@@ -104,7 +104,7 @@ Use this procedure to [outcome].
 - [ ] Placeholders follow one convention across the doc set, and each is defined near its command or listed after the output it appears in.
 - [ ] Commands are introduced by what they accomplish; copyable blocks preserve executable syntax and contain no unresolved synopsis notation or copied prompt prefixes, and input and output sit in separate blocks.
 - [ ] No prerequisite, required action, or expected result hides in a note, and no note wraps a cross-reference.
-- [ ] Steps contain no `please`, `simply`, `just`, or `easily` (canonical list: docs-style-editor word-choice).
+- [ ] Steps contain no `please` or empty ease reassurance; cleanup preserves sourced restrictions, timing conditions, technical terms, and exact labels (canonical rules: docs-style-editor word-choice).
 - [ ] Example values use documentation-reserved data such as `example.com`, RFC 5737 IP ranges, and 800-555-01xx phone numbers (canonical table: docs-style-editor safe-example-values).
 - [ ] Long procedures are split into manageable tasks, phases, or subtasks.
 - [ ] Lists, choices, and substeps are parallel and concise.
