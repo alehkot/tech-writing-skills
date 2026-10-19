@@ -7,6 +7,7 @@
 - [Procedure Planning Questions](#procedure-planning-questions)
 - [Tutorials and How-To Guides](#tutorials-and-how-to-guides)
 - [Step Rules](#step-rules)
+- [Action-Timing Review Cases](#action-timing-review-cases)
 - [UI Writing](#ui-writing)
 - [Code and Command Rules](#code-and-command-rules)
 - [Placeholder Rules](#placeholder-rules)
@@ -49,7 +50,8 @@ Keep both forms within task documentation, but plan them for different reader ne
 ## Step Rules
 
 - Title tasks by user goal and base-form action verb, such as `Find an address`, not by product UI or an `-ing` phrase, such as `Using the Address window`.
-- Use one action per numbered step. The only permitted multi-action step is a documented menu sequence, for example: Select **Project**, then **Settings**, then **Integrations**. Keep the supplied labels and order. Use connecting words or a verified accessible house menu-path format rather than relying on how `>` is pronounced. This exception does not combine unrelated setup, execution, or verification actions.
+- Use one primary action per numbered step. Preserve source-required overlap: keep tightly coupled simultaneous actions together with explicit wording such as `while holding`. For state that must persist across several steps, separate the primary actions while explicitly carrying that state through each dependent step (for example, `keep ... active until ...`). Preserve supplied start, stop, and release conditions; do not invent durations, release points, or a sequential substitute. If timing is unclear, retain the source wording and flag the gap.
+- A documented menu sequence may share a step, for example: Select **Project**, then **Settings**, then **Integrations**. Keep supplied labels and order. Use connecting words or a verified accessible house menu-path format rather than relying on how `>` is pronounced. Along with Enter completing an input below, these are bounded grouping rules, not permission to combine unrelated setup, execution, or verification actions.
 - Format a one-step procedure as a single bulleted sentence, never as a numbered list of one.
 - Label sub-steps with lowercase letters (a, b, c) and deeper levels with lowercase Roman numerals; end a step that introduces sub-steps with a colon or a period.
 - Order the parts of a complex step: the action, then the command, then placeholder definitions, then extra detail, then output, then the result as its own paragraph.
@@ -66,7 +68,7 @@ Keep both forms within task documentation, but plan them for different reader ne
 - Never put required information in a note: prerequisites and earlier-step reminders go before the step, procedural actions go in the numbered steps, and expected results stay in flow with their step. Never use a note as a cross-reference wrapper. The full notice severity taxonomy is canonical in docs-style-editor.
 - Introduce commands by what they accomplish, never with `run the following command`: `Deploy the load generator:`.
 - Fold pressing Enter into the step it completes; do not make it its own step.
-- Instruct through named UI actions, not keyboard shortcuts: `Paste the connection string into the field`, not `Press Command+V`.
+- Prefer named UI actions over optional keyboard shortcuts: `Paste the connection string into the field`, not `Press Command+V`. Preserve a source-required key, button hold, or chord when it defines the action; do not replace it with an unsupported UI method or drop the required overlap.
 - Choose one recommended, keyboard-accessible method that fits the reader. Preserve necessary conditional actions within that method; put competing methods under separate headings or tabs.
 - Link to an already-documented procedure instead of repeating its steps.
 - Use bullets only for choices, notes, or examples inside a step.
@@ -74,6 +76,33 @@ Keep both forms within task documentation, but plan them for different reader ne
 - Use one term for each control, file, service, or role; define acronyms and placeholders before use.
 - Keep conceptual explanations outside the numbered flow unless they prevent immediate reader error.
 - Prefer "Verify that..." steps over vague "Make sure..." language.
+
+## Action-Timing Review Cases
+
+These original editorial cases check instruction consistency and source preservation,
+not measured model performance or execution in a real product. Each row supplies
+its own task facts; do not infer the same behavior for another application.
+
+| Supplied source and context | Expected decision | Rewrite to reject |
+| --- | --- | --- |
+| In the file list, select the first file, then hold Shift while selecting the last file. | Keep the initial selection before the sustained Shift-and-selection action; state that Shift stays held during the last selection. | Press Shift, release it, then select the last file; or omit Shift. |
+| In the canvas, hold the constraint key throughout the drag and release it after releasing the pointer button. | Keep the hold active through the drag and preserve the supplied release order. | Split into isolated press/drag steps that lose the hold, or release the key before the pointer button. |
+| Press the two named buttons at the same time; no duration is supplied. | Keep simultaneity explicit without inventing a hold duration. | Press one button and then the other, or hold them for five seconds. |
+| Keep the preview running while changing the setting; stop it after the new value appears. | Preserve the running state through the change and the supplied stop condition. | Stop the preview before changing the setting. |
+| Keep the preview running while configuring access, starting the job, and checking its output; stop it after the check. | Separate the distinct actions while explicitly keeping the preview active through each; preserve the supplied stop point. | Force every action into one oversized step, or stop the preview between dependent steps. |
+| Select Project, then Settings, then Integrations. | A single documented menu sequence remains allowed, with textual order and exact labels. | Reorder the selections or mark the sequence simultaneous. |
+| Enter the supplied search text and press Enter to submit it. | Keep Enter with the input it completes, without adding unsupported navigation. | Forbid this grouping under a menu-only exception or invent an extra confirmation click. |
+| Create the workspace, configure access, then run validation; no overlap is specified. | Keep the distinct actions in order as separate steps. | Combine them merely to shorten the procedure, or invent concurrent execution. |
+| The notes say to hold a key and select an item but do not establish whether the hold must continue during selection. | Preserve the wording and flag the timing question. | Invent either a release point or a required overlap. |
+
+[Google's procedure guidance](https://developers.google.com/style/procedures)
+provides the one-action default and the menu-sequence and input-completion
+patterns. The source-preservation rule here also keeps necessary overlap explicit;
+formatting must not change how a documented interaction works.
+[Microsoft's procedure checklist](https://learn.microsoft.com/en-us/style-guide/checklists/procedures-and-instructions-checklist)
+uses a modifier held during a click, and [Apple's selection documentation](https://support.apple.com/guide/mac-help/select-items-mchlp1378/mac)
+documents held modifiers for selecting items. These are examples of timing that
+must survive a writing or accessibility pass, not universal key mappings.
 
 ## UI Writing
 
@@ -167,7 +196,7 @@ Apply the same editorial-check limitation above; these cases do not establish ex
 - Prerequisites appear before steps.
 - The first step can be performed from the stated starting state.
 - Steps are chronological.
-- Single-step procedures are one bulleted sentence, and multi-action steps appear only as documented menu sequences with explicit textual order or a verified accessible house format.
+- Single-step procedures are one bulleted sentence. Grouped actions preserve required overlap or sustained state, explicit menu order, or Enter completing its input; unrelated actions stay separate.
 - Optional paths are labeled.
 - Important facts explain why they matter to the task.
 - Named UI elements are bold, match their visible labels, and use the standard interaction verbs.
