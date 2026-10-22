@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.6"
+  version: "1.1.7"
   risk_tier: low
 ---
 
@@ -86,7 +86,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Each requested pass ran against its reference file, and each hit is listed with its location and rule.
 - [ ] Exact literals are unchanged: commands, flags, paths, filenames, identifiers, UI labels, error strings, code output, quoted text, versions, and quantities.
 - [ ] Banned terms that are literal identifiers stayed in code font, with the preferred term used only in surrounding prose.
-- [ ] Headings, list items, table headers, and captions use sentence case, and no heading ends with a period.
+- [ ] Headings, list items, table headers, and captions use sentence case, and no heading ends with a period. Heading labels preserve requiredness for the applicable readers; a condition or a choice of methods does not by itself make work optional.
 - [ ] Tense and modal edits preserve source-supported requiredness, expectation, uncertainty, and proposal or counterfactual status; ambiguous intent is flagged instead of guessed.
 - [ ] Changes are mechanical: no fact, condition, actor, number, unit, severity, hedge, or caveat was added, deleted, or reweighted.
 - [ ] Values that may be real rather than illustrative are flagged as questions, never swapped for reserved example values.

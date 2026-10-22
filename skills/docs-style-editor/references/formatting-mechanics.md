@@ -6,6 +6,8 @@
 - [Scope Notes](#scope-notes)
 - [Capitalization](#capitalization)
 - [Headings and Titles](#headings-and-titles)
+  - [Applicability and Optionality](#applicability-and-optionality)
+  - [Heading-Label Review Cases](#heading-label-review-cases)
   - [Reference-Template Exceptions](#reference-template-exceptions)
 - [Lists](#lists)
 - [Tables](#tables)
@@ -44,7 +46,7 @@ Load this reference for the formatting pass: capitalization, headings, lists, ta
 
 - Make every heading descriptive and unique so readers can navigate between sections and pages.
 - Head a task section with a base-form verb and a concept section with a noun phrase that does not start with an `-ing` word (canonical heading grammar: task-docs-writer for tasks, technical-content-clarifier for concepts).
-- Prefix a heading that applies only to some readers with `Optional:`.
+- Use `Optional:` only when the source establishes that the applicable reader can skip the work. A section that applies only to some readers can still be required for those readers; preserve its condition instead of adding an optional label. See [Applicability and Optionality](#applicability-and-optionality).
 - Give a page exactly one top-level heading, and never repeat the page title verbatim as a section heading.
 - Never skip a heading level; nest each level directly under the level above it.
 - Follow every heading with at least one sentence of content before the next heading.
@@ -52,6 +54,48 @@ Load this reference for the formatting pass: capitalization, headings, lists, ta
 - Use only a commonly known abbreviation in a heading, and expand it in the first paragraph below.
 - Do not number headings to show sequence, put a link inside a heading, or use a bare code item as a heading without a descriptive noun.
 - Introduce a run of subsections as `the following sections`, not `this section` or `these sections`.
+
+### Applicability and Optionality
+
+Applicability answers who or when; optionality answers whether those readers can
+skip the work. Check both against the source before changing a heading label.
+For example, a required migration for existing installations is conditional, not
+optional merely because new installations do not need it. Keep an accurate
+heading and its supplied condition, or make a small, source-supported wording
+repair such as `Migrate an existing installation`. Do not move content, invent a
+condition, or turn a recommendation into a requirement during a copyedit.
+
+Preserve a genuine optional label when the source permits skipping the work.
+Choosing one of several methods does not make the required outcome optional;
+keep the choice and its selection criteria. Likewise, choosing an optional feature
+does not make its prerequisites optional once that feature is selected. If the
+source does not establish requiredness or the heading conflicts with the body,
+flag the precise gap rather than guessing. Preserve mandated headings and
+project naming conventions; report a meaning conflict rather than silently
+relabeling them or dropping the condition.
+
+This house default deliberately narrows the broad subset-of-readers wording in
+Google's [heading guidance](https://developers.google.com/style/headings#heading-and-title-text).
+It applies the source-fidelity constraint and the distinction between required,
+recommended, and optional actions in Google's
+[prescriptive documentation guidance](https://developers.google.com/style/prescriptive-documentation).
+
+### Heading-Label Review Cases
+
+Use the following original cases as manual editorial regression checks, accepting
+equivalent accurate wording. They check instruction consistency, not measured
+model behavior or whether a product procedure works. Each source statement is
+hypothetical and supplies the facts for that case only.
+
+| Supplied facts | Required editorial result | Reject |
+| --- | --- | --- |
+| Existing installations must migrate the configuration before upgrading; new installations need no migration. | Preserve the required migration for existing installations and its before-upgrade condition. | `Optional: Migrate the configuration` merely because not every reader needs it. |
+| Readers may skip customizing their display alias without affecting setup. | Retain or apply `Optional: Customize your display alias`. | Making customization mandatory or removing an accurate optional label. |
+| The source recommends a backup before the update but does not require it. | Keep the recommendation and timing; do not infer a stronger or weaker instruction from a heading convention. | Relabeling it as either mandatory work or merely `Optional:` while losing the recommendation. |
+| The source gives an import method and a manual-entry method; readers must use one to populate the catalog. | Preserve the required outcome and the choice of methods. | Labeling both paths optional in a way that tells readers they may skip both. |
+| Enabling notifications is optional, but readers who enable them must verify their destination. | Preserve the optional feature choice and the required verification within that choice. | Making destination verification optional for readers who enable notifications. |
+| A section describes proxy configuration but never says which installations need it or whether it can be skipped. | Keep the source wording and flag the missing applicability or requiredness information. | Inferring `Optional:` or inventing a platform condition. |
+| A mandated template fixes an `Optional setup` heading, but the supplied body requires an action for a named deployment type. | Preserve the mandated heading and the body's requirement; report the labeling conflict for the owner. | Silently overriding the template or weakening the body's condition to fit the heading. |
 
 ### Reference-Template Exceptions
 
