@@ -10,6 +10,7 @@
 - [Source-to-Impact Checks](#source-to-impact-checks)
 - [Audience-Simplification Review Cases](#audience-simplification-review-cases)
 - [Anthropomorphism](#anthropomorphism)
+  - [Behavior-Preservation Review Cases](#behavior-preservation-review-cases)
 - [Durable Claims](#durable-claims)
 - [Engagement Without Hype](#engagement-without-hype)
 - [Revision Checklist](#revision-checklist)
@@ -94,9 +95,30 @@ These original cases are manual editorial checks, not model-performance evaluati
 ## Anthropomorphism
 
 - Do not give software or hardware human faculties: no component "sees", "thinks", "knows", "wants", "decides", or "tells" another component what to do.
-- Replace human verbs with precise technical verbs such as specifies, detects, sends, returns, sets, and reads. Avoid: "the scheduler decides which node it likes best." Prefer: "the scheduler selects the node with the most free memory."
+- Replace human verbs with source-supported technical verbs such as specifies, detects, sends, returns, sets, and reads. For "the scheduler decides which node it likes best," write "the scheduler selects a node" and flag the unspecified selection criteria when needed for the explanation. Write "the node with the most free memory" only when the source establishes that policy.
+- Preserve the actor, action, conditions, and evidence status. Do not turn an unknown mechanism into a plausible algorithm, a request into completed work, or a suspected result into a confirmed result. Keep supplied technical detail rather than reducing a known mechanism to a vague verb. Preserve exact identifiers and quoted strings; the wording pass changes explanatory prose, not literal names.
 - Treat anthropomorphism as figurative language that translates poorly; scan for it whenever the audience is global or cross-team.
 - Deliberate, explicitly bounded analogies remain allowed. The ban targets casual human-verb phrasing in ordinary descriptions, not labeled analogies.
+
+### Behavior-Preservation Review Cases
+
+These original manual editorial cases check instruction consistency, not measured
+model behavior. Each case supplies its own hypothetical evidence boundary; accept
+equivalent wording that preserves those facts.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| `The scheduler decides which node it likes best.` No policy is supplied. | Say the scheduler selects a node; flag the missing selection criteria when the explanation needs them. | Inventing most-free-memory, least-loaded, random, or round-robin selection. |
+| The source says the scheduler selects the eligible node with the most free memory. | Retain eligibility and the stated memory criterion while simplifying the prose. | Dropping the policy or adding an unsupported tie-break rule. |
+| `The monitor sees a failure.` No detection mechanism is supplied. | Say the monitor detects a failure; leave the detection mechanism unspecified. | Claiming it polls every five seconds or receives a particular event. |
+| `The controller tells the worker to restart.` The source establishes a restart request, not its outcome. | Say the controller requests a worker restart; keep completion unconfirmed. | Saying the controller restarts the worker or that the restart succeeded. |
+| `The client thinks the connection is down.` The source says the client inferred this after a timeout; the actual connection state is unknown. | Describe the client's inference after the timeout and retain the uncertainty about the connection. | Replacing the inference with confirmed detection of a failed connection. |
+| The source names an API method `knowsLeader()` and explains that it returns a cached leader identifier. | Keep the literal method name and its cached-return behavior. | Renaming the API or claiming it discovers the current leader. |
+| A labeled dispatcher analogy compares a scheduler to a receptionist, with the analogy's limits stated. | Keep the bounded analogy when it helps the reader; keep actual selection behavior separate. | Treating the analogy as evidence for an unstated scheduling policy or banning all analogies. |
+
+[Google's anthropomorphism guidance](https://developers.google.com/style/anthropomorphism)
+supports replacing figurative human actions with direct technical wording. The
+checks here apply that style rule without supplying missing product behavior.
 
 ## Durable Claims
 
