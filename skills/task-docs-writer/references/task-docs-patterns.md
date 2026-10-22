@@ -9,6 +9,7 @@
 - [Step Rules](#step-rules)
 - [Action-Timing Review Cases](#action-timing-review-cases)
 - [UI Writing](#ui-writing)
+- [Keyboard Shortcut Review Cases](#keyboard-shortcut-review-cases)
 - [Code and Command Rules](#code-and-command-rules)
 - [Placeholder Rules](#placeholder-rules)
 - [Provide the Why](#provide-the-why)
@@ -116,10 +117,34 @@ must survive a writing or accessibility pass, not universal key mappings.
 - Do not use toggle as a verb; state the action and the end position: `click the Backups toggle to the on position`.
 - Drop a trailing ellipsis when quoting a button or menu label: `click Browse`, not `click Browse ...`.
 - Refer to an icon-only control by its tooltip or accessible name, never as `the icon`. If the source supplies no accessible name, flag it as an open question; never invent one.
-- Format keyboard shortcuts as a spelled-out modifier plus an uppercase key, with the macOS variant in parentheses: `Control+S (Command+S on macOS)`. Use press for shortcuts and enter for text input.
+- Format shortcut key names with spelled-out modifiers and uppercase letter keys, preserving the documented binding and its application, platform, layout, and custom-keymap scope. Uppercase letter notation alone does not add Shift; preserve Shift only when the source requires it. Use press for shortcuts and enter for text input. When multiple platform bindings are supplied or independently verified, label each platform and put the macOS variant in parentheses where that is clear. Do not invent an alternate binding or mechanically replace Control with Command (or Alt with Option); the same modifier can remain correct on another platform, and a different action can use the guessed binding. If a required platform mapping is missing, flag that gap instead.
+- Preserve sequential chords as sequences, not one simultaneous combination: `Control+K, then Control+S` is not `Control+K+S`. Keep supplied focus or mode conditions and required holds. Formatting a shortcut does not verify it in the product.
 - Use `in` with dialogs, fields, lists, menus, panes, and windows; use `on` with pages, tabs, and toolbars.
 - Prefer stating the reader's goal over widget-by-widget mechanics when the UI is obvious: `Refresh the page`, not a click sequence.
 - Avoid copy-and-paste mechanics; state what to enter in the field, not how to move the text.
+
+## Keyboard Shortcut Review Cases
+
+These original manual editorial checks test source preservation, not measured model
+performance or execution in an application. Each row supplies the complete evidence
+for its example; do not generalize its bindings to other products or keymaps.
+
+| Supplied source and context | Expected decision | Rewrite to reject |
+| --- | --- | --- |
+| A Windows-only guide supplies `Ctrl+S` to save; no macOS mapping is given. | Write `Control+S` for Windows without adding a Mac binding. If Mac coverage is required, flag the missing mapping. | Automatically appending `Command+S on macOS`. |
+| The source explicitly documents Save as `Ctrl+S` on Windows/Linux and `Cmd+S` on macOS. | Preserve both verified bindings with platform labels; the parenthetical Mac form is allowed. | Removing the documented alternate or claiming the keys are identical. |
+| A macOS terminal procedure says `Control+C` interrupts the foreground command. | Keep `Control+C`, the terminal context, and the supplied action. | Replacing Control with Command or describing the action as copying. |
+| An application's source supplies `Control+H` on Windows and `Option+Command+F` on macOS for the same action. | Preserve the distinct sourced combinations and their platforms. | Deriving a Mac binding of `Command+H` by substitution. |
+| The supplied shortcut is `Control+K`, followed by `Control+S`. | State the two combinations in order, for example `Control+K, then Control+S`. | Collapsing them to the simultaneous `Control+K+S`. |
+| A custom keymap binds an action to `Control+Enter` only when the editor has focus. | Preserve the custom-keymap and focus qualifications; do not present it as the product default. | Dropping the qualifications or adding a default binding not supplied. |
+| A source binding is `Ctrl+s`, with no Shift modifier. | Format the letter as `Control+S` without changing the pressed keys. | Adding Shift because the letter is uppercase in the prose. |
+| A guide supplies the unmodified `F5` key for an action. | Keep `F5`; a modifier is not required just to match a formatting pattern. | Adding Control or Command. |
+
+[Google's UI style guidance](https://developers.google.com/style/ui-elements)
+describes formatting when multiple operating-system shortcuts are provided, not
+how to infer missing bindings. [VS Code's keybinding documentation](https://code.visualstudio.com/docs/configure/keybindings)
+illustrates platform differences, sequential chords, context conditions, layouts,
+and custom mappings. Consult the actual product's source for the task being written.
 
 ## Code and Command Rules
 
@@ -200,6 +225,7 @@ Apply the same editorial-check limitation above; these cases do not establish ex
 - Optional paths are labeled.
 - Important facts explain why they matter to the task.
 - Named UI elements are bold, match their visible labels, and use the standard interaction verbs.
+- Keyboard shortcuts preserve sourced bindings, platform/application scope, and sequence; unknown alternatives remain gaps, not guessed modifier substitutions.
 - Copyable command blocks preserve executable syntax and separate any required placeholder replacements from claims of running unchanged; no unresolved synopsis notation, copied prompt prefixes, interleaved output, or omission is presented as a complete command.
 - Line wrapping follows the documented shell, preserves arguments and literals, and is verified or left unchanged with a gap noted.
 - Terms and placeholders are defined once and used consistently, under one placeholder convention.

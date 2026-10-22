@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.3.6"
+  version: "1.3.7"
   risk_tier: low
 ---
 
@@ -31,7 +31,7 @@ For each check with named states, map every supplied state to its next action, r
 5. Start each action step with an imperative verb. Use one primary action per step. Keep tightly coupled simultaneous actions together. When a state must persist across several steps, separate the primary actions while explicitly carrying that state through each dependent step and preserving the supplied stop or release condition; do not turn required overlap into a sequential substitute. A documented menu sequence may also share a step, joined with words such as `then` or an accessible house menu-path format. Preserve supplied labels, order, and timing; do not rely on punctuation pronunciation. Apply the bounded grouping rules in the reference. Format a one-step procedure as a single bulleted sentence, never a numbered list of one. Put conditions first: `If you use Kubernetes, set ...`.
 6. Provide the why when it changes user behavior. Use `To [goal], [action]` when a step's purpose is not obvious; switch to the colon form (`Rotate the signing key: click Rotate.`) when the `To ...` form could read as optional.
 7. State location before action when the reader must act in a specific UI, file, directory, console, or service. Restate the acting context in the first step under each new heading, even when it is unchanged. Use named locations instead of directional cues such as `above`, `below`, or `right`.
-8. When a step names a UI element, bold its exact visible label and use the standard interaction verbs: click, tap, press, enter (reserve type for characters the reader must literally type), select and clear, drag, turn on or turn off. Refer to an icon-only control by its tooltip or accessible name; if the source supplies none, flag it as an open question instead of inventing one. Apply the UI writing rules in [references/task-docs-patterns.md](references/task-docs-patterns.md).
+8. When a step names a UI element, bold its exact visible label and use the standard interaction verbs: click, tap, press, enter (reserve type for characters the reader must literally type), select and clear, drag, turn on or turn off. Refer to an icon-only control by its tooltip or accessible name; if the source supplies none, flag it as an open question instead of inventing one. Preserve documented keyboard shortcuts and their platform/application context; add alternate bindings only when supplied or verified, never by substituting modifier names. Apply the UI writing rules in [references/task-docs-patterns.md](references/task-docs-patterns.md).
 9. Label optional work at the start of the sentence: `Optional: ...`.
 10. Use one term consistently for each UI element, command, file, role, or system component. Define unfamiliar terms, acronyms, and placeholders before relying on them.
 11. Make command examples copyable and adaptable. Preserve executable syntax and literal data; keep command-synopsis notation and prompt prefixes out of copied command text, as detailed in [references/task-docs-patterns.md](references/task-docs-patterns.md). Introduce each command by what it accomplishes, never with `run the following command`. Use one placeholder convention across the doc set: the house form is lowercase `<angle-bracket>` names, and a target doc set's existing convention wins when one exists. Give placeholders informative names and define each near its command with `Replace <placeholder> with ...` or a `Replace the following:` list.
@@ -98,6 +98,7 @@ Use this procedure to [outcome].
 - [ ] Each step states the action before its result, and a dialog is named in the step that produced it.
 - [ ] UI or file-location steps name the location before the action, and the first step under each heading restates the acting context.
 - [ ] Named UI elements are bold, match their visible labels, and use the standard interaction verbs (click, tap, press, enter, select, clear).
+- [ ] Keyboard shortcuts retain the documented keys, sequence, context, and platform scope; alternate bindings are source-supported, not inferred from modifier names.
 - [ ] The guide avoids directional location cues that depend on page layout or visual position.
 - [ ] Optional steps are explicitly labeled.
 - [ ] Terms, acronyms, and placeholders are defined once and used consistently.
