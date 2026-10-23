@@ -18,6 +18,7 @@
 - [Sentence Mechanics](#sentence-mechanics)
 - [Paragraph Mechanics](#paragraph-mechanics)
 - [Global-Audience Usage](#global-audience-usage)
+- [Limiter Scope Review Cases](#limiter-scope-review-cases)
 - [Attribution](#attribution)
 
 
@@ -150,13 +151,36 @@ Use these original cases to check meaning preservation, not as evidence of measu
 
 - Prefer the plain short word and the single verb (term-by-term rulings: word-choice). Keep `set up`, `log in`, and `sign in` as accepted verb phrases.
 - Keep helper words that block misparsing: `if X, then Y`, `assumes that you have`, `start the profiler, and then run the build`.
-- Place `only` and similar limiters directly before what they limit. Avoid: `The agent only reports failed checks to the collector.` Prefer: `The agent reports only failed checks to the collector.`
+- Make the scope of `only` and similar limiters clear without choosing a new restriction. Move a limiter closer to what it modifies only when the supplied context establishes that focus. `The agent only reports failed checks to the collector.` is not enough by itself to choose between restricting the action, the reported checks, or the recipient. If the source separately establishes that successful checks are excluded, `The agent reports only failed checks to the collector.` is appropriate. Otherwise, retain the wording and flag the unresolved scope rather than guessing. Leave already clear wording unchanged; see the review cases below.
 - Stack at most two nouns as modifiers of another noun; move the rest after the noun.
 - Attach a category noun to a bare technical name: `the config.yaml file`, `the build command`.
 - Repeat a shared word across parallel elements when dropping it creates ambiguity: `both network segmentation and identity segmentation`.
 - Do not use the same word as a noun and a verb in nearby sentences, and use each word in its primary sense.
 - State abilities positively and avoid double negatives. Avoid: `Nothing prevents you from disabling the check.` Prefer: `You can turn off the check.`
 - Avoid humor, idioms, seasons, holidays, sports references, and country-specific cultural references.
+
+## Limiter Scope Review Cases
+
+These original cases are manual editorial checks, not model-performance
+measurements. Treat the supplied context as the evidence boundary and accept
+equivalent wording that preserves the same restriction. A style preference for
+nearby modifiers does not establish a missing product rule.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| `The agent only reports failed checks to the collector.` No other context is supplied. | Retain the sentence and ask what `only` restricts. | Selecting action, check type, or recipient scope without evidence. |
+| The same sentence; the source separately says successful checks are excluded from these reports. | `The agent reports only failed checks to the collector.` | Changing the restriction to who reports, where reports go, or what other actions the agent can perform. |
+| The same sentence; the source separately contrasts reporting failed checks with repairing them, which the agent does not do. | State the sourced contrast: the agent reports failed checks to the collector but does not repair them. | Inferring that successful checks are never reported. |
+| The same sentence; the source separately says the collector is the sole recipient of failed-check reports. | `The agent reports failed checks only to the collector.` | Inferring a restriction on other actions or check types. |
+| `Only administrators can delete archived snapshots.` The source establishes the role restriction. | Keep the clear subject restriction. | `Administrators can only delete archived snapshots.`, which can restrict their actions or the objects instead. |
+| `Retry only if the error is transient.` The source supplies a necessary condition, not a command to retry every transient error. | Preserve `only if` and its relationship to retrying. | `If the error is transient, retry.`, which makes the condition sufficient for the instruction. |
+| `The exporter saves not only metrics but also traces.` Both outputs are established. | Preserve both outputs and the correlative relationship. | Treating `only metrics` as an exclusion or dropping traces. |
+| The source contains the literal flag `--failed-only` and a UI label `Only mine`. | Preserve both literals under the code-literal exception. | Moving or deleting words inside a flag or label to satisfy prose style. |
+
+[Microsoft's modifier guidance](https://learn.microsoft.com/en-us/style-guide/grammar/dangling-misplaced-modifiers)
+shows that modifier placement can change what a sentence restricts. These cases
+apply the skill's source-preservation contract: clarify an established scope,
+but flag ambiguity when the intended scope is not supplied.
 
 ## Attribution
 
