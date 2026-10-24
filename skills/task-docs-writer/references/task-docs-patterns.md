@@ -13,6 +13,7 @@
 - [Code and Command Rules](#code-and-command-rules)
 - [Placeholder Rules](#placeholder-rules)
 - [Provide the Why](#provide-the-why)
+- [Rationale Review Cases](#rationale-review-cases)
 - [Copyable Example Review Cases](#copyable-example-review-cases)
   - [Line-Wrapping Review Cases](#line-wrapping-review-cases)
 - [Review Checklist](#review-checklist)
@@ -59,7 +60,7 @@ Keep both forms within task documentation, but plan them for different reader ne
 - State the action before its result or justification, in the same paragraph: `Click Deploy. The rollout status appears.`
 - Name a dialog or screen as part of the step that produced it: `In the Add credential dialog that opens, click Continue.` Do not make its appearance a stand-alone result step.
 - If a procedure grows beyond roughly nine steps, split it into smaller tasks, phases, or subtasks.
-- Use `To [goal], [action]` when the reason for an action is not obvious. When that form could read as optional, switch to the colon form: `Rotate the signing key: click Rotate.`
+- Use `To [goal], [action]` for a source-supported reason when it helps the reader; do not supply a plausible reason from general knowledge. When that form could read as optional, switch to the colon form: `Rotate the signing key: click Rotate.`
 - Start with the condition when a step applies only sometimes.
 - Start optional steps with `Optional:`.
 - State the location before the action, such as `In the project root, run ...` or `In the console, select ...`.
@@ -179,12 +180,31 @@ and custom mappings. Consult the actual product's source for the task being writ
 
 ## Provide the Why
 
-If a fact appears inside a task topic, state its practical impact on the user's task.
+Explain a fact's practical impact when it helps the reader act and the supplied or independently verified source establishes that impact. A requirement alone does not establish its rationale or what happens if it is violated.
 
-- Weak: `The file must be under 10 MB.`
-- Better: `To avoid an upload failure, keep the file under 10 MB.`
+- Source supplies only `The file must be under 10 MB.` Keep the requirement, for example `Keep the file under 10 MB.` Do not invent an upload operation or failure consequence. If the reason matters to a decision, flag that missing evidence separately rather than treating the requirement as optional.
+- Source also establishes that this upload rejects files of 10 MB or larger. You can explain: `Keep the file under 10 MB to avoid size-based rejection.` This does not guarantee upload success or remove other documented requirements.
+- Preserve whether a consequence is certain, possible, estimated, or unknown, along with its conditions, affected scope, units, and strict or inclusive limits. Do not turn a necessary condition into a sufficient one or add a hazard, cost saving, or performance benefit as motivation.
+- Keep useful, established reasons instead of stripping all explanations. Avoid background theory in steps; link to a concept topic when the explanation is broader than the immediate task.
 
-Avoid background theory in steps; link to a concept topic when the explanation is broader than the immediate task.
+[Google's procedure guidance](https://developers.google.com/style/procedures) supports useful goals and justifications in steps. The source-preservation checks here prevent that presentation choice from supplying missing product facts.
+
+## Rationale Review Cases
+
+These original manual editorial cases check instruction consistency and source
+preservation, not measured model performance or behavior of a real product.
+Each row supplies the complete evidence for its example; accept equivalent accurate wording.
+
+| Supplied source and context | Expected decision | Meaning drift to reject |
+| --- | --- | --- |
+| `The file must be under 10 MB.` No operation or consequence is supplied. | Retain the strict limit and unit; flag the missing reason only if needed for the task. | Inventing an upload failure, storage charge, or reason to remove the requirement. |
+| This upload rejects files of 10 MB or larger; the file must be under 10 MB. | Explain that the limit avoids size-based rejection while retaining `under 10 MB`. | Replacing it with `10 MB or less` or promising that every smaller file uploads successfully. |
+| `The archive must be at most 10 MiB.` No rationale is supplied. | Preserve the inclusive boundary and binary unit without an invented consequence. | Changing it to `under 10 MB` for consistency with another example. |
+| `During peak load, reducing concurrency may reduce timeout errors.` | Keep both the peak-load condition and possible effect. | Saying the change prevents timeouts at all times. |
+| `Rotate the key before deployment; the reason is not documented.` | Retain the required action and order; identify the rationale gap separately if consequential. | Making rotation optional or asserting that otherwise an attacker will compromise the service. |
+| `Close the editor before migration because it holds the file lock.` | Keep the established lock explanation and the action before migration. | Deleting the known reason as unsupported or claiming that closing the editor ensures migration success. |
+| `To export data, the account needs the Export role. Export also requires an available destination.` | Preserve both requirements and explain the role's sourced export purpose without treating it as sufficient. | Saying the role guarantees a successful export or dropping destination availability. |
+| `The change is intended to reduce restart time; restart time has not been measured.` | Preserve the intended purpose and unmeasured outcome as distinct facts. | Claiming that the change has reduced restart time or has no effect. |
 
 ## Copyable Example Review Cases
 
@@ -223,7 +243,7 @@ Apply the same editorial-check limitation above; these cases do not establish ex
 - Steps are chronological.
 - Single-step procedures are one bulleted sentence. Grouped actions preserve required overlap or sustained state, explicit menu order, or Enter completing its input; unrelated actions stay separate.
 - Optional paths are labeled.
-- Important facts explain why they matter to the task.
+- Helpful reasons and consequences are source-supported; unknown rationale stays explicit when needed, without weakening a requirement or inventing a guarantee.
 - Named UI elements are bold, match their visible labels, and use the standard interaction verbs.
 - Keyboard shortcuts preserve sourced bindings, platform/application scope, and sequence; unknown alternatives remain gaps, not guessed modifier substitutions.
 - Copyable command blocks preserve executable syntax and separate any required placeholder replacements from claims of running unchanged; no unresolved synopsis notation, copied prompt prefixes, interleaved output, or omission is presented as a complete command.
