@@ -13,6 +13,8 @@
 - [Verification Passes](#verification-passes)
 - [Audit Pointers](#audit-pointers)
 - [HTML Outputs Appendix](#html-outputs-appendix)
+  - [Menu Path Review Cases](#menu-path-review-cases)
+  - [Table Header Review Cases](#table-header-review-cases)
 - [Attribution](#attribution)
 
 ## Use When
@@ -90,7 +92,7 @@ Basis: W3C WAI guidance on [captions](https://www.w3.org/WAI/media/av/captions/)
 When the write-simplified-technical-english skill is also active, its stricter sentence and structure rules take precedence over these checks.
 
 - The meaning must survive with all punctuation stripped; read each sentence without punctuation as a check.
-- Give each instruction its own list item; never chain steps inside one paragraph.
+- Give each primary action its own list item; never chain unrelated steps inside one paragraph. Keep tightly coupled simultaneous actions together, stating required overlap in words (for example, keeping a named key held while selecting an item). For state that must persist across several steps, separate the primary actions while explicitly carrying that state through each dependent step. Keep supplied timing and release conditions; flag missing ones instead of inventing them. A documented menu sequence may stay together with its order explicit in text or a verified accessible house format, and Enter may remain with the input it completes (canonical grouping rules: task-docs-writer). These local rules apply even when that sibling skill is not installed.
 - State abilities positively, and avoid double negatives and exceptions to exceptions (canonical rules: docs-style-editor grammar-and-usage).
 
 Run the following punctuation and casing checks as well, but report each hit against its canonical home instead of re-deciding the rule:
@@ -119,7 +121,7 @@ Run these checks during the review, but report violations against their canonica
 - Descriptive link text that makes sense out of context, and disclosure of unexpected link behavior: canonical home docs-style-editor.
 - Heading hierarchy without skipped levels, and unique, descriptive, non-empty headings: canonical home docs-style-editor.
 - Referring to UI elements by their visible label or accessible name, and flagging icon controls that have neither: canonical home task-docs-writer.
-- Introducing each table in the preceding text, and never merging table cells: canonical home docs-style-editor.
+- Introducing each table in the preceding text, preferring simple tables without introducing merged cells, and preserving header-to-data relationships when recommending restructuring: canonical home docs-style-editor.
 - The punctuation and casing checks listed under Screen-Reader-Safe Prose: canonical home docs-style-editor.
 
 ## HTML Outputs Appendix
@@ -131,8 +133,44 @@ Apply this section only when the deliverable's output format is HTML. Skip it fo
 - Do not use `br` to fake paragraph spacing; `br` is only for breaks that are part of the content, and spacing belongs to CSS.
 - Prefer native interactive elements, and keep the DOM order matching the reading order.
 - Give every form input a `label` element.
-- Mark table headers with `th` only in the first row or column; add `scope` or `headers` attributes when the header structure is complex.
-- Add an `aria-label` to menu-path separators written with `>` so screen readers announce the separator as `and then`.
+- Identify table headers by what they label, not by their position or styling. Use `th` for actual row and column headers, including row headers in a later column; use `td` for data. For simple row and column relationships, use the corresponding `scope="row"` or `scope="col"` on the header cells.
+- Preserve valid existing header associations. For a supplied complex table, check explicit associations against the supplied relationships: `headers` values refer to document-unique `id` values on header cells in the same table. Do not invent associations from visual placement alone or remove meaningful header markup to satisfy a simple-table preference. Flag unknown relationships or uncheckable rendered behavior.
+- Recommend simpler tables under the canonical docs-style-editor table rules when applicable. Restructuring is separate from a mechanical or findings-only review; preserve every cell value, header label, unit, and relationship, and flag any simplification whose equivalence cannot be established.
+- Express a documented menu sequence in real text, for example `Select Project, then Settings, then Integrations.`, preserving the supplied labels and their order. A menu path is one of the task-docs-writer groupings permitted under the primary-action-per-step rule, whether its separators are words or symbols. Do not rely on a screen reader pronouncing `>` to convey the sequence.
+- Do not add `aria-label` or `aria-labelledby` to a generic separator `span` to replace its pronunciation: generic elements prohibit naming. Do not add an unrelated role or make punctuation focusable to force a name. Prefer visible connecting words, or split the sequence into separate steps when needed.
+- If a documented, tested house component already supplies equivalent accessible text for a symbolic path, preserve it. If its implementation or rendered behavior is unavailable, flag that verification gap rather than promising how it will be announced. Do not silently rewrite literal HTML examples, command operators, or a `>` that is part of a UI label.
+
+### Menu Path Review Cases
+
+These original cases test editorial decisions against supplied evidence, not browser or screen-reader behavior. They do not establish WCAG conformance.
+
+| Supplied context | Expected review decision | Failure to reject |
+| --- | --- | --- |
+| HTML prose documents the menu sequence Project, Settings, Integrations using bare `>` separators. | Use visible connecting words, keeping all three supplied labels in order, or separate steps. | Depending on punctuation pronunciation to carry the sequence. |
+| A generic `span` around each separator has `aria-label="and then"`. | Flag the prohibited naming and prefer real connecting text in the documentation revision. | Marking it accessible merely because an ARIA attribute exists. |
+| A proposed repair gives the separator a button role or a tab stop. | Reject the invented interaction and use ordinary text. | Making punctuation interactive to obtain a spoken name. |
+| A supplied, tested house component already exposes equivalent connecting text and preserves each label. | Preserve it; do not duplicate its text or rewrite it solely because the visual separator is `>`. | Requiring a second spoken connector without inspecting the existing alternative. |
+| Only the rendered screenshot or component name is supplied. | Flag announcement behavior as unverified; suggest a text sequence without claiming the component failed testing. | Inferring accessible behavior from appearance or a component name. |
+| A command contains `output > file`, or the supplied UI label is `Size > 10`. | Preserve the literal operator or full label; the separator rule concerns menu-path prose. | Replacing every greater-than character globally. |
+| A Markdown guide contains a menu path, or a code fence quotes the problematic HTML verbatim. | Do not inject HTML/ARIA into Markdown or alter quoted code; propose plain-language prose or flag the example separately. | Applying the HTML appendix outside its scope or silently changing source literals. |
+
+Basis: [W3C ARIA in HTML naming requirements](https://www.w3.org/TR/html-aria/#requirements-for-use-of-aria-attributes-to-name-elements) and [ARIA naming guidance](https://www.w3.org/WAI/ARIA/apg/practices/names-and-descriptions/). This deliberately replaces the generic-span naming pattern in the adapted Google guidance with ordinary text; no particular assistive-technology announcement is guaranteed.
+
+### Table Header Review Cases
+
+These original decision cases check instruction coverage for HTML documentation. They are not browser or screen-reader tests and do not establish WCAG conformance.
+
+| Supplied context | Expected review decision | Failure to reject |
+| --- | --- | --- |
+| A simple table has column labels in its first row and row labels in its first column. | Keep semantic headers and their matching row/column scope. | Replacing headers with styled data cells. |
+| Column one contains ordinal numbers; column two contains the supplied row labels. | Keep the second-column labels as `th` with row scope; leave the ordinal values as data. | Removing header semantics because the labels are outside column one. |
+| A first-row cell is a data value, even though it is bold. | Keep it a data cell; identify headers from the supplied meaning. | Making every first-row or bold cell a header. |
+| An existing multi-level table supplies valid header IDs and associations; only a copyedit was requested. | Preserve those associations and report any simplification recommendation separately. | Dropping a group label or association to flatten the table during copyediting. |
+| A proposed split would lose which unit or group applies to a value. | Flag the unresolved relationship and do not apply the split. | Keeping the numbers but changing what they measure or which group owns them. |
+| The source does not establish which header labels a data cell. | Report that association as unverified. | Guessing from proximity or claiming the table passed. |
+| The deliverable is Markdown, or HTML appears only as a literal code example. | Skip the HTML appendix for Markdown; preserve literal example code and flag concerns separately. | Injecting HTML into Markdown or silently rewriting a quoted HTML example. |
+
+Basis: W3C WAI guidance on [two-header tables, including offset row headers](https://www.w3.org/WAI/tutorials/tables/two-headers/) and [multi-level header associations and simpler alternatives](https://www.w3.org/WAI/tutorials/tables/multi-level/). Apply the documentation review's existing evidence and literal-preservation boundaries.
 
 ## Attribution
 

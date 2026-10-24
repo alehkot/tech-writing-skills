@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.3"
+  version: "1.1.9"
   risk_tier: low
 ---
 
@@ -40,8 +40,9 @@ Apply rules in this order, and stop at the first level that answers the question
 2. These house defaults.
 3. The house spelling and hyphenation forms in [references/word-choice.md](references/word-choice.md). When those tables do not cover a variant, flag it as an open question and name the dictionary the author should check — Merriam-Webster unless the project's locale or style guide names another authority — instead of settling it from memory.
 
-Three constraints sit above all three levels:
+Four constraints sit above all three levels:
 
+- Do not reproduce credentials or private personal/account data in delivered drafts, findings, excerpts, or change reports. Use a non-sensitive location and category to identify the issue, following [references/safe-example-values.md](references/safe-example-values.md). If preserving a literal would expose such data, withhold the affected passage and flag the publication gap; do not silently replace a real value and present it as an accurate executable example. This disclosure constraint takes precedence over literal preservation and report completeness.
 - When the write-simplified-technical-english skill is active, its stricter controlled-language rules win. STE bans contractions and semicolons outright, sets hard sentence limits, and replaces actor-plus-modal constructions in procedural instructions with imperatives; apply the STE rule and note the scope in the report.
 - When the draft documents a standard that defines keyword semantics, such as RFC 2119 `MUST`, `SHOULD`, and `MAY`, reproduce those keywords exactly. Modal rulings do not apply to them.
 - When a rule's canonical home is another skill, report the defect and name that skill instead of restating or re-deciding its rules.
@@ -52,17 +53,17 @@ Apply a deliberate deviation from any default consistently across the whole docu
 
 1. Confirm the operation: a full copyedit pass, a targeted pass over one category, or an answer to a specific style question. Edit mechanics only; do not add, remove, reorder, or reframe content.
 2. Record the precedence inputs: the project's style guide, the doc set's established conventions (heading case, placeholder form, spelling locale, byte units, date format), and the dictionary the project names as its tie-breaker for spelling variants. When the draft's own usage is internally inconsistent and no project rule exists, pick the form that appears most often, apply it everywhere, and report the choice.
-3. Establish the evidence boundary. List every exact literal in the draft: commands, flags, paths, filenames, environment variables, identifiers, UI labels, error strings, code output, quoted text, versions, quantities, and severities. These are unchangeable. Style rules apply to the prose around them.
+3. Establish the evidence boundary. List every exact literal in the draft: commands, flags, paths, filenames, environment variables, identifiers, UI labels, error strings, code output, quoted text, versions, quantities, and severities. These are unchangeable by a style edit. Keep this inventory internal; do not echo sensitive values. Style rules apply to the prose around them, subject to the disclosure constraint above.
 4. Run the requested passes in this order, one category at a time, and record each hit with its location: punctuation; grammar and usage; word choice; formatting mechanics; numbers, dates, and units; example values; prose cleanup using [references/unslop-guide.md](references/unslop-guide.md). A full copyedit includes every pass; a targeted unslop pass loads that guide and the mechanics references needed for its findings.
 5. Classify each hit before touching it. Change it only when the fix is mechanical and the meaning, facts, and emphasis survive intact. Prefer the smallest useful edit and leave clear wording unchanged. Flag it instead when the fix could change meaning, when the correct wording depends on a fact the source does not state, or when a value may be real rather than illustrative.
 6. Apply the code-literal exception to every rule. When a banned or disfavored term is a literal command, flag, keyword, field, or label, keep the literal exactly as-is in code font, use the preferred term in the surrounding prose, and flag the literal for maintainers.
 7. Report, rather than re-decide, defects whose canonical home is another skill: inclusive terminology, alt text, media alternatives, and color or position cues belong to accessibility-inclusion-editor; UI interaction verbs, placeholder conventions, and required-information-in-notes belong to task-docs-writer; reference-entry heading style, code-element grammar, byte systems, and version-range wording belong to reference-docs-writer; anthropomorphism and excessive claims belong to technical-content-clarifier.
-8. Verify that no meaning drifted. Compare the revision against the source for actors, order, conditions, quantities, units, negation, severity, uncertainty, and literals. Restore anything that changed.
+8. Verify that no meaning drifted. Compare the revision against the source for actors, modifier scope, order, conditions, quantities, units, negation, severity, uncertainty, and literals. Restore anything that changed.
 9. Deliver the edit report.
 
 ## Edit Report
 
-Use this order, and omit a section that has no entries rather than inventing entries for it:
+Use this order, and omit a section that has no entries rather than inventing entries for it. Apply the disclosure constraint to every section, including findings-only reports and before/after excerpts. A safe location plus data category replaces a sensitive quotation; report a withheld passage as a publication gap rather than a finished draft:
 
 1. The revised draft, or a findings table alone when the user asks for findings only.
 2. `Changes applied`: a table with the location, the change, and the rule that required it.
@@ -76,7 +77,7 @@ Use the existing self-check internally. Correct confirmed mechanical failures wi
 
 ## Completion Criterion
 
-Complete the task only when every requested pass has run against its reference; each hit is corrected, flagged with a question, or reported against its canonical home; the precedence order and any project overrides are recorded; example values are documentation-reserved or flagged as possibly real; and no fact, quantity, unit, severity, condition, structure, or exact literal changed.
+Complete the task only when every requested pass has run against its reference; each hit is corrected, flagged with a question, or reported against its canonical home; the precedence order and any project overrides are recorded; example values are documentation-reserved or flagged as possibly real; and no fact, quantity, unit, severity, condition, structure, or exact literal changed through copyediting. If sensitive source material prevents safe delivery of a full draft, deliver safe findings and clearly mark the withheld passage; do not claim a publication-ready draft.
 
 ## Self-Check
 
@@ -85,21 +86,23 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Each requested pass ran against its reference file, and each hit is listed with its location and rule.
 - [ ] Exact literals are unchanged: commands, flags, paths, filenames, identifiers, UI labels, error strings, code output, quoted text, versions, and quantities.
 - [ ] Banned terms that are literal identifiers stayed in code font, with the preferred term used only in surrounding prose.
-- [ ] Headings, list items, table headers, and captions use sentence case, and no heading ends with a period.
+- [ ] Headings, list items, table headers, and captions use sentence case, and no heading ends with a period. Heading labels preserve requiredness for the applicable readers; a condition or a choice of methods does not by itself make work optional.
 - [ ] Tense and modal edits preserve source-supported requiredness, expectation, uncertainty, and proposal or counterfactual status; ambiguous intent is flagged instead of guessed.
+- [ ] Replacing a prose slash preserves the sourced combination or choice, including whether both alternatives are allowed or required; an ambiguous connective is flagged, not guessed.
+- [ ] Limiter edits preserve the sourced scope of `only` and related restrictions; ambiguous focus is flagged, and clear conditions, negation, and literals stay intact.
 - [ ] Changes are mechanical: no fact, condition, actor, number, unit, severity, hedge, or caveat was added, deleted, or reweighted.
 - [ ] Values that may be real rather than illustrative are flagged as questions, never swapped for reserved example values.
-- [ ] Time-anchored, ease-claim, and register fillers are gone, except in the exempted time-stamped genres.
+- [ ] Time-anchored and register fillers follow their genre exceptions; ease-word cleanup preserves meaningful restrictions, timing, comparisons, technical terms, and literals.
 - [ ] Cleanup removes empty framing and repeated list-label wording while preserving real contrasts, uncertainty, technical terms, and required reusable text; revised phrases remain grammatical, and incomplete prose is expanded only when its meaning is established.
 - [ ] Defects owned by another skill are reported with that skill named, not re-decided here.
 - [ ] When STE is active, its stricter rules took precedence and none was relaxed.
-- [ ] The report separates applied changes from flagged questions.
+- [ ] The report separates applied changes from flagged questions; neither it nor the delivered draft repeats sensitive originals, and withheld passages remain explicit publication gaps.
 
 ## Guardrails
 
 - Do not change meaning. Rewording is allowed only when the technical claim, its scope, its hedging, and its evidence status stay identical.
 - Do not edit inside code blocks, command syntax, sample output, configuration snippets, error strings, or quoted text; correct the prose around them instead.
-- Do not substitute a value that may be real. A resolver IP, a product's actual domain, a documented support number, or a real account identifier stays exactly as written and goes on the flagged list as a question.
+- Do not substitute a value that may be real. Preserve a verified public resolver IP, product domain, or documented public support number as a fact. Flag uncertain values without guessing. For credentials or private personal/account data, identify the issue without quoting the value and withhold the affected passage from delivery under the disclosure constraint; do not disguise a replacement as the real documented value.
 - Do not invent a fact to satisfy a rule: not a notice severity, not an expansion for an unknown abbreviation, not a version or date to replace a time-anchored word, and not a description of an image the source does not describe.
 - Do not restructure the document, merge or split sections, or change the topic type; recommend the owning skill instead.
 - Do not delete a condition, prohibition, hazard, consequence, caveat, or limitation while tightening a sentence.

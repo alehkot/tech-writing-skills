@@ -4,7 +4,7 @@ description: >-
   Task documentation writing for task topics and task-oriented engineering documentation where readers must complete an action: installation guides, setup docs, runbooks, tutorials, operational procedures, API workflows, CLI instructions, and troubleshooting steps. Use for transforming feature descriptions or messy notes into clear prerequisites, ordered steps, checks, and recovery guidance.
   Use when missing prerequisites, commands, permissions, versions, or success signals must be labeled rather than invented.
 metadata:
-  version: "1.3.3"
+  version: "1.3.8"
   risk_tier: low
 ---
 
@@ -28,10 +28,10 @@ For each check with named states, map every supplied state to its next action, r
 2. Title and frame the task around the user's goal, not the product surface or internal feature name. Prefer a base-form action verb such as `Create`, `Configure`, or `Verify`; avoid `-ing` task titles such as `Creating`. Keep articles in titles and headings: `Create a VM instance`, never `Create VM instance`.
 3. Separate task content from conceptual background. Keep long explanations before or after the procedure, not inside the steps.
 4. Create the procedure in this order: purpose, prerequisites, before-you-start checks, steps, expected result, verification, rollback or troubleshooting. Choose one recommended, keyboard-accessible path that fits the audience. Keep tutorials on a supported exercise path; retain necessary condition-based branches in how-to guides and say how to choose. Put alternative methods under separate headings or tabs, and link to already-documented procedures instead of repeating their steps.
-5. Start each action step with an imperative verb. Use one primary action per step; the only multi-action step is a menu path joined with `>`. Format a one-step procedure as a single bulleted sentence, never a numbered list of one. Put conditions first: `If you use Kubernetes, set ...`.
-6. Provide the why when it changes user behavior. Use `To [goal], [action]` when a step's purpose is not obvious; switch to the colon form (`Rotate the signing key: click Rotate.`) when the `To ...` form could read as optional.
+5. Start each action step with an imperative verb. Use one primary action per step. Keep tightly coupled simultaneous actions together. When a state must persist across several steps, separate the primary actions while explicitly carrying that state through each dependent step and preserving the supplied stop or release condition; do not turn required overlap into a sequential substitute. A documented menu sequence may also share a step, joined with words such as `then` or an accessible house menu-path format. Preserve supplied labels, order, and timing; do not rely on punctuation pronunciation. Apply the bounded grouping rules in the reference. Format a one-step procedure as a single bulleted sentence, never a numbered list of one. Put conditions first: `If you use Kubernetes, set ...`.
+6. Explain a step's purpose or practical impact when it helps the reader and the source supports it. Do not invent a failure, benefit, hazard, or success guarantee to justify a requirement; retain the requirement and flag a missing rationale when it matters. Preserve the source's conditions and uncertainty. Use `To [goal], [action]` for a supported purpose; switch to the colon form (`Rotate the signing key: click Rotate.`) when the `To ...` form could read as optional. Apply the rationale checks in [references/task-docs-patterns.md](references/task-docs-patterns.md).
 7. State location before action when the reader must act in a specific UI, file, directory, console, or service. Restate the acting context in the first step under each new heading, even when it is unchanged. Use named locations instead of directional cues such as `above`, `below`, or `right`.
-8. When a step names a UI element, bold its exact visible label and use the standard interaction verbs: click, tap, press, enter (reserve type for characters the reader must literally type), select and clear, drag, turn on or turn off. Refer to an icon-only control by its tooltip or accessible name; if the source supplies none, flag it as an open question instead of inventing one. Apply the UI writing rules in [references/task-docs-patterns.md](references/task-docs-patterns.md).
+8. When a step names a UI element, bold its exact visible label and use the standard interaction verbs: click, tap, press, enter (reserve type for characters the reader must literally type), select and clear, drag, turn on or turn off. Refer to an icon-only control by its tooltip or accessible name; if the source supplies none, flag it as an open question instead of inventing one. Preserve documented keyboard shortcuts and their platform/application context; add alternate bindings only when supplied or verified, never by substituting modifier names. Apply the UI writing rules in [references/task-docs-patterns.md](references/task-docs-patterns.md).
 9. Label optional work at the start of the sentence: `Optional: ...`.
 10. Use one term consistently for each UI element, command, file, role, or system component. Define unfamiliar terms, acronyms, and placeholders before relying on them.
 11. Make command examples copyable and adaptable. Preserve executable syntax and literal data; keep command-synopsis notation and prompt prefixes out of copied command text, as detailed in [references/task-docs-patterns.md](references/task-docs-patterns.md). Introduce each command by what it accomplishes, never with `run the following command`. Use one placeholder convention across the doc set: the house form is lowercase `<angle-bracket>` names, and a target doc set's existing convention wins when one exists. Give placeholders informative names and define each near its command with `Replace <placeholder> with ...` or a `Replace the following:` list.
@@ -53,7 +53,7 @@ Check each finding against the sources before repairing it. Preserve supported
 actions and facts even if a reviewer proposes removing them. By default, allow
 one repair and a final review of the complete revision; a caller's explicit
 review budget takes precedence. Keep remaining material gaps visible. After a
-style or unslop edit, recheck the final meaning, conditions, sequence, and literals.
+style or unslop edit, recheck the final meaning, conditions, sequence, required overlap, and literals.
 Deliver the procedure and consequential gaps; include internal review records
 only when requested.
 
@@ -92,19 +92,20 @@ Use this procedure to [outcome].
 - [ ] Prerequisites are visible before the first step.
 - [ ] Steps are chronological and do not hide decisions in paragraphs.
 - [ ] The procedure uses `you` and active voice to describe what the reader does.
-- [ ] Steps or facts that need rationale explain the practical why.
+- [ ] Helpful rationale is source-supported; missing reasons stay gaps rather than invented consequences, and conditions, uncertainty, requiredness, and limits remain intact.
 - [ ] Each step begins with an action verb or a clear condition.
-- [ ] Single-step procedures are one bulleted sentence, and the only multi-action steps are `>` menu paths.
+- [ ] Single-step procedures are one bulleted sentence. Grouped actions follow the reference: required overlap or sustained state stays explicit, menu order stays explicit, and Enter remains with the input it completes; unrelated actions stay separate.
 - [ ] Each step states the action before its result, and a dialog is named in the step that produced it.
 - [ ] UI or file-location steps name the location before the action, and the first step under each heading restates the acting context.
 - [ ] Named UI elements are bold, match their visible labels, and use the standard interaction verbs (click, tap, press, enter, select, clear).
+- [ ] Keyboard shortcuts retain the documented keys, sequence, context, and platform scope; alternate bindings are source-supported, not inferred from modifier names.
 - [ ] The guide avoids directional location cues that depend on page layout or visual position.
 - [ ] Optional steps are explicitly labeled.
 - [ ] Terms, acronyms, and placeholders are defined once and used consistently.
 - [ ] Placeholders follow one convention across the doc set, and each is defined near its command or listed after the output it appears in.
 - [ ] Commands are introduced by what they accomplish; copyable blocks preserve executable syntax and contain no unresolved synopsis notation or copied prompt prefixes, and input and output sit in separate blocks.
 - [ ] No prerequisite, required action, or expected result hides in a note, and no note wraps a cross-reference.
-- [ ] Steps contain no `please`, `simply`, `just`, or `easily` (canonical list: docs-style-editor word-choice).
+- [ ] Steps contain no `please` or empty ease reassurance; cleanup preserves sourced restrictions, timing conditions, technical terms, and exact labels (canonical rules: docs-style-editor word-choice).
 - [ ] Example values use documentation-reserved data such as `example.com`, RFC 5737 IP ranges, and 800-555-01xx phone numbers (canonical table: docs-style-editor safe-example-values).
 - [ ] Long procedures are split into manageable tasks, phases, or subtasks.
 - [ ] Lists, choices, and substeps are parallel and concise.

@@ -14,6 +14,7 @@
 - [Periods and Other End Punctuation](#periods-and-other-end-punctuation)
 - [Ellipses](#ellipses)
 - [Slashes](#slashes)
+- [Slash Connective Review Cases](#slash-connective-review-cases)
 - [Punctuating Examples](#punctuating-examples)
 - [Attribution](#attribution)
 
@@ -105,12 +106,30 @@ Resolve an unlisted compound in this order: the doc set's established form, then
 
 ## Slashes
 
-- Replace a slash between alternatives with `or`, `and`, or `X, Y, or both`. Avoid: `authored/reviewed by the on-call engineer.` Prefer: `authored or reviewed by the on-call engineer.`
-- Do not write `and/or` outside a space-constrained table.
+- Replace a prose slash used as a connective only after the supplied context establishes the relationship: `and` when the source means both, `or` for alternatives, or `X, Y, or both` when either or both are allowed. Preserve any explicit exactly-one restriction, negation, and actor. Do not infer the relationship from the slash itself.
+- For `authored/reviewed by the on-call engineer`, use `authored and reviewed` only if the source establishes both, and `authored or reviewed` only if the source permits alternatives. With no such context, retain the wording and flag which relationship the author intends instead of choosing one.
+- Avoid `and/or` outside a space-constrained table, but preserve its inclusive meaning when expanding it. Do not turn permission to do either or both into a requirement to do both or an exactly-one choice.
 - Use forward slashes in paths and URLs, and backslashes only in Windows-specific paths. Do not mix slash directions for one platform.
 - Break an overlong URL immediately after a slash, and never insert a hyphen into it.
 - Do not write fractions or dates with slashes.
 - Spell out slash abbreviations such as `w/` and `c/o`.
+
+## Slash Connective Review Cases
+
+These original cases check source-preserving editorial decisions, not measured model performance. Apply the literal and project-style exceptions before replacing punctuation.
+
+| Supplied context and passage | Acceptable editorial decision | Meaning drift to reject |
+| --- | --- | --- |
+| `The release note must be authored/reviewed by the on-call engineer.` No other context is supplied. | Retain and flag whether both duties or alternatives are intended. | Choosing `and` or `or` without evidence. |
+| The source requires the on-call engineer to do both duties: `The release note must be authored/reviewed by the on-call engineer.` | `The release note must be authored and reviewed by the on-call engineer.` | Letting either duty satisfy the requirement, or assigning review to a different actor. |
+| The source says either duty satisfies the requirement but says nothing about doing both: `The release note must be authored/reviewed by the on-call engineer.` | `The release note must be authored or reviewed by the on-call engineer.` | Requiring both duties or inventing a prohibition on doing both. |
+| The source permits exactly one export format per request: `Export CSV/JSON.` | `Export either CSV or JSON, but not both.` | Allowing both formats in one request or requiring both. |
+| The source permits either or both inputs: `You can import logs/metrics.` | `You can import logs, metrics, or both.` | Requiring both inputs or prohibiting their combination. |
+| The source prohibits deletion and separately prohibits archiving: `Do not delete/archive the records.` | `Do not delete or archive the records.` | `Do not delete and archive the records`, which can prohibit only the combination. |
+| The prose says `You can export raw and/or processed events.` | `You can export raw events, processed events, or both.` | Turning the permission into an instruction to export both. |
+| A UI label is `Read/Write`, a command contains `/var/log`, an established technical term is `TCP/IP`, or a quoted string includes `and/or`. | Preserve the exact literal; edit surrounding prose only. | Applying connective expansion inside the label, path, technical term, or quotation. |
+
+Basis: [Google's slash guidance](https://developers.google.com/style/slashes) presents both conjunction and disjunction as possible rewrites of one ambiguous slash construction; [Microsoft's slash guidance](https://learn.microsoft.com/en-us/style-guide/punctuation/slashes) also distinguishes combinations and literal technical uses. The cases apply this skill's existing source-fidelity constraint: a style preference cannot establish the missing relationship.
 
 ## Punctuating Examples
 

@@ -4,7 +4,7 @@ description: >-
   Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
   Use when caveats, uncertainty, audience proximity, or source-backed simplification matter.
 metadata:
-  version: "1.1.2"
+  version: "1.1.3"
   risk_tier: low
 ---
 
@@ -32,7 +32,7 @@ Choose the explanatory sequence, examples, and analogies to fit the reader. Trea
 10. Strip step-by-step procedures and extensive reference tables from concept topics. Link to task or reference topics instead.
 11. Separate confirmed facts, suspected causes, examples, assumptions, and open questions before simplifying. Do not let a cleaner narrative turn uncertainty into fact.
 12. Remove false precision, jargon that does not help, idioms, slang, sports metaphors, ambiguous pronouns, and references that may not travel across cultures or teams.
-13. Describe components with precise technical verbs (specifies, detects, sends, returns, sets, reads). No component "sees", "thinks", "knows", "wants", "decides", or "tells" another what to do. Deliberate, explicitly bounded analogies remain allowed; the ban targets casual human-verb phrasing in ordinary descriptions.
+13. Describe components with source-supported technical verbs (specifies, detects, sends, returns, sets, reads). Changing a human verb does not supply a missing algorithm, trigger, actor, or successful result; preserve known behavior and flag necessary unknown details rather than inventing them. No component "sees", "thinks", "knows", "wants", "decides", or "tells" another what to do. Deliberate, explicitly bounded analogies remain allowed; the ban targets casual human-verb phrasing in ordinary descriptions.
 14. Scope every claim so it stays true tomorrow: replace product superlatives (best, fastest, simplest, always, never) with measurable, scoped statements; write "ensure", "guarantee", or "prevents" only for unconditionally true outcomes; attach a source to every performance or cost figure or label it unverified. Apply the durable-claims rules in [references/clarity-patterns.md](references/clarity-patterns.md).
 15. Keep simplification honest. Preserve important caveats and tradeoffs instead of smoothing them away.
 16. Prefer active voice and short sentences. Split long sentences that carry multiple ideas. Treat a paragraph past five or six sentences as a signal to split or cut, but never split a single idea; one-sentence paragraphs are fine. Shorten sentences and paragraphs together — never merge sentences just to lower the count. Vary sentence openers, and rewrite runs of consecutive sentences that start with the same phrase.
@@ -89,7 +89,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - [ ] Confirmed facts, suspected causes, assumptions, and open questions are not blurred together.
 - [ ] The explanation is accurate enough for experts and approachable enough for the target reader.
 - [ ] Analogies are bounded so they do not obscure the technical distinction.
-- [ ] No component is given human faculties; behavior is described with precise technical verbs.
+- [ ] No component is given human faculties; technical verb replacements preserve sourced behavior without inventing an algorithm, trigger, actor, or successful result.
 - [ ] Superlatives, unconditional guarantees, and unsourced figures are removed or scoped per the durable-claims rules.
 - [ ] Paragraphs past five or six sentences are split or cut without splitting a single idea, and sentence openers vary.
 - [ ] Register fillers such as "please note that", "at this time", "let's do X", and exclamation marks are gone (canonical list: docs-style-editor word-choice).

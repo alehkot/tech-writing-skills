@@ -7,6 +7,7 @@
 - [Ambiguous Words](#ambiguous-words)
 - [Connectors, Latin Abbreviations, and Chat-isms](#connectors-latin-abbreviations-and-chat-isms)
 - [Register and Ease Words](#register-and-ease-words)
+  - [Ease-Word Review Cases](#ease-word-review-cases)
 - [Redundant Framing](#redundant-framing)
 - [Timeless Wording](#timeless-wording)
 - [Precise Verbs and Nouns](#precise-verbs-and-nouns)
@@ -102,13 +103,46 @@ Load this reference for the word-choice pass: term-by-term rulings, register rul
 | please | Only when asking permission or forgiveness; never in an instruction or a cross-reference |
 | please note that, at this time | Delete; state the point directly |
 | let's | Address the reader: `you`, or an imperative step |
-| simply, just, easy, easily, simple, quick, quickly | Delete; `just` survives only when it marks the simpler of two alternatives |
+| simply, just, easy, easily, simple, quick, quickly | Remove empty reassurance about effort or speed. Keep or precisely rephrase a source-supported restriction, timing relationship, comparison, or technical term; do not delete by word alone. |
 | desire, desired, wish | Write `want` or `need` |
 | exclamation mark | None in technical prose except inside a literal |
 | obviously, of course, needless to say | Delete |
 | internet slang, buzzwords, pop-culture references | Delete; state the technical point |
 
-Avoid: `Simply click Deploy, and the pipeline will just handle the rest!` Prefer: `Click Deploy. The pipeline builds the image and starts the rollout.`
+Avoid: `Simply click Deploy!` Prefer: `Click Deploy.`
+
+Before removing an ease word, check its function in context. For example, `just`
+can mean `only`, indicate recency, or express a boundary such as `just before`.
+Preserve that meaning without adding precision the source does not supply.
+Keep established terms such as `simple random sampling` and exact UI labels.
+If `quickly` carries a required timing condition but no usable threshold is
+supplied, flag the missing threshold; do not invent seconds or delete the
+condition. Do not fill vague wording such as `handles the rest` with guessed
+product behavior. Flag the missing behavior instead.
+
+[Microsoft's concise-writing guidance](https://learn.microsoft.com/en-us/style-guide/word-choice/use-simple-words-concise-sentences)
+distinguishes unnecessary modifiers from those important to meaning.
+[Google's word list](https://developers.google.com/style/word-list#just) makes
+removing `just` meaning-dependent; its [tone guidance](https://developers.google.com/style/tone)
+discourages unhelpful ease claims in procedures. Apply those preferences within the
+source-preservation boundary, rather than as a word blacklist.
+
+### Ease-Word Review Cases
+
+These original editorial cases check instruction consistency and source
+preservation. They are not model-behavior evaluations or evidence that a model
+produces better writing. Accept equivalent wording that preserves the source.
+
+| Source and context | Acceptable decision | Failure to reject |
+| --- | --- | --- |
+| `Simply click Deploy!` is empty reassurance in a procedure. | `Click Deploy.` | Keeping empty ease claims because meaningful uses also exist. |
+| `Return just the failed records.` The source excludes successful records. | `Return only the failed records.` | Removing the restriction and returning all records. |
+| `The request has just completed.` Recency matters to the troubleshooting account. | Retain the recency or rephrase it as `recently completed`. | Changing it to a timeless state or inventing an elapsed duration. |
+| `Take the snapshot just before the migration begins.` | Preserve the close timing and before/after relationship. | Dropping the proximity condition or changing the order. |
+| `Use simple random sampling.` The source names that statistical method. | Keep the complete technical term. | Replacing it with generic `random sampling` as an ease-word cleanup. |
+| `Press the reset button quickly after the indicator changes.` The source requires prompt action but supplies no interval. | Retain the timing condition and flag the unspecified interval. | Inventing a numerical timeout or deleting the timing requirement. |
+| The visible control is named `Quick start`. | Preserve the label exactly under the literal exception. | Renaming the control `Start`. |
+| `Click Deploy. The pipeline handles the rest.` No later behavior is supplied. | Preserve the source wording and flag the missing behavior as needing a source. | Inventing image-building, rollout, or success guarantees. |
 
 ## Redundant Framing
 
