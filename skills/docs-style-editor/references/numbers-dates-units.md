@@ -41,8 +41,27 @@ Load this reference for the numeric pass: numbers, dates, times, units of measur
 
 - Use the 12-hour clock with capitalized `AM` or `PM`, one preceding space, and no minutes on a round hour: `4 PM`, `4:30 PM`. Match a documented 24-hour interface instead, and then use 24-hour time throughout the page.
 - Write a time range with a hyphen and no spaces: `2-6 minutes`.
-- Avoid naming a time zone. When one is required, name the region the zone belongs to, spell the zone out, and append the UTC offset: `US and Canadian Eastern Standard Time (UTC-5)`. Never abbreviate the zone name, and never leave the region out, because one zone name can cover several regions.
+- Preserve a supplied time zone, UTC offset, and local-time qualification when they determine when an event occurs. Do not drop them to shorten the prose or add a zone to a source that does not establish one. Match a documented UI timestamp or exact literal rather than expanding it mechanically.
+- Distinguish a region-based zone, a fixed UTC offset, and a reader-local time. A named zone can use different offsets on different dates; a fixed offset does not identify a region. For a recurring schedule, retain the source's wall-clock time and named zone, or its fixed-offset/UTC basis, without converting one into the other.
+- In editable prose, expand an abbreviated zone name only when the source establishes the region and intended zone. Add an offset only when it is established for the stated occurrence; never attach one seasonal offset to a whole recurring schedule. Keep ambiguous abbreviations such as `CST`, missing dates needed to determine an offset, and conflicting zone/offset information flagged rather than resolved from memory.
 - Never use a season to express timing; name a month or a quarter.
+
+## Time-Zone Review Cases
+
+These original cases are manual editorial checks, not measured model behavior or verification of a product's scheduler. Preserve the supplied time basis; equivalent wording is acceptable. Do not infer missing schedule rules.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| `Maintenance starts daily at 9 AM in America/New_York.` | Preserve the local time, recurrence, and named zone; its offset can change with the date. | Replacing the zone with a permanent `UTC-5` or `Eastern Standard Time`. |
+| `Maintenance starts daily at 14:00 UTC.` The page documents a 24-hour interface. | Keep the fixed UTC schedule and documented format. | `Daily at 9 AM Eastern time`, which can change the schedule seasonally. |
+| `Maintenance starts daily at 9 AM UTC-5.` The source explicitly establishes a fixed offset. | Preserve the fixed offset. | Replacing it with `America/New_York` or another assumed region. |
+| `The job starts at 10 AM your local time.` | Retain the reader-local qualification. | Adding the editor's zone or treating every reader as sharing one instant. |
+| `The release starts at 9 AM CST.` No region or offset is supplied. | Keep the source and ask which zone is intended. | Choosing a regional expansion or UTC offset from the abbreviation alone. |
+| A one-off event is supplied with an explicit date, regional zone, and verified UTC offset. | Preserve all three; apply only equivalent prose formatting. | Changing the offset, dropping the date, or extending that offset to every occurrence. |
+| A timestamp appears verbatim in UI text, configuration, or quoted output. | Keep the literal under the code-literal exception; discuss any ambiguity separately. | Reformatting it or expanding its zone abbreviation inside the literal. |
+| `The release is on March 14, 2026.` No time or zone is supplied. | Preserve the date without adding precision. | Inventing midnight, a zone, or a UTC conversion. |
+
+[Google's date and time guidance](https://developers.google.com/style/dates-times) supplies formatting preferences and UI exceptions. The [W3C Working with Time and Timezones draft note](https://www.w3.org/TR/timezone/) explains the distinct meanings of offsets, named zones, and recurring or local times; it is guidance, not a product-specific scheduling contract.
 
 ## Units of Measure
 
