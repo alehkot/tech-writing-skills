@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.10"
+  version: "1.1.11"
   risk_tier: low
 ---
 
@@ -58,7 +58,7 @@ Apply a deliberate deviation from any default consistently across the whole docu
 5. Classify each hit before touching it. Change it only when the fix is mechanical and the meaning, facts, and emphasis survive intact. Prefer the smallest useful edit and leave clear wording unchanged. Flag it instead when the fix could change meaning, when the correct wording depends on a fact the source does not state, or when a value may be real rather than illustrative.
 6. Apply the code-literal exception to every rule. When a banned or disfavored term is a literal command, flag, keyword, field, or label, keep the literal exactly as-is in code font, use the preferred term in the surrounding prose, and flag the literal for maintainers.
 7. Report, rather than re-decide, defects whose canonical home is another skill: inclusive terminology, alt text, media alternatives, and color or position cues belong to accessibility-inclusion-editor; UI interaction verbs, placeholder conventions, and required-information-in-notes belong to task-docs-writer; reference-entry heading style, code-element grammar, byte systems, and version-range wording belong to reference-docs-writer; anthropomorphism and excessive claims belong to technical-content-clarifier.
-8. Verify that no meaning drifted. Compare the revision against the source for actors, modifier scope, order, conditions, quantities, units, negation, severity, uncertainty, and literals. Restore anything that changed.
+8. Verify that no meaning drifted. Preserve source-defined account and user identity distinctions; a prose preference such as `username` does not make it equivalent to an account name, ID, alias, or display name. Compare the revision against the source for actors, modifier scope, order, conditions, quantities, units, negation, severity, uncertainty, and literals. Restore anything that changed.
 9. Deliver the edit report.
 
 ## Edit Report

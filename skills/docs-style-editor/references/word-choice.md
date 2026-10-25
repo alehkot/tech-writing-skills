@@ -11,6 +11,7 @@
 - [Redundant Framing](#redundant-framing)
 - [Timeless Wording](#timeless-wording)
 - [Precise Verbs and Nouns](#precise-verbs-and-nouns)
+  - [Account-Identity Review Cases](#account-identity-review-cases)
 - [Compound Spellings](#compound-spellings)
 - [Part-of-Speech Splits](#part-of-speech-splits)
 - [Sense-Dependent Spellings](#sense-dependent-spellings)
@@ -186,9 +187,40 @@ Describe what the product does now. Do not narrate how it differs from earlier v
 | extract | The verb for unpacking archives; not `unzip` or `untar`; write `tar file` |
 | repo, regex, config, k8s, admin | Write `repository`, `regular expression`, `configuration`, `Kubernetes`, `administrator`, except in literal names |
 | the CLI, the UI | Name the specific interface, console, or page |
-| account name | Write `username` |
+| account name | Use `username` only when the source establishes that this is a user's username. Preserve distinct account, resource, display-name, ID, and alias concepts; do not infer equivalence from a sign-in context. If the meaning is unclear, keep the term and flag the gap. |
 | dialog | The UI window; not `dialog box`, `pop-up`, or `popup`; `dialogue` is human conversation |
 | drop-down | Write `list` or `menu`; keep `drop-down` only as a disambiguating modifier |
+
+### Account-Identity Review Cases
+
+A word-choice preference cannot establish that two identifiers name the same thing.
+An account may contain many users, and a sign-in flow may require more than one
+identifier. Keep the documented distinction and exact UI labels, field names,
+commands, and values. Do not rename a product field or infer that changing one
+name changes another.
+
+These original manual editorial cases check source preservation, not measured
+model behavior or verification of a real sign-in flow. Each row supplies the
+complete evidence boundary; accept equivalent accurate wording.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| A billing guide says the account name identifies the organization on invoices; a separate username identifies an individual user. | Retain both names and their distinct roles. | Renaming the invoice's account name to `username`. |
+| A service guide says its account name is the username used to identify the user. No literal field label is being edited. | Use `username` in explanatory prose, preserving the supplied equivalence. | Banning `username` even when the source establishes that meaning. |
+| The sign-in instructions require an account ID or account alias, plus an IAM username. | Preserve the alternative account identifiers and the additional username requirement. | Treating the alias as the username or dropping one required identifier. |
+| A resource reference defines the storage account name as part of a service endpoint; it is not a user identity. | Keep `storage account name` and its resource role. | Calling the endpoint component a username. |
+| The source says a display name is shown to other users and is different from the username. | Preserve both terms and their different purposes. | Replacing the display name with `username` for consistency. |
+| The prose only says `Enter your account name.` No product definition is supplied. | Keep the wording and flag what identifier the product expects if needed for the task. | Guessing that the field accepts a username, email address, account ID, or alias. |
+| A visible control is labeled `Account name`, or a supplied command has an `--account-name` flag. | Preserve the exact label or flag under the literal exception, even when surrounding prose can be clarified. | Renaming the UI control or command flag to satisfy a prose preference. |
+| The source says changing an account's display name leaves its account ID and users unchanged. | Keep the change and the unchanged identities distinct. | Claiming the rename changes user credentials or the account ID. |
+
+This narrows the [Google word-list preference](https://developers.google.com/style/word-list#account-name)
+when it would conflate product concepts. The product's authoritative definitions
+control meaning: [AWS account naming documentation](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-acct-name.html)
+describes an account name used in billing and organization views, while
+[AWS IAM sign-in documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_sign-in.html)
+distinguishes an account ID or alias from the user's name. These are examples of
+why equivalence must be established, not universal rules for other products.
 
 ## Compound Spellings
 
