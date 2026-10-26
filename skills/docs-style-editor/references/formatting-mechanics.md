@@ -16,6 +16,8 @@
 - [Code Font](#code-font)
 - [Links and Cross-References](#links-and-cross-references)
 - [Figures and Images](#figures-and-images)
+  - [Screenshot Redaction](#screenshot-redaction)
+  - [Screenshot Redaction Review Cases](#screenshot-redaction-review-cases)
 - [Footnotes](#footnotes)
 - [Attribution](#attribution)
 
@@ -189,12 +191,35 @@ Alt text, media alternatives, and screenshots of text are canonical in accessibi
 - Introduce an image with a full sentence ending in a colon, except a screenshot that directly follows the UI step it illustrates.
 - Caption a figure as `Figure N. Description.` — a complete sentence with end punctuation — and cite it by number with a lowercase `figure` mid-sentence. Never point at an image spatially.
 - Crop a screenshot to the relevant control or region, and keep operating system and window styling consistent across a doc set.
-- Remove personal data from a screenshot with a fully opaque block, never with blur or pixelation, which can be reversed.
+- Before delivering a screenshot containing sensitive information, follow [Screenshot Redaction](#screenshot-redaction); a visually opaque cover alone is not proof of removal.
 - Prefer SVG for diagrams and PNG otherwise, avoid transparent backgrounds, and use MP4 rather than an animated GIF for motion.
 - Keep text inside a figure terse and in sentence case, expand no abbreviations there, use numbered callouts only as pointers, and repeat the information in accessible body text.
 - Replace an image map with a plain list of the references after the image.
 - Give image files descriptive names.
 - If the source does not say what a figure shows, mark the description as unverified rather than narrating plausible content.
+
+### Screenshot Redaction
+
+Work on a separate delivery copy. Permanently replace sensitive screenshot pixels with a fully opaque block and export a simple raster image such as PNG without editable layers or history. Do not use blur or pixelation, which may be reversible. A removable shape placed over an unchanged screenshot in an editable image, SVG, document, or PDF only hides the content; do not deliver that as a redacted asset.
+
+Verify the actual file to be delivered, not just its rendered preview: check that the hidden content cannot be recovered from underlying text or images, retained originals, or sensitive metadata. If embedding the sanitized image in a document, check that document too; do not package the unredacted source with it. Neither a file extension nor a claim that a PDF was flattened proves these checks passed. Keep captions, alt text, and findings free of the sensitive values as well. This does not prohibit ordinary SVG diagrams or opaque masking that actually replaces the disclosed pixels.
+
+If the available tools cannot establish that the delivery copy is safe, withhold the affected asset and identify the publication gap by location and category without repeating the sensitive information. Do not silently replace factual content with invented example values or claim the document is publication-ready. Alt-text requirements remain with accessibility-inclusion-editor.
+
+Technical basis: the [ICO's redaction guidance](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/disclosing-documents-to-the-public-securely/how-do-we-avoid-an-accidental-breach-when-redacting-information/) distinguishes permanent removal from visual covering and recommends exporting masked images without layers or edit history. Use this as technical handling guidance, not as a determination of legal compliance.
+
+### Screenshot Redaction Review Cases
+
+These original cases are manual editorial checks, not measurements of model performance. Use synthetic content only when testing them.
+
+| Input or evidence | Expected decision |
+| --- | --- |
+| A document contains a screenshot beneath a solid rectangle; the original image can still be extracted. | Withhold the affected asset. Visual opacity did not remove the information. |
+| Sensitive pixels were replaced in a new PNG; the actual image and final containing document were checked for retained sensitive content. | Accept the redaction evidence within the checks performed; do not reject opaque pixel replacement merely because editable overlays are unsafe. |
+| The visible image is sanitized, but the delivery file retains the unredacted original as an attachment or sensitive metadata. | Withhold until the retained information is removed and the final copy is rechecked. |
+| Only a rendered preview is available, or someone says the PDF was flattened without checking the output. | Record the verification limitation and withhold the affected asset; do not claim secure redaction. |
+| A harmless public diagram is supplied as SVG. | Preserve the normal SVG preference; no sensitive screenshot redaction is needed. |
+| The image is sanitized, but a caption or review finding repeats the private value. | Remove the disclosure from delivery and report only the safe location/category; image masking alone does not complete the check. |
 
 ## Footnotes
 

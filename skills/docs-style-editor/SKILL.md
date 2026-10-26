@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.11"
+  version: "1.1.12"
   risk_tier: low
 ---
 
@@ -97,6 +97,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Cleanup removes empty framing and repeated list-label wording while preserving real contrasts, uncertainty, technical terms, and required reusable text; revised phrases remain grammatical, and incomplete prose is expanded only when its meaning is established.
 - [ ] Defects owned by another skill are reported with that skill named, not re-decided here.
 - [ ] When STE is active, its stricter rules took precedence and none was relaxed.
+- [ ] Sensitive screenshot content is permanently removed from the actual delivery copy, not merely covered by an editable overlay; assets with unverified redaction remain explicit publication gaps.
 - [ ] The report separates applied changes from flagged questions; neither it nor the delivered draft repeats sensitive originals, and withheld passages remain explicit publication gaps.
 
 ## Guardrails
