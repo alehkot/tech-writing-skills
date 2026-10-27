@@ -12,7 +12,7 @@ description: >-
   literals stay exactly as written. Link text, headings, tables, punctuation, and casing stay with
   docs-style-editor. When Simplified Technical English is requested, the STE skill's rules win.
 metadata:
-  version: "1.0.7"
+  version: "1.0.8"
   risk_tier: low
 ---
 
