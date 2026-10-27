@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.12"
+  version: "1.1.13"
   risk_tier: low
 ---
 
