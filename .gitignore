@@ -118,3 +118,7 @@
 !/skills/technical-docs-reviewer/LICENSE
 !/skills/technical-report-writer/LICENSE
 !/skills/write-simplified-technical-english/LICENSE
+
+!/skills/technical-docs-reviewer/references/
+/skills/technical-docs-reviewer/references/*
+!/skills/technical-docs-reviewer/references/reader-comprehension.md

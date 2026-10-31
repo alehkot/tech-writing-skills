@@ -43,6 +43,7 @@
   "skills/technical-docs-reviewer/LICENSE",
   "skills/technical-docs-reviewer/SKILL.md",
   "skills/technical-docs-reviewer/agents/openai.yaml",
+  "skills/technical-docs-reviewer/references/reader-comprehension.md",
   "skills/technical-report-writer/LICENSE",
   "skills/technical-report-writer/SKILL.md",
   "skills/technical-report-writer/agents/openai.yaml",
