@@ -13,6 +13,7 @@
 - [Verification Passes](#verification-passes)
 - [Audit Pointers](#audit-pointers)
 - [HTML Outputs Appendix](#html-outputs-appendix)
+  - [Form Control Review Cases](#form-control-review-cases)
   - [Menu Path Review Cases](#menu-path-review-cases)
   - [Table Header Review Cases](#table-header-review-cases)
 - [Attribution](#attribution)
@@ -132,13 +133,30 @@ Apply this section only when the deliverable's output format is HTML. Skip it fo
 - Use `em` only for genuine emphasis and `strong` only for strong importance; use `i` and `b` for italics and bold that carry no emphasis semantics.
 - Do not use `br` to fake paragraph spacing; `br` is only for breaks that are part of the content, and spacing belongs to CSS.
 - Prefer native interactive elements, and keep the DOM order matching the reading order.
-- Give every form input a `label` element.
+- Check that interactive form controls have names that identify their supplied purpose. Prefer associated visible `label` elements for data-entry controls, including `select` and `textarea`; explicit labels must target the control's unique `id`, not merely its `name`. Preserve valid implicit labels and established alternative naming instead of requiring a new wrapper mechanically.
+- Do not require a separate `label` for an already named button: native button text, button-input `value`, and image-input `alt` can supply the name. Hidden inputs need no label. An ARIA attribute alone does not establish that a control is correctly named or understandable visually; preserve the supplied visible wording and flag unknown purpose or uncheckable associations rather than inventing names. Keep literal HTML examples unchanged and report concerns separately.
 - Identify table headers by what they label, not by their position or styling. Use `th` for actual row and column headers, including row headers in a later column; use `td` for data. For simple row and column relationships, use the corresponding `scope="row"` or `scope="col"` on the header cells.
 - Preserve valid existing header associations. For a supplied complex table, check explicit associations against the supplied relationships: `headers` values refer to document-unique `id` values on header cells in the same table. Do not invent associations from visual placement alone or remove meaningful header markup to satisfy a simple-table preference. Flag unknown relationships or uncheckable rendered behavior.
 - Recommend simpler tables under the canonical docs-style-editor table rules when applicable. Restructuring is separate from a mechanical or findings-only review; preserve every cell value, header label, unit, and relationship, and flag any simplification whose equivalence cannot be established.
 - Express a documented menu sequence in real text, for example `Select Project, then Settings, then Integrations.`, preserving the supplied labels and their order. A menu path is one of the task-docs-writer groupings permitted under the primary-action-per-step rule, whether its separators are words or symbols. Do not rely on a screen reader pronouncing `>` to convey the sequence.
 - Do not add `aria-label` or `aria-labelledby` to a generic separator `span` to replace its pronunciation: generic elements prohibit naming. Do not add an unrelated role or make punctuation focusable to force a name. Prefer visible connecting words, or split the sequence into separate steps when needed.
 - If a documented, tested house component already supplies equivalent accessible text for a symbolic path, preserve it. If its implementation or rendered behavior is unavailable, flag that verification gap rather than promising how it will be announced. Do not silently rewrite literal HTML examples, command operators, or a `>` that is part of a UI label.
+
+### Form Control Review Cases
+
+These original manual cases check editorial decisions for HTML documentation, not rendered accessibility or WCAG conformance. Apply only within the existing documentation-review scope.
+
+| Supplied context | Expected review decision | Failure to reject |
+| --- | --- | --- |
+| An editable HTML documentation form has a text field whose visible label targets its unique `id`. | Preserve the association. | Replacing `for` with the field's different `name`. |
+| A `select` or `textarea` has a supplied purpose but no associated label or other established name. | Flag the missing association; recommend a visible label using the supplied wording. | Checking only `input` elements or inventing a purpose. |
+| A checkbox is already wrapped in its descriptive `label`. | Preserve the implicit association. | Reporting a missing label solely because there is no `for` attribute. |
+| A submit input has a meaningful `value`; a button has meaningful text; an image input has purpose-specific `alt`. | Do not demand separate labels for these already named controls. | Adding redundant labels merely because a control is in a form. |
+| The form includes an `input type="hidden"`. | Do not demand a label for it. | Exposing or relabeling hidden data as an interaction. |
+| A search field uses established alternative naming and its purpose is clear in the supplied visible context. | Preserve the valid naming; flag rendered behavior if unavailable. | Treating either every ARIA name as sufficient or every non-`label` approach as invalid. |
+| Only a screenshot, an unexplained icon, Markdown output, or quoted HTML is supplied. | Flag unknown naming/association; skip HTML-specific edits for Markdown and preserve quoted code. | Claiming an accessible name from appearance or silently rewriting literals. |
+
+Basis: [W3C WAI labeling guidance](https://www.w3.org/WAI/tutorials/forms/labels/) and [H44's control-specific label guidance](https://www.w3.org/WAI/WCAG21/Techniques/html/H44). These support review decisions, not a claim that this documentation pass audits application UI or proves conformance.
 
 ### Menu Path Review Cases
 

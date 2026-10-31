@@ -11,6 +11,8 @@
 - [Redundant Framing](#redundant-framing)
 - [Timeless Wording](#timeless-wording)
 - [Precise Verbs and Nouns](#precise-verbs-and-nouns)
+  - [Lifecycle-Verb Review Cases](#lifecycle-verb-review-cases)
+  - [Account-Identity Review Cases](#account-identity-review-cases)
 - [Compound Spellings](#compound-spellings)
 - [Part-of-Speech Splits](#part-of-speech-splits)
 - [Sense-Dependent Spellings](#sense-dependent-spellings)
@@ -174,7 +176,7 @@ Describe what the product does now. Do not narrate how it differs from earlier v
 | allows you to, enables you to | Write `lets you` |
 | enable, turn on | For options and features; pick one verb per document |
 | execute | Write `run` when the meaning is the same |
-| kill, abort, terminate | Write `stop`, `end`, `cancel`, or `exit`; keep the original as literal command syntax |
+| kill, abort, terminate | Prefer `stop`, `end`, `cancel`, or `exit` only when the source establishes equivalent meaning. Preserve source-defined lifecycle, transaction, and signal distinctions in prose as well as exact literals; if equivalence is unclear, keep the term and flag the gap. |
 | surface (verb) | Write `expose` or `make available` |
 | persist (verb) | Write `make persistent` or `save` |
 | email, interface, ssh, RDP | Never verbs; write `send email`, `interact with`, `connect over SSH` |
@@ -186,9 +188,69 @@ Describe what the product does now. Do not narrate how it differs from earlier v
 | extract | The verb for unpacking archives; not `unzip` or `untar`; write `tar file` |
 | repo, regex, config, k8s, admin | Write `repository`, `regular expression`, `configuration`, `Kubernetes`, `administrator`, except in literal names |
 | the CLI, the UI | Name the specific interface, console, or page |
-| account name | Write `username` |
+| account name | Use `username` only when the source establishes that this is a user's username. Preserve distinct account, resource, display-name, ID, and alias concepts; do not infer equivalence from a sign-in context. If the meaning is unclear, keep the term and flag the gap. |
 | dialog | The UI window; not `dialog box`, `pop-up`, or `popup`; `dialogue` is human conversation |
 | drop-down | Write `list` or `menu`; keep `drop-down` only as a disambiguating modifier |
+
+### Lifecycle-Verb Review Cases
+
+Simpler wording must not change an operation's effects. A stopped resource need
+not be terminated, and ending a transaction need not roll it back. Preserve the
+source's distinctions, including recoverability, saved changes, and graceful or
+forced behavior. Do not infer these effects from a verb alone or add an operation
+that the source does not specify. Keep exact command syntax, API names, UI labels,
+and quoted output even when surrounding prose can be simplified.
+
+These original manual editorial cases check source preservation, not measured
+model behavior or execution of the operations. Each row supplies the evidence
+boundary; accept equivalent wording that retains every stated distinction.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| An EC2 guide distinguishes stopping an instance, which can later start, from terminating it, after which it cannot start. | Retain `stop` and `terminate` and the different outcomes in prose. | Replacing `terminate` with `stop`, implying the terminated instance can restart. |
+| A PostgreSQL guide says aborting a transaction discards its updates, whereas ending it with `END` commits them. | Retain the rollback/commit distinction; `roll back` can explain `abort` without changing supplied syntax. | Replacing the abort instruction with `end the transaction` or changing `ABORT;` to `END;`. |
+| A service guide defines a graceful stop as draining active requests and a forced termination as interrupting them. | Preserve both operations and the stated request-handling difference. | Calling both operations `stop` without preserving which one interrupts requests. |
+| The supplied product definition says `terminate the preview` means the same action as `stop the preview`; only ordinary prose is being edited. | Use `stop the preview`. | Requiring the more complex verb despite established equivalence, or inventing data loss. |
+| The only supplied sentence is `Abort the job.` No behavior or equivalent operation is defined. | Keep `abort`; flag the missing definition if clarification is needed. | Assuming `cancel`, `stop`, or `exit` has the same effect, or inventing rollback behavior. |
+| The source includes the UI label `Terminate instance`, API name `terminate_instances`, command `kill -TERM 1234`, or output `Transaction aborted`. | Preserve each literal exactly; clarify surrounding prose only from supplied facts. | Renaming a control, changing syntax, or treating the word `kill` alone as proof of forced termination. |
+
+The first two cases are grounded in the distinct operations documented by
+[AWS EC2 instance state changes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html)
+and PostgreSQL 18's [ABORT](https://www.postgresql.org/docs/18/sql-abort.html)
+and [END](https://www.postgresql.org/docs/18/sql-end.html) references (checked
+2026-10-27). These are examples of why equivalence needs evidence, not universal
+definitions for other products.
+
+### Account-Identity Review Cases
+
+A word-choice preference cannot establish that two identifiers name the same thing.
+An account may contain many users, and a sign-in flow may require more than one
+identifier. Keep the documented distinction and exact UI labels, field names,
+commands, and values. Do not rename a product field or infer that changing one
+name changes another.
+
+These original manual editorial cases check source preservation, not measured
+model behavior or verification of a real sign-in flow. Each row supplies the
+complete evidence boundary; accept equivalent accurate wording.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| A billing guide says the account name identifies the organization on invoices; a separate username identifies an individual user. | Retain both names and their distinct roles. | Renaming the invoice's account name to `username`. |
+| A service guide says its account name is the username used to identify the user. No literal field label is being edited. | Use `username` in explanatory prose, preserving the supplied equivalence. | Banning `username` even when the source establishes that meaning. |
+| The sign-in instructions require an account ID or account alias, plus an IAM username. | Preserve the alternative account identifiers and the additional username requirement. | Treating the alias as the username or dropping one required identifier. |
+| A resource reference defines the storage account name as part of a service endpoint; it is not a user identity. | Keep `storage account name` and its resource role. | Calling the endpoint component a username. |
+| The source says a display name is shown to other users and is different from the username. | Preserve both terms and their different purposes. | Replacing the display name with `username` for consistency. |
+| The prose only says `Enter your account name.` No product definition is supplied. | Keep the wording and flag what identifier the product expects if needed for the task. | Guessing that the field accepts a username, email address, account ID, or alias. |
+| A visible control is labeled `Account name`, or a supplied command has an `--account-name` flag. | Preserve the exact label or flag under the literal exception, even when surrounding prose can be clarified. | Renaming the UI control or command flag to satisfy a prose preference. |
+| The source says changing an account's display name leaves its account ID and users unchanged. | Keep the change and the unchanged identities distinct. | Claiming the rename changes user credentials or the account ID. |
+
+This narrows the [Google word-list preference](https://developers.google.com/style/word-list#account-name)
+when it would conflate product concepts. The product's authoritative definitions
+control meaning: [AWS account naming documentation](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-update-acct-name.html)
+describes an account name used in billing and organization views, while
+[AWS IAM sign-in documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_sign-in.html)
+distinguishes an account ID or alias from the user's name. These are examples of
+why equivalence must be established, not universal rules for other products.
 
 ## Compound Spellings
 
