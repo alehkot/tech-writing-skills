@@ -122,3 +122,12 @@
 !/skills/technical-docs-reviewer/references/
 /skills/technical-docs-reviewer/references/*
 !/skills/technical-docs-reviewer/references/reader-comprehension.md
+
+# Woodpecker build logs and test artifacts
+/.ci-output/
+
+# Explicitly distributed CI configuration and helpers
+!/.woodpecker.yaml
+!/.ci/
+/.ci/*
+!/.ci/check.sh
