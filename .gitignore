@@ -118,3 +118,15 @@
 !/skills/technical-docs-reviewer/LICENSE
 !/skills/technical-report-writer/LICENSE
 !/skills/write-simplified-technical-english/LICENSE
+
+# Woodpecker build logs and test artifacts
+/.ci-output/
+/.ci/__pycache__/
+
+# Explicitly distributed CI configuration and helpers
+!/.woodpecker.yaml
+!/.ci/
+/.ci/*
+!/.ci/check.sh
+!/.ci/report.py
+!/.ci/test_report.py
