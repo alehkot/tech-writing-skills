@@ -12,6 +12,7 @@
 - [Anthropomorphism](#anthropomorphism)
   - [Behavior-Preservation Review Cases](#behavior-preservation-review-cases)
 - [Durable Claims](#durable-claims)
+  - [Timeless-Capability Review Cases](#timeless-capability-review-cases)
 - [Engagement Without Hype](#engagement-without-hype)
 - [Revision Checklist](#revision-checklist)
 - [Attribution](#attribution)
@@ -130,7 +131,26 @@ These rules extend the empty-praise ban: a claim must survive tomorrow, not just
 - Attach a source or link to every performance or cost figure. If none exists, label the claim unverified or remove it.
 - Replace bare comparisons against third-party products with the mechanism that produces the advantage plus a pointer to supporting data. Never disparage the other product.
 - Run the durability test before delivery: would the claim still be true after a product update, price change, security incident, or competitor release?
-- Do not describe unreleased features or roadmap plans; cut "eventually", "in a future release", and "does not yet support". Time-stamped genres such as release notes, blog posts, and announcements are exempt (full timeless-word ban list: docs-style-editor).
+- In ordinary product explanations, remove roadmap implications while retaining current capability facts. Rewrite `does not yet support attachments` as `does not support attachments`, not by deleting the limitation. Keep the affected feature, version, scope, conditions, and uncertainty; do not turn planned support into available support. Preserve exact literals and flag consequential uncertainty instead of guessing. Time-stamped genres such as release notes, blog posts, and announcements retain their temporal context; this exception does not license inventing or upgrading plans.
+
+### Timeless-Capability Review Cases
+
+These original cases are manual editorial checks, not measured model behavior.
+Each supplied statement is the evidence boundary; accept equivalent wording.
+
+| Supplied source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| `The export API does not yet support attachments.` Ordinary product explanation. | Say the export API does not support attachments. | Deleting the limitation or saying attachments are supported. |
+| `Version 2 does not yet support attachments on shared workspaces.` | Preserve version 2, attachments, and shared-workspace scope while removing `yet`. | Extending the restriction to all versions or all workspaces. |
+| `The source does not establish whether attachments are supported.` | Retain the unknown capability status. | Converting missing evidence into either support or lack of support. |
+| `Attachment support is planned for a future release.` No current capability is established. | Do not present the plan as a current feature; flag the missing current-capability evidence if needed. | Inventing present support or asserting non-support from the plan alone. |
+| A dated release announcement says attachment support is planned, not committed. | Keep the dated context and tentative status when relevant to that genre. | Changing the plan into a guarantee or released capability. |
+| Quoted diagnostic output contains `does not yet support attachments`. | Preserve the exact output; clarify capability separately only from supplied evidence. | Editing the diagnostic literal during prose cleanup. |
+| `The export API supports attachments.` | Retain the positive capability statement. | Adding a limitation or future qualification. |
+
+[Google's timeless-documentation guidance](https://developers.google.com/style/timeless-documentation)
+removes temporal implications while retaining unsupported-feature information.
+These checks apply that distinction without supplying missing product facts.
 
 ## Engagement Without Hype
 
@@ -170,7 +190,7 @@ These rules extend the empty-praise ban: a claim must survive tomorrow, not just
 - Idioms, slang, and culture-specific metaphors are removed.
 - No component is given human faculties; behavior is described with precise technical verbs.
 - Every claim passes the durability test; superlatives, unconditional guarantees, and unsourced figures are removed or scoped.
-- No unreleased-feature or roadmap language remains outside time-stamped genres.
+- Timeless cleanup retains current capability limitations, scope, conditions, uncertainty, and exact literals while removing roadmap implications outside time-stamped genres.
 - Paragraphs past five or six sentences are split or cut without splitting a single idea, and sentence openers vary.
 - Outside-source material is paraphrased in original wording with a link, never copied.
 - Caveats and tradeoffs remain accurate.

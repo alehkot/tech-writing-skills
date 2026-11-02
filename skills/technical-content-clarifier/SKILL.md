@@ -4,7 +4,7 @@ description: >-
   Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
   Use when caveats, uncertainty, audience proximity, or source-backed simplification matter.
 metadata:
-  version: "1.1.3"
+  version: "1.1.4"
   risk_tier: low
 ---
 
@@ -96,7 +96,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - [ ] Ambiguous pronouns such as `it`, `this`, `that`, and `they` are replaced when the referent is unclear.
 - [ ] Idioms, slang, and culturally specific metaphors have been removed or replaced.
 - [ ] Outside-source material is paraphrased and linked, never copied.
-- [ ] No unreleased-feature or roadmap language remains outside time-stamped genres.
+- [ ] Timeless cleanup removes roadmap implications without deleting current capability limitations, their scope or conditions; time-stamped genres and exact literals retain their appropriate context.
 - [ ] The piece has a clear narrative path, not a loose pile of facts.
 - [ ] The ending gives the reader a concrete next action, decision, or mental model.
 
@@ -109,7 +109,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - Do not turn a tidy story into a false certainty.
 - Do not copy text, images, code, logos, or transcribed speech from outside sources. Paraphrase in your own words and link to the original; a verbatim quote with a citation is not a substitute for paraphrase in product documentation. The paraphrase must preserve the source's meaning and stay traceable to its source.
 - Do not claim a product "is secure" or "prevents" attacks. Describe what a feature is designed to do so a future incident cannot falsify the doc.
-- Do not describe unreleased features or roadmap plans; cut "eventually", "in a future release", and "does not yet support". Release notes and blog posts are exempt as time-stamped genres (full timeless-word list: docs-style-editor).
+- In ordinary product explanations, remove roadmap implications, not current capability facts. For example, change `does not yet support attachments` to `does not support attachments`, retaining the affected feature, version, scope, and conditions. Do not delete the limitation or turn planned support into available support. Preserve exact literals; flag consequential uncertainty rather than guessing. Release notes and blog posts retain their time-stamped context (see the timeless-capability checks in the reference).
 
 ## Attribution
 
