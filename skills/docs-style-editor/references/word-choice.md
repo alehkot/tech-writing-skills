@@ -10,6 +10,7 @@
   - [Ease-Word Review Cases](#ease-word-review-cases)
 - [Redundant Framing](#redundant-framing)
 - [Timeless Wording](#timeless-wording)
+  - [Resource-State Review Cases](#resource-state-review-cases)
 - [Precise Verbs and Nouns](#precise-verbs-and-nouns)
   - [Lifecycle-Verb Review Cases](#lifecycle-verb-review-cases)
   - [Account-Identity Review Cases](#account-identity-review-cases)
@@ -152,22 +153,40 @@ Apply [unslop-guide.md](unslop-guide.md) to conversational padding, ornamental c
 
 ## Timeless Wording
 
-Describe what the product does now. Do not narrate how it differs from earlier versions or how it might change.
+For product-capability descriptions, describe what the product does now rather than narrating earlier or future capabilities. Apply the table only after checking the word's role: preserve source-defined resource state, reuse versus creation, relative age, and selection rules in procedures or prerequisites. A meaningful distinction can be established elsewhere in the document; it need not appear in the same sentence. If the referent or selection rule is unclear, retain the wording and flag the gap instead of guessing.
 
 | Term | Ruling |
 | --- | --- |
 | currently, presently, at present, as of this writing | Delete; the document's existence implies them |
 | now | Delete, or anchor the change to a release |
-| new, newer, latest | Delete, or anchor to a version number or a release date |
-| old, older | Name the version instead |
+| new, newer, latest | For incidental feature-newness claims, delete or use a sourced version/date; preserve a required resource-state or selection distinction |
+| old, older | For release comparisons, name the sourced version; preserve source-defined resource-age distinctions |
 | soon, eventually, in the future | Delete; do not project a roadmap |
 | does not yet | Write `does not support X` |
-| existing | Delete unless it distinguishes two things present in the same sentence |
+| existing | Delete only when redundant; retain when it identifies a prerequisite or distinguishes reuse from creation, including across sentences |
 
 - Anchor a genuine newness claim to a fact from the source: `The 4.2 release adds a job history view.`
 - Check headings and opening sentences first; `new` and `now` cluster there.
 - Exempt time-stamped genres — release notes, blog posts, announcements — and procedural state changes such as `The instance stops responding shortly after you send the shutdown signal.`
-- Never invent a version or a date to replace a time-anchored word. If the source does not supply one, delete the word or flag the claim.
+- Never invent a version or a date to replace a time-anchored word. Delete only redundant wording; otherwise flag the missing reference point. Do not replace a required moving selector such as `latest successful backup` with a guessed fixed version or date.
+
+[Google's timeless-documentation guidance](https://developers.google.com/style/timeless-documentation) scopes the preference to capability descriptions and allows meaningful procedural state changes. Preserve that boundary rather than applying a word blacklist.
+
+### Resource-State Review Cases
+
+These original manual editorial cases check source preservation and instruction consistency, not measured model behavior or execution of the described operations. Accept equivalent wording that retains the supplied distinctions.
+
+| Source and context | Acceptable decision | Meaning drift to reject |
+| --- | --- | --- |
+| `Use an existing cluster.` The prerequisite excludes creating a cluster for this task. | Retain `existing` or an equivalent reuse requirement. | `Use a cluster.`, which loses the prerequisite. |
+| A rotation guide first says to retain the current key for rollback. A later paragraph says `Select a new signing key.` and requires a replacement key. | Preserve that a distinct replacement key must be selected, even across paragraphs. | Removing the distinction or selecting the retained key instead. |
+| `Restore the latest successful backup.` The source defines the selection by successful completion time. | Preserve the success condition and most-recent selection rule. | `Restore a backup.` or inserting an assumed backup date. |
+| `Remove the older snapshot.` The source identifies two snapshots by creation time. | Keep the relative-age distinction. | Removing any snapshot or inventing a product version. |
+| `The new panel shows request counts.` This is an undated capability description; `new` adds no constraint. | `The panel shows request counts.` | Keeping an unsupported newness claim merely because procedural exceptions exist. |
+| `The latest release supports export.` The source supplies no release identifier or intended scope. | Flag which release is meant; do not invent its identifier or broaden support. | `All releases support export.` or substituting a guessed version. |
+| The source includes the UI label `New connection` or the literal flag `--existing`. | Preserve the exact literal under the code-literal exception. | Renaming a control or changing command syntax. |
+| `Create a new project.` No contrast or resource-selection constraint is supplied; creation establishes newness. | `Create a project.` | Requiring `new` in every creation step. |
+| A dated release note announces a new feature. | Retain the appropriate time-stamped genre exception. | Deleting meaningful announcement context mechanically. |
 
 ## Precise Verbs and Nouns
 
@@ -368,7 +387,7 @@ why equivalence must be established, not universal rules for other products.
 - Write `this document`, or the specific genre for that genre: `this tutorial`, `this quickstart`. Do not write `this article`, `this doc`, `this topic`, or `this page` for a document.
 - Reserve `page` for a web page or a console sub-page, and never write `chapter` outside a book.
 - Spell out `documentation`, except where space is constrained.
-- Write `Create a project`, not `Create a new project`, unless you are distinguishing it from another project created in the same procedure.
+- Prefer `Create a project` when the creation verb already establishes newness and no distinction is lost. Retain `new` when the source contrasts the created project with a pre-existing or other project, even outside this sentence or procedure (see [Timeless Wording](#timeless-wording)).
 - Write `information about X`, not `information on X`.
 
 ## Attribution

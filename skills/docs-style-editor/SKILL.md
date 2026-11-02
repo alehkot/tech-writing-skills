@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.14"
+  version: "1.1.15"
   risk_tier: low
 ---
 
@@ -94,6 +94,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Time edits preserve the source's named zone, fixed offset, or reader-local basis and recurrence; unknown or conflicting zone information is flagged, not guessed.
 - [ ] Changes are mechanical: no fact, condition, actor, number, unit, severity, hedge, or caveat was added, deleted, or reweighted.
 - [ ] Values that may be real rather than illustrative are flagged as questions, never swapped for reserved example values.
+- [ ] Timeless wording preserves resource state, reuse versus creation, and source-defined selection rules; distinctions can be established across sentences, and unclear referents are flagged.
 - [ ] Time-anchored and register fillers follow their genre exceptions; ease-word cleanup preserves meaningful restrictions, timing, comparisons, technical terms, and literals.
 - [ ] Cleanup removes empty framing and repeated list-label wording while preserving real contrasts, uncertainty, technical terms, and required reusable text; revised phrases remain grammatical, and incomplete prose is expanded only when its meaning is established.
 - [ ] Defects owned by another skill are reported with that skill named, not re-decided here.
