@@ -8,6 +8,7 @@
 - [Criteria Matrix](#criteria-matrix)
 - [Evidence Chain](#evidence-chain)
 - [Comparison Discipline](#comparison-discipline)
+- [Actor Attribution](#actor-attribution)
 - [Executive Summary Pattern](#executive-summary-pattern)
 - [Purpose and Order](#purpose-and-order)
 - [Modular Audience Pattern](#modular-audience-pattern)
@@ -78,6 +79,35 @@ Action needed to close the gap:
 - Avoid footnotes in benchmark and comparison tables; move the content into a cross-reference, an inline note, or a parenthetical.
 - When a footnote is unavoidable, such as a table caveat that fits nowhere else, mark it with a superscript number and place the note directly after the table. Never drop the caveat itself: caveats are load-bearing evidence.
 
+## Actor Attribution
+
+Prefer active voice when the evidence establishes who or what acted. An unknown
+actor is different from an irrelevant one: a report may need to preserve the
+missing attribution as a material finding. Keep a passive construction when it
+accurately states what is known, and state a consequential actor gap separately.
+Do not add a service, team, person, or generic "system" as the actor merely to
+satisfy a voice preference. A suspected actor stays suspected after any rewrite.
+Blameless incident language does not require deleting source-established
+responsibilities that the reader needs for the report's purpose.
+
+These original manual editorial cases check source fidelity and instruction
+consistency, not measured model behavior or the correctness of a real incident
+investigation. Each row supplies its complete example evidence; equivalent
+accurate wording is acceptable.
+
+| Source and report context | Acceptable treatment | Meaning drift to reject |
+| --- | --- | --- |
+| `The credential was revoked. The initiating actor is not recorded.` Attribution matters to the investigation. | Keep the revocation and explicit actor gap; passive voice is allowed. | Inventing a user, service, or "system" that revoked it, or omitting the gap as irrelevant. |
+| `The manifest was validated by the controller.` The source confirms the actor. | `The controller validated the manifest.` | Leaving the actor unknown or substituting another component. |
+| `The job may have been canceled by the scheduler; attribution is unconfirmed.` | `The scheduler may have canceled the job; attribution is unconfirmed.` Retaining the passive is also accurate. | `The scheduler canceled the job.` |
+| `The queue was drained at 3 PM UTC; no actor information is supplied.` | Preserve the event and time without guessing an actor; flag missing attribution if the report needs it. | Saying an operator drained it or claiming that an investigation proved the actor unknowable. |
+| The report records that the deployment controller rejected 247 writes during failover. Impact is the focus of the summary. | A passive impact summary may emphasize the 247 rejected writes; retain the known controller attribution where relevant to the report's explanation. | Erasing known responsibility from the report in the name of blamelessness. |
+
+The [National Archives clear-writing guidance](https://www.archives.gov/federal-register/write/legal-docs/clear-writing.html)
+explicitly permits passive voice for an unknown actor. [Google's voice guidance](https://developers.google.com/style/voice)
+supports active voice as a default with exceptions. These style preferences do
+not supply evidence about the documented event.
+
 ## Executive Summary Pattern
 
 Use four compact parts:
@@ -124,5 +154,5 @@ Use modular sections when the report has mixed readers:
 - Conclusions do not introduce new evidence.
 - Recommendations are actionable and tied to conclusions.
 - The report gives a forward-looking action: what the audience should do next.
-- Limitations and uncertainty are visible.
+- Limitations and uncertainty are visible, including consequential gaps or uncertainty in actor attribution.
 - Bad news is stated directly in a topic sentence or other emphatic location, not hidden mid-paragraph.

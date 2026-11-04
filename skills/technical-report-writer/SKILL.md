@@ -4,7 +4,7 @@ description: >-
   Technical report writing for rigorous engineering decision documents: recommendation reports, feasibility studies, benchmark reports, incident reports, postmortems, progress reports, evaluation memos, tradeoff analyses, migration assessments, and architecture decision reports. Use for separating evidence, criteria, analysis, conclusions, and recommendations.
   Use when evidence traceability, limitations, missing data, or decision criteria must be explicit.
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
   risk_tier: low
 ---
 
@@ -24,7 +24,7 @@ Adapt the default structure and level of detail to the report type and audience.
 2. State the document's purpose with a clear communicating verb, such as `This report recommends...`, `This report evaluates...`, or `This report explains...`.
 3. Put the most important information first. Do not organize by chronology or suspense when readers need a decision.
 4. Separate facts from interpretation. Capture raw evidence, data sources, assumptions, and uncertainty before drafting conclusions.
-5. Write in active voice with the actor as the subject. Allow passive voice only to emphasize the object, to de-emphasize the actor and avoid blame in incident or postmortem prose (`247 writes were rejected during the failover`), or when the actor is irrelevant. Recast passives that name their actor with `by` as active sentences.
+5. Write in active voice with the actor as the subject. Allow passive voice only to emphasize the object, to de-emphasize the actor and avoid blame in incident or postmortem prose (`247 writes were rejected during the failover`), or when the actor is unknown or irrelevant. Never invent an actor to make a sentence active; keep consequential missing attribution visible. Preserve uncertainty about a suspected actor, even in a `by` phrase. When no passive-voice exception applies, recast passives with a source-established actor as active sentences without changing certainty or responsibility; use the [actor-attribution checks](references/report-patterns.md#actor-attribution) for incident and investigation findings.
 6. Define unfamiliar terms, acronyms, metrics, units, and option names before using them in findings or recommendations.
 7. Define evaluation criteria before comparing options. Use criteria the reader can inspect, such as cost, reliability, security, latency, maintainability, adoption effort, or compliance. Distinguish mandatory criteria from desirable criteria when the decision depends on thresholds.
 8. Organize analysis by criteria, not by whatever order the notes arrived in.
@@ -89,7 +89,7 @@ Complete the task only when every recommendation traces through evidence, findin
 - [ ] Claims pass the durability check: no superlatives or unconditional guarantees (canonical rules in technical-content-clarifier's claims guidance).
 - [ ] Comparison tables use consistent digit grouping and unambiguous date formats (canonical rules in docs-style-editor's numbers-dates-units reference).
 - [ ] Every recommendation traces back to a conclusion, and every conclusion traces back to evidence.
-- [ ] Uncertainty and limitations are visible.
+- [ ] Uncertainty and limitations are visible; voice edits preserve unknown or suspected actors without inventing or hiding responsibility.
 - [ ] Missing data is labeled and does not silently become a confident finding.
 - [ ] Tables are used where they help comparison; prose explains significance rather than repeating table cells.
 - [ ] The executive summary can stand alone for a busy reader.
