@@ -21,6 +21,7 @@
 - [Term Formatting](#term-formatting)
 - [Abbreviations](#abbreviations)
 - [Spelling and Dictionary Policy](#spelling-and-dictionary-policy)
+  - [Dialog Terminology Review Cases](#dialog-terminology-review-cases)
 - [Product Names and Trademarks](#product-names-and-trademarks)
 - [Document Self-Reference](#document-self-reference)
 - [Attribution](#attribution)
@@ -358,7 +359,7 @@ why equivalence must be established, not universal rules for other products.
 | --- | --- |
 | canceled, cancelled | `canceled` and `canceling`, but `cancellation` |
 | catalog, catalogue | `catalog` |
-| dialog, dialogue | `dialog box` for the UI element |
+| dialog, dialogue | `dialog` for the UI element; `dialogue` for human conversation (see [Precise Verbs and Nouns](#precise-verbs-and-nouns)) |
 | gray, grey | `gray` |
 | toward, towards | `toward`, and the same for `backward` and `forward` |
 | acknowledgment, acknowledgement | `acknowledgment`, and `judgment` follows the same pattern |
@@ -369,6 +370,24 @@ why equivalence must be established, not universal rules for other products.
 
 - For a variant these tables do not cover, do not settle it from memory. Flag it as an open question, name the dictionary the author should check — Merriam-Webster unless the project names another authority — and leave the draft's form in place until the author answers.
 - Spell a technical term absent from the dictionary as the authoritative product or standard documentation spells it. Never invent a spelling; flag the term instead.
+
+### Dialog Terminology Review Cases
+
+Apply the same house form in the word-choice and spelling passes. These original
+manual editorial cases check instruction consistency, not measured model behavior
+or UI functionality. Project conventions and exact literals still take precedence.
+
+| Supplied source and context | Acceptable decision | Failure to reject |
+| --- | --- | --- |
+| `The confirmation dialog box appears.` No project-specific terminology is established. | `The confirmation dialog appears.` | Reintroducing `dialog box` during the spelling pass after the word-choice pass removes it. |
+| `The confirmation dialog appears.` House defaults apply. | Retain `dialog`. | Adding `box` to satisfy the spelling table. |
+| `The transcript records the dialogue between the speakers.` | Retain `dialogue` for human conversation. | Changing conversation to the UI spelling `dialog`. |
+| The visible control is labeled `Open dialog box`, or an API identifier is `showDialogBox`. | Preserve each exact literal; apply the house form only to surrounding prose. | Renaming a control or identifier. |
+| The project's documented style guide requires `dialog box` in explanatory prose. | Follow the project convention consistently and record the override. | Enforcing the house default despite the higher-precedence project rule. |
+
+[Google's word list](https://developers.google.com/style/word-list#dialog)
+distinguishes `dialog` for the UI element from `dialogue` for verbal interaction.
+This agrees with the existing house terminology and task-docs-writer examples.
 
 ## Product Names and Trademarks
 
