@@ -12,6 +12,7 @@
 - [Anthropomorphism](#anthropomorphism)
   - [Behavior-Preservation Review Cases](#behavior-preservation-review-cases)
 - [Durable Claims](#durable-claims)
+  - [Claim-Strength Review Cases](#claim-strength-review-cases)
   - [Timeless-Capability Review Cases](#timeless-capability-review-cases)
 - [Engagement Without Hype](#engagement-without-hype)
 - [Revision Checklist](#revision-checklist)
@@ -126,12 +127,35 @@ checks here apply that style rule without supplying missing product behavior.
 These rules extend the empty-praise ban: a claim must survive tomorrow, not just be defensible today.
 
 - Replace product superlatives (best, fastest, simplest, always, never) with measurable, scoped statements. Avoid: "the fastest way to replicate data." Prefer: "replicated a 10 GB dataset in about 4 minutes in our benchmark (link)."
-- Write "ensure", "guarantee", or "prevents" only when the outcome is unconditionally true. Otherwise write "helps", "is designed to", or name the mechanism that produces the outcome.
-- Phrase security claims so a future incident cannot falsify them: describe what a feature is designed to do, never promise absolute protection.
+- Match claim strength to the sources. Use "ensure", "guarantee", or "prevents" only when supported within the stated version, scope, and conditions. A condition limits where a claim applies; it does not by itself make the outcome uncertain. Preserve an established outcome and its limits, or describe its supported mechanism directly. Do not mechanically replace it with "helps" or "is designed to", which express weaker claims.
+- Keep design intentions, best-effort behavior, observations, and established guarantees distinct. Preserve tentative language when the evidence is tentative. When support is missing or conflicting, flag that gap instead of inventing either a guarantee or a reassuring design intention.
+- Avoid blanket security assurances. Describe the supported mechanism, scope or threat model, and limitations; a narrowly established behavior does not prove that the product is secure against every attack. Use design-intent wording only when that is what the source establishes.
 - Attach a source or link to every performance or cost figure. If none exists, label the claim unverified or remove it.
 - Replace bare comparisons against third-party products with the mechanism that produces the advantage plus a pointer to supporting data. Never disparage the other product.
 - Run the durability test before delivery: would the claim still be true after a product update, price change, security incident, or competitor release?
 - In ordinary product explanations, remove roadmap implications while retaining current capability facts. Rewrite `does not yet support attachments` as `does not support attachments`, not by deleting the limitation. Keep the affected feature, version, scope, conditions, and uncertainty; do not turn planned support into available support. Preserve exact literals and flag consequential uncertainty instead of guessing. Time-stamped genres such as release notes, blog posts, and announcements retain their temporal context; this exception does not license inventing or upgrading plans.
+
+### Claim-Strength Review Cases
+
+These original cases check editorial source fidelity and instruction consistency,
+not measured model behavior or the correctness of any real product. Each row
+supplies its complete hypothetical evidence boundary; accept equivalent accurate
+wording. The rule rejects unsupported assurances without weakening supported facts.
+
+| Supplied source and context | Acceptable treatment | Meaning drift to reject |
+| --- | --- | --- |
+| A supplied protocol specification establishes: `While the lease is valid, only its holder can commit a write.` | Preserve the valid-lease condition and exclusive-write rule. A direct statement of the behavior is sufficient. | `The lease helps limit writes to its holder`, or a guarantee that applies after the lease expires. |
+| The source establishes that a gateway with signature validation enabled rejects requests with an invalid signature; unsigned health probes are exempt. | Preserve the enabled setting, invalid-signature rejection, and explicit exemption. | Calling validation merely a design goal, deleting the exemption, or claiming the gateway prevents all unauthorized access. |
+| The source says a proposed retry mechanism `is designed to reduce transient failures`; its effect has not been verified. | Preserve the proposal, intent, and unverified effect. | Claiming it guarantees successful requests or prevents every failure. |
+| The supplied copy says `Our product prevents account takeovers`, but provides no evidence or stated protection scope. | Flag the unsupported assurance and request evidence or remove the claim. | Inventing a verified protection mechanism, or assuming `is designed to prevent` is supported merely because it sounds weaker. |
+| A benchmark reports no duplicate records in 100 test runs with one specified configuration. | State the observation and configuration; leave guarantees unestablished. | Claiming that duplicates can never occur, or dropping the successful observation altogether. |
+| `If configured correctly, this guarantees recovery.` Neither the configuration nor a recovery guarantee is established by the supplied evidence. | Flag the missing configuration and support; a conditional clause alone does not validate the claim. | Treating `if configured correctly` as evidence of a guarantee or inventing the required configuration. |
+| A quoted diagnostic contains `guaranteed delivery disabled`; the source does not establish its implementation. | Preserve the exact diagnostic and keep implementation details unspecified. | Editing the literal for style, or treating the name as proof of a delivery guarantee. |
+
+[Google's excessive-claims guidance](https://developers.google.com/style/excessive-claims)
+calls for verifiable, appropriately bounded claims. These cases apply the
+source-preservation contract in both directions: do not strengthen an uncertain
+claim or weaken a supported one.
 
 ### Timeless-Capability Review Cases
 
@@ -189,7 +213,7 @@ These checks apply that distinction without supplying missing product facts.
 - Long procedures and reference tables are moved to task or reference topics.
 - Idioms, slang, and culture-specific metaphors are removed.
 - No component is given human faculties; behavior is described with precise technical verbs.
-- Every claim passes the durability test; superlatives, unconditional guarantees, and unsourced figures are removed or scoped.
+- Every claim passes the durability test; unsupported or overbroad assurances, superlatives, and unsourced figures are removed or scoped without weakening supported behavior or dropping its conditions.
 - Timeless cleanup retains current capability limitations, scope, conditions, uncertainty, and exact literals while removing roadmap implications outside time-stamped genres.
 - Paragraphs past five or six sentences are split or cut without splitting a single idea, and sentence openers vary.
 - Outside-source material is paraphrased in original wording with a link, never copied.

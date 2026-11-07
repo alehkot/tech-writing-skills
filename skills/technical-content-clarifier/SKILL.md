@@ -4,7 +4,7 @@ description: >-
   Concept clarification for concept topics and audience-aware technical explanations: architecture explanations, engineering blog posts, conceptual documentation, onboarding overviews, release narratives, executive-friendly summaries, developer education, and explanations of systems, algorithms, APIs, incidents, or tradeoffs. Use for clarifying abstractions, choosing examples, tuning tone, and removing knowledge gaps.
   Use when caveats, uncertainty, audience proximity, or source-backed simplification matter.
 metadata:
-  version: "1.1.4"
+  version: "1.1.5"
   risk_tier: low
 ---
 
@@ -33,7 +33,7 @@ Choose the explanatory sequence, examples, and analogies to fit the reader. Trea
 11. Separate confirmed facts, suspected causes, examples, assumptions, and open questions before simplifying. Do not let a cleaner narrative turn uncertainty into fact.
 12. Remove false precision, jargon that does not help, idioms, slang, sports metaphors, ambiguous pronouns, and references that may not travel across cultures or teams.
 13. Describe components with source-supported technical verbs (specifies, detects, sends, returns, sets, reads). Changing a human verb does not supply a missing algorithm, trigger, actor, or successful result; preserve known behavior and flag necessary unknown details rather than inventing them. No component "sees", "thinks", "knows", "wants", "decides", or "tells" another what to do. Deliberate, explicitly bounded analogies remain allowed; the ban targets casual human-verb phrasing in ordinary descriptions.
-14. Scope every claim so it stays true tomorrow: replace product superlatives (best, fastest, simplest, always, never) with measurable, scoped statements; write "ensure", "guarantee", or "prevents" only for unconditionally true outcomes; attach a source to every performance or cost figure or label it unverified. Apply the durable-claims rules in [references/clarity-patterns.md](references/clarity-patterns.md).
+14. Scope every claim so it stays true tomorrow: replace product superlatives (best, fastest, simplest, always, never) with measurable, scoped statements; use "ensure", "guarantee", or "prevents" only when the sources support that strength within the stated scope and conditions; preserve established behavior rather than weakening it to design intent; attach a source to every performance or cost figure or label it unverified. Apply the durable-claims rules in [references/clarity-patterns.md](references/clarity-patterns.md).
 15. Keep simplification honest. Preserve important caveats and tradeoffs instead of smoothing them away.
 16. Prefer active voice and short sentences. Split long sentences that carry multiple ideas. Treat a paragraph past five or six sentences as a signal to split or cut, but never split a single idea; one-sentence paragraphs are fine. Shorten sentences and paragraphs together — never merge sentences just to lower the count. Vary sentence openers, and rewrite runs of consecutive sentences that start with the same phrase.
 17. For executive summaries, do one final vocabulary pass and replace implementation labels such as `backend`, `pooling`, `connection`, `burst load`, `tail latency`, and `retry` unless the label is required for the decision. If a low-level cause is not needed for the decision, summarize it as "an internal technical change" only when that preserves the source, and focus on documented impact. If impact is unknown, state that gap instead of inventing a consequence. Choose plain phrases that preserve the specified metric and conditions; do not turn unspecified `tail latency` into an invented percentile or average.
@@ -90,7 +90,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - [ ] The explanation is accurate enough for experts and approachable enough for the target reader.
 - [ ] Analogies are bounded so they do not obscure the technical distinction.
 - [ ] No component is given human faculties; technical verb replacements preserve sourced behavior without inventing an algorithm, trigger, actor, or successful result.
-- [ ] Superlatives, unconditional guarantees, and unsourced figures are removed or scoped per the durable-claims rules.
+- [ ] Unsupported or overbroad assurances, superlatives, and unsourced figures are removed or scoped; source-supported behavior keeps its strength, conditions, and limits under the durable-claims rules.
 - [ ] Paragraphs past five or six sentences are split or cut without splitting a single idea, and sentence openers vary.
 - [ ] Register fillers such as "please note that", "at this time", "let's do X", and exclamation marks are gone (canonical list: docs-style-editor word-choice).
 - [ ] Ambiguous pronouns such as `it`, `this`, `that`, and `they` are replaced when the referent is unclear.
@@ -108,7 +108,7 @@ Complete the task only when the piece has a named or stated audience, a one-sent
 - Do not assume the reader knows the team's acronyms, architecture history, or incident context.
 - Do not turn a tidy story into a false certainty.
 - Do not copy text, images, code, logos, or transcribed speech from outside sources. Paraphrase in your own words and link to the original; a verbatim quote with a citation is not a substitute for paraphrase in product documentation. The paraphrase must preserve the source's meaning and stay traceable to its source.
-- Do not claim a product "is secure" or "prevents" attacks. Describe what a feature is designed to do so a future incident cannot falsify the doc.
+- Do not turn a security feature into a blanket promise that a product "is secure" or prevents all attacks. Distinguish a design goal from source-established behavior within a named scope or threat model. Preserve documented conditions, exceptions, and uncertainty; neither invent protection nor weaken a supported mechanism into mere intent.
 - In ordinary product explanations, remove roadmap implications, not current capability facts. For example, change `does not yet support attachments` to `does not support attachments`, retaining the affected feature, version, scope, and conditions. Do not delete the limitation or turn planned support into available support. Preserve exact literals; flag consequential uncertainty rather than guessing. Release notes and blog posts retain their time-stamped context (see the timeless-capability checks in the reference).
 
 ## Attribution

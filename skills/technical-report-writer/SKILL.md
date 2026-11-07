@@ -4,7 +4,7 @@ description: >-
   Technical report writing for rigorous engineering decision documents: recommendation reports, feasibility studies, benchmark reports, incident reports, postmortems, progress reports, evaluation memos, tradeoff analyses, migration assessments, and architecture decision reports. Use for separating evidence, criteria, analysis, conclusions, and recommendations.
   Use when evidence traceability, limitations, missing data, or decision criteria must be explicit.
 metadata:
-  version: "1.1.2"
+  version: "1.1.3"
   risk_tier: low
 ---
 
@@ -86,7 +86,7 @@ Complete the task only when every recommendation traces through evidence, findin
 - [ ] The criteria appear before the option-by-option analysis.
 - [ ] Mandatory criteria and desirable criteria are separated when threshold decisions matter.
 - [ ] Comparison lists and tables use parallel structure and comparable units.
-- [ ] Claims pass the durability check: no superlatives or unconditional guarantees (canonical rules in technical-content-clarifier's claims guidance).
+- [ ] Claims pass the durability check: no superlatives or unsupported or overbroad assurances; source-supported behavior retains its conditions and certainty (canonical rules in technical-content-clarifier's claims guidance).
 - [ ] Comparison tables use consistent digit grouping and unambiguous date formats (canonical rules in docs-style-editor's numbers-dates-units reference).
 - [ ] Every recommendation traces back to a conclusion, and every conclusion traces back to evidence.
 - [ ] Uncertainty and limitations are visible; voice edits preserve unknown or suspected actors without inventing or hiding responsibility.
