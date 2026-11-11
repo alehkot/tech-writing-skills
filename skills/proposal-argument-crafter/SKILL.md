@@ -4,7 +4,7 @@ description: >-
   Proposal argument writing for persuasive technical proposals: internal engineering pitches, architecture investment requests, project proposals, vendor proposals, RFP responses, grant-style technical plans, budget requests, and implementation proposals. Use for parsing constraints, building a problem-solution argument, proving feasibility, and making the proposal compliant, credible, and decision-ready.
   Use when assumptions, evidence gaps, reviewer objections, or required proposal constraints need explicit treatment.
 metadata:
-  version: "1.1.1"
+  version: "1.1.2"
   risk_tier: low
 ---
 
@@ -31,7 +31,7 @@ Adapt the default structure, emphasis, and wording to the reviewer and proposal 
 9. Make cost and schedule reviewable. Use a table for budget and a milestone list or timeline for schedule; for complex delivery plans, use or describe a Gantt chart, network diagram, or dependency-aware timeline.
 10. Describe quality-control or evaluation methods when the proposal promises delivery, implementation, or measurable outcomes.
 11. Address risks honestly. Pair each material risk with mitigation, fallback, or decision point.
-12. Keep a proposal evidence ledger: sourced proof, assumptions, claims that need support, constraints, and open questions. Convert hype into evidence, measurable benefit, or a labeled assumption. Apply the claim and third-party-content rules from technical-content-clarifier: no product superlatives; "ensure", "guarantee", or "prevents" only for unconditionally true outcomes; a source or an unverified label on every performance or cost figure; no disparaging competitor claims; and outside content paraphrased and linked, never copied, treating open-source docs and GitHub material as unlicensed for reuse until confirmed.
+12. Keep a proposal evidence ledger: sourced proof, assumptions, claims that need support, constraints, and open questions. Convert hype into evidence, measurable benefit, or a labeled assumption. Apply the claim and third-party-content rules from technical-content-clarifier: no product superlatives; "ensure", "guarantee", or "prevents" only when the sources support that strength within the stated scope and conditions; preserve established behavior rather than weakening it to design intent; a source or an unverified label on every performance or cost figure; no disparaging competitor claims; and outside content paraphrased and linked, never copied, treating open-source docs and GitHub material as unlicensed for reuse until confirmed.
 13. End with the explicit ask: approval, budget, staffing, decision, pilot, or next meeting.
 
 ## Verify and Correct
@@ -86,7 +86,7 @@ Complete the task only when the proposal can support the requested decision: req
 - [ ] The budget and timeline can be evaluated independently.
 - [ ] Lists and tables use parallel wording so reviewers can compare items quickly.
 - [ ] The document does not overpromise, hide uncertainty, or imply unsupported guarantees.
-- [ ] No product superlatives, unconditional guarantees, unsourced figures, or competitor disparagement remain (canonical home: technical-content-clarifier).
+- [ ] No product superlatives, unsupported or overbroad assurances, unsourced figures, or competitor disparagement remain; supported behavior retains its conditions and certainty (canonical home: technical-content-clarifier).
 - [ ] Third-party content is paraphrased and linked, never copied (canonical home: technical-content-clarifier).
 
 ## Gotchas

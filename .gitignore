@@ -119,6 +119,10 @@
 !/skills/technical-report-writer/LICENSE
 !/skills/write-simplified-technical-english/LICENSE
 
+!/skills/technical-docs-reviewer/references/
+/skills/technical-docs-reviewer/references/*
+!/skills/technical-docs-reviewer/references/reader-comprehension.md
+
 # Woodpecker build logs and test artifacts
 /.ci-output/
 

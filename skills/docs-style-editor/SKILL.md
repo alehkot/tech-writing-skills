@@ -10,7 +10,7 @@ description: >-
   position cues to accessibility-inclusion-editor. Do not classify whether text was AI-generated.
   For ASD-STE100 work, the STE skill's stricter rules take precedence.
 metadata:
-  version: "1.1.13"
+  version: "1.1.16"
   risk_tier: low
 ---
 
@@ -86,6 +86,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Each requested pass ran against its reference file, and each hit is listed with its location and rule.
 - [ ] Exact literals are unchanged: commands, flags, paths, filenames, identifiers, UI labels, error strings, code output, quoted text, versions, and quantities.
 - [ ] Banned terms that are literal identifiers stayed in code font, with the preferred term used only in surrounding prose.
+- [ ] Valid single-bullet procedures survive the general one-item-list check; procedural-format defects are reported against task-docs-writer, and project conventions still win.
 - [ ] Headings, list items, table headers, and captions use sentence case, and no heading ends with a period. Heading labels preserve requiredness for the applicable readers; a condition or a choice of methods does not by itself make work optional.
 - [ ] Tense and modal edits preserve source-supported requiredness, expectation, uncertainty, and proposal or counterfactual status; ambiguous intent is flagged instead of guessed.
 - [ ] Replacing a prose slash preserves the sourced combination or choice, including whether both alternatives are allowed or required; an ambiguous connective is flagged, not guessed.
@@ -93,6 +94,7 @@ Complete the task only when every requested pass has run against its reference; 
 - [ ] Time edits preserve the source's named zone, fixed offset, or reader-local basis and recurrence; unknown or conflicting zone information is flagged, not guessed.
 - [ ] Changes are mechanical: no fact, condition, actor, number, unit, severity, hedge, or caveat was added, deleted, or reweighted.
 - [ ] Values that may be real rather than illustrative are flagged as questions, never swapped for reserved example values.
+- [ ] Timeless wording preserves resource state, reuse versus creation, and source-defined selection rules; distinctions can be established across sentences, and unclear referents are flagged.
 - [ ] Time-anchored and register fillers follow their genre exceptions; ease-word cleanup preserves meaningful restrictions, timing, comparisons, technical terms, and literals.
 - [ ] Cleanup removes empty framing and repeated list-label wording while preserving real contrasts, uncertainty, technical terms, and required reusable text; revised phrases remain grammatical, and incomplete prose is expanded only when its meaning is established.
 - [ ] Defects owned by another skill are reported with that skill named, not re-decided here.

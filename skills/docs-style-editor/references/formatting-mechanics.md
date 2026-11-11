@@ -10,6 +10,7 @@
   - [Heading-Label Review Cases](#heading-label-review-cases)
   - [Reference-Template Exceptions](#reference-template-exceptions)
 - [Lists](#lists)
+  - [Single-Step Procedure Review Cases](#single-step-procedure-review-cases)
 - [Tables](#tables)
 - [Notices](#notices)
 - [Text Formatting](#text-formatting)
@@ -110,7 +111,7 @@ These exceptions apply only inside reference topics that follow a repeated item 
 ## Lists
 
 - Choose the form from the content: numbered when order matters, bulleted when it does not, description list when every item pairs a term with an explanation.
-- Never format a single item as a one-entry list; set it off another way.
+- Avoid a one-entry list for non-procedural content. A one-step procedure is an exception: preserve its single bulleted sentence under the canonical task-docs-writer rule. Report procedural-format defects against that skill rather than changing task structure during a mechanical copyedit. Project conventions still take precedence.
 - Lead into a list with a sentence that stands on its own, never a fragment the items finish. Close that lead-in with a colon when the list comes next, or with a period when something else sits between them.
 - Keep items parallel in grammar, structure, and level of detail.
 - Capitalize the first word of every item unless the item's casing carries meaning.
@@ -121,6 +122,28 @@ These exceptions apply only inside reference topics that follow a repeated item 
 - Label nested levels with lowercase letters, then lowercase Roman numerals.
 - Use real paragraphs for multi-paragraph list items, never forced line breaks.
 - In running prose, separate listed items with serial commas and never trail off with `etc.`; signal a non-exhaustive list in the lead-in with `such as` or `including`.
+
+### Single-Step Procedure Review Cases
+
+The general preference against one-item lists must not undo a valid task draft.
+Google's [list guidance](https://developers.google.com/style/lists) explicitly
+exempts single-step procedures. Its [procedure guidance](https://developers.google.com/style/procedures#single-step-procedures)
+allows prose or a single bullet; this repository's task-docs-writer selects the
+single-bullet house form. This exception does not authorize combining steps,
+adding actions, or changing project conventions.
+
+These original manual cases check instruction consistency, not measured model
+behavior or whether a product procedure works. All actions and labels below are
+hypothetical supplied facts. Accept equivalent findings that preserve meaning.
+
+| Supplied draft and context | Expected editorial decision | Reject |
+| --- | --- | --- |
+| A complete one-step task has an introductory sentence and one bullet: `In the preview, click Close.` | Preserve the bullet and action; apply unrelated mechanical edits only within scope. | Flagging the bullet solely because the list has one entry, or adding an invented second step. |
+| A non-procedural feature list contains only `Offline export`. No project convention requires the list. | Flag the unnecessary one-entry list and recommend another presentation; do not restructure a findings-only draft. | Treating every one-item list as a procedure exception. |
+| A complete one-step procedure uses `1. In the preview, click Close.` | Report the numbered-one format against task-docs-writer; do not invent another step or silently restructure the task. | Declaring the numbered form correct because single-step procedures are exempt from the general ban. |
+| A procedure has two ordered actions: select a file, then export it. | Preserve both steps and their order. | Combining them to use the single-step exception or dropping a step. |
+| One bullet says `If the preview is open, click Close. The preview disappears.` | Preserve the condition, action, exact label, and supplied result. | Dropping the condition or result to make the bullet shorter. |
+| The project's documented convention uses a normal sentence for a one-step procedure. | Preserve that convention and record the project override. | Forcing the repository's single-bullet default over project style. |
 
 ## Tables
 
