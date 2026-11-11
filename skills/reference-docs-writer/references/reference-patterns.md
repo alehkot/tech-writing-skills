@@ -12,6 +12,7 @@
 - [Version-Range Review Cases](#version-range-review-cases)
 - [API Endpoint Pattern](#api-endpoint-pattern)
 - [API Doc-Comment Pattern](#api-doc-comment-pattern)
+- [Callback Description Review Cases](#callback-description-review-cases)
 - [CLI Command Pattern](#cli-command-pattern)
 - [Error Code Pattern](#error-code-pattern)
 - [Numbered Annotation Pattern](#numbered-annotation-pattern)
@@ -65,7 +66,7 @@ Choose one:
 
 ## Consistency Rules
 
-- Open every method, endpoint, or command description with a third-person present `-s` verb stating what it does: `Creates a workspace`, never the imperative `Create a workspace`. Reserve the imperative for task steps.
+- Normally open a method, endpoint, or command description with a third-person present verb stating what it does: `Creates a workspace`, never the imperative `Create a workspace`. The callback form `Called by ... when ...` is an explicit exception; preserve the sourced caller and trigger rather than forcing an active opener. Reserve the imperative for task steps.
 - Use precise technical verbs in descriptions, never anthropomorphic ones: a service `returns`, `validates`, or `detects`; it does not `know`, `see`, or `decide to tell` another component anything.
 - Use the same term for each field, option, status, and object across all entries.
 - Define acronyms, aliases, and specialized terms at first use or in a glossary entry.
@@ -147,12 +148,29 @@ Use these rules when writing doc comments or generated API reference for classes
 - Write every description in present tense.
 - Make the first sentence of a class description state its purpose beyond what the name and signature already say. Keep it short and unique, do not repeat the class name, and do not open with `this class`.
 - Do not place a period mid-sentence in a summary; write `for example`, never `e.g.`, because doc generators truncate the summary at the first period.
-- Start method descriptions with a fixed verb by kind: `Checks whether ...` for boolean getters, `Gets the ...` for other getters, `Sets the ...`, `Updates the ...`, `Deletes the ...`, or `Registers ...` for mutators, `Called by ... when ...` for callbacks, and `Creates a ...` for factory methods.
+- Start method descriptions with an opener by documented kind: `Checks whether ...` for boolean getters, `Gets the ...` for other getters, `Sets the ...`, `Updates the ...`, `Deletes the ...`, or `Registers ...` for mutators, `Called by ... when ...` for callbacks, and `Creates a ...` for factory methods. The callback form is passive by design: it identifies who invokes the method and under what condition. Retain only the caller and trigger facts the source establishes, and flag missing facts instead of filling the pattern by guesswork. A method name beginning with `on` alone does not establish callback behavior.
 - For a boolean parameter that controls behavior, state what happens when it is true and what happens when it is false. For a boolean that reports state, use the form `True if ...; false otherwise.`
 - Begin non-boolean parameter descriptions with `The` or `A`, capitalize the first word, and end with a period. State defaults with an explicit `Default:` label.
 - Begin non-boolean return descriptions with `The ...`; keep them brief and move detail to the class description.
 - Begin exception descriptions with `If ...` when the generator supplies the word `Throws`; otherwise begin with `Thrown when ...`.
 - In a deprecation notice, name the replacement and how to migrate in the first sentence. Name the version where deprecation began only when the source states it. Never invent a replacement or a version.
+
+## Callback Description Review Cases
+
+These original editorial cases check instruction consistency and source preservation,
+not measured model behavior or execution of the example APIs.
+
+| Supplied source and context | Expected decision | Rewrite to reject |
+| --- | --- | --- |
+| The transport calls the `onClose` callback when the connection closes. | `Called by the transport when the connection closes.` Keep this valid callback opener. | Rejecting it solely because it is passive, or saying the callback calls the transport. |
+| `registerListener` registers a callback for later invocation. | `Registers a callback for later invocation.` The registration method is not the callback. | Rewriting the registration method as `Called by ...` without source evidence. |
+| `getCount` returns the current count. | `Gets the current count.` Keep the ordinary method pattern. | Broadening the callback exception to all methods or using the imperative `Get`. |
+| A callback runs when a transfer completes, but its caller is not specified. | Preserve the completion condition and flag the missing caller; do not invent one to fill the pattern. | Naming the framework or caller from convention alone. |
+| Only the name `onSave` is supplied, with no behavior description. | Mark the behavior `Not specified`. | Inferring a callback, caller, or trigger from the name. |
+
+[Google's API-comment guidance](https://developers.google.com/style/api-reference-comments#description)
+uses a callback-specific opener alongside ordinary method openers. The exception
+changes the sentence form, not the evidence required for the API's behavior.
 
 ## CLI Command Pattern
 
@@ -265,7 +283,7 @@ Apply the same editorial-check limitation above; these cases do not establish ex
 - Tables and lists are parallel enough for quick comparison.
 - Units and literal values are formatted consistently.
 - Syntax distinguishes required and optional elements, and copyable blocks contain no unresolved synopsis notation and preserve executable syntax.
-- Method, endpoint, and command descriptions open with a third-person present verb, not an imperative.
+- Method, endpoint, and command descriptions use the third-person present opener or the documented callback exception, not an imperative; callback caller and trigger facts remain intact.
 - Byte units match the technology's actual system, ranges repeat the unit and join endpoints with `to`, and version ranges preserve the source's complete constraints, including inclusive or exclusive endpoints.
 - Doc-comment entries cover every public element or mark it `Not specified`.
 - Defaults, valid values, units, restrictions, and error behavior are present.

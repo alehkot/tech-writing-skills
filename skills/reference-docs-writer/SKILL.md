@@ -4,7 +4,7 @@ description: >-
   Reference documentation for lookup-oriented technical facts: API endpoint references, CLI command references, configuration options, parameters, schemas, data dictionaries, error codes, status codes, syntax rules, system limits, and compatibility tables. Use for separating reference material from tasks and concepts, organizing facts for retrieval, and keeping examples complete and accurate.
   Use when incomplete source facts must be represented as unknowns instead of filled with plausible values.
 metadata:
-  version: "1.3.4"
+  version: "1.3.5"
   risk_tier: low
 ---
 
@@ -23,7 +23,7 @@ Read [references/reference-patterns.md](references/reference-patterns.md) when d
 3. Choose a retrieval order: alphabetical, numerical, lifecycle order, endpoint path order, or category grouping. Mirror the documented public surface, such as command groups or schema sections, when it helps readers locate the same item in the product. Use one order consistently.
 4. Build a fact map before choosing the entry pattern: for each item and attribute, record the value and the source statement that establishes it. Assign `Not specified` immediately when that statement is missing. A selected invocation or example value does not establish type, requiredness, default, or valid-value range. Preserve fields that are explicitly declared, and use `None` or `No options` only for sourced absence. Then choose consistent headings and fill entries from this map; do not decide missing facts while filling a template.
 5. Use static item names for headings. Do not use gerund headings such as `Creating a workspace`; gerunds signal task topics.
-6. Open every method, endpoint, or command description with a third-person present verb stating what it does, such as `Creates`, `Lists`, or `Returns`. Never open with an imperative; the imperative belongs in task steps. Use precise technical verbs, not anthropomorphic ones such as `knows` or `sees`.
+6. Normally open a method, endpoint, or command description with a third-person present verb stating what it does, such as `Creates`, `Lists`, or `Returns`. For a documented callback, use the `Called by ... when ...` pattern instead, preserving its sourced caller and trigger; see the API doc-comment pattern in the reference. Never open with an imperative; the imperative belongs in task steps. Use precise technical verbs, not anthropomorphic ones such as `knows` or `sees`.
 7. Use consistent names for fields, parameters, commands, statuses, and errors. Define acronyms, aliases, and specialized terms at first use or in a glossary-style entry.
 8. Present dense facts in tables or definition lists. Keep prose short and only where it clarifies constraints, defaults, or usage boundaries.
 9. Keep list items and table rows parallel so readers can compare facts quickly. Use consistent units within a column and format numbers with a space before unit abbreviations, such as `16 GB`. Use the byte system the documented technology actually uses: decimal `kB`/`MB`/`GB` for powers of 1000, binary `KiB`/`MiB`/`GiB` for powers of 1024. Repeat the unit on every range endpoint and join endpoints with `to`, not a hyphen. Preserve every version boundary and its inclusivity: use `2.2 or later` only for an inclusive lower bound, and retain strict bounds, upper bounds, exclusions, and source-defined version semantics. Follow the version-range guidance in the reference; style must not change the set of supported versions. Write rates with `per` in prose.
@@ -97,7 +97,7 @@ Related:
 - [ ] The topic is lookup-oriented and does not read like a procedure or explainer.
 - [ ] The entries follow a consistent repeated pattern.
 - [ ] Entry headings are static nouns or item names, not gerund task headings.
-- [ ] Method, endpoint, and command descriptions open with a third-person present verb, not an imperative.
+- [ ] Method, endpoint, and command descriptions use the third-person present opener or the documented callback exception, not an imperative; callback caller and trigger facts remain intact.
 - [ ] Items are ordered for quick retrieval.
 - [ ] Entries match the documented public surface, and counts or trees have a stated scope, source version, and a reproducible check or an explicit verification gap.
 - [ ] Tables or lists carry dense facts instead of long paragraphs.
