@@ -88,9 +88,9 @@ These original cases are manual editorial checks, not measured model behavior or
 ## Phone Numbers
 
 - Draw every example phone number from the reserved fictional range (values: [safe-example-values.md](safe-example-values.md)).
-- Join the groups of a number with nonbreaking hyphens so it never wraps: `415-555-0132`.
-- Put a plus sign directly against the country code of an international number: `+1-415-555-0132`.
-- Append an extension as a comma, the word `extension`, and the number: `415-555-0132, extension 987`.
+- Join the groups of a number with nonbreaking hyphens so it never wraps: `800-555-0132`.
+- Put a plus sign directly against the country code of an international number: `+1-800-555-0132`.
+- Append an extension as a comma, the word `extension`, and the number: `800-555-0132, extension 987`.
 
 ## Attribution
 
